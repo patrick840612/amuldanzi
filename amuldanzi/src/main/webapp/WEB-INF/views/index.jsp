@@ -28,7 +28,7 @@
   	<a class="btn btn-primary btn-lg" href="/qna/header" role="button">헤더보기</a>
   	<a class="btn btn-primary btn-lg" href="/qna/main" role="button">메인보기</a>
 	<a class="btn btn-primary btn-lg" href="/qna/login" role="button">로그인보기</a>
-	<a class="btn btn-primary btn-lg" href="/mainSearch" role="button">메인검색</a>
+	<a class="btn btn-primary btn-lg" href="/qna/mainSearch" role="button">메인검색</a>
   	</p>
 	</div>
 

@@ -1,0 +1,273 @@
+.spinner_spinnerContainer__oVGWT {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, .5);
+	z-index: 99999
+}
+
+@import
+	"https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+	;
+
+.login_loginContainer__o0mDx {
+	margin-top: 100px;
+	width: 100%;
+	min-height: calc(100vh - 52px)
+}
+
+.login_contents__1fQZs {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 1024px;
+	text-align: center
+}
+
+@media only screen and (max-width:768px) {
+	.login_contents__1fQZs {
+		min-width: 360px;
+		padding: 0 30px
+	}
+}
+
+.login_contents__1fQZs .login_loginImgWrapper__ETBnE {
+	margin: 25px auto;
+	width: 268px;
+	height: 229px
+}
+
+@media only screen and (max-width:768px) {
+	.login_contents__1fQZs .login_loginImgWrapper__ETBnE {
+		width: 216px;
+		height: 185px
+	}
+}
+
+.login_contents__1fQZs .login_loginImgWrapper__ETBnE .login_loginImg__aI0wq
+	{
+	width: 100%;
+	height: 100%
+}
+
+.login_contents__1fQZs .login_loginText__KyIof {
+	font-size: 22px
+}
+
+.login_contents__1fQZs .login_loginSNSText__W8qP8 {
+	margin: 11px 0;
+	font-size: 13px;
+	color: #868688
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I {
+	margin: 10px 0
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginNaver__HVe_U
+	{
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	color: #fff;
+	background-color: #03c75a
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginNaver__HVe_U:hover
+	{
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginNaver__HVe_U .login_logoNaver__A2sVP
+	{
+	position: absolute;
+	top: 35%;
+	left: 11%
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginFacebook__lf_Yf
+	{
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	color: #fff;
+	background-color: #1877f2
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginFacebook__lf_Yf:hover
+	{
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginFacebook__lf_Yf .login_logoFacebook__TI4hn
+	{
+	position: absolute;
+	top: 20%;
+	left: 9%;
+	width: 25px;
+	height: 25px
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginGoogle__g9yTZ
+	{
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	color: #fff;
+	font-family: Roboto, sans-serif;
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #cfcece
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginGoogle__g9yTZ:hover
+	{
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginGoogle__g9yTZ .login_logoGoogle__CAPsi
+	{
+	position: absolute;
+	top: 25%;
+	left: 10%
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginApple__O3JrZ
+	{
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	background-color: #000;
+	color: #fff
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginApple__O3JrZ:hover
+	{
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_btnWrapper__gPI6I .login_loginApple__O3JrZ .login_logoApple__lP8Cw
+	{
+	position: absolute;
+	top: 0;
+	left: 7%
+}
+
+.login_contents__1fQZs .login_loginBar__546og {
+	margin: 30px auto;
+	width: 300px;
+	border: 1px solid #e4e4e6
+}
+
+.login_contents__1fQZs .login_loginEmail__5ObxE {
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	margin-bottom: 22px;
+	background-color: #e4e4e6;
+	color: #000
+}
+
+.login_contents__1fQZs .login_loginEmail__5ObxE:hover {
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_openloginEmail__p_ZJc {
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	background-color: #e4e4e6;
+	color: #000
+}
+
+.login_contents__1fQZs .login_openloginEmail__p_ZJc:hover {
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_loginfunction__KPcAe {
+	width: 300px;
+	margin: 0 auto 35px;
+	padding: 0 55px;
+	display: flex;
+	justify-content: space-evenly;
+	grid-gap: 15px;
+	gap: 15px;
+	font-size: 13px
+}
+
+.login_contents__1fQZs .login_loginfunction__KPcAe .login_loginfunctionBar__RYXDN
+	{
+	border: 1px solid #e4e4e6;
+	height: 16px
+}
+
+.login_contents__1fQZs .login_loginfunction__KPcAe .login_loginTab__9nBLa:hover
+	{
+	cursor: pointer
+}
+
+.login_contents__1fQZs .login_loginFormContainer__rXt08 {
+	margin-top: 35px
+}
+
+.login_contents__1fQZs .login_loginFormContainer__rXt08 .login_inputLogin__iEQRu
+	{
+	width: 300px;
+	height: 44px;
+	border: none;
+	border-bottom: 1px solid #e4e4e6
+}
+
+.login_contents__1fQZs .login_loginFormContainer__rXt08 .login_alertText___HC1v
+	{
+	text-align: left;
+	text-align: initial;
+	margin-top: 10px;
+	font-size: 13px;
+	color: #f24147
+}
+
+.login_contents__1fQZs .login_loginFormContainer__rXt08 .login_loginButton__8nq4e
+	{
+	position: relative;
+	width: 300px;
+	height: 44px;
+	font-size: 14px;
+	border-radius: 30px;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	margin: 27px 0 22px;
+	background-color: #fcd11e;
+	color: #000
+}
+
+.login_contents__1fQZs .login_loginFormContainer__rXt08 .login_loginButton__8nq4e:hover
+	{
+	cursor: pointer
+}

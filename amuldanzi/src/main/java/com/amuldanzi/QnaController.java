@@ -1,3 +1,4 @@
+package com.amuldanzi;
 
 
 import java.lang.ProcessBuilder.Redirect;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
+@RequestMapping("/qna")
 public class QnaController {
 	
 	
