@@ -1,1 +1,6 @@
 프로젝트 추후 작업사항 기록(개인 작업 제외)
+
+★ 호준 ★
+1. pom.xml 에 swagger 추후 추가 예정 ( 없는게 정상입니다.. )
+2. src/main/resources > logback-spring.xml 에 로그 파일이 지정될 경로를 D:/SpringBoot/log 로 해뒀습니다.
+   변경이 필요하신분은 변경하셔도 되오나.. 깃에 올라오지 않게 우클릭 후 Team > advanced > Assume Unchanged 해주세여..
