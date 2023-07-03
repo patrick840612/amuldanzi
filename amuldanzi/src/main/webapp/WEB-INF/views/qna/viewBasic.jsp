@@ -39,8 +39,7 @@
 	<div class="qaDetail_qaDetailContainer__GdYJp">
 		<div class="qaDetail_qaDetailContent__ggrjL">
 			<div class="qaDetail_qaDetailQuestion__AXVqt">
-				<div class="qaDetail_qaDetailTitle__xKc9F">
-					<button class="mylabel_activeLabel__g6GF1">강아지</button>
+				<div class="qaDetail_qaDetailTitle__xKc9F">					
 					<h1 class="qaDetail_qaDetailTop__O4CyB">맞팔하고 싶어요:)</h1>
 				</div>
 				<div class="qaDetail_qaDetailText__ClRN5">인친네 댓글을 보다가 같은 크루보니
