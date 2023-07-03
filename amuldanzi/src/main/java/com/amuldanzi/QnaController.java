@@ -40,5 +40,10 @@ public class QnaController {
 	
 	}
 	
+	@RequestMapping("/viewBasic")
+	public void viewBasic() {
+		
+	}
+	
 
 }

@@ -145,8 +145,7 @@
 				<div class="TopMenu_menuList__AMnXb">
 					<div class="TopMenu_menuWrapper__L1uFn">
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/"><div>나의
-									반려 동물</div></a>
+							<a class="TopMenu_defaultMenu__gPZP3" href="/"><div>나의 반려 동물</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
 							<a class="TopMenu_defaultMenu__gPZP3" href="/content"><div>마켓</div></a>
@@ -156,6 +155,9 @@
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
 							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>커뮤니티</div></a>
+						</div>
+						<div class="TopMenu_headerLi__K58vU">
+							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>로그인</div></a>
 						</div>
 					</div>
 				</div>
