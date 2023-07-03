@@ -101,8 +101,6 @@
 						</div>
 						<div class="comment_commentInfo__OI8e5">
 							<div>
-								<button name="comment" value="댓글"
-									class="comment_qaDetailCommentBtn__LIh_l">댓글</button>
 								<button class="commentLabel_defaultLabel__JHgyL">좋아요 0</button>
 								<button class="commentLabel_defaultLabel__JHgyL">싫어요 0</button>
 							</div>
