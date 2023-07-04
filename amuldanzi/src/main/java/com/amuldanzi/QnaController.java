@@ -40,5 +40,18 @@ public class QnaController {
 	
 	}
 	
+	@RequestMapping("/viewBasic")
+	public void viewBasic() {
+		
+	}
+	@RequestMapping("/eduList")
+	public void eduList() {
+		
+	}
+	@RequestMapping("/basicInsert")
+	public void basicInsert() {
+		
+	}
+	
 
 }

@@ -29,6 +29,12 @@
   	<a class="btn btn-primary btn-lg" href="/qna/main" role="button">메인보기</a>
 	<a class="btn btn-primary btn-lg" href="/qna/login" role="button">로그인보기</a>
 	<a class="btn btn-primary btn-lg" href="/qna/mainSearch" role="button">메인검색</a>
+<<<<<<< HEAD
+=======
+	<a class="btn btn-primary btn-lg" href="/qna/viewBasic" role="button">뷰페이지</a>
+	<a class="btn btn-primary btn-lg" href="/qna/basicList" role="button">리스트</a>
+	<a class="btn btn-primary btn-lg" href="/qna/basicInsert" role="button">글등록</a>
+>>>>>>> main
   	</p>
 	</div>
 

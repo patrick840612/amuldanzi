@@ -42,6 +42,10 @@
 		<p class="main_mainTitle__nxOQS">공지사항</p>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>		
+		<div>공지입니다.</div>
+		<br/>
+		<hr class="popper_popperMenuDivider__j1QQj">
+		<br/>			
 		</div>
 		<div class="main_mainContents__GXYBn">		
 		<hr class="popper_popperMenuDivider__j1QQj">
