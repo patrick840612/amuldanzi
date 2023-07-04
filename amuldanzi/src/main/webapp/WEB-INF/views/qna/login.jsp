@@ -43,7 +43,7 @@
 <jsp:include page="./header.jsp"></jsp:include>
 
 <body>
-
+	<script type="text/javascript" src='/character.js'></script>
 	<script type="text/javascript" src='/character2.js'></script>
 	
 	<div class="login_contents__1fQZs">
