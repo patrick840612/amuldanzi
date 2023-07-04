@@ -11472,7 +11472,7 @@ to {
 
 .question_questionContainer__xQp_P .question_questionContent__Y4VxA .question_radioWrap__WZ6ME input[type=radio]:checked+label
 	{
-	background-color: #ffeb99;
+	background-color: #fdb2c2;
 	color: #000;
 	z-index: 1
 }
@@ -11597,7 +11597,7 @@ to {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #fff5ce;
+	background-color: #fff0f0;
 	border: 1px dashed #868688;
 	border-radius: 15px;
 	text-align: center;
