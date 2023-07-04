@@ -27,16 +27,28 @@
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style type="text/css">
+.value{
+	margin-top: -5rem;
+	font-size: 7rem;
+	font-weight: 100;
+	text-align: center;
+	
+}
 
-
-
-
+</style>
 </head>
 
 <jsp:include page="./header.jsp"></jsp:include>
 
 <body>
+
+	<script type="text/javascript" src='/character2.js'></script>
+	
 	<div class="login_contents__1fQZs">
+		<img class='cat' src='/icons8-cat-26.png'>
+		<div class='value'>requestAnimationFrame</div>
 		<div class="login_loginImgWrapper__ETBnE">
 			<img src="/images/logo1.png" class="login_loginImg__aI0wq">
 		</div>
@@ -75,5 +87,6 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
