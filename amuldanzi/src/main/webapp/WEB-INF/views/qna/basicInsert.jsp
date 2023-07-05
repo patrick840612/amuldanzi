@@ -32,7 +32,7 @@
 
 </head>
 
-<jsp:include page="./header.jsp"></jsp:include>
+<jsp:include page="../header.jsp"></jsp:include>
 
 <body>
 	<div class="question_questionContainer__xQp_P">

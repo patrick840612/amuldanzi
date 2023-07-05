@@ -33,7 +33,7 @@
 
 </head>
 
-<jsp:include page="./header.jsp"></jsp:include>
+<jsp:include page="../header.jsp"></jsp:include>
 
 <body>
 	<div class="qaDetail_qaDetailContainer__GdYJp">
