@@ -80,6 +80,13 @@
 				<div class="question_alertText__WnxqW"></div>
 			</div>
 
+
+			<div>
+				<div class="question_questionCategory__1QDx6">태그 입력</div>
+				<input placeholder="태그를 입력해주세요" class="question_titleInput__S7Isd"
+					value="">
+				<div class="question_questionTagWrapper__cTwHo"></div>
+			</div>
 			<form enctype="multipart/form-data">
 				<div class="question_fileInputWrapper__d9gmU">
 					<span class="question_questionCategory__1QDx6">사진 업로드</span>
@@ -88,8 +95,8 @@
 						accept="image/jpg,image/png,image/jpeg,image/gif"
 						style="display: none;"><label for="uploadFile"
 						class="question_inputFileBtn__zg7jN"><div
-							class="question_inputFileText__Cgamr">사진 첨부</div>
-						<img src="/icons/community/ICON_PHOTO_CAMERA.svg"></label><span
+							class="question_inputFileText__Cgamr">사진 첨부</div> <img
+						src="/icons/community/ICON_PHOTO_CAMERA.svg"></label><span
 						class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
 						사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
 				</div>
@@ -99,8 +106,8 @@
 					<input id="uploadVideo" type="file"
 						accept="video/mp4,video/quicktime" style="display: none;"><label
 						for="uploadVideo" class="question_inputFileBtn__zg7jN"><div
-							class="question_inputFileText__Cgamr">동영상 첨부</div>
-						<img src="/icons/community/ICON_VIDEO.svg"></label><span
+							class="question_inputFileText__Cgamr">동영상 첨부</div> <img
+						src="/icons/community/ICON_VIDEO.svg"></label><span
 						class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
 						업로드 가능합니다.</span>
 				</div>
@@ -112,7 +119,7 @@
 				</ul>
 			</div>
 			<button class="question_nosubmitBtn__TgNR3" disabled="">글 등록</button>
-			<br/>
+			<br />
 		</div>
 	</div>
 </body>
