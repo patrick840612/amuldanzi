@@ -36,7 +36,7 @@
 		<div class="Header_headerArea__tufnp">
 			<header class="Header_headerContainer__m5wGA">
 				<div class="Header_contents__f5njA">
-					<img src="/images/logo1.png" class="Header_headerLogo__yE0Pv">
+					<a href="/main/index"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
@@ -67,7 +67,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/content">마켓</a>
+								class="Header_defaultMenu__SriQk" href="/market/main">마켓</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
@@ -126,7 +126,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/community">커뮤니티</a>
+								class="Header_defaultMenu__SriQk" href="/qna/index">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
 								class="Header_defaultMenu__SriQk" href="/login">로그인</a>
