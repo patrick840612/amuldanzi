@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캐릭터</title>
+<title>상세페이지</title>
 </head>
 <body>
 
