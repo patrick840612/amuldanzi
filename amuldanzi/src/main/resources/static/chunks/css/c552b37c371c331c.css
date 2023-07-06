@@ -1,3 +1,7 @@
+.Header_defaultMenu__cursorNone:hover {
+  text-decoration: none;
+}
+
 .TopMenu_menuList__AMnXb {
 	display: none;
 	padding: 0 20px;
@@ -350,9 +354,28 @@
 }
 
 .Header_headerList__D3V50 ul .Header_activeMenu__LJPj9,
-	.Header_headerList__D3V50 ul .Header_defaultMenu__SriQk {
+	.Header_headerList__D3V50 ul .Header_defaultMenu__cursorNone {
 	color: #000;
-	font-weight: 700
+	font-weight: 700;
+	cursor : default;
+	
+	/*마우스 드래그 못하게 하는 옵션*/
+	-webkit-user-select: none; /* Chrome, Safari, Opera */
+  	-moz-user-select: none; /* Firefox */
+  	-ms-user-select: none; /* Internet Explorer/Edge */
+  	user-select: none;
+}
+
+.Header_headerList__D3V50 ul .Header_activeMenu__LJPj9,
+	.Header_headerList__D3V50 ul .Header_defaultMenu__cursor {
+	color: #000;
+	font-weight: 700;
+	
+	/*마우스 드래그 못하게 하는 옵션*/
+	-webkit-user-select: none; /* Chrome, Safari, Opera */
+  	-moz-user-select: none; /* Firefox */
+  	-ms-user-select: none; /* Internet Explorer/Edge */
+  	user-select: none;
 }
 
 .Header_headerList__D3V50 ul .Header_headerLi__6LLa5 {
@@ -365,6 +388,7 @@
 	display: block;
 	-webkit-transition: all 0s;
 	transition: all 0s
+	
 }
 
 @media only screen and (max-width:768px) {

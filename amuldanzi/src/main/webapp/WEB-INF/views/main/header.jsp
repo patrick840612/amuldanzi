@@ -40,7 +40,7 @@
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/">나의 반려 동물</a>
+								class="Header_defaultMenu__cursorNone">나의 반려 동물</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
@@ -67,7 +67,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/market/main">마켓</a>
+								class="Header_defaultMenu__cursorNone">마켓</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
@@ -96,7 +96,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/shopping/situation">게시판</a>
+								class="Header_defaultMenu__cursorNone">게시판</a>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
@@ -126,10 +126,10 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/qna/index">커뮤니티</a>
+								class="Header_defaultMenu__cursor" href="/qna/index">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/login">로그인</a>
+								class="Header_defaultMenu__cursor" href="/login">로그인</a>
 								<div></div></li>
 					</nav>
 							<div class="main_contents__NGg5K">
