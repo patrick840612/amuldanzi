@@ -157,7 +157,7 @@
 							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>커뮤니티</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>로그인</div></a>
+							<a class="TopMenu_defaultMenu__gPZP3" href="/login/login"><div>로그인</div></a>
 						</div>
 					</div>
 				</div>
