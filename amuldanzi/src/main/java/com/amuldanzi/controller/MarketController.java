@@ -12,4 +12,9 @@ public class MarketController {
 		
 	}
 	
+	@RequestMapping("/gsHomeShop")
+	public void gsHomeShop() {
+		
+	}
+	
 }

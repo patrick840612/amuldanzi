@@ -73,7 +73,7 @@
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="/market/gsHomeShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">라이브 커머스</div></a>
