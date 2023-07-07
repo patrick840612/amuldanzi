@@ -1,4 +1,4 @@
-package com.amuldanzi;
+package com.amuldanzi.controller;
 
 
 import java.lang.ProcessBuilder.Redirect;
@@ -25,8 +25,8 @@ public class QnaController {
 		
 	}
 	
-	@RequestMapping("/main")
-	public void main() {
+	@RequestMapping("/index")
+	public void index() {
 		
 	}
 	
@@ -53,5 +53,14 @@ public class QnaController {
 		
 	}
 	
+	@RequestMapping("/write")
+	public void write() {
+		
+	}
+	
+	@RequestMapping("/qnalist")
+	public void qnalist() {
+		
+	}
 
 }

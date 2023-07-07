@@ -348,7 +348,8 @@
 .Header_headerList__D3V50 ul .Header_activeMenu__LJPj9,
 	.Header_headerList__D3V50 ul .Header_defaultMenu__SriQk {
 	color: #000;
-	font-weight: 700
+	font-weight: 700;
+	cursor : default
 }
 
 .Header_headerList__D3V50 ul .Header_headerLi__6LLa5 {
@@ -360,7 +361,8 @@
 	{
 	display: block;
 	-webkit-transition: all 0s;
-	transition: all 0s
+	transition: all 0s;
+	
 }
 
 @media only screen and (max-width:768px) {

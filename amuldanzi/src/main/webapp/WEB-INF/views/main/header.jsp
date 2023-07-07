@@ -36,29 +36,29 @@
 		<div class="Header_headerArea__tufnp">
 			<header class="Header_headerContainer__m5wGA">
 				<div class="Header_contents__f5njA">
-					<img src="/images/logo1.png" class="Header_headerLogo__yE0Pv">
+					<a href="/main/index"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/">나의 반려 동물</a>
+								class="Header_defaultMenu__cursorNone">나의 반려 동물</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="../pet/gps"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">GPS</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="../pet/blood"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">수혈 정보</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="../pet/emotion"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">표정 맞추기</div>
@@ -67,13 +67,13 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/content">마켓</a>
+								class="Header_defaultMenu__cursorNone">마켓</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="/market/gsHomeShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">라이브 커머스</div></a>
@@ -96,7 +96,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/shopping/situation">게시판</a>
+								class="Header_defaultMenu__cursorNone">게시판</a>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
@@ -126,10 +126,10 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/community">커뮤니티</a>
+								class="Header_defaultMenu__cursor" href="/qna/index">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__SriQk" href="/login">로그인</a>
+								class="Header_defaultMenu__cursor" href="/login">로그인</a>
 								<div></div></li>
 					</nav>
 							<div class="main_contents__NGg5K">
