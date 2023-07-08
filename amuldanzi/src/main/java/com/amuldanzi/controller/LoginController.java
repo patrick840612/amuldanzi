@@ -17,7 +17,7 @@ public class LoginController {
 	@Autowired
 	private ConfigUtils util;
 
-	@RequestMapping("/login")
+	@RequestMapping("/login2")
 	public void login() {
 		
 	}
