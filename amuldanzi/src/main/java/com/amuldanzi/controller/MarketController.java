@@ -22,4 +22,9 @@ public class MarketController {
 		
 	}
 	
+	@RequestMapping("/carrotShop")
+	public void carrotShop() {
+		
+	}
+	
 }
