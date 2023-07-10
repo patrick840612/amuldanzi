@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>애물단지</title>
+<title>로그인 - 애물단지</title>
 
 
 
@@ -92,7 +92,7 @@ $(function(){
 	// 카카오 로그인 버튼 클릭 시
 	$("#k_login_btn").click(getKakaoLoginUri);
 	// 회원가입 버튼 클릭 시
-	// $("#regist").click(linkToRegist);
+	$("#regist").click(linkToRegist);
 	// 로그인 버튼 클릭 시
 	$("#loginform_submit").click(loginCheck);
 	
@@ -155,6 +155,7 @@ $(function(){
 				<div class="login_loginTab__9nBLa" id="regist">회원가입</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

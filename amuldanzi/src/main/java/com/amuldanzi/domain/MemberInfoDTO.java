@@ -19,10 +19,14 @@ public class MemberInfoDTO {
 	private String 	userEmail;
 	private String 	userName;
 	private String 	userTel;
-	private String 	userAddr;
+	private String 	userAddr1;
 	private String 	character;
 	private boolean marketingOk;
 	private String 	memberRole;
+	
+	private String 	userAddr2;
+	private String 	lat;
+	private String 	lng;
 	private String 	social;
 
 }
