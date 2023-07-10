@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GS SHOP LIVE - GS SHOP</title>
+<title>애물단지 라이브커머스</title>
 
 
 <link rel="stylesheet" type="text/css"
@@ -54,738 +54,226 @@ a[href^='tel'] {
 
 
 		<!-- 컨텐츠 영역 -->
-		<div class="main_mainContents__GXYBn2">
-			<main id="doc-contents">
-				<div class="doc-wrap">
-					<input type="hidden" id="broadToday" name="broadToday"
-						value="202307061043" /> <input type="hidden" id="pageGbn"
-						name="pageGbn" value="isTVMain" /> <input type="hidden"
-						id="broadTypCd" name="broadTypCd" value="LIVE" />
+		<main id="doc-contents">
+			<div class="doc-wrap">
+				<input type="hidden" id="broadToday" name="broadToday"
+					value="202307061043" /> <input type="hidden" id="pageGbn"
+					name="pageGbn" value="isTVMain" /> <input type="hidden"
+					id="broadTypCd" name="broadTypCd" value="LIVE" />
 
-					<!-- tv쇼핑 헤더 영역 -->
+				<!-- tv쇼핑 헤더 영역 -->
 
-					<!-- tv쇼핑 헤더 영역 -->
-					<header id="shop-header">
+				<!-- tv쇼핑 헤더 영역 -->
+				<header id="shop-header">
 
-						<nav id="tv-shop-name">
+					<nav id="tv-shop-name">
 
-							<h2>
-								<a href="">애물단지 라이브커머스</a>
-							</h2>
+						<h2>
+							<a href="">애물단지 라이브커머스</a>
+						</h2>
 
+					</nav>
+
+					<section id="navi-container">
+
+						<!--// snb -->
+
+						<nav class="lnb">
+							<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span>ON
+									AIR</span></a>
+							<!-- 활성화 클래스 on -->
+							<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span>방송편성표</span></a>
+
+							<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span>방송알림</span></a>
 						</nav>
 
-						<section id="navi-container">
+						<!-- pgm 레이어 -->
+						<article id="modal-pgm" class="modal-layer">
+							<header>
+								<h1>TV쇼핑 스페셜 프로그램</h1>
+							</header>
+							<main>
+								<ul>
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=11670&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/518134775_02.jpg"
+											alt="쇼미더트렌드"></a></li>
 
-							<!--// snb -->
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13136&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/52893904_02.jpg"
+											alt="더 컬렉션"></a></li>
 
-							<nav class="lnb">
-								<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span>ON
-										AIR</span></a>
-								<!-- 활성화 클래스 on -->
-								<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span>방송편성표</span></a>
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13231&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/514808505_02.jpg"
+											alt="뷰티시그널"></a></li>
 
-								<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span>방송알림</span></a>
-							</nav>
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13206&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/76363682_02.jpg"
+											alt="최은경의 W"></a></li>
 
-							<!-- pgm 레이어 -->
-							<article id="modal-pgm" class="modal-layer">
-								<header>
-									<h1>TV쇼핑 스페셜 프로그램</h1>
-								</header>
-								<main>
-									<ul>
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13284&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/51785875_02.jpg"
+											alt="요즘핫픽"></a></li>
 
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13287&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/514209773_02.jpg"
+											alt="마이뷰티클럽"></a></li>
 
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=11670&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/518134775_02.jpg"
-												alt="쇼미더트렌드"></a></li>
+									<li><a
+										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13313&lseq=409698"><img
+											src="//image.gsshop.com/planprd/banner_ETC/75194295_02.jpg"
+											alt="똑소리"></a></li>
 
+								</ul>
+							</main>
+							<button class="close-btn g" onclick="closeLayer('#modal-pgm')">닫기</button>
+						</article>
 
-
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13136&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/52893904_02.jpg"
-												alt="더 컬렉션"></a></li>
-
-
-
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13231&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/514808505_02.jpg"
-												alt="뷰티시그널"></a></li>
-
-
-
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13206&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/76363682_02.jpg"
-												alt="최은경의 W"></a></li>
-
-
-
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13284&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/51785875_02.jpg"
-												alt="요즘핫픽"></a></li>
+					</section>
+				</header>
 
 
 
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13287&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/514209773_02.jpg"
-												alt="마이뷰티클럽"></a></li>
+				<!-- 메인 컨텐츠 -->
+				<section id="tv-index">
+					<div id="on-air">
+						<!-- 동영상 플레이어 -->
+						<div id="on-air-player">
+							<video id="videojs-player" class="video-js vjs-fluid placeholder"
+								playsinline></video>
+						</div>
+						<div id="player-control" class="ready">
+							<div id="player-control-inner">
+								<div class="ctrlbox-A nav">
+									<button class="play">
+										<span class="blind">재생</span>
+									</button>
+									<p id="rtimeWrap" class="times">
+										<span class="blind">남은시간</span><span id="rtime">00:00:00</span>
+									</p>
+								</div>
+								<div class="ctrlbox-B nav">
+									<button class="stop">
+										<strong class="blind">일시정지</strong>
+									</button>
+								</div>
+								<div class="ctrlbox-C">
+									<button class="fullscreen">
+										<span class="blind">전체화면</span>
+									</button>
 
+									<button class="go">
+										<strong class="blind">상품보기</strong>
+									</button>
 
-
-										<li><a
-											href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13313&lseq=409698"><img
-												src="//image.gsshop.com/planprd/banner_ETC/75194295_02.jpg"
-												alt="똑소리"></a></li>
-
-
-									</ul>
-								</main>
-								<button class="close-btn g" onclick="closeLayer('#modal-pgm')">닫기</button>
-							</article>
-
-						</section>
-					</header>
-
-
-
-					<!-- 메인 컨텐츠 -->
-					<section id="tv-index">
-						<div id="on-air">
-							<!-- 동영상 플레이어 -->
-							<div id="on-air-player">
-								<video id="videojs-player"
-									class="video-js vjs-fluid placeholder" playsinline></video>
-							</div>
-							<div id="player-control" class="ready">
-								<div id="player-control-inner">
-									<div class="ctrlbox-A nav">
-										<button class="play">
-											<span class="blind">재생</span>
-										</button>
-										<p id="rtimeWrap" class="times">
-											<span class="blind">남은시간</span><span id="rtime">00:00:00</span>
-										</p>
-									</div>
-									<div class="ctrlbox-B nav">
-										<button class="stop">
-											<strong class="blind">일시정지</strong>
-										</button>
-									</div>
-									<div class="ctrlbox-C">
-										<button class="fullscreen">
-											<span class="blind">전체화면</span>
-										</button>
-
-										<button class="go">
-											<strong class="blind">상품보기</strong>
-										</button>
-
-										<button class="volume">
-											<span class="blind">볼륨</span>
-										</button>
-									</div>
+									<button class="volume">
+										<span class="blind">볼륨</span>
+									</button>
 								</div>
 							</div>
 						</div>
-						<!--// on-air -->
-
-						<!-- 현재 방송중인 상품 : 메인 페이지  on air와 같은 구조 -->
-						<article id="on-air-prd"></article>
-					</section>
-					<!--// tv-index -->
-
-					<!-- 이전/다음 방송 -->
-					<article id="tv-schedule" class="item-module typeE"></article>
-
-					<article class="item-module typeC tv-best">
-						<h3 class="mod-tit">
-							패션의류 Best
-							<div class="more-detail">
-								<a
-									href="/shop/sect/sectM.gs?sectid&#x3D;1087057&amp;lseq&#x3D;424867">더보기</a>
-							</div>
-						</h3>
-						<div class="outline-wrap">
-							<section class="mod-stage">
-								<ul>
-
-									<li><a
-										href="https://www.gsshop.com/deal/deal.gs?dealNo=1034842032&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=1&ab=df&mseq=424781-1"
-										class="prd-item" data-prdid="1034842032"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1034842032/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1034842032">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/deal/deal.gs?dealNo=1034842032&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=1&ab=df&mseq=424781-1'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> [TV패션][29,900~]*썸머
-													시즌오프~50%OFF* 무료배송+반품
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="4"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-													<span class="price"> <span class="set-price">
-															<strong>29,900</strong>원~
-													</span>
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span>무료배송</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1029371908&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=2&ab=df&mseq=424781-2"
-										class="prd-item" data-prdid="1029371908"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1029371908/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1029371908">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1029371908&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=2&ab=df&mseq=424781-2'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> [런칭가99,900원]스테파넬 썸머
-													시티 셋업 2종 (린넨 라이크)
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>69,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">VIP할인</span> <span
-															class="color-red">2회 적립금</span> <span>무료배송</span> <span>무이자</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1029061671&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=3&ab=df&mseq=424781-3"
-										class="prd-item" data-prdid="1029061671"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1029061671/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1029061671">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1029061671&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=3&ab=df&mseq=424781-3'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> [23SS최신상]나인식스뉴욕
-													린넨블렌디드 셔츠블라우스 3종
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>49,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">2회 적립금</span> <span>무료배송</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1029060864&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=4&ab=df&mseq=424781-4"
-										class="prd-item" data-prdid="1029060864"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1029060864/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1029060864">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1029060864&sectid=1087057&kwd=421220_1087057&gsid=cateshop-mresult&rank=4&ab=df&mseq=424781-4'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> [23SS최신상]나인식스뉴욕 코튼
-													반팔 티셔츠 5종
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>59,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">VIP할인</span> <span
-															class="color-red">2회 적립금</span> <span>무료배송</span> <span>무이자</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-								</ul>
-							</section>
-						</div>
-					</article>
-
-					<article class="item-module typeC tv-best">
-						<h3 class="mod-tit">
-							식품 Best
-							<div class="more-detail">
-								<a
-									href="/shop/sect/sectM.gs?sectid&#x3D;1087055&amp;lseq&#x3D;424867">더보기</a>
-							</div>
-						</h3>
-						<div class="outline-wrap">
-							<section class="mod-stage">
-								<ul>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1032636407&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=1&ab=df&mseq=424781-1"
-										class="prd-item" data-prdid="1032636407"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1032636407/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1032636407">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1032636407&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=1&ab=df&mseq=424781-1'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> 알렉스 튀겨나온 돈까스 14팩(등심
-													8,치즈 3,새우 3), 돈까스 소스 1병
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-													<span class="price-discount"><span>2</span>%</span> <span
-														class="price"> <del class="price-upper">40,900원</del>
-
-
-														<span class="set-price"><strong>39,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">2회 적립금</span> <span>무료배송</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1021809053&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=2&ab=df&mseq=424781-2"
-										class="prd-item" data-prdid="1021809053"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1021809053/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> <span
-													class="onair-info">07.06(목) 18:35 방송</span>
-												</span> <span class="toggle-zzim" id="toggle-zzim_1021809053">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1021809053&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=2&ab=df&mseq=424781-2'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> (종가집) 종가 전라도식 포기김치
-													11kg (5.5kg X 2)
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>79,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">2회 적립금</span> <span>무료배송</span> <span>무이자</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1021808629&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=3&ab=df&mseq=424781-3"
-										class="prd-item" data-prdid="1021808629"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1021808629/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> <span
-													class="onair-info">07.06(목) 18:35 방송</span>
-												</span> <span class="toggle-zzim" id="toggle-zzim_1021808629">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1021808629&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=3&ab=df&mseq=424781-3'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> (종가집) 종가 중부식 포기김치
-													11kg (5.5kg X 2)
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>79,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">2회 적립금</span> <span>무료배송</span> <span>무이자</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-									<li><a
-										href="https://www.gsshop.com/prd/prd.gs?prdid=1034210759&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=4&ab=df&mseq=424781-4"
-										class="prd-item" data-prdid="1034210759"
-										onclick="PrdObject.setLatestViewedPrd(this);">
-											<div class="prd-img">
-
-												<img src="https://asset.m-gs.kr/prod/1034210759/1/370"
-													onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
-													alt="상품이미지"> <span class="badge-abs"> </span> <span
-													class="toggle-zzim" id="toggle-zzim_1034210759">찜완료</span>
-
-
-												<button class="link-new-tab"
-													onclick="PrdObject.openNewTab('https://www.gsshop.com/prd/prd.gs?prdid=1034210759&sectid=1087055&kwd=421220_1087055&gsid=cateshop-mresult&rank=4&ab=df&mseq=424781-4'); return false;">
-													<i class="sprite-new-tab"></i>새창 열기
-												</button>
-
-
-
-											</div>
-
-											<dl class="prd-info">
-												<dt class="prd-name">
-
-													<span class="color-cyan">[TV상품]</span> 미국 워싱턴 체리 2.0kg 내외
-													(500g*4팩) 항공직송
-												</dt>
-
-
-												<dd class="price-info" data-exposPrcTypCd="2"
-													data-exposPrdTypCd="P" data-consultProduct="false"
-													data-rentPrc="0">
-
-
-
-
-
-													<span class="price"> <span class="set-price"><strong>39,900</strong>원</span>
-
-
-
-													</span>
-													<!-- //price -->
-												</dd>
-
-
-
-
-
-												<dd class="user-side"></dd>
-
-
-												<dd class="advantage">
-													<div>
-
-
-														<span class="color-red">2회 적립금</span> <span>무료배송</span>
-
-
-													</div>
-												</dd>
-											</dl>
-									</a></li>
-
-								</ul>
-							</section>
-						</div>
-					</article>
-
-
-
-					<article class="item-module" id="prd-content">
-
-
-						<h3 class="mod-tit">TV Best 상품</h3>
-
-						<nav id="detail-tab" class="gui-tab big">
-							<ul class="col6" id="detailLnb">
-								<!-- 리스트 갯수만큼 클래스 col-n개 추가 -->
-								<li class="item on"><a tab-kind="0"
-									href="javascript:changeTabTvLive('00','1');"><span>전체</span></a></li>
+					</div>
+					<!--// on-air -->
+
+					<!-- 현재 방송중인 상품 : 메인 페이지  on air와 같은 구조 -->
+					<article id="on-air-prd"></article>
+				</section>
+				<!--// tv-index -->
+
+				<!-- 이전/다음 방송 -->
+				<article id="tv-schedule" class="item-module typeE"></article>
+
+
+				<!-- 베스트 상품 목록 -->
+				<article class="item-module typeC tv-best">
+					<h3 class="mod-tit">애물단지 Best</h3>
+					<div class="outline-wrap">
+						<section class="mod-stage">
+							<ul>
+								
+								<!-- 상품 반복 ( 3개까지 ) -->
+								<li><a href="" class="prd-item" data-prdid="1034842032">
+										<div class="prd-img">
+
+											<img src=""
+												onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
+												alt="상품이미지"> <span class="badge-abs"> </span> <span
+												class="toggle-zzim" id=""></span>
+
+											<button class="link-new-tab">
+												<i class="sprite-new-tab"></i>새창 열기
+											</button>
+
+										</div>
+
+										<dl class="prd-info">
+											<dt class="prd-name">
+
+												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+											</dt>
+
+											<dd class="price-info" data-exposPrcTypCd="4"
+												data-exposPrdTypCd="P" data-consultProduct="false"
+												data-rentPrc="0">
+
+												<!-- 가격 -->
+												<span class="price"> <span class="set-price">
+														<strong>10000</strong>원
+												</span>
+
+												</span>
+												<!-- //price -->
+											</dd>
+
+											<dd class="user-side"></dd>
+
+											<dd class="advantage">
+												<div>
+													<span>#태그</span>
+												</div>
+											</dd>
+										</dl>
+								</a></li>
 
 							</ul>
-						</nav>
-
-						<section id="u_prdlst" class="prd-list type-4items">
-							<ul id="prd-list"></ul>
 						</section>
+					</div>
+				</article>
 
-						<button id="moreBtn" class="gui-btn big">
-							<strong>상품 더보기</strong> <i class="sprite-arr-down"></i>
-						</button>
-					</article>
-					<!--// item-module -->
+				<!-- 전체상품 목록 -->
+				<article class="item-module" id="prd-content">
 
-				</div>
-				<!--// doc-wrap -->
-			</main>
 
-		</div>
+					<h3 class="mod-tit">애물단지 상품들</h3>
+
+					<nav id="detail-tab" class="gui-tab big">
+						<ul class="col6" id="detailLnb">
+							<!-- 리스트 갯수만큼 클래스 col-n개 추가 -->
+							<li class="item on"><a tab-kind="0"
+								href="javascript:changeTabTvLive('00','1');"><span>전체</span></a></li>
+
+						</ul>
+					</nav>
+
+					<section id="u_prdlst" class="prd-list type-4items">
+						<ul id="prd-list"></ul>
+					</section>
+
+					<button id="moreBtn" class="gui-btn big">
+						<strong>상품 더보기</strong> <i class="sprite-arr-down"></i>
+					</button>
+				</article>
+				<!--// item-module -->
+
+			</div>
+			<!--// doc-wrap -->
+		</main>
+
 	</div>
 
 	<script type="text/javascript"

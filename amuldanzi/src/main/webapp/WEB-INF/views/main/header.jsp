@@ -78,7 +78,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">라이브 커머스</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href=""
+											<a target="_blank" rel="noopener noreferrer" href="/market/carrot"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">중고장터</div></a>

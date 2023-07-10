@@ -17,4 +17,9 @@ public class MarketController {
 		
 	}
 	
+	@RequestMapping("/carrot")
+	public void carrot() {
+		
+	}
+	
 }
