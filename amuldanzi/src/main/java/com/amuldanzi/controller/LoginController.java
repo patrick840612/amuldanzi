@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.service.LoginService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/login")
 public class LoginController {
 
+	@Autowired
+	private LoginService loginService;
+	
 	@Autowired
 	private ConfigUtils util;
 	
@@ -93,6 +97,14 @@ public class LoginController {
 //		return "/login/login";
 //	}
 	
+	// 회원가입
+	@RequestMapping("/regist")
+	public String regist(MemberInfoDTO member, Model m) {
+		loginService.regist(member);
+		m.addAttribute("id", member.getId());
+		System.out.println(member);
+		return "/main/index";
+	}
 	
 	
 }

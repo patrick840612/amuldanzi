@@ -95,7 +95,6 @@ $(function(){
 	$("#regist").click(linkToRegist);
 	// 로그인 버튼 클릭 시
 	$("#loginform_submit").click(loginCheck);
-	
 });
 </script>
 

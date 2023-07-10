@@ -41,11 +41,15 @@ $(function() {
 		event.preventDefault();
 	    new daum.Postcode({
 	        oncomplete: function(data) {
+	        	console.log(data);
 	            $("#addr1").val(data.address);
+	            $("#userAddr").val(data.address);
 	            $("#addr1").prop("readonly",true);
+	            $("#sido").val(data.sido);
+	            $("#sigungu").val(data.sigungu);
 	            var juso =  $("#addr1").val();
-	            var sido = data.sido;
-	        	geocoder.addressSearch(juso, callback);  
+	            var sido = data.sido; // 시,도
+	        	geocoder.addressSearch(sido, callback);  
 	        }
 	    }).open()
 	});
@@ -57,6 +61,14 @@ $(function() {
 			$("input[name=lat]").val(result[0].y);
 		}
 	};
+	
+	// 상세주소 입력시 주소 합치기
+	$('#addr2').blur(function(){
+		var addr1 = $("#addr1").val();
+		var addr2 = $("#addr2").val();
+		$("#userAddr").val(addr1+" "+addr2);
+	});
+
 	
 });
 </script>
@@ -73,7 +85,7 @@ $(function() {
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">이메일로 회원가입</div>
-					<form>
+					<form action="/login/regist" method="post" id="regist">
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
 								class="account_inputSignUp___sBwm">
@@ -84,7 +96,7 @@ $(function() {
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="text" name="id" placeholder="아이디" value=""
 								class="account_inputSignUp___sBwm">
-							<button type="button" class="account_noCheckButton__dNWQx"
+							<button type="button" class="account_checkButton__wezDS"
 								disabled="">중복체크</button>
 						</div>
 						<div class="account_alertText__bGPQB"></div>
@@ -118,7 +130,9 @@ $(function() {
 							<input type="text" id="addr2" placeholder="상세주소" class="account_inputSignUp___sBwm"  name="userAddr2">
 							<input type="hidden" id="lat" name="lat">
 							<input type="hidden" id="lng" name="lng">
+							<input type="hidden" id="sido" name="sido">
 						</div>
+						<input type="hidden" name="userAddr" id="userAddr">
 						
 						
 						<div class="account_alertText__bGPQB"></div>
@@ -165,17 +179,13 @@ $(function() {
 							<div class="account_alertText__bGPQB">필수 동의사항에 동의해야 회원가입이
 								가능합니다</div>
 						</div>
-						<button type="submit" class="account_notsignUpButton__SbVv0"
-							disabled="">
+						<button type="submit" class="account_signUpButton__6SW9R">
 							<!-- -->
 							회원가입
 						</button>
 					</form>
 				</div>
 			</div>
-
-
-
 
 			<div>
 				<div class="login_loginSNSText__W8qP8">간편하게 SNS 회원가입</div>

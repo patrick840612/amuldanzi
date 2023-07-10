@@ -1,5 +1,8 @@
 package com.amuldanzi.service;
 
-public interface LoginService {
+import com.amuldanzi.domain.MemberInfoDTO;
 
+public interface LoginService {
+	
+	public void regist(MemberInfoDTO member);
 }
