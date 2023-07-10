@@ -62,5 +62,11 @@ public class QnaController {
 	public void qnalist() {
 		
 	}
+	
+	@RequestMapping("/register")
+	private void register() {
+		// TODO Auto-generated method stub
+
+	}
 
 }
