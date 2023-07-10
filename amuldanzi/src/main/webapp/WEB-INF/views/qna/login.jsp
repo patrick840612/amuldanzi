@@ -56,7 +56,8 @@
 			</div>
 			<div class="login_btnWrapper__gPI6I">
 				<button class="login_loginKakao">
-					<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡 로그인
+					<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡
+					로그인
 				</button>
 			</div>
 			<div class="login_btnWrapper__gPI6I">
@@ -67,7 +68,18 @@
 			</div>
 		</div>
 		<div class="login_loginBar__546og"></div>
-		<div>			
+		<div class="login_loginFormContainer__rXt08">
+			<form>
+				<div>
+					<input name="email" type="email" placeholder="이메일" required=""
+						class="login_inputLogin__iEQRu" value="">
+				</div>
+				<div>
+					<input name="password" type="password" placeholder="비밀번호"
+						required="" class="login_inputLogin__iEQRu" value="">
+				</div>
+				<button class="login_loginButton__8nq4e">로그인</button>
+			</form>
 			<div class="login_loginfunction__KPcAe">
 				<div class="login_loginTab__9nBLa">비밀번호 찾기</div>
 				<div class="login_loginfunctionBar__RYXDN"></div>
