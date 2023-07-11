@@ -16,8 +16,8 @@ public class ClinicServiceImpl implements ClinicService {
 	
 	@Override
 	public List<ClinicDTO> getClinicList() {
-		// TODO Auto-generated method stub
-		return null;
+		//return (List<ClinicDTO>)clinicRepo.findAll();
+		return null; //흑흑 ㅜㅜ
 	}
 	
 	@Override

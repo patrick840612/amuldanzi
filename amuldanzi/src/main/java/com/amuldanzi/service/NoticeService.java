@@ -12,6 +12,8 @@ public interface NoticeService {
 
 	void noticeUpdate(NoticeDTO notice);
 
+	NoticeDTO getNoticeByNoticeTitle(String noticeTitle);
+
 	
 
 }

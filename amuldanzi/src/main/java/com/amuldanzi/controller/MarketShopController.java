@@ -11,7 +11,7 @@ import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.service.MarketShopService;
 
 @Controller
-@RequestMapping("/clinicMarket")
+@RequestMapping("/marketShop")
 public class MarketShopController {
 	
 	@Autowired

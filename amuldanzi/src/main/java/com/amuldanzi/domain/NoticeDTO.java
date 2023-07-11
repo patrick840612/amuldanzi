@@ -45,4 +45,5 @@ public class NoticeDTO {
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="cateId")
 	private BoardCategoryDTO boardCate;
+
 }

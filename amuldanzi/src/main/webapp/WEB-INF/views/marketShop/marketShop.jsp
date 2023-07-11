@@ -46,7 +46,7 @@
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
 		<br/>
-		<p class="main_mainTitle__nxOQS">병원정보</p>
+		<p class="main_mainTitle__nxOQS">마켓정보</p>
 		<br/>
 		<br/>
 		<div class="main_mainGridContainer__xl9yt2">
