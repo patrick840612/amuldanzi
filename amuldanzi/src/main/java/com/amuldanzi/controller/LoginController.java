@@ -34,22 +34,22 @@ public class LoginController {
 	}
 	
 	// 구글 로그인
-//	@RequestMapping(value="/googleCallback", method = RequestMethod.GET)
-//	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
-//		String email = mainService.googleLogin(code);
-//		MemberInfoDTO member = new MemberInfoDTO();
-//		member.setUserEmail(email);
-//		member.setSocial("google");
-//		String id = mainService.sLoginCheck(member);
-//		
-//		if(id != "") {
-//			m.addAttribute("id", id);
-//			return "/login/login";
-//		}else {
-//			m.addAttribute("member", member);
-//			return "/login/register";
-//		}
-//	}
+	@RequestMapping(value="/googleCallback", method = RequestMethod.GET)
+	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
+		String email = loginService.googleLogin(code);
+		MemberInfoDTO member = new MemberInfoDTO();
+		member.setUserEmail(email);
+		member.setSocial("google");
+		String id = loginService.sLoginCheck(member);
+		
+		if(id != "") {
+			m.addAttribute("id", id);
+			return "/login/login";
+		}else {
+			m.addAttribute("member", member);
+			return "/login/register";
+		}
+	}
 	
 	// 구글 로그인 uri 생성하기
 	@ResponseBody
@@ -66,36 +66,36 @@ public class LoginController {
 	}
 	
 	// 일반 로그인 확인
-//	@ResponseBody
-//	@RequestMapping("/loginCheck")
-//	public String loginCheck(MemberInfoDTO member) {
-//		String id = mainService.loginCheck(member);
-//		return id;
-//	}
+	@ResponseBody
+	@RequestMapping("/loginCheck")
+	public String loginCheck(MemberInfoDTO member) {
+		String id = loginService.loginCheck(member);
+		return id;
+	}
 	
 	// jwt토큰 생성
-//	@RequestMapping("/login")
-//	public String login(MemberInfoDTO id, HttpServletResponse res) {
-//		MemberInfoDTO member = mainService.selectById(id);
-//		
-//		JwtDTO jwt = mainService.createJwt(member);
-//		
-//		Cookie cookie1 = new Cookie("access_token", jwt.getAccess_token());
-//		long access_token_valid = jwt.getAccess_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
-//		cookie1.setHttpOnly(true); // 보안설정 -> JavaScript코드로 쿠키에 접근 불가
-//        cookie1.setMaxAge((int) (access_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
-//        cookie1.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
-//        res.addCookie(cookie1);
-//        
-//        Cookie cookie2 = new Cookie("refresh_token", jwt.getRefresh_token());
-//		long refresh_token_valid = jwt.getRefresh_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
-//		cookie2.setHttpOnly(true);
-//		cookie2.setMaxAge((int) (refresh_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
-//		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
-//        res.addCookie(cookie2);
-//		
-//		return "/login/login";
-//	}
+	@RequestMapping("/login")
+	public String login(MemberInfoDTO id, HttpServletResponse res) {
+		MemberInfoDTO member = loginService.selectById(id);
+		
+		JwtDTO jwt = loginService.createJwt(member);
+		
+		Cookie cookie1 = new Cookie("access_token", jwt.getAccess_token());
+		long access_token_valid = jwt.getAccess_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
+		cookie1.setHttpOnly(true); // 보안설정 -> JavaScript코드로 쿠키에 접근 불가
+        cookie1.setMaxAge((int) (access_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
+        cookie1.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
+        res.addCookie(cookie1);
+        
+        Cookie cookie2 = new Cookie("refresh_token", jwt.getRefresh_token());
+		long refresh_token_valid = jwt.getRefresh_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
+		cookie2.setHttpOnly(true);
+		cookie2.setMaxAge((int) (refresh_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
+		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
+        res.addCookie(cookie2);
+		
+		return "/login/login";
+	}
 	
 	// 회원가입
 	@RequestMapping("/regist")
@@ -106,5 +106,5 @@ public class LoginController {
 		return "/main/index";
 	}
 	
-	
+
 }

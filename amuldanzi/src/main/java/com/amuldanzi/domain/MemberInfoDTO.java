@@ -12,18 +12,27 @@ import lombok.Data;
 public class MemberInfoDTO {
 
 	@Id
-	private String 	id="";
-	private String 	userPassword="";
-	private String 	userEmail="";
-	private String 	userName="";
-	private String 	userTel="";
-	private String 	userAddr="";
-	private String 	characterImg="";
-	@Column(columnDefinition = "TINYINT(1)")
-	private boolean	marketingOk=true;
-	private String 	memberRole="";
-
-	private String 	social="";
-	private String 	sido="";
+	private String 	id;
+	@Column(nullable = false)
+	private String 	userPassword;
+	@Column(nullable = false)
+	private String 	userEmail;
+	@Column(nullable = true)
+	private String 	userName;
+	@Column(nullable = true)
+	private String 	userTel;
+	@Column(nullable = true)
+	private String 	userAddr;
+	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
+	private String 	characterImg;
+	@Column(updatable = false, insertable = false, columnDefinition = "TINYINT(1) default 1")
+	private boolean	marketingOk;
+	@Column(nullable = true)
+	private String 	memberRole;
+	
+	@Column(nullable = true)
+	private String 	social;
+	@Column(nullable = true)
+	private String 	sido;
 
 }
