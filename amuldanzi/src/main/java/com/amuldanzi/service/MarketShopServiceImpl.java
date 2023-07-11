@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.persistence.MarketShopRepository;
 
-@Service("MarketShopService")
+@Service("marketShopService")
 public class MarketShopServiceImpl implements MarketShopService {
 
 	@Autowired
@@ -16,8 +16,8 @@ public class MarketShopServiceImpl implements MarketShopService {
 	
 	@Override
 	public List<MarketDTO> getMarketShopList() {
-		//return (List<MarketDTO>)marketshopRepo.findAll();
-		return null; //흑흑 ㅠㅠ
+		return (List<MarketDTO>)marketshopRepo.findAll();
+
 	}
 
 	@Override

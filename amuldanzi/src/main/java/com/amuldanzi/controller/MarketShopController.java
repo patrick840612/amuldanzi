@@ -15,21 +15,21 @@ import com.amuldanzi.service.MarketShopService;
 public class MarketShopController {
 	
 	@Autowired
-	MarketShopService service;
+	MarketShopService marketShopService;
 	
 	@RequestMapping("/marketShop")
 	public void marketShop(Model m) {
-		List<MarketDTO> marketshopList = service.getMarketShopList();
+		List<MarketDTO> marketshopList = marketShopService.getMarketShopList();
 		m.addAttribute("marketshopList", marketshopList);
 	}
 	
 	@RequestMapping("/marketShopDetail")
 	public void marketShopDetail(MarketDTO dto, Model m) {
 		
-		MarketDTO marketShop = service.marketshopList(dto);
+		MarketDTO marketShop = marketShopService.marketshopList(dto);
 		
 		marketShop.setCount(marketShop.getCount()+1);
-		service.marketShopUpdate(marketShop);
+		marketShopService.marketShopUpdate(marketShop);
 		
 		m.addAttribute("marketShop", marketShop);
 	}

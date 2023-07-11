@@ -16,8 +16,7 @@ public class ClinicServiceImpl implements ClinicService {
 	
 	@Override
 	public List<ClinicDTO> getClinicList() {
-		//return (List<ClinicDTO>)clinicRepo.findAll();
-		return null; //흑흑 ㅜㅜ
+		return (List<ClinicDTO>)clinicRepo.findAll();
 	}
 	
 	@Override

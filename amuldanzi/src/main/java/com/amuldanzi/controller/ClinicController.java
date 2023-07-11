@@ -19,7 +19,6 @@ public class ClinicController {
 
 	@RequestMapping("/clinic")
 	public void clinicShop(Model m) {
-		//System.out.println("/clinicMarkekt/clinic 확인 ");
 		List<ClinicDTO> clinicList = service.getClinicList();
 		m.addAttribute("clinicList", clinicList);
 	}
