@@ -28,7 +28,7 @@ public class MarketShopController {
 		
 		MarketDTO marketShop = service.marketshopList(dto);
 		
-		marketShop.setMarketCnt(marketShop.getMarketCnt()+1);
+		marketShop.setCount(marketShop.getCount()+1);
 		service.marketShopUpdate(marketShop);
 		
 		m.addAttribute("marketShop", marketShop);

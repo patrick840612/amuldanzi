@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,6 +45,58 @@
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // 라디오 버튼 클릭 이벤트 핸들러
+    function handleRadioChange() {
+      var selectedValue = $('input[name="question"]:checked').val();
+      var formContainer = $('#insertCateForm');
+
+      // 선택한 라디오 버튼에 따라 form 영역 변경
+      if (selectedValue === '0') {
+        formContainer.html(`
+          <div class="question_fileInputWrapper__d9gmU">
+            <!-- 공지에 해당하는 폼 요소 없음-->
+          </div>
+        `);
+      } else if (selectedValue === '2' || selectedValue === '3') {
+        formContainer.html(`
+          <div class="question_fileInputWrapper__d9gmU">
+            <span class="question_questionCategory__1QDx6">사진 업로드</span>
+            <div class="question_questionImgContainer__tNqZy"></div>
+            <input id="uploadFile" type="file" multiple=""
+              accept="image/jpg,image/png,image/jpeg,image/gif"
+              style="display: none;">
+            <label for="uploadFile" class="question_inputFileBtn__zg7jN">
+              <div class="question_inputFileText__Cgamr">사진 첨부</div>
+              <img src="/admin/icons/admin/ICON_PHOTO_CAMERA.svg">
+            </label>
+            <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
+              사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
+          </div>
+          <div class="question_fileInputWrapper__d9gmU">
+            <span class="question_questionCategory__1QDx6">동영상 업로드</span>
+            <div class="question_questionImgContainer__tNqZy"></div>
+            <input id="uploadVideo" type="file" accept="video/mp4,video/quicktime" style="display: none;">
+            <label for="uploadVideo" class="question_inputFileBtn__zg7jN">
+              <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+              <img src="/admin/icons/admin/ICON_VIDEO.svg">
+            </label>
+            <span class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
+              업로드 가능합니다.</span>
+          </div>
+        `);
+      }
+
+      // 기타 필요한 작업 수행
+    }
+
+    // 라디오 버튼 클릭 이벤트 리스너 등록
+    $('input[name="question"]').on('change', handleRadioChange);
+  });
+</script>
 
 <body class="nav-md">
 	<div class="container body">
@@ -137,7 +190,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false"> <img src="/images/img.jpg" alt="">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -158,28 +211,36 @@
 					<div class="question_questionContent__Y4VxA">
 						<span class="question_questionCategory__1QDx6">카테고리</span><span
 							class="question_questionMark__AykT_">*</span>
-						<div class="question_radioWrap__WZ6ME">
+						<div class="question_radioWrap__WZ6ME" id="cateList">
 							<div>
-								<input type="radio" name="question" id="공지" value="공지" checked="공지"><label
+								<input type="radio" name="cate" id="공지" value="0" checked><label
 									for="공지">공지</label>
 							</div>
 							<div>
-								<input type="radio" name="question" id="병원정보" value="병원정보"><label
-									for="병원정보">병원정보</label>
-							</div>
-							<div>
-								<input type="radio" name="question" id="교육정보" value="교육정보"><label
+								<input type="radio" name="cate" id="교육정보" value="2"><label
 									for="교육정보">교육정보</label>
 							</div>
 							<div>
-								<input type="radio" name="question" id="케어정보" value="케어정보"><label
+								<input type="radio" name="cate" id="케어정보" value="3"><label
 									for="케어정보">케어정보</label>
 							</div>
-							<div>
-								<input type="radio" name="question" id="마켓정보" value="마켓정보"><label
-									for="마켓정보">마켓정보</label>
-							</div>
 						</div>
+						
+						<span class="question_questionCategory__1QDx6">공지 카테고리</span><span
+							class="question_questionMark__AykT_">*</span>
+						
+						<div class="question_radioWrap__WZ6ME" id="cateList">
+							<div>
+								<input type="radio" name="noticecate" id="중요 공지" value="" checked><label
+									for="중요 공지">중요 공지</label>
+							</div>
+							<div>
+								<input type="radio" name="noticecate" id="일반 공자" value=""><label
+									for="일반 공지">일반 공지</label>
+							</div>
+
+						</div>
+						
 						<div>
 							<div>
 								<span class="question_questionCategory__1QDx6">글 작성</span><span
@@ -195,38 +256,18 @@
 							<div class="question_alertText__WnxqW"></div>
 						</div>
 			
-						<form enctype="multipart/form-data">
-							<div class="question_fileInputWrapper__d9gmU">
-								<span class="question_questionCategory__1QDx6">사진 업로드</span>
-								<div class="question_questionImgContainer__tNqZy"></div>
-								<input id="uploadFile" type="file" multiple=""
-									accept="image/jpg,image/png,image/jpeg,image/gif"
-									style="display: none;"><label for="uploadFile"
-									class="question_inputFileBtn__zg7jN"><div
-										class="question_inputFileText__Cgamr">사진 첨부</div>
-									<img src="/icons/admin/ICON_PHOTO_CAMERA.svg"></label><span
-									class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
-									사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
-							</div>
-							<div class="question_fileInputWrapper__d9gmU">
-								<span class="question_questionCategory__1QDx6">동영상 업로드</span>
-								<div class="question_questionImgContainer__tNqZy"></div>
-								<input id="uploadVideo" type="file"
-									accept="video/mp4,video/quicktime" style="display: none;"><label
-									for="uploadVideo" class="question_inputFileBtn__zg7jN"><div
-										class="question_inputFileText__Cgamr">동영상 첨부</div>
-									<img src="/icons/admin/ICON_VIDEO.svg"></label><span
-									class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
-									업로드 가능합니다.</span>
-							</div>
+						<form enctype="multipart/form-data" id="insertCateForm">
+						
+						
 						</form>
+						
 						<div class="question_thumbnailText__h45xg">
 							<ul>
 								<li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
 								<li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
 							</ul>
 						</div>
-						<button class="question_nosubmitBtn__TgNR3" disabled="">글 등록</button>
+						<button class="question_submitBtn__vDrt_" disabled="">글 등록</button>
 						<br/>
 					</div>
 				</div>				
