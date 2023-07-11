@@ -63,6 +63,26 @@ public class AdminContentServiceImpl implements AdminContentService {
 		// TODO Auto-generated method stub
 		return (List<NoticeDTO>)noticeRepo.findAll();
 	}
+
+	@Override
+	public List getListByCateId(Integer cateId) {
+		
+		List list = null;
+		
+		if(cateId==0) {
+			list = (List)noticeRepo.findAll();
+		}else if(cateId == 1) {
+			list = (List)clinicRepo.findAll();
+		}else if(cateId == 2){
+			list = (List)eduRepo.findAll();
+		}else if(cateId == 3) {
+			list = (List)careRepo.findAll();
+		}else if(cateId == 4) {
+			list = (List)marketRepo.findAll();
+		}
+		
+		return list;
+	}
 	
 	
 	

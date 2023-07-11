@@ -27,7 +27,8 @@
 <link href="/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- Datatables -->
 
-<link href="/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+<link
+	href="/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
 <link
 	href="/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
@@ -44,6 +45,48 @@
 
 <!-- Custom Theme Style -->
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#cateList").change(function() {
+			var cateId = $(this).prop("selectedIndex");
+			$.ajax({
+				type : 'post',
+				data : {
+					cateId : cateId
+				},
+				url : 'http://localhost:8080/admin/adminContentCate',
+				success : function(result) {
+					
+					$("#adminBoardList").empty();
+					for(var i=0;i<result.length;i++){
+						var list = '';
+						var viewAddr = '/admin/adminContentView?cate='+result[i].boardCate.cateId+'&id='+result[i].id
+
+						list += '<tr role="row" class="odd">';
+						list += '<td class="sorting_1">'+result[i].id+'</td>';
+						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						list += '<td>'+result[i].regdate+'</td>';
+						list += '<td>'+result[i].count+'</td>';
+						list += '<td><input type="button" value="삭제" /></td>';
+						list += '</tr>';
+
+						$("#adminBoardList").append(list);
+					}
+					
+				},
+				error : function(err) {
+					// 에러 발생 시의 처리
+					alert('error');
+					console.log(err);
+				}
+			});
+
+		});
+
+	}); // end of $
+</script>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -137,11 +180,12 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false"> <img src="/admin/images/img.jpg"
+									alt="">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -160,23 +204,25 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										게시글 리스트
-									</h2>
+									<h2>게시글 리스트</h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<div class="row">
 										<div class="col-sm-12">
-											<div >
+											<div>
 												<div class="col-sm-6">
-												<label><select name="datatable_length" aria-controls="datatable"
-													class="form-control input-sm"><option value="notipication">공지</option>
-													<option value="hosInfo">병원정보</option>
-													<option value="eduInfo">교육정보</option>
-													<option value="careInfo">케어정보</option>
-													<option value="marketInfo">마켓정보</option>
-												</select></label>
+													<label><select name="datatable_length"
+														aria-controls="datatable" class="form-control input-sm"
+														id="cateList">
+															<option id="notipication" value="notipication"
+																selected="selected">공지</option>
+															<option id="hosInfo" value="hosInfo">병원정보</option>
+															<option id="eduInfo" value="eduInfo">교육정보</option>
+															<option id="careInfo" value="careInfo">케어정보</option>
+															<option id="marketInfo" value="marketInfo">마켓정보</option>
+
+													</select></label>
 												</div>
 												<div id="datatable_wrapper"
 													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
@@ -191,7 +237,7 @@
 																		<th class="sorting_desc" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Name: activate to sort column ascending"
-																			style="width: 40px;" aria-sort="descending">카테고리</th>
+																			style="width: 40px;" aria-sort="descending">ID</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Position: activate to sort column ascending"
@@ -207,27 +253,26 @@
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;">작성자</th>																		
+																			style="width: 50px;"></th>
 																	</tr>
 																</thead>
 
 
-																<tbody>
-
-																	<c:forEach items="${list }" var="list">
-																	<tr role="row" class="odd">
-																		<td class="sorting_1">공지</td>
-																		<td class=""><a href="#">주요 공지 사항</a></td>
-																		<td>2023.07.09</td>
-																		<td>56</td>
-																		<td>관리자</td>																		
-																	</tr>
+																<tbody id="adminBoardList">
+																
+																	<!-- 첫 접속시 공지 내용 불러오기 -->
+																	<c:forEach items="${list}" var="list">
+																		<tr role="row" class="odd">
+																			<td class="sorting_1">${list.id }</td>
+																			<td><a href="/admin/adminContentView?cate=0&id=${list.id}">${list.title }</a></td>
+																			<td>${list.regdate }</td>
+																			<td>${list.count }</td>
+																			<td><input type="button" value="삭제" /></td>
+																		</tr>
 																	</c:forEach>
-																	
 
-																	
-																	
 																</tbody>
+																
 															</table>
 														</div>
 													</div>
@@ -267,14 +312,18 @@
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
 	<!-- Datatables -->
 	<script src="/admin/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 	<script
@@ -291,7 +340,6 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
-
 
 	<div id="torrent-scanner-popup" style="display: none;"></div>
 </body>

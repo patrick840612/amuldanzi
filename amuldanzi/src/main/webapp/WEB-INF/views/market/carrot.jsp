@@ -12,100 +12,19 @@
 
 
 
-<title>당근마켓 중고거래 | 당신 근처의 당근마켓</title>
-<meta name="description"
-	content="당근마켓에서 거래되는 인기 중고 매물을 소개합니다. 지금 당근마켓에서 거래되고 있는 다양한 매물을 구경해보세요." />
-<link rel="author" href="당근마켓" />
-<meta property="og:url" content="https://www.daangn.com/hot_articles" />
-<meta property="og:title" content="당근마켓 중고거래 | 당신 근처의 당근마켓" />
-<meta property="og:description"
-	content="당근마켓에서 거래되는 인기 중고 매물을 소개합니다. 지금 당근마켓에서 거래되고 있는 다양한 매물을 구경해보세요." />
-<meta property="og:site_name" content="당근마켓" />
-<meta property="og:image"
-	content="https://www.daangn.com/images/meta/home/flea_market.png" />
-<meta property="og:type" content="article" />
-<meta property="og:locale" content="ko_KR" />
-<meta property="fb:app_id" content="1463621440622064" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@danggeunmarket" />
-<meta name="twitter:title" content="당근마켓 중고거래 | 당신 근처의 당근마켓" />
-<meta name="twitter:description"
-	content="당근마켓에서 거래되는 인기 중고 매물을 소개합니다. 지금 당근마켓에서 거래되고 있는 다양한 매물을 구경해보세요." />
-<meta name="twitter:image"
-	content="https://www.daangn.com/images/meta/home/flea_market.png" />
-<meta name="naver-site-verification"
-	content="d1f8112731c18313535732cf2516d6401bfed40a" />
-<meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token"
-	content="fnMMMOMFgBW4NgMYOu1SiQihfZU51OLWj35d52es0scc-AmqDaQIwlYPKRWGrlKaX3SskfeBI6D1FCgNBdoPOQ" />
-
-<link rel="apple-touch-icon" sizes="192x192"
-	href="/images/icons/daangn_logo_192.png">
-<link rel="apple-touch-icon-precomposed"
-	href="/images/icons/daangn_logo_192.png">
-<link rel="icon" sizes="192x192"
-	href="/images/icons/daangn_logo_android_192.png">
+<title>애물단지 중고거래</title>
 
 
-<link rel="canonical" href="https://www.daangn.com/hot_articles" />
-
-
-
-<link rel="stylesheet"
-	href="https://d1unjqcospf8gs.cloudfront.net/assets/home/articles/hot-05663f2aed8868551a676d610d7322afa2255ed6964e18672346c35fe876bcc4.css"
+<link rel="stylesheet" href="/chunks/css/market/marketOld.css"
 	media="all" />
+
+<link rel="preload" href="/chunks/css/market/marketShop.css" as="style" />
+<link rel="stylesheet" href="/chunks/css/market/marketShop.css" />
+<link rel="preload" href="/chunks/css/market/marketShop2.css" as="style" />
+<link rel="stylesheet" href="/chunks/css/market/marketShop2.css" />
 <script
 	src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '1463621440622064',
-          xfbml      : true,
-          version    : 'v2.4'
-        });
-      };
-
-      (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-64551386-2', 'auto');
-     ga('send', 'pageview'); </script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "당근마켓",
-  "url": "https://www.daangn.com",
-  "sameAs": [
-    "https://www.facebook.com/daangn",
-    "https://blog.naver.com/daangn",
-    "https://www.youtube.com/channel/UC8tsBsQBuF7QybxgLmStihA",
-    "https://twitter.com/daangnmarket",
-    "https://www.instagram.com/daangnmarket",
-    "https://apps.apple.com/kr/app/id1018769995",
-    "https://play.google.com/store/apps/details?id=com.towneers.www"
-  ],
-  "logo": "https://www.daangn.com/logo.png"
-}
-</script>
 
 </head>
 
@@ -117,49 +36,130 @@
 			src="https://www.facebook.com/tr?id=992961397411651&ev=PageView&noscript=1" />
 	</noscript>
 
-	<section id="content">
-		<h1 class="head-title" id="hot-articles-head-title">애물단지 중고장터</h1>
-
-		<nav id="hot-articles-navigation">
-		</nav>
-
-		<section class="cards-wrap">
-			<article class="card-top ">
-				<a class="card-link " href="">
-					<div class="card-photo ">
-						<img alt=""
-							src="" />
-					</div>
-					<div class="card-desc">
-						<h2 class="card-title">제목1</h2>
-						<div class="card-price ">10000원</div>
-						<div class="card-region-name"></div>
-						<div class="card-counts">
-							<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
-						</div>
-					</div>
-				</a>
-			</article>
-			<article class="card-top ">
-				<a class="card-link " href="">
-					<div class="card-photo ">
-						<img alt=""
-							src="" />
-					</div>
-					<div class="card-desc">
-						<h2 class="card-title">제목2</h2>
-						<div class="card-price ">5,000원</div>
-						<div class="card-region-name"></div>
-						<div class="card-counts">
-							<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
-						</div>
-					</div>
-				</a>
-			</article>
-
-
+	<div class="__margin-top120px">
+		<section class="_3nqg3y0">
+			<div class="_3nqg3y1 _1ff3f302">
+				<h1 class="_3nqg3y2">
+					애물단지 만의
+					<!-- -->
+					<br />반려용품 중고장터!
+					<!-- -->
+				</h1>
+				<span class="_3nqg3y3">필요한 용품들을 <!-- --> <br />저렴하게 구해보세요.<!-- --></span>
+				<div class="_3nqg3y4">
+					<span
+						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
+						alt="배너 이미지"
+						src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+						decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
+						style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
+						<noscript>
+							<img alt="배너 이미지"
+								src="/_next/static/media/nearby_stores_hero_image_3x.47c43e04.png"
+								decoding="async" data-nimg="fill"
+								style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
+								class="_19qbbiq0 undefined" loading="lazy" />
+						</noscript></span>
+				</div>
+			</div>
 		</section>
-	</section>
+
+
+		<section id="content">
+			<h1 class="head-title" id="hot-articles-head-title">애물단지 중고장터</h1>
+
+			<nav id="hot-articles-navigation"></nav>
+
+
+			<section class="cards-wrap">
+
+				<!-- 상품 반복부분 -->
+				<article class="card-top ">
+					<a class="card-link " href="">
+						<div class="card-photo ">
+							<img alt="" src="" />
+						</div>
+						<div class="card-desc">
+							<h2 class="card-title">제목1</h2>
+							<div class="card-price ">10000원</div>
+							<div class="card-region-name"></div>
+							<div class="card-counts">
+								<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
+							</div>
+						</div>
+					</a>
+				</article>
+				<!-- 상품 반복 끝 -->
+
+				<article class="card-top ">
+					<a class="card-link " href="">
+						<div class="card-photo ">
+							<img alt="" src="" />
+						</div>
+						<div class="card-desc">
+							<h2 class="card-title">제목2</h2>
+							<div class="card-price ">5,000원</div>
+							<div class="card-region-name"></div>
+							<div class="card-counts">
+								<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
+							</div>
+						</div>
+					</a>
+				</article>
+
+				<article class="card-top ">
+					<a class="card-link " href="">
+						<div class="card-photo ">
+							<img alt="" src="" />
+						</div>
+						<div class="card-desc">
+							<h2 class="card-title">제목3</h2>
+							<div class="card-price ">7,000원</div>
+							<div class="card-region-name"></div>
+							<div class="card-counts">
+								<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
+							</div>
+						</div>
+					</a>
+				</article>
+
+				<article class="card-top ">
+					<a class="card-link " href="">
+						<div class="card-photo ">
+							<img alt="" src="" />
+						</div>
+						<div class="card-desc">
+							<h2 class="card-title">제목3</h2>
+							<div class="card-price ">7,000원</div>
+							<div class="card-region-name"></div>
+							<div class="card-counts">
+								<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
+							</div>
+						</div>
+					</a>
+				</article>
+
+				<article class="card-top ">
+					<a class="card-link " href="">
+						<div class="card-photo ">
+							<img alt="" src="" />
+						</div>
+						<div class="card-desc">
+							<h2 class="card-title">제목3</h2>
+							<div class="card-price ">7,000원</div>
+							<div class="card-region-name"></div>
+							<div class="card-counts">
+								<span> 관심 0 </span> ∙ <span> 조회수 0 </span>
+							</div>
+						</div>
+					</a>
+				</article>
+
+
+
+			</section>
+		</section>
+	</div>
 	<script type="text/javascript" charset="utf-8">
   function changeRegion(key, value){
     var url_array

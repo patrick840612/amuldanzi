@@ -4,9 +4,12 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -20,27 +23,31 @@ public class EducationDTO {
 	// 교육정보
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer eduId;
+	private Integer id;
 
 	
-	private String eduAnimal;
-	private String eduTitle;
-	private String eduStep;
-	private String eduContent;
-	private String eduLevel;
-	private String eduImg;
-	private String eduImgPath;
-	private String eduVideo;
-	private String eduVideoPath;
+	private String animal;
+	private String title;
+	private String step;
+	private String content;
+	private String level;
+	private String img;
+	private String imgPath;
+	private String video;
+	private String videoPath;
 	
 	@Column(columnDefinition = "date default sysdate()"
 			,insertable = false
 			,updatable = false)
 	@Temporal(TemporalType.DATE)
-	private Date eduRegDate;
+	private Date regdate;
 	
 	@Column(columnDefinition = "integer default 0" )
-	private Integer eduCnt;	
+	private Integer count;	
+	
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name="cateId")
+	private BoardCategoryDTO boardCate;
 	
 	
 }
