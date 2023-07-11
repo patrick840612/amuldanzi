@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>로그인 - 애물단지</title>
+<title>로그인페이지 - 애물단지</title>
 
 
 
@@ -52,7 +52,7 @@ $(function(){
 		$.ajax({
 			url : '/login/getKakaoLoginUri',
 			success : function(result){
-				location.herf=result;
+				location.href=result;
 			},
 			error : function(err){
 				console.log(err);
@@ -69,7 +69,7 @@ $(function(){
 		event.preventDefault();
 		let paramsLoginCheck = {
 				id : $('#id').val(),
-				password: $('#password').val()
+				userPassword: $('#password').val()
 		};
 		
 		$.ajax({

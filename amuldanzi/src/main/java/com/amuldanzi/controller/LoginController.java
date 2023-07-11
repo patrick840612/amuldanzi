@@ -1,6 +1,7 @@
 package com.amuldanzi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +45,27 @@ public class LoginController {
 		
 		if(id != "") {
 			m.addAttribute("id", id);
-			return "/login/login";
+			return "/main/index";
+		}else {
+			m.addAttribute("member", member);
+			return "/login/register";
+		}
+	}
+	
+	// 카카오 로그인
+	@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam@PathVariable String code, Model m) {
+		String email = loginService.kakaoLogin(code);
+		String social = "kakao";
+		
+		MemberInfoDTO member = new MemberInfoDTO();
+		member.setUserEmail(email);
+		member.setSocial(social);
+		String id = loginService.sLoginCheck(member);
+		
+		if(id != "") {
+			m.addAttribute("id", id);
+			return "/main/index";
 		}else {
 			m.addAttribute("member", member);
 			return "/login/register";
@@ -94,7 +115,7 @@ public class LoginController {
 		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
         res.addCookie(cookie2);
 		
-		return "/login/login";
+		return "/main/index";
 	}
 	
 	// 회원가입

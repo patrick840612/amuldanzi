@@ -15,14 +15,24 @@ import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -88,6 +98,118 @@ public class LoginServiceImpl implements LoginService {
         return restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
     }
 	
+	// 카카오 로그인
+	public String kakaoLogin(String code) {
+		String accessToken = getKakaoToken(code);
+        String email = getUserInfo(accessToken);
+		
+		return email;
+	}	
+	
+	// 카카오 엑세스토큰 가져오기
+	private String getKakaoToken(String authorize_code) {
+		String access_token = "";
+		String reqURL = util.getKakaoTokenUrl();
+		try {
+			URL url = new URL(reqURL);
+	
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	
+			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+
+			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+	
+			sb.append("&client_id="+util.getKakaoClientId()); // REST_API키 본인이 발급받은 key 넣어주기
+			sb.append("&redirect_uri="+util.getKakaoRedirectUri()); // REDIRECT_URI 본인이 설정한 주소 넣어주기
+	
+			sb.append("&code=" + authorize_code);
+			bw.write(sb.toString());
+			bw.flush();
+	
+			// 결과 코드가 200이라면 성공
+			int responseCode = conn.getResponseCode();
+			//System.out.println("responseCode : " + responseCode);
+	
+			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+	
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			//System.out.println("response body : " + result);
+	
+			// jackson objectmapper 객체 생성
+			ObjectMapper objectMapper = new ObjectMapper();
+			// JSON String -> Map
+			Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
+			});
+	
+			access_token = jsonMap.get("access_token").toString();
+			
+			//System.out.println("access_token : " + access_token);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return access_token;
+	}
+	
+	// 카카오 엑세스토큰으로 유저정보(이메일) 얻어오기
+	private String getUserInfo(String access_token) {
+		String reqURL = util.getKakaoResourceUrl();
+		String email = "";
+		
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+
+			// 요청에 필요한 Header에 포함될 내용
+			conn.setRequestProperty("Authorization", "Bearer " + access_token);
+
+			int responseCode = conn.getResponseCode();
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+
+			try {
+				// jackson objectmapper 객체 생성
+				ObjectMapper objectMapper = new ObjectMapper();
+				// JSON String -> Map
+				Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
+				});
+
+				Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("kakao_account");
+
+				// System.out.println(properties.get("nickname"));
+				// System.out.println(kakao_account.get("email"));
+
+				email = kakao_account.get("email").toString();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return email;
+	}
+	
 	public String sLoginCheck(MemberInfoDTO member) {
 		String id;
 		
@@ -104,7 +226,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 	
 	public String loginCheck(MemberInfoDTO member) {
-		String password = loginDAO.loginCheck(member);
+		String password = loginDAO.loginCheck(member.getId());
 		
 		if(BCrypt.checkpw(member.getUserPassword(), password)) return member.getId();
 		else return "";
