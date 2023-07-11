@@ -46,21 +46,18 @@
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a target="_blank" rel="noopener noreferrer" href="../pet/gps"
 											<a   rel="noopener noreferrer" href="../pet/gps"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">GPS</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="../pet/blood"
 											<a   rel="noopener noreferrer" href="../pet/blood"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">수혈 정보</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="../pet/emotion"
 											<a   rel="noopener noreferrer" href="../pet/emotion"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
@@ -76,25 +73,21 @@
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a target="_blank" rel="noopener noreferrer" href="/market/gsHomeShop"
 											<a rel="noopener noreferrer" href="/market/gsHomeShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">라이브 커머스</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="/market/carrot"
 											<a rel="noopener noreferrer" href="/market/carrot"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">중고장터</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href=""
 											<a   rel="noopener noreferrer" href="/market/carrotShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">쇼핑몰</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href=""
 											<a   rel="noopener noreferrer" href=""
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
@@ -113,7 +106,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">공지사항</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="/clinicMarket/clinic"
+											<a rel="noopener noreferrer" href="/clinicMarket/clinic"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">병원정보</div></a> 
@@ -126,7 +119,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="/clinicMarket/marketShop"
+											<a rel="noopener noreferrer" href="/clinicMarket/marketShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">마켓정보</div>
