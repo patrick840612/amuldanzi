@@ -21,7 +21,7 @@ public interface AdminContentService {
 
 	List<NoticeDTO> getNoticeList();
 
-	
+	List getListByCateId(Integer cateId);
 	
 
 }
