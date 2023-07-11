@@ -41,7 +41,7 @@ public class NoticeController {
 	    NoticeDTO notice = service.getNoticeByNoticeTitle(noticeTitle);
 
 	    if (notice != null) {
-	        notice.setNoticeReadCount(notice.getNoticeReadCount() + 1);
+	    	notice.setCount(notice.getCount()+1);
 	        service.noticeUpdate(notice);
 	        model.addAttribute("notice", notice);
 	        System.out.println(notice);
