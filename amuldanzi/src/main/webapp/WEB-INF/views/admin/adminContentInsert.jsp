@@ -32,7 +32,8 @@
 <!-- JQVMap -->
 <link href="/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
-<link href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
+<link
+	href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -46,13 +47,15 @@
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
   $(document).ready(function() {
     // 라디오 버튼 클릭 이벤트 핸들러
     function handleRadioChange() {
-      var selectedValue = $('input[name="question"]:checked').val();
+      var selectedValue = $('input[name="cate"]:checked').val();
       var formContainer = $('#insertCateForm');
+      var noticeCategory = $('#noticeCategory');
 
       // 선택한 라디오 버튼에 따라 form 영역 변경
       if (selectedValue === '0') {
@@ -61,6 +64,7 @@
             <!-- 공지에 해당하는 폼 요소 없음-->
           </div>
         `);
+        noticeCategory.show(); // 보이게 설정
       } else if (selectedValue === '2' || selectedValue === '3') {
         formContainer.html(`
           <div class="question_fileInputWrapper__d9gmU">
@@ -88,13 +92,14 @@
               업로드 가능합니다.</span>
           </div>
         `);
+        noticeCategory.hide(); // 숨기게 설정
       }
 
       // 기타 필요한 작업 수행
     }
 
     // 라디오 버튼 클릭 이벤트 리스너 등록
-    $('input[name="question"]').on('change', handleRadioChange);
+    $('input[name="cate"]').on('change', handleRadioChange);
   });
 </script>
 
@@ -194,7 +199,7 @@
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -225,29 +230,33 @@
 									for="케어정보">케어정보</label>
 							</div>
 						</div>
-						
-						<span class="question_questionCategory__1QDx6">공지 카테고리</span><span
-							class="question_questionMark__AykT_">*</span>
-						
-						<div class="question_radioWrap__WZ6ME" id="cateList">
-							<div>
-								<input type="radio" name="noticecate" id="중요 공지" value="" checked><label
-									for="중요 공지">중요 공지</label>
-							</div>
-							<div>
-								<input type="radio" name="noticecate" id="일반 공자" value=""><label
-									for="일반 공지">일반 공지</label>
+
+						<div id="noticeCategory">
+
+							<span class="question_questionCategory__1QDx6">공지 카테고리</span><span
+								class="question_questionMark__AykT_">*</span>
+
+							<div class="question_radioWrap__WZ6ME" id="cateList">
+								<div>
+									<input type="radio" name="noticecate" id="중요공지" value="1"
+										checked><label for="중요공지">중요 공지</label>
+								</div>
+								<div>
+									<input type="radio" name="noticecate" id="일반공지" value="2"><label
+										for="일반공지">일반 공지</label>
+								</div>
+
 							</div>
 
 						</div>
-						
+
 						<div>
 							<div>
 								<span class="question_questionCategory__1QDx6">글 작성</span><span
 									class="question_questionMark__AykT_">*</span>
 							</div>
-							<input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd"
-								value="">
+							<input placeholder="제목을 입력해주세요"
+								class="question_titleInput__S7Isd" value="">
 							<div class="question_alertText__WnxqW"></div>
 						</div>
 						<div class="question_questionInputWrapper__fGaar">
@@ -255,22 +264,20 @@
 								class="question_questionInput___Mb57"></textarea>
 							<div class="question_alertText__WnxqW"></div>
 						</div>
-			
-						<form enctype="multipart/form-data" id="insertCateForm">
-						
-						
-						</form>
-						
+
+						<form enctype="multipart/form-data" id="insertCateForm"></form>
+
 						<div class="question_thumbnailText__h45xg">
 							<ul>
 								<li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
 								<li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
 							</ul>
 						</div>
-						<button class="question_submitBtn__vDrt_" disabled="">글 등록</button>
-						<br/>
+						<button class="question_submitBtn__vDrt_" disabled="">글
+							등록</button>
+						<br />
 					</div>
-				</div>				
+				</div>
 			</div>
 			<!-- /page content -->
 
@@ -320,10 +327,12 @@
 	<!-- JQVMap -->
 	<script src="/admin/vendors/jqvmap/dist/jquery.vmap.js"></script>
 	<script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-	<script src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+	<script
+		src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 	<!-- bootstrap-daterangepicker -->
 	<script src="/admin/vendors/moment/min/moment.min.js"></script>
-	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
