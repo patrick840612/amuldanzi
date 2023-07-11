@@ -9,7 +9,7 @@ public class MainController {
 	
 	@RequestMapping("/index")
 	public void index() {
-		
+		//System.out.println("/main/index 확인");
 	}
 	
 }
