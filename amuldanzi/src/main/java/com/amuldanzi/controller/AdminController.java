@@ -15,14 +15,14 @@ import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.domain.NoticeDTO;
-import com.amuldanzi.service.AdminContentService;
+import com.amuldanzi.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
-	AdminContentService adminContentService;
+	AdminService adminContentService;
 
 	@RequestMapping("/adminContentList")
 	public void adminCateList(Model m) {
@@ -52,13 +52,13 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/adminADList")
-	public void adminADList() {
+	@RequestMapping("/adminAdList")
+	public void adminAdList() {
 
 	}
 
-	@RequestMapping("/adminADInsert")
-	public void adminADInsert() {
+	@RequestMapping("/adminAdInsert")
+	public void adminAdInsert() {
 
 	}
 

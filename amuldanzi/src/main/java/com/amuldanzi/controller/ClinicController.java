@@ -31,7 +31,7 @@ public class ClinicController {
 		
 		ClinicDTO clinic = service.clinicList(dto);
 		
-		clinic.setClinicCnt(clinic.getClinicCnt()+1);
+		clinic.setCount(clinic.getCount()+1);
 		service.clinicUpdate(clinic);
 		
 		m.addAttribute("clinic", clinic);

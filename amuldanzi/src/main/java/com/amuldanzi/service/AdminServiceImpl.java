@@ -5,19 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
 import com.amuldanzi.persistence.EducationRepository;
 import com.amuldanzi.persistence.MarketRepository;
 import com.amuldanzi.persistence.NoticeRepository;
 
-@Service("adminContnetService")
-public class AdminContentServiceImpl implements AdminContentService {
+@Service("adminService")
+public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	CareRepository careRepo;
@@ -33,6 +35,9 @@ public class AdminContentServiceImpl implements AdminContentService {
 	
 	@Autowired
 	NoticeRepository noticeRepo;
+	
+	@Autowired
+	AdvertisementRepository adRepo;
 
 	@Override
 	public List<MarketDTO> getMarketList() {
@@ -82,6 +87,12 @@ public class AdminContentServiceImpl implements AdminContentService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<AdvertisementDTO> getAdList() {
+		// TODO Auto-generated method stub
+		return (List<AdvertisementDTO>)adRepo.findAll();
 	}
 	
 	

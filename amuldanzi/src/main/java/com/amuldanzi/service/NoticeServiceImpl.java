@@ -21,7 +21,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public NoticeDTO noticeList(NoticeDTO dto) {
-		return noticeRepo.findById(dto.getNoticeNo()).get();
+		return noticeRepo.findById(dto.getId()).get();
 	}
 
 	@Override

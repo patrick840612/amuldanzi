@@ -22,7 +22,7 @@ public class ClinicServiceImpl implements ClinicService {
 	
 	@Override
 	public ClinicDTO clinicList(ClinicDTO dto) {
-		return clinicRepo.findById(dto.getClinicId()).get();
+		return clinicRepo.findById(dto.getId()).get();
 	}
 
 	@Override

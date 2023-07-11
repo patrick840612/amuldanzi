@@ -21,7 +21,7 @@ public class MarketShopServiceImpl implements MarketShopService {
 
 	@Override
 	public MarketDTO marketshopList(MarketDTO dto) {
-		return marketshopRepo.findById(dto.getMarketId()).get();
+		return marketshopRepo.findById(dto.getId()).get();
 	}
 
 	@Override

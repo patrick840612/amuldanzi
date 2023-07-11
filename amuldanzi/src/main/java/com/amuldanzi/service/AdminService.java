@@ -2,14 +2,14 @@ package com.amuldanzi.service;
 
 import java.util.List;
 
-
+import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.domain.NoticeDTO;
 
-public interface AdminContentService {
+public interface AdminService {
 
 	List<MarketDTO> getMarketList();
 
@@ -22,6 +22,8 @@ public interface AdminContentService {
 	List<NoticeDTO> getNoticeList();
 
 	List getListByCateId(Integer cateId);
+	
+	List<AdvertisementDTO> getAdList();
 	
 
 }

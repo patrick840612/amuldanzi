@@ -59,17 +59,22 @@
 				url : 'http://localhost:8080/admin/adminContentCate',
 				success : function(result) {
 					
+					
 					$("#adminBoardList").empty();
 					for(var i=0;i<result.length;i++){
 						var list = '';
 						var viewAddr = '/admin/adminContentView?cate='+result[i].boardCate.cateId+'&id='+result[i].id
-
+						
 						list += '<tr role="row" class="odd">';
 						list += '<td class="sorting_1">'+result[i].id+'</td>';
 						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
 						list += '<td>'+result[i].regdate+'</td>';
 						list += '<td>'+result[i].count+'</td>';
-						list += '<td><input type="button" value="삭제" /></td>';
+						if(result[i].boardCate.cateId == 0 || result[i].boardCate.cateId == 2 || result[i].boardCate.cateId == 3 ){
+						list += '<td><input type="button" value="수정" /><input type="button" value="삭제" /></td>';
+						}else{
+						list += '<td></td>';	
+						}
 						list += '</tr>';
 
 						$("#adminBoardList").append(list);
@@ -267,7 +272,7 @@
 																			<td><a href="/admin/adminContentView?cate=0&id=${list.id}">${list.title }</a></td>
 																			<td>${list.regdate }</td>
 																			<td>${list.count }</td>
-																			<td><input type="button" value="삭제" /></td>
+																			<td><input type="button" value="수정" /><input type="button" value="삭제" /></td>
 																		</tr>
 																	</c:forEach>
 
