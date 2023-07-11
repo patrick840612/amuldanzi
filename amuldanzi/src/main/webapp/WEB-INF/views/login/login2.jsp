@@ -7,6 +7,9 @@
 <title>로그인</title>
 </head>
 <body>
-
+ <div class="text-center">
+ 	<a href="${ naver_url}">naver로그인</a><br/>
+ 	<a href="${ google_url}">google로그인</a>
+ </div>
 </body>
 </html>

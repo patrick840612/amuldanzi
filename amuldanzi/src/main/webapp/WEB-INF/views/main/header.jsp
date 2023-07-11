@@ -133,7 +133,7 @@
 								class="Header_defaultMenu__cursor" href="/qna/index">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursor" href="/login">로그인</a>
+								class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>
 								<div></div></li>
 					</nav>
 							<div class="main_contents__NGg5K">
@@ -161,7 +161,7 @@
 							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>커뮤니티</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>로그인</div></a>
+							<a class="TopMenu_defaultMenu__gPZP3" href="/login/loginpage"><div>로그인</div></a>
 						</div>
 					</div>
 				</div>
