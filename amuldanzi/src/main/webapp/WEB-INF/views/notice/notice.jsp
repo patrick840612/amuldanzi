@@ -36,34 +36,34 @@
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-	<div class="main_mainContents__GXYBn2">		
+		<div class="main_mainContents__GXYBn2">		
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
-		<p class="main_mainTitle__nxOQS">공지사항 상세보기</p>
+		<p class="main_mainTitle__nxOQS">공지사항</p>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
 		<br/>
-		
-			
-			<table border="1" cellpadding="0" cellspacing="0">
+		<table border="1">
+			<tr>
+				<th bgcolor="lightPink" width="100">공지번호</th>
+				<th bgcolor="lightPink" width="200">제목</th>
+				<th bgcolor="lightPink" width="150">게시일</th>
+				<th bgcolor="lightPink" width="100">조회수</th>
+			</tr>
+			<c:forEach items="${noticeList}" var="notice">
 				<tr>
-					<td bgcolor="lightPink" width="600">제목 : ${notice.noticeTitle}</td>
+					<td>${notice.noticeNo}</td>
+					<td align="left"><a href="noticeDetail?noticeTitle=${notice.noticeTitle }">
+							${notice.noticeTitle }</a></td>
+					<td>${notice.noticedate }</td>
+					<td>${notice.noticeReadCount }</td>
 				</tr>
-				<tr>
-					<td bgcolor="Pink">게시일 : ${notice.noticedate} 조회수 : ${notice.noticeReadCount}</td>
-				</tr>
-				<tr>
-					<td bgcolor="white">내용 : ${notice.noticeContent}</td>
-				</tr>
-			</table>
-			<br/>
-			<a href="/notice/notice" class="btn btn-primary">공지사항 목록 가기</a>
-		<br/>
+			</c:forEach>
+		</table>
 		<br>
 		<hr class="popper_popperMenuDivider__j1QQj">
-		<br/>
 		<br/>			
-	</div>
+		</div>
 
 </body>
 </html>

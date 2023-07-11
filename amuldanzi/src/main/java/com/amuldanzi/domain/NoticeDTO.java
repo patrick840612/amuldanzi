@@ -34,8 +34,8 @@ public class NoticeDTO {
 			,insertable = false
 			,updatable = false)
 	@Temporal(TemporalType.DATE)
-	private Date noticeRegDate;
+	private Date noticedate;
 	
 	@Column(columnDefinition = "integer default 0" )
-	private Integer noticeCnt;
+	private Integer noticeReadCount;
 }

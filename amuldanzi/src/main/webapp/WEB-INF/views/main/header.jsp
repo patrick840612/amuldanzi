@@ -106,7 +106,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">공지사항</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="/clinicMarket/clinic"
+											<a target="_blank" rel="noopener noreferrer" href="/clinic/clinic"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">병원정보</div></a> 
@@ -119,7 +119,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a target="_blank" rel="noopener noreferrer" href="/clinicMarket/marketShop"
+											<a target="_blank" rel="noopener noreferrer" href="/marketShop/marketShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">마켓정보</div>

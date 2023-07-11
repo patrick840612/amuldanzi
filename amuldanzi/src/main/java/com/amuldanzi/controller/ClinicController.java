@@ -11,17 +11,15 @@ import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.service.ClinicService;
 
 @Controller
-@RequestMapping("/clinicMarket")
+@RequestMapping("/clinic")
 public class ClinicController {
 	
 	@Autowired
 	ClinicService service;
 
-
-	
 	@RequestMapping("/clinic")
 	public void clinicShop(Model m) {
-		System.out.println("/clinicMarkekt/clinic 확인 ");
+		//System.out.println("/clinicMarkekt/clinic 확인 ");
 		List<ClinicDTO> clinicList = service.getClinicList();
 		m.addAttribute("clinicList", clinicList);
 	}

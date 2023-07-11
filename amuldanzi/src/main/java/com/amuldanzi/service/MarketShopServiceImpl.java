@@ -16,7 +16,8 @@ public class MarketShopServiceImpl implements MarketShopService {
 	
 	@Override
 	public List<MarketDTO> getMarketShopList() {
-		return (List<MarketDTO>)marketshopRepo.findAll();
+		//return (List<MarketDTO>)marketshopRepo.findAll();
+		return null; //흑흑 ㅠㅠ
 	}
 
 	@Override
