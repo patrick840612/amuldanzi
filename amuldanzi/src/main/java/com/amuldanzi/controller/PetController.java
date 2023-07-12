@@ -16,12 +16,6 @@ public class PetController {
 		
 	} 
 	
-	@RequestMapping("/blood")
-	public void blood() {
-		
-		System.out.println("blood페이지요청");
-		
-	} 
 	
 	@RequestMapping("/emotion")
 	public void emotion() {

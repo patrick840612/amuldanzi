@@ -9,7 +9,11 @@
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.19.0.min.js"></script>
     <!-- css 및 이미지 경로 설정시 기본으로 resources 까지 잡혀 있기 때문에 /css 부터 시작 하는 경로로 잡아줘야함  -->
     <link rel="stylesheet" type="text/css" href="/css/pet/map.css">
+    <link rel="stylesheet" type="text/css" href="/css/pet/pet.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   
@@ -20,11 +24,11 @@
         <jsp:include page="../main/header.jsp"></jsp:include>
      <div class="bg-others"> 
     <div class="container">
-      <h1>나의 소중한 반려동물을 찾아보세요!</h1>
+      <h1 class="font">★나의 소중한 반려동물을 찾기★</h1>
         <center><hr style="height:2px; border:none; color:#ffffff; background-color:#ffffff;  width:35%; margin: 0 auto 0 auto;"></center>
-        <p>아래 버튼을 클릭하면 추적이 시작됩니다!</p>  
+        <p class="font">아래 버튼을 클릭하면 추적이 시작됩니다!</p>  
         <!-- js 에서 아이디 사용하기 위해 아이디 생성  -->
-        <center><button class="btn btn-success col-sm-3" id="action">!!추적 Start!!</button></center><br>
+        <center><button class="btn btn-success col-sm-3" id="action" >!!Start!!</button></center><br>
         <center><div id="map-canvas" style="position: relative; overflow: hidden; top:60px" ></div></center>
     </div>
           </div>
