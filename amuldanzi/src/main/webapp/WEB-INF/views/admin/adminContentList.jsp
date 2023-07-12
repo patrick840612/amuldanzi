@@ -135,7 +135,7 @@
 								<li><a><i class="fa fa-edit"></i> 게시판<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/adminInsert">글 추가</a></li>
+										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
 										<li><a href="form_validation.html">신고 글 관리</a></li>
 									</ul></li>
@@ -148,8 +148,8 @@
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">광고 등록</a></li>
-										<li><a href="media_gallery.html">광고 관리</a></li>
+										<li><a href="/admin/adminADInsert">광고 등록</a></li>
+										<li><a href="/admin/adminADList">광고 관리</a></li>
 									</ul></li>
 							</ul>
 						</div>
@@ -185,12 +185,11 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg"
-									alt="">관리자
+								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>

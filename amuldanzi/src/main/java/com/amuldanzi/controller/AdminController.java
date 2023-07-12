@@ -17,18 +17,21 @@ import com.amuldanzi.domain.MarketDTO;
 import com.amuldanzi.domain.NoticeDTO;
 
 import com.amuldanzi.service.AdminService;
+import com.amuldanzi.service.ClinicService;
+import com.amuldanzi.service.NoticeService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
-	AdminService adminContentService;
+	AdminService adminService;
+	
 
 	@RequestMapping("/adminContentList")
 	public void adminCateList(Model m) {
 
-		List<NoticeDTO> list = adminContentService.getNoticeList();
+		List<NoticeDTO> list = adminService.getNoticeList();
 		m.addAttribute("list", list);
 
 	}
@@ -38,13 +41,18 @@ public class AdminController {
 	public List adminContentCate(@RequestParam("cateId") Integer cateId) {
 		System.out.println("컨트롤러 요청: " + cateId);
 
-		List list = adminContentService.getListByCateId(cateId);
+		List list = adminService.getListByCateId(cateId);
 
 		return list;
 	}
 
 	@RequestMapping("/adminContentInsert")
-	public void adminContentInsert() {
+	public String adminContentInsert(NoticeDTO ndto, CareDTO cdto, EducationDTO edto, ClinicDTO cldto) {
+		
+
+		
+		
+	return null;
 
 	}
 
@@ -53,12 +61,12 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/adminAdList")
+	@RequestMapping("/adminADList")
 	public void adminAdList() {
 
 	}
 
-	@RequestMapping("/adminAdInsert")
+	@RequestMapping("/adminADInsert")
 	public void adminAdInsert() {
 
 	}

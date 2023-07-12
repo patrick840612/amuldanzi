@@ -10,7 +10,9 @@ public interface NoticeService {
 
 	NoticeDTO noticeList(NoticeDTO dto);
 
-	void noticeUpdate(NoticeDTO notice);
+	void noticeUpdate(NoticeDTO dto);
+	
+	void noticeInsert(NoticeDTO dto);
 
 	NoticeDTO getNoticeByNoticeTitle(String noticeTitle);
 
