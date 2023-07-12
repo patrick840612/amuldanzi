@@ -15,16 +15,15 @@
 
 
 
-<!-- 부트스트랩 -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-
-<link href="/chunks/css/c552b37c371c331c.css" rel="stylesheet">
-<link href="/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
-<link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
-<link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
-<link href="/chunks/css/text.css" rel="stylesheet">
+<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+<link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
+<link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
+<link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
+<link href="/admin/chunks/css/text.css" rel="stylesheet">
 
 
 
@@ -76,7 +75,7 @@
 						style="display: none;"><label for="uploadFile"
 						class="question_inputFileBtn__zg7jN"><div
 							class="question_inputFileText__Cgamr">사진 첨부</div> <img
-						src="/icons/community/ICON_PHOTO_CAMERA.svg"></label><span
+						src="/icons/ICON_PHOTO_CAMERA.svg"></label><span
 						class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
 						사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
 				</div>
@@ -87,7 +86,7 @@
 						accept="video/mp4,video/quicktime" style="display: none;"><label
 						for="uploadVideo" class="question_inputFileBtn__zg7jN"><div
 							class="question_inputFileText__Cgamr">동영상 첨부</div> <img
-						src="/icons/community/ICON_VIDEO.svg"></label><span
+						src="/icons/ICON_VIDEO.svg"></label><span
 						class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
 						업로드 가능합니다.</span>
 				</div>
