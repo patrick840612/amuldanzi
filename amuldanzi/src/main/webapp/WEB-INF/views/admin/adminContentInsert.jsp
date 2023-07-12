@@ -97,6 +97,10 @@
 
       // 기타 필요한 작업 수행
     }
+    
+    function () {
+		
+	}
 
     // 라디오 버튼 클릭 이벤트 리스너 등록
     $('input[name="cate"]').on('change', handleRadioChange);
@@ -273,7 +277,7 @@
                         <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
                      </ul>
                   </div>
-                  <button class="question_submitBtn__vDrt_" disabled="">글
+                  <button class="question_submitBtn__vDrt_">글
                      등록</button>
                   <br />
                </div>

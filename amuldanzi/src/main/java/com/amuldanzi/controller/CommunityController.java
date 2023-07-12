@@ -7,10 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/community")
 public class CommunityController {	
 		
-		@RequestMapping("/community")
-		public void community() {
+		@RequestMapping("/communityList")
+		public void communityList() {
 			
 		}
 		
-	
+		@RequestMapping("/communityInsert")
+		public void communityInsert() {
+			
+		}
+		
+		@RequestMapping("/communityDetail")
+		private void communityDetail() {
+			// TODO Auto-generated method stub
+
+		}
 }
