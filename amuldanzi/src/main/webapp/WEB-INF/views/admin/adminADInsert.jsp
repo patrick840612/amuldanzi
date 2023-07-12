@@ -192,6 +192,7 @@
 									class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
 									사진과 동영상 파일 업로드 가능합니다.</span>
 							</div>
+						</form>
 						<button class="question_submitBtn__vDrt_">글 등록</button>
 						<br/>
 					</div>
