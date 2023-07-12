@@ -131,6 +131,7 @@ $(function() {
 							<input type="hidden" id="lat" name="lat">
 							<input type="hidden" id="lng" name="lng">
 							<input type="hidden" id="sido" name="sido">
+							<input type="hidden" id="sigungu" name="sigungu">
 						</div>
 						<input type="hidden" name="userAddr" id="userAddr">
 						

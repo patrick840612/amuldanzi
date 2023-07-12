@@ -34,5 +34,7 @@ public class MemberInfoDTO {
 	private String 	social;
 	@Column(nullable = true)
 	private String 	sido;
+	@Column(nullable = true)
+	private String 	sigungu;
 
 }
