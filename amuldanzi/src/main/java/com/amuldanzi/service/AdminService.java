@@ -25,5 +25,15 @@ public interface AdminService {
 	
 	List<AdvertisementDTO> getAdList();
 	
+	void noticeInsert(NoticeDTO dto); 
+	
+	void careInsert(CareDTO dto);
+	
+	void clinicInsert(ClinicDTO dto);
+	
+	void eduInsert(EducationDTO dto);
+	
+	void marketInsert(MarketDTO dto);
+	
 
 }

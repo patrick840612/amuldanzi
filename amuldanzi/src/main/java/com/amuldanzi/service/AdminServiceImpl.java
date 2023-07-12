@@ -94,6 +94,38 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return (List<AdvertisementDTO>)adRepo.findAll();
 	}
+
+	@Override
+	public void noticeInsert(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		noticeRepo.save(dto);
+	}
+
+	@Override
+	public void careInsert(CareDTO dto) {
+		// TODO Auto-generated method stub
+		careRepo.save(dto);
+		
+	}
+
+	@Override
+	public void clinicInsert(ClinicDTO dto) {
+		// TODO Auto-generated method stub
+		clinicRepo.save(dto);
+	}
+
+	@Override
+	public void eduInsert(EducationDTO dto) {
+		// TODO Auto-generated method stub
+		eduRepo.save(dto);
+	}
+
+	@Override
+	public void marketInsert(MarketDTO dto) {
+		// TODO Auto-generated method stub
+		marketRepo.save(dto);
+		
+	}
 	
 	
 	

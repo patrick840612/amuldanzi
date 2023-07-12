@@ -29,4 +29,10 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeRepo.save(dto);
 	}
 
+	@Override
+	public void noticeInsert(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		noticeRepo.save(dto);
+	}
+
 }
