@@ -30,8 +30,6 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public NoticeDTO getNoticeByNoticeTitle(String noticeTitle) {
-		return null;
 	public void noticeInsert(NoticeDTO dto) {
 		// TODO Auto-generated method stub
 		noticeRepo.save(dto);

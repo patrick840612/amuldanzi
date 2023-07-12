@@ -10,18 +10,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="production//production/images/favicon.ico"
-	type="image/ico" />
    type="image/ico" />
 
 <title>애물단지</title>
 
 <!-- Bootstrap -->
 <link href="/admin/vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
    rel="stylesheet">
 <!-- Font Awesome -->
 <link href="/admin/vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
    rel="stylesheet">
 <!-- NProgress -->
 <link href="/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -30,21 +27,14 @@
 
 <!-- bootstrap-progressbar -->
 <link
-	href="/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
-	rel="stylesheet">
    href="/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
    rel="stylesheet">
 <!-- JQVMap -->
 <link href="/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
 <link
-<<<<<<< HEAD
-	href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
-	rel="stylesheet">
-=======
    href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
    rel="stylesheet">
->>>>>>> 구와아앜
 
 <!-- Custom Theme Style -->
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
@@ -58,11 +48,7 @@
 </head>
 
 <script
-<<<<<<< HEAD
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-=======
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
->>>>>>> 구와아앜
 <script>
   $(document).ready(function() {
     // 라디오 버튼 클릭 이벤트 핸들러
@@ -159,7 +145,6 @@
 								<li><a><i class="fa fa-edit"></i> 게시판<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/adminInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
 										<li><a href="form_validation.html">신고 글 관리</a></li>
@@ -173,8 +158,6 @@
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">광고 등록</a></li>
-										<li><a href="media_gallery.html">광고 관리</a></li>
 										<li><a href="/admin/adminADInsert">광고 등록</a></li>
 										<li><a href="/admin/adminADList">광고 관리</a></li>
 									</ul></li>
@@ -212,12 +195,11 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/images/img.jpg" alt="">관리자
 								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -227,92 +209,6 @@
 			</div>
 			<!-- /top navigation -->
 
-<<<<<<< HEAD
-			<!-- page content -->
-			<div class="right_col" role="main">
-				<!-- top tiles -->
-				<div class="question_questionContainer__xQp_P">
-					<div class="question_questionContent__Y4VxA">
-						<span class="question_questionCategory__1QDx6">카테고리</span><span
-							class="question_questionMark__AykT_">*</span>
-						<div class="question_radioWrap__WZ6ME" id="cateList">
-							<div>
-								<input type="radio" name="cate" id="공지" value="0" checked><label
-									for="공지">공지</label>
-							</div>
-							<div>
-								<input type="radio" name="cate" id="교육정보" value="2"><label
-									for="교육정보">교육정보</label>
-							</div>
-							<div>
-								<input type="radio" name="cate" id="케어정보" value="3"><label
-									for="케어정보">케어정보</label>
-							</div>
-						</div>
-
-						<div id="noticeCategory">
-
-							<span class="question_questionCategory__1QDx6">공지 카테고리</span><span
-								class="question_questionMark__AykT_">*</span>
-
-							<div class="question_radioWrap__WZ6ME" id="cateList">
-								<div>
-									<input type="radio" name="noticecate" id="중요공지" value="1"
-										checked><label for="중요공지">중요 공지</label>
-								</div>
-								<div>
-									<input type="radio" name="noticecate" id="일반공지" value="2"><label
-										for="일반공지">일반 공지</label>
-								</div>
-
-							</div>
-
-						</div>
-
-						<div>
-							<div>
-								<span class="question_questionCategory__1QDx6">글 작성</span><span
-									class="question_questionMark__AykT_">*</span>
-							</div>
-							<input placeholder="제목을 입력해주세요"
-								class="question_titleInput__S7Isd" value="">
-							<div class="question_alertText__WnxqW"></div>
-						</div>
-						<div class="question_questionInputWrapper__fGaar">
-							<textarea placeholder="5자 이상의 글 내용을 입력해주세요"
-								class="question_questionInput___Mb57"></textarea>
-							<div class="question_alertText__WnxqW"></div>
-						</div>
-
-						<form enctype="multipart/form-data" id="insertCateForm"></form>
-
-						<div class="question_thumbnailText__h45xg">
-							<ul>
-								<li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
-								<li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
-							</ul>
-						</div>
-						<button class="question_submitBtn__vDrt_" disabled="">글
-							등록</button>
-						<br />
-					</div>
-				</div>
-			</div>
-			<!-- /page content -->
-
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-					Gentelella - Bootstrap Admin Template by <a
-						href="https://colorlib.com">Colorlib</a>
-				</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
-		</div>
-	</div>
-
-=======
          <!-- page content -->
          <div class="right_col" role="main">
             <!-- top tiles -->
@@ -336,63 +232,18 @@
                   </div>
 
                   <div id="noticeCategory">
->>>>>>> 구와아앜
 
                      <span class="question_questionCategory__1QDx6">공지 카테고리</span><span
                         class="question_questionMark__AykT_">*</span>
 
-<<<<<<< HEAD
-	<!-- jQuery -->
-	<script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- FastClick -->
-	<script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="/admin/vendors/nprogress/nprogress.js"></script>
-	<!-- Chart.js -->
-	<script src="/admin/vendors/Chart.js/dist/Chart.min.js"></script>
-	<!-- gauge.js -->
-	<script src="/admin/vendors/gauge.js/dist/gauge.min.js"></script>
-	<!-- bootstrap-progressbar -->
-	<script
-		src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-	<!-- iCheck -->
-	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
-	<!-- Skycons -->
-	<script src="/admin/vendors/skycons/skycons.js"></script>
-	<!-- Flot -->
-	<script src="/admin/vendors/Flot/jquery.flot.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.pie.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.time.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.stack.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.resize.js"></script>
-	<!-- Flot plugins -->
-	<script src="/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-	<script src="/admin/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-	<script src="/admin/vendors/flot.curvedlines/curvedLines.js"></script>
-	<!-- DateJS -->
-	<script src="/admin/vendors/DateJS/build/date.js"></script>
-	<!-- JQVMap -->
-	<script src="/admin/vendors/jqvmap/dist/jquery.vmap.js"></script>
-	<script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-	<script
-		src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="/admin/vendors/moment/min/moment.min.js"></script>
-	<script
-		src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-	<!-- Custom Theme Scripts -->
-	<script src="/admin/build/js/custom.min.js"></script>
                      <div class="question_radioWrap__WZ6ME" id="cateList">
                         <div>
-                           <input type="radio" name="noticecate" id="중요공지" value="0"
-                              checked><label for="중요공지">중요공지</label>
+                           <input type="radio" name="noticecate" id="중요공지" value="1"
+                              checked><label for="중요공지">중요 공지</label>
                         </div>
                         <div>
-                           <input type="radio" name="noticecate" id="일반공지" value="1"><label
-                              for="일반공지">일반공지</label>
+                           <input type="radio" name="noticecate" id="일반공지" value="2"><label
+                              for="일반공지">일반 공지</label>
                         </div>
 
                      </div>
@@ -422,7 +273,8 @@
                         <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
                      </ul>
                   </div>
-                  <button class="question_submitBtn__vDrt_">글등록</button>
+                  <button class="question_submitBtn__vDrt_" disabled="">글
+                     등록</button>
                   <br />
                </div>
             </div>

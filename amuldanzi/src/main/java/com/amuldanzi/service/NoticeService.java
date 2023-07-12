@@ -14,8 +14,6 @@ public interface NoticeService {
 	
 	void noticeInsert(NoticeDTO dto);
 
-	NoticeDTO getNoticeByNoticeTitle(String noticeTitle);
-
 	
 
 }
