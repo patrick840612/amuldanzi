@@ -1,5 +1,6 @@
 package com.amuldanzi.controller;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
@@ -47,15 +49,62 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminContentInsert")
-	public String adminContentInsert(NoticeDTO ndto, CareDTO cdto, EducationDTO edto, ClinicDTO cldto) {
-		
-
-		
-		
-	return null;
+	public void adminContentInsert() {
 
 	}
-
+	
+	@RequestMapping("/noticeSave")
+	public String noticeSave(NoticeDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(0,"공지");
+		dto.setBoardCate(category);
+		dto.setCount(0);
+		adminService.noticeSave(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/eduSave")
+	public String eduSave(EducationDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(2,"교육정보");
+		dto.setBoardCate(category);
+		dto.setCount(0);
+		adminService.eduSave(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/careSave")
+	public String careSave(CareDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(3,"케어정보");
+		dto.setBoardCate(category);
+		dto.setCount(0);
+		adminService.careSave(dto);
+		return "redirect:/admin/adminContentList";
+		
+	}
+	
+	@RequestMapping("/noticeDelete")
+	public String noticeDelete(NoticeDTO dto) {
+		
+		adminService.noticeDelete(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/eduDelete")
+	public String eduDelete(EducationDTO dto) {
+		
+		adminService.eduDelete(dto);
+		return "redirect:/admin/adminContentList";		
+	}
+	
+	@RequestMapping("/careDelete")
+	public String careDelete(CareDTO dto) {
+		
+		adminService.careDelete(dto);
+		return "redirect:/admin/adminContentList";	
+	}
+	
 	@RequestMapping("/adminMain")
 	public void adminMain() {
 
@@ -68,6 +117,12 @@ public class AdminController {
 
 	@RequestMapping("/adminADInsert")
 	public void adminAdInsert() {
+		
+	}
+	
+	@RequestMapping("/adminNoticeDetail")
+	private void publ() {
+		// TODO Auto-generated method stub
 
 	}
 

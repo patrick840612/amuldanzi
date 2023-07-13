@@ -45,57 +45,8 @@
 
 <!-- Custom Theme Style -->
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#cateList").change(function() {
-			var cateId = $(this).prop("selectedIndex");
-			$.ajax({
-				type : 'post',
-				data : {
-					cateId : cateId
-				},
-				url : 'http://localhost:8080/admin/adminContentCate',
-				success : function(result) {
-					
-					
-					$("#adminBoardList").empty();
-					for(var i=0;i<result.length;i++){
-						var list = '';
-						var viewAddr = '/admin/adminContentView?cate='+result[i].boardCate.cateId+'&id='+result[i].id
-						
-						list += '<tr role="row" class="odd">';
-						list += '<td class="sorting_1">'+result[i].id+'</td>';
-						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
-						list += '<td>'+result[i].regdate+'</td>';
-						list += '<td>'+result[i].count+'</td>';
-						if(result[i].boardCate.cateId == 0){
-						list += '<td><a href="noticeDelete?id='+result[i].id+'">삭제</a></td>';
-						}else if(result[i].boardCate.cateId == 2){
-						list += '<td><a href="eduDelete?id='+result[i].id+'">삭제</a></td>';
-						}else if(result[i].boardCate.cateId == 3){
-						list += '<td><a href="careDelete?id='+result[i].id+'">삭제</a></td>';
-						}else{
-						list += '<td></td>';	
-						}
-						list += '</tr>';
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-						$("#adminBoardList").append(list);
-					}
-					
-				},
-				error : function(err) {
-					// 에러 발생 시의 처리
-					alert('error');
-					console.log(err);
-				}
-			});
-
-		});
-
-	}); // end of $
-</script>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -205,94 +156,7 @@
 
 			<!-- page content -->
 			<div class="right_col" role="main" style="min-height: 857px;">
-				<div class="">
-					<div class="clearfix"></div>
-					<div class="row" style="display: block;">
-						<div class="clearfix"></div>
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>게시글 리스트</h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-sm-12">
-											<div>
-												<div class="col-sm-6">
-													<label><select name="datatable_length"
-														aria-controls="datatable" class="form-control input-sm"
-														id="cateList">
-															<option id="notipication" value="notipication"
-																selected="selected">공지</option>
-															<option id="hosInfo" value="hosInfo">병원정보</option>
-															<option id="eduInfo" value="eduInfo">교육정보</option>
-															<option id="careInfo" value="careInfo">케어정보</option>
-															<option id="marketInfo" value="marketInfo">마켓정보</option>
-
-													</select></label>
-												</div>
-												<div id="datatable_wrapper"
-													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-													<div class="row">
-														<div class="col-sm-12">
-															<table id="datatable"
-																class="table table-striped table-bordered dataTable no-footer"
-																style="width: 100%;" role="grid"
-																aria-describedby="datatable_info">
-																<thead>
-																	<tr role="row">
-																		<th class="sorting_desc" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Name: activate to sort column ascending"
-																			style="width: 40px;" aria-sort="descending">ID</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Position: activate to sort column ascending"
-																			style="width: 250px;">제목</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Office: activate to sort column ascending"
-																			style="width: 95px;">작성일자</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Age: activate to sort column ascending"
-																			style="width: 40px;">조회수</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;"></th>
-																	</tr>
-																</thead>
-
-
-																<tbody id="adminBoardList">
-																
-																	<!-- 첫 접속시 공지 내용 불러오기 -->
-																	<c:forEach items="${list}" var="list">
-																		<tr role="row" class="odd">
-																			<td class="sorting_1">${list.id }</td>
-																			<td><a href="/admin/adminContentView?cate=0&id=${list.id}">${list.title }</a></td>
-																			<td>${list.regdate }</td>
-																			<td>${list.count }</td>
-																			<td><a href="noticeDelete?id=${list.id }">삭제</a></td>
-																		</tr>
-																	</c:forEach>
-
-																</tbody>
-																
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 			<!-- /page content -->
 
