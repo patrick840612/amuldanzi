@@ -9,13 +9,13 @@
 </head>
 <body>
     <div style="width: 200px; height: 200px; background-color: white; border: 2px solid black; display: flex; align-items: center; justify-content: center; margin-top: 500px;">
-        <span>병원명 : ${clinic.clinicName}</span>
+        <span>병원명 : ${clinic.name}</span>
         <br>
-        <span>전화번호 : ${clinic.clinicTel}</span>
+        <span>전화번호 : ${clinic.tel}</span>
         <br>
-        <span>주소 : ${clinic.clinicAddr}</span>
+        <span>주소 : ${clinic.addr}</span>
         <br>
-        <span>진료시간 : ${clinic.clinicTime}</span>
+        <span>진료시간 : ${clinic.time}</span>
     </div>
     
     

@@ -52,11 +52,11 @@
 			</tr>
 			<c:forEach items="${noticeList}" var="notice">
 				<tr>
-					<td>${notice.noticeNo}</td>
-					<td align="left"><a href="noticeDetail?noticeTitle=${notice.noticeTitle }">
-							${notice.noticeTitle }</a></td>
-					<td>${notice.noticedate }</td>
-					<td>${notice.noticeReadCount }</td>
+					<td>${notice.id}</td>
+					<td align="left"><a href="noticeDetail?noticeTitle=${notice.title }">
+							${notice.title }</a></td>
+					<td>${notice.date }</td>
+					<td>${notice.count }</td>
 				</tr>
 			</c:forEach>
 		</table>
