@@ -900,7 +900,8 @@ ul.pagination li a {
 
 ul.pagination li.active a {
 	color: #090909;
-	border: none
+	border: none;
+	background: none;
 }
 
 ul.pagination li.active {

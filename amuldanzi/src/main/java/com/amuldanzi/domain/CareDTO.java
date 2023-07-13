@@ -31,7 +31,7 @@ public class CareDTO {
 	private 	String 		videoPath;
 	private 	String 		img;
 	private 	String 		imgPath;
-	private 	String 		info;
+	private 	String 		content;
 	
 	@Column(columnDefinition = "date default sysdate()"
 			,insertable = false

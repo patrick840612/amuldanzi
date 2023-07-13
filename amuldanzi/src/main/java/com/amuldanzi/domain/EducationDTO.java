@@ -42,7 +42,7 @@ public class EducationDTO {
 	@Temporal(TemporalType.DATE)
 	private Date regdate;
 	
-	@Column(columnDefinition = "integer default 0" )
+	@Column(nullable = false, columnDefinition = "integer default 0" )
 	private Integer count;	
 	
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)

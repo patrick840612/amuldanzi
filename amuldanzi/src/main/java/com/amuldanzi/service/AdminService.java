@@ -23,17 +23,21 @@ public interface AdminService {
 
 	List getListByCateId(Integer cateId);
 	
-	List<AdvertisementDTO> getAdList();
+	List<AdvertisementDTO> getAdList();	
 	
-	void noticeInsert(NoticeDTO dto); 
+	void careSave(CareDTO dto);	
 	
-	void careInsert(CareDTO dto);
+	void eduSave(EducationDTO dto);	
+
+	void noticeSave(NoticeDTO dto);
 	
-	void clinicInsert(ClinicDTO dto);
-	
-	void eduInsert(EducationDTO dto);
-	
-	void marketInsert(MarketDTO dto);
+	void adSave(AdvertisementDTO dto);
+
+	void noticeDelete(NoticeDTO dto);
+
+	void eduDelete(EducationDTO dto);
+
+	void careDelete(CareDTO dto);
 	
 
 }
