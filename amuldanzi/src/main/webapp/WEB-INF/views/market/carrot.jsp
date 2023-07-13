@@ -31,10 +31,6 @@
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body class="hoian-kr">
-	<noscript>
-		<img height="1" width="1" style="display: none" alt="facebook"
-			src="https://www.facebook.com/tr?id=992961397411651&ev=PageView&noscript=1" />
-	</noscript>
 
 	<div class="__margin-top120px">
 		<section class="_3nqg3y0">
@@ -75,7 +71,7 @@
 
 				<!-- 상품 반복부분 -->
 				<article class="card-top ">
-					<a class="card-link " href="">
+					<a class="card-link " href="/market/jungoDetail">
 						<div class="card-photo ">
 							<img alt="" src="" />
 						</div>
