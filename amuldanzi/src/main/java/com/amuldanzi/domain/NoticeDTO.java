@@ -16,7 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -45,5 +47,7 @@ public class NoticeDTO {
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="cateId")
 	private BoardCategoryDTO boardCate;
+
+
 
 }

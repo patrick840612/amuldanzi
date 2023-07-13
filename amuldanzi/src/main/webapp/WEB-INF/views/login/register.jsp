@@ -14,8 +14,6 @@
 <title>회원가입 - 애물단지</title>
 
 
-
-
 <!-- 부트스트랩 -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/chunks/css/7703396c6294b499.css" rel="stylesheet">
@@ -23,9 +21,22 @@
 <link href="/chunks/css/c552b37c371c331c.css" rel="stylesheet">
 <link href="/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
-
 <link href="/chunks/css/text.css" rel="stylesheet">
+<style>
+dialog::backdrop{
+	background-color : rgba(0,0,0,0.3);
+	backdrop-filter: blur(1px);
+}
 
+dialog{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	border: 0;
+	text-align: center;
+	border-radius: 20px;
+	padding: 20px 50px 10px 50px;
+	background-color : tomato;
+}
+</style>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8a8315badb6e28366adcc9ec043dca2&libraries=services"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -68,7 +79,56 @@ $(function() {
 		var addr2 = $("#addr2").val();
 		$("#userAddr").val(addr1+" "+addr2);
 	});
+	
+	// customValidity 용 js변수 (jquery 작동안함)
+	var userEmailCheck = document.getElementById("userEmail");
+	var userIdCheck = document.getElementById("id");
+	var userTelCheck = document.getElementById("userTel");
 
+	//**** userId 아이디 중복체크 ajax 시작
+	$('#id').on('keyup',function(){
+		///입력한 userId가져오기
+		let userId = $('#id').val();
+		let userEmail = $('#userEmail').val();
+		let userTel = $('#userTel').val();
+		
+		//ajax로 userId보내기 idCheckServiceCon
+		$.ajax({
+			url : '<c:url value='/login/idCheckServiceCon'/>',
+			type : 'post',
+			data : { id : userId, userEmail : userEmail, userTel : userTel },
+			dataType : 'text',
+			success : function(result){
+				console.log(result);
+			},
+			error : function(err){
+				alert('error');
+				console.log(err);
+			}
+		}); // 비동기 통신 종료
+	}); // id 중복체크(키업 이벤트) 종료 
+	
+	  const idbutton = document.querySelector("#idbutton");
+	  const iddialog = document.querySelector("#iddialog");
+	
+	  idbutton.addEventListener("click", () => {
+	    iddialog.showModal();
+	  });
+
+	  iddialog.addEventListener("close", () => {
+	    console.log(iddialog.returnValue);
+	  });
+	  
+	  $('#close').on("click", (event) => {
+		  event.preventDefault();
+		  iddialog.close();
+		});
+	
+	  $('#confirm').on("click", (event) => {
+		  event.preventDefault();
+		  iddialog.close();
+		});
+	  
 	
 });
 </script>
@@ -77,6 +137,7 @@ $(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
+						
 	<div class="login_contents__1fQZs">
 		<div class="login_loginImgWrapper__ETBnE">
 			<img src="/images/logo1.png" class="login_loginImg__aI0wq">
@@ -88,16 +149,21 @@ $(function() {
 					<form action="/login/regist" method="post" id="regist">
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
-								class="account_inputSignUp___sBwm">
+								class="account_inputSignUp___sBwm" id="userEmail">
 							<button type="button" class="account_checkButton__wezDS"
 								disabled="">중복체크</button>
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="text" name="id" placeholder="아이디" value=""
-								class="account_inputSignUp___sBwm">
+								class="account_inputSignUp___sBwm" id="id">
 							<button type="button" class="account_checkButton__wezDS"
-								disabled="">중복체크</button>
+								 id="idbutton">중복체크</button>
+						 	<dialog  id="iddialog"> 사용 가능한 아이디 입니다
+									<button value="close" id="close">Close</button>
+									<button value="confirm" id="confirm">Confirm</button>
+							</dialog>	
+							
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
@@ -112,7 +178,7 @@ $(function() {
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="tel" name="userTel" placeholder="전화번호"
-								value="" class="account_inputSignUp___sBwm">
+								value="" class="account_inputSignUp___sBwm" id="userTel">
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
@@ -192,26 +258,15 @@ $(function() {
 				<div class="login_loginSNSText__W8qP8">간편하게 SNS 회원가입</div>
 				<div>
 					<div class="login_btnWrapper__gPI6I">
-						<div id="naverIdLogin" style="display: none;">
-							<a id="naverIdLogin_loginButton" href="#"><img
-								src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.0"
-								height="45"></a>
-						</div>
-						<button class="login_loginNaver__HVe_U" id="n_login_btn">
-							<img src="/images/Fill_naver.svg" class="login_logoNaver__A2sVP">네이버로
-							로그인
-						</button>
-					</div>
-					<div class="login_btnWrapper__gPI6I">
 						<button class="login_loginKakao" id="k_login_btn">
 							<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡
-							로그인
+							회원가입
 						</button>
 					</div>
 					<div class="login_btnWrapper__gPI6I">
 						<button class="login_loginGoogle__g9yTZ" id="g_login_btn">
 							<img src="/images/Fill_google.svg"
-								class="login_logoGoogle__CAPsi">Google 로그인
+								class="login_logoGoogle__CAPsi">Google 회원가입
 						</button>
 					</div>
 				</div>

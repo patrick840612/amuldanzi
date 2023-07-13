@@ -1,7 +1,9 @@
 package com.amuldanzi.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -125,6 +127,27 @@ public class LoginController {
 		m.addAttribute("id", member.getId());
 		System.out.println(member);
 		return "/main/index";
+	}
+	
+	// 중복체크 idCheckServiceCon
+	@RequestMapping("/idCheckServiceCon")
+	@ResponseBody
+	public Map<String,Object> idCheckServiceCon(MemberInfoDTO member, Model m) {
+		
+		// 중복 체크 메소드 호출
+		boolean resultId = loginService.idCheck(member);
+//		boolean resultTel = loginService.telCheck(member);
+//		boolean resultEmail = loginService.emailCheck(member);
+		
+		System.out.println("111*****************************************");
+		System.out.println(resultId);
+		System.out.println("--------------------");	
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("resultId", resultId);
+//		map.put("resultTel", resultTel);
+//		map.put("resultEmail", resultEmail);
+		return map;
 	}
 	
 
