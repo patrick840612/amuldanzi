@@ -58,7 +58,7 @@ public class AdminController {
 		
 		BoardCategoryDTO category = new BoardCategoryDTO(0,"공지");
 		dto.setBoardCate(category);
-		
+		dto.setCount(0);
 		adminService.noticeSave(dto);
 		return "redirect:/admin/adminContentList";
 	}
@@ -68,20 +68,41 @@ public class AdminController {
 		
 		BoardCategoryDTO category = new BoardCategoryDTO(2,"교육정보");
 		dto.setBoardCate(category);
-		
+		dto.setCount(0);
 		adminService.eduSave(dto);
 		return "redirect:/admin/adminContentList";
 	}
 	
 	@RequestMapping("/careSave")
-	private String careSave(CareDTO dto) {
+	public String careSave(CareDTO dto) {
 		
 		BoardCategoryDTO category = new BoardCategoryDTO(3,"케어정보");
 		dto.setBoardCate(category);
-		
+		dto.setCount(0);
 		adminService.careSave(dto);
 		return "redirect:/admin/adminContentList";
 		
+	}
+	
+	@RequestMapping("/noticeDelete")
+	public String noticeDelete(NoticeDTO dto) {
+		
+		adminService.noticeDelete(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/eduDelete")
+	public String eduDelete(EducationDTO dto) {
+		
+		adminService.eduDelete(dto);
+		return "redirect:/admin/adminContentList";		
+	}
+	
+	@RequestMapping("/careDelete")
+	public String careDelete(CareDTO dto) {
+		
+		adminService.careDelete(dto);
+		return "redirect:/admin/adminContentList";	
 	}
 	
 	@RequestMapping("/adminMain")
@@ -96,6 +117,12 @@ public class AdminController {
 
 	@RequestMapping("/adminADInsert")
 	public void adminAdInsert() {
+		
+	}
+	
+	@RequestMapping("/adminNoticeDetail")
+	private void publ() {
+		// TODO Auto-generated method stub
 
 	}
 

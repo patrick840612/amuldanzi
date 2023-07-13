@@ -32,6 +32,12 @@ public interface AdminService {
 	void noticeSave(NoticeDTO dto);
 	
 	void adSave(AdvertisementDTO dto);
+
+	void noticeDelete(NoticeDTO dto);
+
+	void eduDelete(EducationDTO dto);
+
+	void careDelete(CareDTO dto);
 	
 
 }

@@ -99,13 +99,13 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void careSave(CareDTO dto) {
 		// TODO Auto-generated method stub
-		
+		careRepo.save(dto);
 	}
 
 	@Override
 	public void eduSave(EducationDTO dto) {
 		// TODO Auto-generated method stub
-		
+		eduRepo.save(dto);
 	}
 
 	@Override
@@ -118,6 +118,24 @@ public class AdminServiceImpl implements AdminService {
 	public void adSave(AdvertisementDTO dto) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void noticeDelete(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		noticeRepo.delete(dto);
+	}
+
+	@Override
+	public void eduDelete(EducationDTO dto) {
+		// TODO Auto-generated method stub
+		eduRepo.delete(dto);
+	}
+
+	@Override
+	public void careDelete(CareDTO dto) {
+		// TODO Auto-generated method stub
+		careRepo.delete(dto);
 	}
 	
 	
