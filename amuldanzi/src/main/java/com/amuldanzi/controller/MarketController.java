@@ -27,4 +27,19 @@ public class MarketController {
 		
 	}
 	
+	@RequestMapping("/jungoDetail")
+	public void jungoDetail() {
+		
+	}
+	
+	@RequestMapping("/shopDetail")
+	public void shopDetail() {
+		
+	}
+	
+	@RequestMapping("/shopDetail2")
+	public void shopDetail2() {
+		
+	}
+	
 }
