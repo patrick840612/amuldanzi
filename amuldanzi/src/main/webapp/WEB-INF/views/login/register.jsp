@@ -36,6 +36,26 @@ dialog{
 	padding: 20px 50px 10px 50px;
 	background-color : tomato;
 }
+
+.duplicateCheck{
+	width: 300px;
+    height: 33px;
+    border: none;
+    border-bottom: 1px solid #e4e4e6;
+    font-size: 14px;
+	color : green;
+	font-weight: bold;
+}
+
+.duplicateCheck2{
+	width: 300px;
+    height: 33px;
+    border: none;
+    border-bottom: 1px solid #e4e4e6;
+    font-size: 14px;
+	color : red;
+	font-weight: bold;
+}
 </style>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8a8315badb6e28366adcc9ec043dca2&libraries=services"></script>
@@ -85,7 +105,7 @@ $(function() {
 	var userIdCheck = document.getElementById("id");
 	var userTelCheck = document.getElementById("userTel");
 
-	//**** userId 아이디 중복체크 ajax 시작
+	//**** userId 아이디 중복체크 시작
 	$('#id').on('keyup',function(){
 		///입력한 userId가져오기
 		let userId = $('#id').val();
@@ -97,9 +117,32 @@ $(function() {
 			url : '<c:url value='/login/idCheckServiceCon'/>',
 			type : 'post',
 			data : { id : userId, userEmail : userEmail, userTel : userTel },
-			dataType : 'text',
+			dataType : 'json',
 			success : function(result){
-				console.log(result);
+				// 중복된 아이디 없음
+				if(result.resultId == false && userId.length > 5 && userId.length <= 15){
+					$('#idCheck').text('사용 가능');
+					$('#idCheck').addClass('duplicateCheck');
+					$('#idCheckDup').text('');
+					$('#idCheckDup').removeClass('duplicateCheck2');
+					//userIdCheck.setCustomValidity(""); 
+				}else{
+					// 중복아이디 및 사용불가한 아이디
+					if(userId.length <= 5 && userId.length >= 1){
+						$('#idCheckDup').text('더 길게');
+						//userIdCheck.setCustomValidity("중복오류");
+					}else if(userId.length == 0){
+						$('#idCheckDup').text('필수 입력');
+					}else if(userId.length >= 15){
+						$('#idCheckDup').text('더 짧게');
+					}else{
+						$('#idCheckDup').text('중복');
+						//userIdCheck.setCustomValidity("중복오류");
+					}
+					$('#idCheckDup').addClass('duplicateCheck2');
+					$('#idCheck').text('');
+					$('#idCheck').removeClass('duplicateCheck');
+				}
 			},
 			error : function(err){
 				alert('error');
@@ -108,6 +151,103 @@ $(function() {
 		}); // 비동기 통신 종료
 	}); // id 중복체크(키업 이벤트) 종료 
 	
+	//**** userEmail 이메일 중복체크 시작
+	$('#userEmail').on('keyup',function(){
+		///입력한 userEmail가져오기
+		let userId = $('#id').val();
+		let userEmail = $('#userEmail').val();
+		let userTel = $('#userTel').val();
+		
+		//ajax로 user이메일보내기 idCheckServiceCon
+		$.ajax({
+			url : '<c:url value='/login/idCheckServiceCon'/>',
+			type : 'post',
+			data : { id : userId, userEmail : userEmail, userTel : userTel },
+			dataType : 'json',
+			success : function(result){
+				// 중복된 이메일 없음
+				if(result.resultEmail == false){
+					$('#EmailCheckDup').text('');
+					$('#EmailCheckDup').removeClass('duplicateCheck2');
+					//userEmailCheck.setCustomValidity(""); 
+				}else{
+					// 중복이메일
+					if(userEmail.length == 0){
+						$('#EmailCheckDup').text('필수 입력');
+					}else{
+						$('#EmailCheckDup').text('중복');
+					}
+					$('#EmailCheckDup').addClass('duplicateCheck2');
+					//userEmailCheck.setCustomValidity("중복오류");
+				}
+			},
+			error : function(err){
+				alert('error');
+				console.log(err);
+			}
+		}); // 비동기 통신 종료
+	}); // Email 중복체크(키업 이벤트) 종료
+	
+	//**** userTel 전화번호 중복체크 시작
+	$('#userTel').on('keyup',function(){
+		///입력한 userTel가져오기
+		let userId = $('#id').val();
+		let userEmail = $('#userEmail').val();
+		let userTel = $('#userTel').val();
+		
+		//ajax로 userTel보내기 idCheckServiceCon
+		$.ajax({
+			url : '<c:url value='/login/idCheckServiceCon'/>',
+			type : 'post',
+			data : { id : userId, userEmail : userEmail, userTel : userTel },
+			dataType : 'json',
+			success : function(result){
+				console.log(result.resultTel);
+				// 중복된 전화번호 없음
+				/*if(result.resultEmail == false){
+					$('#EmailCheckDup').text('');
+					$('#EmailCheckDup').removeClass('duplicateCheck2');
+					//userEmailCheck.setCustomValidity(""); 
+				}else{
+					// 중복이메일
+					if(userEmail.length == 0){
+						$('#EmailCheckDup').text('필수 입력');
+					}else{
+						$('#EmailCheckDup').text('중복');
+					}
+					$('#EmailCheckDup').addClass('duplicateCheck2');
+					//userEmailCheck.setCustomValidity("중복오류");
+				}*/
+			},
+			error : function(err){
+				alert('error');
+				console.log(err);
+			}
+		}); // 비동기 통신 종료
+	}); // Tel 중복체크(키업 이벤트) 종료
+	
+	//*** 유효성검사
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+	
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if ($("#userPass").val() != $("#userPass2").val()){
+        	  event.preventDefault();
+              event.stopPropagation();
+              alert('비밀번호가 일치하지 않습니다');
+          }
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert('입력이 올바르지 않습니다');
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false); //*** 유효성검사 끝
+			
+	  /*// 모달사용법
 	  const idbutton = document.querySelector("#idbutton");
 	  const iddialog = document.querySelector("#iddialog");
 	
@@ -127,7 +267,7 @@ $(function() {
 	  $('#confirm').on("click", (event) => {
 		  event.preventDefault();
 		  iddialog.close();
-		});
+		});*/
 	  
 	
 });
@@ -146,34 +286,34 @@ $(function() {
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">이메일로 회원가입</div>
-					<form action="/login/regist" method="post" id="regist">
+					<form action="/login/regist" method="post" id="regist" class="validation-form">
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
-								class="account_inputSignUp___sBwm" id="userEmail">
-							<button type="button" class="account_checkButton__wezDS"
-								disabled="">중복체크</button>
+								class="account_inputSignUp___sBwm" id="userEmail" required>
+							<div id="EmailCheckDup"></div>
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="text" name="id" placeholder="아이디" value=""
-								class="account_inputSignUp___sBwm" id="id">
-							<button type="button" class="account_checkButton__wezDS"
+								class="account_inputSignUp___sBwm" id="id" required>
+							<!-- <button type="button" class="account_checkButton__wezDS"
 								 id="idbutton">중복체크</button>
 						 	<dialog  id="iddialog"> 사용 가능한 아이디 입니다
 									<button value="close" id="close">Close</button>
 									<button value="confirm" id="confirm">Confirm</button>
-							</dialog>	
+							</dialog> -->	
+							<div id="idCheck" ></div><div id="idCheckDup"></div>
 							
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="password" name="userPassword" placeholder="비밀번호"
-								value="" class="account_inputSignUp___sBwm">
+								value="" class="account_inputSignUp___sBwm" id="userPass" required>
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="password" name="rePassword" placeholder="비밀번호 확인"
-								value="" class="account_inputSignUp___sBwm">
+								value="" class="account_inputSignUp___sBwm" id="userPass2" required>
 						</div>
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
@@ -183,7 +323,7 @@ $(function() {
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="tel" name="userName" placeholder="이름"
-								value="" class="account_inputSignUp___sBwm">
+								value="" class="account_inputSignUp___sBwm" pattern="^[ㄱ-ㅎ가-힣]+$" required>
 						</div>
 						
 						<!-- 주소검색 -->

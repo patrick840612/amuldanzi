@@ -307,4 +307,24 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return result;
 	}
+	
+	// 이메일 중복 체크
+	public boolean emailCheck(@Nullable MemberInfoDTO member) {
+		boolean result = false;
+		Optional<MemberInfoDTO> select = loginDAO.findByUserEmail(member.getUserEmail());
+		if(select.isPresent()) {
+			result = true;
+		}
+		return result;
+	}
+	
+	// 전화번호 중복 체크
+	public boolean telCheck(@Nullable MemberInfoDTO member) {
+		boolean result = false;
+		Optional<MemberInfoDTO> select = loginDAO.findByUserTel(member.getUserTel());
+		if(select.isPresent()) {
+			result = true;
+		}
+		return result;
+	}
 }

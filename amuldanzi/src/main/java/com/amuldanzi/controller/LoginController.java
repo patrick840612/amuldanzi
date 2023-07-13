@@ -136,8 +136,8 @@ public class LoginController {
 		
 		// 중복 체크 메소드 호출
 		boolean resultId = loginService.idCheck(member);
-//		boolean resultTel = loginService.telCheck(member);
-//		boolean resultEmail = loginService.emailCheck(member);
+		boolean resultTel = loginService.telCheck(member);
+		boolean resultEmail = loginService.emailCheck(member);
 		
 		System.out.println("111*****************************************");
 		System.out.println(resultId);
@@ -145,8 +145,8 @@ public class LoginController {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("resultId", resultId);
-//		map.put("resultTel", resultTel);
-//		map.put("resultEmail", resultEmail);
+		map.put("resultTel", resultTel);
+		map.put("resultEmail", resultEmail);
 		return map;
 	}
 	

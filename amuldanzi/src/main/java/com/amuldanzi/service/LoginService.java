@@ -16,5 +16,7 @@ public interface LoginService {
 	public JwtDTO createJwt(MemberInfoDTO member);
 	public MemberInfoDTO selectById(MemberInfoDTO member);
 	public boolean idCheck(MemberInfoDTO member);
+	public boolean emailCheck(MemberInfoDTO member);
+	public boolean telCheck(MemberInfoDTO member);
 	
 }
