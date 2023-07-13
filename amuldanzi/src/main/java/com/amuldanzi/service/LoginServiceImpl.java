@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -33,6 +34,7 @@ import java.net.URL;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -296,4 +298,13 @@ public class LoginServiceImpl implements LoginService {
 		return loginDAO.findById(member.getId()).get();
 	}
 	
+	// 아이디 중복 체크
+	public boolean idCheck(@Nullable MemberInfoDTO member) {
+		boolean result = false;
+		Optional<MemberInfoDTO> select = loginDAO.findById(member.getId());
+		if(select.isPresent()) {
+			result = true;
+		}
+		return result;
+	}
 }

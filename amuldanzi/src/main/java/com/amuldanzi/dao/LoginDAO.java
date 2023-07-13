@@ -13,4 +13,5 @@ public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
 	
 	@Query(value = "SELECT user_password FROM member_info WHERE id = :id", nativeQuery = true)
 	String loginCheck(String id);
+
 }
