@@ -1,5 +1,6 @@
 package com.amuldanzi.controller;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
@@ -47,15 +49,41 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminContentInsert")
-	public String adminContentInsert(NoticeDTO ndto, CareDTO cdto, EducationDTO edto, ClinicDTO cldto) {
-		
-
-		
-		
-	return null;
+	public void adminContentInsert() {
 
 	}
-
+	
+	@RequestMapping("/noticeSave")
+	public String noticeSave(NoticeDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(0,"공지");
+		dto.setBoardCate(category);
+		
+		adminService.noticeSave(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/eduSave")
+	public String eduSave(EducationDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(2,"교육정보");
+		dto.setBoardCate(category);
+		
+		adminService.eduSave(dto);
+		return "redirect:/admin/adminContentList";
+	}
+	
+	@RequestMapping("/careSave")
+	private String careSave(CareDTO dto) {
+		
+		BoardCategoryDTO category = new BoardCategoryDTO(3,"케어정보");
+		dto.setBoardCate(category);
+		
+		adminService.careSave(dto);
+		return "redirect:/admin/adminContentList";
+		
+	}
+	
 	@RequestMapping("/adminMain")
 	public void adminMain() {
 

@@ -56,17 +56,85 @@
       var selectedValue = $('input[name="cate"]:checked').val();
       var formContainer = $('#insertCateForm');
       var noticeCategory = $('#noticeCategory');
-
-      // 선택한 라디오 버튼에 따라 form 영역 변경
+	  var insertButton = $('#insertButton');
+      
+	  
       if (selectedValue === '0') {
+    	// 선택한 라디오 버튼에 따라 form 영역 변경  
         formContainer.html(`
-          <div class="question_fileInputWrapper__d9gmU">
-            <!-- 공지에 해당하는 폼 요소 없음-->
-          </div>
-        `);
-        noticeCategory.show(); // 보이게 설정
-      } else if (selectedValue === '2' || selectedValue === '3') {
+        <form action="noticeSave" method="post">
+        	<div>
+                <span class="question_questionCategory__1QDx6">공지 카테고리</span><span
+                   class="question_questionMark__AykT_">*</span>
+
+                <div class="question_radioWrap__WZ6ME" id="cateList">
+                   <div>
+                      <input type="radio" name="category" id="중요공지" value="1"
+                         checked><label for="중요공지">중요 공지</label>
+                   </div>
+                   <div>
+                      <input type="radio" name="category" id="일반공지" value="2"><label
+                         for="일반공지">일반 공지</label>
+                   </div>
+
+                </div>
+
+             </div>
+
+             <div>
+                <div>
+                   <span class="question_questionCategory__1QDx6">글 작성</span><span
+                      class="question_questionMark__AykT_">*</span>
+                </div>
+                <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"/>
+                <div class="question_alertText__WnxqW"></div>
+             </div>
+             <div class="question_questionInputWrapper__fGaar">
+                <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" type="text" name="content"></textarea>
+                <div class="question_alertText__WnxqW"></div>
+             </div>			          
+             <div>
+             	<button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
+             </div>   
+             <br />
+        </form>
+        `);  
+     
+      } else if (selectedValue === '2') {
         formContainer.html(`
+        <form action="eduSave" method="post">
+        	<div>
+                <span class="question_questionCategory__1QDx6">교육 카테고리</span><span
+                   class="question_questionMark__AykT_">*</span>
+
+                <div class="question_radioWrap__WZ6ME" id="cateList">
+                   <div>
+                      <input type="radio" name="innercate" id="강아지" value="1"
+                         checked><label for="강아지">강아지</label>
+                   </div>
+                   <div>
+                      <input type="radio" name="innercate" id="고양이" value="2"><label
+                         for="고양이">고양이</label>
+                   </div>
+
+                </div>
+
+             </div>
+
+             <div>
+                <div>
+                   <span class="question_questionCategory__1QDx6">글 작성</span><span
+                      class="question_questionMark__AykT_">*</span>
+                </div>
+                <input placeholder="제목을 입력해주세요"
+                   class="question_titleInput__S7Isd" value="">
+                <div class="question_alertText__WnxqW"></div>
+             </div>
+             <div class="question_questionInputWrapper__fGaar">
+                <textarea placeholder="5자 이상의 글 내용을 입력해주세요"
+                   class="question_questionInput___Mb57"></textarea>
+                <div class="question_alertText__WnxqW"></div>
+             </div>			          
           <div class="question_fileInputWrapper__d9gmU">
             <span class="question_questionCategory__1QDx6">사진 업로드</span>
             <div class="question_questionImgContainer__tNqZy"></div>
@@ -91,8 +159,91 @@
             <span class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
               업로드 가능합니다.</span>
           </div>
+          <div class="question_thumbnailText__h45xg">
+          <ul>
+             <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
+             <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
+          </ul>
+       </div>
+       <div>
+       	<button class="question_submitBtn__vDrt_" type="submit">교육정보 등록</button>
+       </div>   
+       <br />
+       </form>
         `);
-        noticeCategory.hide(); // 숨기게 설정
+        
+      }else if(selectedValue === '3'){        
+    	  formContainer.html(`
+    		<form action="noticeSave" method="post">
+    		  <div>
+                  <span class="question_questionCategory__1QDx6">케어 카테고리</span><span
+                     class="question_questionMark__AykT_">*</span>
+
+                  <div class="question_radioWrap__WZ6ME" id="cateList">
+                  	<div>
+                  		<input type="radio" name="innercate" id="강아지" value="1" checked>
+                  		<label for="강아지">강아지</label>
+               		</div>
+               		<div>
+                  		<input type="radio" name="innercate" id="고양이" value="2">
+                  		<label for="고양이">고양이</label>
+               		</div>
+                  </div>
+
+               </div>
+
+               <div>
+                  <div>
+                     <span class="question_questionCategory__1QDx6">글 작성</span><span
+                        class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input placeholder="제목을 입력해주세요"
+                     class="question_titleInput__S7Isd" value="">
+                  <div class="question_alertText__WnxqW"></div>
+               </div>
+               <div class="question_questionInputWrapper__fGaar">
+                  <textarea placeholder="5자 이상의 글 내용을 입력해주세요"
+                     class="question_questionInput___Mb57"></textarea>
+                  <div class="question_alertText__WnxqW"></div>
+               </div>			            
+    			  
+              <div class="question_fileInputWrapper__d9gmU">
+              <span class="question_questionCategory__1QDx6">사진 업로드</span>
+              <div class="question_questionImgContainer__tNqZy"></div>
+              <input id="uploadFile" type="file" multiple=""
+                accept="image/jpg,image/png,image/jpeg,image/gif"
+                style="display: none;">
+              <label for="uploadFile" class="question_inputFileBtn__zg7jN">
+                <div class="question_inputFileText__Cgamr">사진 첨부</div>
+                <img src="/admin/icons/admin/ICON_PHOTO_CAMERA.svg">
+              </label>
+              <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 첨부 파일의 경우
+                사진과 동영상을 합쳐 최대 10개 업로드 가능합니다.</span>
+            </div>
+            <div class="question_fileInputWrapper__d9gmU">
+              <span class="question_questionCategory__1QDx6">동영상 업로드</span>
+              <div class="question_questionImgContainer__tNqZy"></div>
+              <input id="uploadVideo" type="file" accept="video/mp4,video/quicktime" style="display: none;">
+              <label for="uploadVideo" class="question_inputFileBtn__zg7jN">
+                <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+                <img src="/admin/icons/admin/ICON_VIDEO.svg">
+              </label>
+              <span class="question_imgDesc__SQFui">최대 업로드 용량: 65MB, 동영상은 최대 1개
+                업로드 가능합니다.</span>
+            </div>
+            <div class="question_thumbnailText__h45xg">
+            <ul>
+               <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
+               <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
+            </ul>
+         </div>
+         <div>
+         	<button class="question_submitBtn__vDrt_" type="submit">케어정보 등록</button>
+         </div>   
+         <br />
+         </form>
+          `);    	  
+ 	  
       }
 
       // 기타 필요한 작업 수행
@@ -230,19 +381,20 @@
                            for="케어정보">케어정보</label>
                      </div>
                   </div>
-
-                  <div id="noticeCategory">
-
+              <div id="insertCateForm">  
+				<form action="noticeSave" method="post">
+                  <div>
+                  	 <input name="cateId" type="hidden" value="0"/>
                      <span class="question_questionCategory__1QDx6">공지 카테고리</span><span
                         class="question_questionMark__AykT_">*</span>
 
                      <div class="question_radioWrap__WZ6ME" id="cateList">
                         <div>
-                           <input type="radio" name="noticecate" id="중요공지" value="1"
+                           <input type="radio" name="category" id="중요공지" value="중요공지"
                               checked><label for="중요공지">중요 공지</label>
                         </div>
                         <div>
-                           <input type="radio" name="noticecate" id="일반공지" value="2"><label
+                           <input type="radio" name="category" id="일반공지" value="일반공지"><label
                               for="일반공지">일반 공지</label>
                         </div>
 
@@ -255,30 +407,22 @@
                         <span class="question_questionCategory__1QDx6">글 작성</span><span
                            class="question_questionMark__AykT_">*</span>
                      </div>
-                     <input placeholder="제목을 입력해주세요"
-                        class="question_titleInput__S7Isd" value="">
+                     <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
                      <div class="question_alertText__WnxqW"></div>
                   </div>
                   <div class="question_questionInputWrapper__fGaar">
-                     <textarea placeholder="5자 이상의 글 내용을 입력해주세요"
-                        class="question_questionInput___Mb57"></textarea>
+                     <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" type="text" name="content"></textarea>
                      <div class="question_alertText__WnxqW"></div>
-                  </div>
-
-                  <form enctype="multipart/form-data" id="insertCateForm"></form>
-
-                  <div class="question_thumbnailText__h45xg">
-                     <ul>
-                        <li>동영상과 사진을 동시에 업로드 시, 업로드된 사진 중 첫 번째 순서의 사진이 썸네일로 지정됩니다.</li>
-                        <li>동영상 1개만 업로드 시, 동영상에서 랜덤으로 추출되어 썸네일로 지정됩니다.</li>
-                     </ul>
-                  </div>
-                  <button class="question_submitBtn__vDrt_" disabled="">글
-                     등록</button>
+                  </div>				         
+                  <div>
+                  	<button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
+                  </div>   
                   <br />
+                  </form>                   
                </div>
             </div>
          </div>
+      </div> 
          <!-- /page content -->
 
          <!-- footer content -->
