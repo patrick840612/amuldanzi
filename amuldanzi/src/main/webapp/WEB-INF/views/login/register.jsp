@@ -22,6 +22,13 @@
 <link href="/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
 <style>
 dialog::backdrop{
 	background-color : rgba(0,0,0,0.3);
@@ -56,6 +63,39 @@ dialog{
 	color : red;
 	font-weight: bold;
 }
+
+.account_signUpInputWrapper__kzyF3 {
+  display: flex;
+}
+
+.account_inputSignUp___sBwm {
+  flex-grow: 1;
+}
+
+#EmailCheckDup{
+	width: 200px;
+	display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#idCheckDup{
+	width: 200px;
+	display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.idCheck{
+	width: 200px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
 </style>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8a8315badb6e28366adcc9ec043dca2&libraries=services"></script>
@@ -100,6 +140,59 @@ $(function() {
 		$("#userAddr").val(addr1+" "+addr2);
 	});
 	
+	// HTML 요소 선택
+	const allCheckbox = document.getElementById("all");
+	const checkboxes = document.querySelectorAll("input[type='checkbox']:not(#all)");
+	const checkLabels = document.querySelectorAll(".account_checkLabel__7ESRF");
+	const allCheckNeed = document.getElementById("allCheckNeed"); 
+	const custom_control_input = document.querySelectorAll(".custom-control-input");
+
+	// 모두 동의 체크박스 이벤트 처리
+	allCheckbox.addEventListener("change", function () {
+	  const isChecked = allCheckbox.checked;
+
+	  checkboxes.forEach((checkbox) => {
+	    checkbox.checked = isChecked;
+	  });
+
+	  if (isChecked) {
+	    checkLabels.forEach((label) => {
+	      allCheckNeed.style.color = "green";
+	    });
+	  } else {
+	    checkLabels.forEach((label) => {
+	      allCheckNeed.style.color = "";
+	    });
+	  }
+	});
+
+	// 필수 동의사항 체크박스 이벤트 처리
+	custom_control_input.forEach((checkbox) => {
+	  checkbox.addEventListener("change", function () {
+	    const isAllChecked = [...custom_control_input].every((checkbox) => checkbox.checked);
+
+	    allCheckbox.checked = isAllChecked;
+
+	    if (isAllChecked) {
+	      checkLabels.forEach((label) => {
+	          allCheckNeed.style.color = "green";
+	      });
+	    } else {
+	      checkLabels.forEach((label) => {
+	          allCheckNeed.style.color = "";
+	      });
+	    }
+	  });
+	});
+	
+	// 개별 동의사항 체크박스 이벤트 처리
+	checkboxes.forEach((checkbox) => {
+		  checkbox.addEventListener("change", function () {
+		    const isAllChecked = [...checkboxes].every((checkbox) => checkbox.checked);
+		    allCheckbox.checked = isAllChecked;
+		  });
+	});
+	
 	// customValidity 용 js변수 (jquery 작동안함)
 	var userEmailCheck = document.getElementById("userEmail");
 	var userIdCheck = document.getElementById("id");
@@ -122,26 +215,35 @@ $(function() {
 				// 중복된 아이디 없음
 				if(result.resultId == false && userId.length > 5 && userId.length <= 15){
 					$('#idCheck').text('사용 가능');
-					$('#idCheck').addClass('duplicateCheck');
+					$('#idCheck').addClass('alert-primary');
+					$('#idCheck').addClass('idCheck');
 					$('#idCheckDup').text('');
-					$('#idCheckDup').removeClass('duplicateCheck2');
-					//userIdCheck.setCustomValidity(""); 
+					$('#idCheckDup').removeClass('alert-danger d-flex align-items-center');
+					userIdCheck.setCustomValidity(""); 
 				}else{
 					// 중복아이디 및 사용불가한 아이디
 					if(userId.length <= 5 && userId.length >= 1){
 						$('#idCheckDup').text('더 길게');
-						//userIdCheck.setCustomValidity("중복오류");
+						$('#idCheckDup').addClass('alert-danger d-flex align-items-center');
+						userIdCheck.setCustomValidity("중복오류");
 					}else if(userId.length == 0){
-						$('#idCheckDup').text('필수 입력');
+						$('#idCheckDup').text('');
+						$('#idCheckDup').removeClass('alert-danger d-flex align-items-center');
+						userIdCheck.setCustomValidity("중복오류");
+
 					}else if(userId.length >= 15){
 						$('#idCheckDup').text('더 짧게');
+						$('#idCheckDup').addClass('alert-danger d-flex align-items-center');
+						userIdCheck.setCustomValidity("중복오류");
 					}else{
 						$('#idCheckDup').text('중복');
-						//userIdCheck.setCustomValidity("중복오류");
+						$('#idCheckDup').addClass('alert-danger d-flex align-items-center');
+						userIdCheck.setCustomValidity("중복오류");
 					}
-					$('#idCheckDup').addClass('duplicateCheck2');
+					
 					$('#idCheck').text('');
-					$('#idCheck').removeClass('duplicateCheck');
+					$('#idCheck').removeClass('alert-primary');
+					$('#idCheck').removeClass('idCheck');
 				}
 			},
 			error : function(err){
@@ -168,17 +270,13 @@ $(function() {
 				// 중복된 이메일 없음
 				if(result.resultEmail == false){
 					$('#EmailCheckDup').text('');
-					$('#EmailCheckDup').removeClass('duplicateCheck2');
-					//userEmailCheck.setCustomValidity(""); 
+					$('#EmailCheckDup').removeClass('alert-danger d-flex align-items-center');
+					userEmailCheck.setCustomValidity("");
 				}else{
 					// 중복이메일
-					if(userEmail.length == 0){
-						$('#EmailCheckDup').text('필수 입력');
-					}else{
-						$('#EmailCheckDup').text('중복');
-					}
-					$('#EmailCheckDup').addClass('duplicateCheck2');
-					//userEmailCheck.setCustomValidity("중복오류");
+					$('#EmailCheckDup').text('이메일 중복');
+					$('#EmailCheckDup').addClass('alert-danger d-flex align-items-center');
+					userEmailCheck.setCustomValidity("중복오류");
 				}
 			},
 			error : function(err){
@@ -207,16 +305,16 @@ $(function() {
 				/*if(result.resultEmail == false){
 					$('#EmailCheckDup').text('');
 					$('#EmailCheckDup').removeClass('duplicateCheck2');
-					//userEmailCheck.setCustomValidity(""); 
+					userEmailCheck.setCustomValidity(""); 
 				}else{
-					// 중복이메일
+					// 중복전화번호
 					if(userEmail.length == 0){
 						$('#EmailCheckDup').text('필수 입력');
 					}else{
 						$('#EmailCheckDup').text('중복');
 					}
 					$('#EmailCheckDup').addClass('duplicateCheck2');
-					//userEmailCheck.setCustomValidity("중복오류");
+					userEmailCheck.setCustomValidity("중복오류");
 				}*/
 			},
 			error : function(err){
@@ -235,7 +333,7 @@ $(function() {
           if ($("#userPass").val() != $("#userPass2").val()){
         	  event.preventDefault();
               event.stopPropagation();
-              alert('비밀번호가 일치하지 않습니다');
+              //alert('비밀번호가 일치하지 않습니다');
           }
           if (!form.checkValidity()) {
             event.preventDefault();
@@ -246,6 +344,26 @@ $(function() {
         }, false);
       });
     }, false); //*** 유효성검사 끝
+    
+	//*** 비밀번호 customVaildity setting
+	let password = document.getElementById("userPass")
+    ,confirm_password = document.getElementById("userPass2");
+    
+    function validatePassword(){
+    	if(password.value != confirm_password.value){ // 만일 두 인풋 필드값이 같지 않을 경우
+    		  // setCustomValidity의 값을 지정해 무조건 경고 표시가 나게 하고
+    	      confirm_password.setCustomValidity("Passwords Don't Match"); 
+    	}else{// 만일 두 인풋 필드값이 같을 경우
+    	      // 오류가 없으면 메시지를 빈 문자열로 설정해야한다. 
+    	      //오류 메시지가 비어 있지 않은 한 양식은 유효성 검사를 통과하지 않고 제출되지 않는다.
+    	      // 따라서 빈값을 주어 submit 처리되게 한다.
+    	      confirm_password.setCustomValidity('');
+    	}	
+    }
+    password.onkeyup = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+  
 			
 	  /*// 모달사용법
 	  const idbutton = document.querySelector("#idbutton");
@@ -277,6 +395,13 @@ $(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
+							<!-- <button type="button" class="account_checkButton__wezDS"
+								 id="idbutton">중복체크</button>
+						 	<dialog  id="iddialog"> 사용 가능한 아이디 입니다
+									<button value="close" id="close">Close</button>
+									<button value="confirm" id="confirm">Confirm</button>
+							</dialog> -->	
+						
 						
 	<div class="login_contents__1fQZs">
 		<div class="login_loginImgWrapper__ETBnE">
@@ -286,44 +411,48 @@ $(function() {
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">이메일로 회원가입</div>
-					<form action="/login/regist" method="post" id="regist" class="validation-form">
+					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
-								class="account_inputSignUp___sBwm" id="userEmail" required>
-							<div id="EmailCheckDup"></div>
+								class="account_inputSignUp___sBwm form-control" id="userEmail" required>
+							<div id="EmailCheckDup"></div><div></div>
+							<div class="invalid-feedback">이메일을 입력해주세요</div>
 						</div>
+						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="text" name="id" placeholder="아이디" value=""
-								class="account_inputSignUp___sBwm" id="id" required>
-							<!-- <button type="button" class="account_checkButton__wezDS"
-								 id="idbutton">중복체크</button>
-						 	<dialog  id="iddialog"> 사용 가능한 아이디 입니다
-									<button value="close" id="close">Close</button>
-									<button value="confirm" id="confirm">Confirm</button>
-							</dialog> -->	
+								class="account_inputSignUp___sBwm form-control" id="id" required>
 							<div id="idCheck" ></div><div id="idCheckDup"></div>
-							
+							<div class="invalid-feedback"> 아이디를 입력해주세요</div>
 						</div>
+							
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="password" name="userPassword" placeholder="비밀번호"
-								value="" class="account_inputSignUp___sBwm" id="userPass" required>
+								value="" class="account_inputSignUp___sBwm form-control" id="userPass" minlength="6" maxlength="16" required><div></div><div></div>
+							<div class="invalid-feedback">비밀번호를 입력해주세요</div>
 						</div>
+						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="password" name="rePassword" placeholder="비밀번호 확인"
-								value="" class="account_inputSignUp___sBwm" id="userPass2" required>
+								value="" class="account_inputSignUp___sBwm form-control" id="userPass2" required><div></div><div></div>
+							<div class="invalid-feedback">비밀번호가 일치하지 않습니다</div>
 						</div>
+						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="tel" name="userTel" placeholder="전화번호"
-								value="" class="account_inputSignUp___sBwm" id="userTel">
+								value="" class="form-control account_inputSignUp___sBwm" id="userTel" minlength="13" maxlength="13" required><div></div><div></div>								
+							<div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
 						</div>
+						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="tel" name="userName" placeholder="이름"
-								value="" class="account_inputSignUp___sBwm" pattern="^[ㄱ-ㅎ가-힣]+$" required>
+								value="" class="account_inputSignUp___sBwm form-control" pattern="^[ㄱ-ㅎ가-힣]+$" minlength="2" required><div></div><div></div>
+							<div class="invalid-feedback">이름을 입력해주세요(한글 2글자 이상)</div>
 						</div>
 						
 						<!-- 주소검색 -->
@@ -350,40 +479,40 @@ $(function() {
 										for="all" class="account_checkLabel__7ESRF">모두 동의</label>
 								</div>
 							</div>
-							<div class="account_loginfunction__TLCNR">
-								<div class="account_checkboxwrap__SLQoe">
-									<input type="checkbox" name="a" id="a"><label for="a"
-										class="account_checkLabel__7ESRF">서비스 이용약관 동의</label>
+							<div class="account_loginfunction__TLCNR ">
+								<div class="account_checkboxwrap__SLQoe custom-control custom-checkbox">
+									<input type="checkbox" name="a" id="a" class="custom-control-input" required><label for="a"
+										class="account_checkLabel__7ESRF custom-control-label">서비스 이용약관 동의</label>
 								</div>
 								<a class="account_description__zlB3V"
 									href="https://corp.bemypet.kr/tos" target="_blank"
 									rel="noopener noreferrer">내용보기</a>
 							</div>
 							<div class="account_loginfunction__TLCNR">
-								<div class="account_checkboxwrap__SLQoe">
-									<input type="checkbox" name="d" id="d"><label for="a"
-										class="account_checkLabel__7ESRF">개인정보 수집 및 이용 동의</label>
+								<div class="account_checkboxwrap__SLQoe custom-control custom-checkbox">
+									<input type="checkbox" name="d" id="d" class="custom-control-input" required><label for="d"
+										class="account_checkLabel__7ESRF custom-control-label">개인정보 수집 및 이용 동의</label>
 								</div>
 								<a class="account_description__zlB3V"
 									href="https://corp.bemypet.kr/privacy-policy-summary"
 									target="_blank" rel="noopener noreferrer">내용보기</a>
 							</div>
 							<div class="account_loginfunction__TLCNR">
-								<div class="account_checkboxwrap__SLQoe">
-									<input type="checkbox" name="b" id="b"><label for="b"
-										class="account_checkLabel__7ESRF">만 14세 이상입니다</label>
+								<div class="account_checkboxwrap__SLQoe custom-control custom-checkbox">
+									<input type="checkbox" name="b" id="b" class="custom-control-input" required><label for="b"
+										class="account_checkLabel__7ESRF custom-control-label">반려동물을 사랑합니다</label>
 								</div>
 							</div>
 							<div class="account_loginfunction__TLCNR">
 								<div class="account_checkboxwrap__SLQoe">
-									<input type="checkbox" name="c" id="c"><label for="a"
+									<input type="checkbox" name="c" id="c"><label for="c"
 										class="account_checkLabel__7ESRF">(선택) 마케팅 정보 수신 동의</label>
 								</div>
 								<a class="account_description__zlB3V"
 									href="https://corp.bemypet.kr/marketing-agreement/"
 									target="_blank" rel="noopener noreferrer">내용보기</a>
 							</div>
-							<div class="account_alertText__bGPQB">필수 동의사항에 동의해야 회원가입이
+							<div class="account_alertText__bGPQB" id="allCheckNeed">필수 동의사항에 동의해야 회원가입이
 								가능합니다</div>
 						</div>
 						<button type="submit" class="account_signUpButton__6SW9R">
