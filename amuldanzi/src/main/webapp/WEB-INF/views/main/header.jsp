@@ -101,7 +101,7 @@
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a rel="noopener noreferrer" href=""
+											<a rel="noopener noreferrer" href="/notice/notice"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">공지사항</div></a>
