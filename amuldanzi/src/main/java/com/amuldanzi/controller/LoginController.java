@@ -125,7 +125,11 @@ public class LoginController {
 	public String regist(MemberInfoDTO member, Model m) {
 		loginService.regist(member);
 		m.addAttribute("id", member.getId());
+		
+		System.out.println("111*****************************************");
 		System.out.println(member);
+		System.out.println("--------------------");
+		
 		return "/main/index";
 	}
 	
@@ -138,10 +142,6 @@ public class LoginController {
 		boolean resultId = loginService.idCheck(member);
 		boolean resultTel = loginService.telCheck(member);
 		boolean resultEmail = loginService.emailCheck(member);
-		
-		System.out.println("111*****************************************");
-		System.out.println(resultId);
-		System.out.println("--------------------");	
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("resultId", resultId);

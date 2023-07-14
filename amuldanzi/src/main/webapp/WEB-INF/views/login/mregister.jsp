@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>회원가입 - 애물단지</title>
+<title>관리자회원가입 - 애물단지</title>
 
 
 <!-- 부트스트랩 -->
@@ -41,7 +41,7 @@ dialog{
 	text-align: center;
 	border-radius: 20px;
 	padding: 20px 50px 10px 50px;
-	background-color : #ec879e;
+	background-color : tomato;
 }
 
 .duplicateCheck{
@@ -94,22 +94,7 @@ dialog{
     flex-direction: column;
 }
 
-.account_checkButton__wezDS{
-	width: 100px !important;
-	height: 40px;
-}
 
-.account_signUpInputWrapper__kzyF3{
-	justify-content: center;
-}
-
-input.addpet::placeholder {
-  text-align: center;
-}
-
-.addpet{
-	margin-right: 10px;
-}
 
 </style>
 
@@ -377,31 +362,6 @@ $(function() {
     }
     password.onkeyup = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
-  
-			
-	  // 모달사용법
-	  const abutton = document.querySelector("#abutton");
-	  const dialog = document.querySelector("#dialog");
-	
-	  abutton.addEventListener("click", () => {
-	    dialog.showModal();
-	  });
-
-	  $('#add').on("click", (event) => {
-		$('#addpet').append($('<div class="addpetDiv">'));
-		$('#addpet').append($('<input type="text" class="addpet" name="whichPet" placeholder="종류"/>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="petBlood" placeholder="혈액형"/>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="gps" placeholder="GPS 시리얼"/><br/><br/>'));
-		$('#addpet').append($('<input type="checkbox" class="addpet" name="bloodGive"><label for="bloodGive" class="addpet">혈액 제공 동의</label>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="bloodMessage" placeholder="혈액제공 메시지"/><hr/>'));
-		$('#addpet').append($('</div>'));
-	  });
-	
-	  $('#confirm').on("click", (event) => {
-		  dialog.close();
-	  });
-	  
 });
 </script>
 </head>
@@ -409,15 +369,6 @@ $(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-							<dialog  id="dialog"> 나의 반려동물을 등록해 보아요<br/><br/>
-								<div id="addpet"></div>
-								<div>
-								<button value="add" id="add">+</button><br/><br/>
-								<button value="confirm" id="confirm">완료</button>
-								</div>
-							</dialog>	
-						
-						
 	<div class="login_contents__1fQZs">
 		<div class="login_loginImgWrapper__ETBnE">
 			<img src="/images/logo1.png" class="login_loginImg__aI0wq">
@@ -425,7 +376,7 @@ $(function() {
 		<div class="account_signUpContainer__nL9LE">
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
-					<div class="account_signUpDesc__FZLyl">회원가입</div>
+					<div class="account_signUpDesc__FZLyl">관리자 회원가입</div>
 					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
@@ -482,14 +433,9 @@ $(function() {
 							<input type="hidden" id="lng" name="lng">
 							<input type="hidden" id="sido" name="sido">
 							<input type="hidden" id="sigungu" name="sigungu">
-							<input type="hidden" id="memberRole" name="memberRole" value="일반회원">
+							<input type="hidden" id="memberRole" name="memberRole" value="관리자">
 						</div>
 						<input type="hidden" name="userAddr" id="userAddr">
-						
-						<div class="account_alertText__bGPQB"></div>
-						<div class="account_signUpInputWrapper__kzyF3">
-							<button type="button" class="account_checkButton__wezDS" id="abutton">반려동물 등록</button>
-						</div>
 						
 						
 						<div class="account_alertText__bGPQB"></div>

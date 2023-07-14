@@ -25,7 +25,7 @@ public class MemberInfoDTO {
 	private String 	userAddr;
 	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
 	private String 	characterImg;
-	@Column(updatable = false, insertable = false, columnDefinition = "TINYINT(1) default 1")
+	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)") // default 1
 	private boolean	marketingOk;
 	@Column(nullable = true)
 	private String 	memberRole;
