@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/community")
-public class CommunityController {	
-		
+public class CommunityController {
 		@RequestMapping("/communityList")
 		public void communityList() {
 			

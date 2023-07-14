@@ -126,16 +126,6 @@ $(function(){
 		<div class="login_loginSNSText__W8qP8">간편하게 SNS 로그인</div>
 		<div>
 			<div class="login_btnWrapper__gPI6I">
-				<div id="naverIdLogin" style="display: none;">
-					<a id="naverIdLogin_loginButton" href="#"><img
-						src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.0"
-						height="45"></a>
-				</div>
-				<button class="login_loginNaver__HVe_U" id="n_login_btn">
-					<img src="/images/Fill_naver.svg" class="login_logoNaver__A2sVP">네이버로	로그인
-				</button>
-			</div>
-			<div class="login_btnWrapper__gPI6I">
 				<button class="login_loginKakao" id="k_login_btn">
 					<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡 로그인
 				</button>
