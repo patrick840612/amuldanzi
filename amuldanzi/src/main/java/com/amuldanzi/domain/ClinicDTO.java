@@ -2,6 +2,8 @@ package com.amuldanzi.domain;
 
 import java.util.Date;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +20,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "clinic")
+@DynamicInsert
 public class ClinicDTO {
 
 	
@@ -27,20 +30,13 @@ public class ClinicDTO {
 	private 	Integer 	id;
 	
 	private 	String 		title;
-	private 	String 		tel;
-	private 	String 		major;
+	private 	String 		tel; 
 	private 	String 		addr;
-	private 	String 		lat;
-	private 	String 		lng;
-	private 	String 		open;
-	private 	String 		close;
+	private 	Double 		lat;
+	private 	Double 		lng; 
+	private     String 		time;
 	
-	@Column(columnDefinition = "date default sysdate()"
-			,insertable = false
-			,updatable = false)
-	@Temporal(TemporalType.DATE)
-	private 	Date 		regdate;
-	
+		
 	@Column(columnDefinition = "integer default 0" )
 	private  	Integer		count;
 	
