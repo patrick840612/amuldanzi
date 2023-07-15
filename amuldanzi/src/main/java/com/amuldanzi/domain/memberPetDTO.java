@@ -17,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "memberPet")
 @DynamicInsert
-public class MapDTO {
+public class memberPetDTO {
 
 
 	@Id // pk 지정
@@ -29,13 +29,10 @@ public class MapDTO {
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId;
 	
+	private String petName;
 	private String whichPet;
 	private String petBlood;
-	@Column(updatable = false, insertable = false, columnDefinition = "TINYINT(1) default 1")
-	private boolean bloodGive;
-	private String bloodMessage;
+
 	private String gps;
-	
-	
-	
+
 }

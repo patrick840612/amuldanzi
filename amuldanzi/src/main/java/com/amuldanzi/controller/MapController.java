@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.amuldanzi.domain.MapDTO;
+import com.amuldanzi.domain.memberPetDTO;
 import com.amuldanzi.service.MapService;
 
 @Controller

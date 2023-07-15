@@ -25,16 +25,21 @@ public class MemberInfoDTO {
 	private String 	userAddr;
 	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
 	private String 	characterImg;
-	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)") // default 1
+	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)") 
 	private boolean	marketingOk;
 	@Column(nullable = true)
 	private String 	memberRole;
-	
-	@Column(nullable = true)
-	private String 	social;
 	@Column(nullable = true)
 	private String 	sido;
 	@Column(nullable = true)
 	private String 	sigungu;
+	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)")
+	private boolean bloodGive;
+	private String bloodMessage;
+	private String bloodTel;
+	
+	@Column(nullable = true)
+	private String 	social;
+
 
 }
