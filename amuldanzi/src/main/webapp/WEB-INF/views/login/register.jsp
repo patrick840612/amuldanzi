@@ -348,12 +348,16 @@ $(function() {
           if ($("#userPass").val() != $("#userPass2").val()){
         	  event.preventDefault();
               event.stopPropagation();
-              //alert('비밀번호가 일치하지 않습니다');
           }
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
             alert('입력이 올바르지 않습니다');
+          }
+          if (petCount == 0 && $('#bloodGive').is(':checked') == true){
+        	  event.preventDefault();
+              event.stopPropagation();
+              alert('혈액제공에 동의하면 반려동물 목록에서 등록을 해야합니다');
           }
           form.classList.add('was-validated');
         }, false);
@@ -378,29 +382,39 @@ $(function() {
     password.onkeyup = validatePassword;
     confirm_password.onkeyup = validatePassword;
 
-  
-			
 	  // 모달사용법
 	  const abutton = document.querySelector("#abutton");
 	  const dialog = document.querySelector("#dialog");
+	  let petCount=0;
 	
 	  abutton.addEventListener("click", () => {
-	    dialog.showModal();
+          event.preventDefault();
+	      dialog.showModal();
 	  });
 
-	  $('#add').on("click", (event) => {
-		$('#addpet').append($('<div class="addpetDiv">'));
-		$('#addpet').append($('<input type="text" class="addpet" name="whichPet" placeholder="종류"/>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="petBlood" placeholder="혈액형"/>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="gps" placeholder="GPS 시리얼"/><br/><br/>'));
-		$('#addpet').append($('<input type="checkbox" class="addpet" name="bloodGive"><label for="bloodGive" class="addpet">혈액 제공 동의</label>'));
-		$('#addpet').append($('<input type="text" class="addpet" name="bloodMessage" placeholder="혈액제공 메시지"/><hr/>'));
-		$('#addpet').append($('</div>'));
-	  });
+	  $(document).on("click", "#add", function(event) {
+		  event.preventDefault();
+
+		  $('#addpet').append($('<div class="addpetDiv"></div>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petName[]" placeholder="반려동물 이름(필수)" required/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="whichPet[]" placeholder="반려동물 종류(필수)" required/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petBlood[]" placeholder="반려동물 혈액형(필수)" required/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="gps[]" placeholder="GPS 시리얼"/>'));
+		  $('.addpetDiv').last().append($('<input type="button" class="addpet" name="deletePet" value="삭제"/><br/><br/>'));
+		  petCount += 1;
+		});
 	
 	  $('#confirm').on("click", (event) => {
+		  event.preventDefault();
 		  dialog.close();
 	  });
+	  
+	  $(document).on("click", "input[name='deletePet']", function(event) {
+		  event.preventDefault();
+		  $(this).closest('.addpetDiv').remove();
+		  petCount -= 1;
+		  console.log(petCount);
+		});
 	  
 });
 </script>
@@ -409,13 +423,7 @@ $(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-							<dialog  id="dialog"> 나의 반려동물을 등록해 보아요<br/><br/>
-								<div id="addpet"></div>
-								<div>
-								<button value="add" id="add">+</button><br/><br/>
-								<button value="confirm" id="confirm">완료</button>
-								</div>
-							</dialog>	
+	
 						
 						
 	<div class="login_contents__1fQZs">
@@ -426,7 +434,7 @@ $(function() {
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">회원가입</div>
-					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate>
+					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate enctype="multipart/form-data">
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
 								class="account_inputSignUp___sBwm form-control" id="userEmail" required>
@@ -486,11 +494,6 @@ $(function() {
 						</div>
 						<input type="hidden" name="userAddr" id="userAddr">
 						
-						<div class="account_alertText__bGPQB"></div>
-						<div class="account_signUpInputWrapper__kzyF3">
-							<button type="button" class="account_checkButton__wezDS" id="abutton">반려동물 등록</button>
-						</div>
-						
 						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_loginCheckbox__FAhai">
@@ -533,6 +536,28 @@ $(function() {
 									href="https://corp.bemypet.kr/marketing-agreement/"
 									target="_blank" rel="noopener noreferrer">내용보기</a>
 							</div>
+							<div class="account_loginfunction__TLCNR">
+								<div class="account_checkboxwrap__SLQoe">
+									<input type="checkbox" name="bloodGive" id="bloodGive"><label for="bloodGive"
+										class="account_checkLabel__7ESRF">(선택) 반려동물 혈액 나눔 동의</label>
+								</div>
+								<a class="account_description__zlB3V"
+									href="https://corp.bemypet.kr/marketing-agreement/"
+									target="_blank" rel="noopener noreferrer">내용보기</a>
+							</div>
+							
+							<div class="account_alertText__bGPQB"></div>
+								<div class="account_signUpInputWrapper__kzyF3">
+									<button type="button" class="account_checkButton__wezDS" id="abutton">반려동물 목록</button>
+							</div>
+							<dialog  id="dialog"> 나의 반려동물을 등록해 보아요<br/><br/>
+								<div id="addpet"></div>
+								<div>
+								<button value="add" id="add">반려동물 등록</button><br/><br/>
+								<button value="confirm" id="confirm">완료</button>
+								</div>
+							</dialog>
+							
 							<div class="account_alertText__bGPQB" id="allCheckNeed">필수 동의사항에 동의해야 회원가입이
 								가능합니다</div>
 						</div>

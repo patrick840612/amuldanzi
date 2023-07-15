@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.service.LoginService;
 
 import jakarta.servlet.http.Cookie;
@@ -122,14 +124,16 @@ public class LoginController {
 	
 	// 회원가입
 	@RequestMapping("/regist")
-	public String regist(MemberInfoDTO member, Model m) {
+	public String regist(MemberInfoDTO member, MemberPetDTO[] pets, Model m) {
 		loginService.regist(member);
+		System.out.println("***********************************");
+		System.out.println(pets);
+		System.out.println("===================================");
+	    for (MemberPetDTO pet : pets) {
+	        pet.setMemberId(member);
+	    }
+		
 		m.addAttribute("id", member.getId());
-		
-		System.out.println("111*****************************************");
-		System.out.println(member);
-		System.out.println("--------------------");
-		
 		return "/main/index";
 	}
 	

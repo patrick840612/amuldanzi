@@ -17,7 +17,8 @@ import lombok.Data;
 @Entity
 @Table(name = "memberPet")
 @DynamicInsert
-public class memberPetDTO {
+public class MemberPetDTO {
+
 
 
 	@Id // pk 지정
@@ -34,5 +35,13 @@ public class memberPetDTO {
 	private String petBlood;
 
 	private String gps;
+	
+	public MemberPetDTO(String name, String breed) {
+
+	    this.petName = petName;
+	    this.whichPet = whichPet;
+	    this.petBlood = petBlood;
+	    this.gps = gps;
+	}
 
 }

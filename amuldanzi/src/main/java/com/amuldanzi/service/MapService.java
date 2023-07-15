@@ -3,7 +3,7 @@ package com.amuldanzi.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.amuldanzi.domain.memberPetDTO;
+import com.amuldanzi.domain.MemberPetDTO;
 
 public interface MapService {
 
