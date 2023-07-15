@@ -11,9 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "memberPet")
 @DynamicInsert
@@ -33,15 +37,6 @@ public class MemberPetDTO {
 	private String petName;
 	private String whichPet;
 	private String petBlood;
-
 	private String gps;
 	
-	public MemberPetDTO(String name, String breed) {
-
-	    this.petName = petName;
-	    this.whichPet = whichPet;
-	    this.petBlood = petBlood;
-	    this.gps = gps;
-	}
-
 }
