@@ -382,7 +382,7 @@ $(function() {
     password.onkeyup = validatePassword;
     confirm_password.onkeyup = validatePassword;
 
-	  // 모달사용법
+	  // 모달사용 반려동물 등록 만들기
 	  const abutton = document.querySelector("#abutton");
 	  const dialog = document.querySelector("#dialog");
 	  let petCount=0;
@@ -399,7 +399,7 @@ $(function() {
 		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petName[]" placeholder="반려동물 이름(필수)" required/>'));
 		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="whichPet[]" placeholder="반려동물 종류(필수)" required/>'));
 		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petBlood[]" placeholder="반려동물 혈액형(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="gps[]" placeholder="GPS 시리얼"/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet petgps" name="gps[]" placeholder="GPS 시리얼"/>'));
 		  $('.addpetDiv').last().append($('<input type="button" class="addpet" name="deletePet" value="삭제"/><br/><br/>'));
 		  petCount += 1;
 		});
@@ -414,8 +414,17 @@ $(function() {
 		  $(this).closest('.addpetDiv').remove();
 		  petCount -= 1;
 		  console.log(petCount);
-		});
+	  });
+	  // 반려동물 등록 끝
 	  
+	  $('#regist').submit(function(){
+		  $('.petgps').each(function() {
+			    if ($(this).val() === '') {
+			      $(this).val('없음');
+			    }
+		  });
+	  });
+
 });
 </script>
 </head>
@@ -434,7 +443,7 @@ $(function() {
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">회원가입</div>
-					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate enctype="multipart/form-data">
+					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate> 
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
 								class="account_inputSignUp___sBwm form-control" id="userEmail" required>
