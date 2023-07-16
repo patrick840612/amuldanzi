@@ -117,7 +117,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void adSave(AdvertisementDTO dto) {
 		// TODO Auto-generated method stub
-		
+		adRepo.save(dto);
 	}
 
 	@Override
@@ -136,6 +136,12 @@ public class AdminServiceImpl implements AdminService {
 	public void careDelete(CareDTO dto) {
 		// TODO Auto-generated method stub
 		careRepo.delete(dto);
+	}
+
+	@Override
+	public NoticeDTO getNotice(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		return noticeRepo.findById(dto.getId()).get();
 	}
 	
 	

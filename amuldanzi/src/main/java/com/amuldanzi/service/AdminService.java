@@ -38,6 +38,8 @@ public interface AdminService {
 	void eduDelete(EducationDTO dto);
 
 	void careDelete(CareDTO dto);
+
+	NoticeDTO getNotice(NoticeDTO dto);
 	
 
 }
