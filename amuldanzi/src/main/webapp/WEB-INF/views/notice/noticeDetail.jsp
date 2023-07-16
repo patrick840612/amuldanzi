@@ -27,7 +27,39 @@
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
 
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
+<!doctype html>
+
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link
+	href="https://fonts.googleapis.com/css?family=Raleway:300,400,600"
+	rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+</head>
 
 
 
@@ -36,34 +68,38 @@
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-	<div class="main_mainContents__GXYBn2">		
+
+	<div class="main_mainContents__GXYBn2">
 		<hr class="popper_popperMenuDivider__j1QQj">
-		<br/>
+		<br />
 		<p class="main_mainTitle__nxOQS">공지사항 상세보기</p>
 		<hr class="popper_popperMenuDivider__j1QQj">
-		<br/>
-		<br/>
-		
-			
-			<table border="1" cellpadding="0" cellspacing="0">
-				<tr>
-					<td bgcolor="lightPink" width="600">제목 : ${notice.noticeTitle}</td>
-				</tr>
-				<tr>
-					<td bgcolor="Pink">게시일 : ${notice.noticedate} 조회수 : ${notice.noticeReadCount}</td>
-				</tr>
-				<tr>
-					<td bgcolor="white">내용 : ${notice.noticeContent}</td>
-				</tr>
-			</table>
-			<br/>
-			<a href="/notice/notice" class="btn btn-primary">공지사항 목록 가기</a>
-		<br/>
-		<br>
-		<hr class="popper_popperMenuDivider__j1QQj">
-		<br/>
-		<br/>			
+		<br /> <br />
+
+		<main class="login-form">
+			<div class="cotainer">
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+						<div class="card">
+							<div class="card-header">제목</div>
+							<div class="card">
+							<div class="card-header">날짜, 조회수</div>
+							<div class="card-body">
+								<div>내용</div>
+								<br/>
+									<div class="col-md-6 offset-md-4">
+										<button type="submit" class="btn btn-primary" href="#">
+											목록가기</button>
+									</div>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
+
+	</main>
 
 </body>
 </html>

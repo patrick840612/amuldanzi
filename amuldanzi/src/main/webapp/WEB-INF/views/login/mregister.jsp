@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>회원가입 - 애물단지</title>
+<title>관리자회원가입 - 애물단지</title>
 
 
 <!-- 부트스트랩 -->
@@ -41,7 +41,7 @@ dialog{
 	text-align: center;
 	border-radius: 20px;
 	padding: 20px 50px 10px 50px;
-	background-color : #ec879e;
+	background-color : tomato;
 }
 
 .duplicateCheck{
@@ -94,22 +94,7 @@ dialog{
     flex-direction: column;
 }
 
-.account_checkButton__wezDS{
-	width: 100px !important;
-	height: 40px;
-}
 
-.account_signUpInputWrapper__kzyF3{
-	justify-content: center;
-}
-
-input.addpet::placeholder {
-  text-align: center;
-}
-
-.addpet{
-	margin-right: 10px;
-}
 
 </style>
 
@@ -315,7 +300,7 @@ $(function() {
 			data : { id : userId, userEmail : userEmail, userTel : userTel },
 			dataType : 'json',
 			success : function(result){
-
+				console.log(result.resultTel);
 				// 중복된 전화번호 없음
 				/*if(result.resultEmail == false){
 					$('#EmailCheckDup').text('');
@@ -348,16 +333,12 @@ $(function() {
           if ($("#userPass").val() != $("#userPass2").val()){
         	  event.preventDefault();
               event.stopPropagation();
+              //alert('비밀번호가 일치하지 않습니다');
           }
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
             alert('입력이 올바르지 않습니다');
-          }
-          if (petCount == 0 && $('#bloodGive').is(':checked') == true){
-        	  event.preventDefault();
-              event.stopPropagation();
-              alert('혈액제공에 동의하면 반려동물 목록에서 등록을 해야합니다');
           }
           form.classList.add('was-validated');
         }, false);
@@ -381,53 +362,6 @@ $(function() {
     }
     password.onkeyup = validatePassword;
     confirm_password.onkeyup = validatePassword;
-
-	  // 모달사용 반려동물 등록 만들기
-	  const abutton = document.querySelector("#abutton");
-	  const dialog = document.querySelector("#dialog");
-	  let petCount=0;
-	
-	  abutton.addEventListener("click", () => {
-          event.preventDefault();
-	      dialog.showModal();
-	  });
-
-	  $(document).on("click", "#add", function(event) {
-		  event.preventDefault();
-
-		  $('#addpet').append($('<div class="addpetDiv"></div>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petName[]" placeholder="반려동물 이름(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="whichPet[]" placeholder="반려동물 종류(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petBlood[]" placeholder="반려동물 혈액형(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet petgps" name="gps[]" placeholder="GPS 시리얼"/>'));
-		  $('.addpetDiv').last().append($('<input type="button" class="addpet" name="deletePet" value="삭제"/><br/><br/>'));
-		  petCount += 1;
-		});
-	
-	  $('#confirm').on("click", (event) => {
-		  event.preventDefault();
-		  dialog.close();
-	  });
-	  
-	  $(document).on("click", "input[name='deletePet']", function(event) {
-		  event.preventDefault();
-		  $(this).closest('.addpetDiv').remove();
-		  petCount -= 1;
-		  console.log(petCount);
-	  });
-	  // 반려동물 등록 끝
-	  
-	  // 회원가입
-	  $('#regist').submit(function(){
-		  $('.petgps').each(function() {
-			    if ($(this).val() === '') {
-			      $(this).val('없음');
-			    }
-		  });
-	  }); // 회원가입 완료
-	  
-
-
 });
 </script>
 </head>
@@ -435,9 +369,6 @@ $(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-	
-						
-						
 	<div class="login_contents__1fQZs">
 		<div class="login_loginImgWrapper__ETBnE">
 			<img src="/images/logo1.png" class="login_loginImg__aI0wq">
@@ -445,8 +376,8 @@ $(function() {
 		<div class="account_signUpContainer__nL9LE">
 			<div class="account_contents__E8DTc">
 				<div class="account_signUpFormContainer__tTwFf">
-					<div class="account_signUpDesc__FZLyl">회원가입</div>
-					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate> 
+					<div class="account_signUpDesc__FZLyl">관리자 회원가입</div>
+					<form action="/login/regist" method="post" id="regist" class="validation-form" name="frm-join" novalidate>
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="email" name="userEmail" placeholder="이메일" value=""
 								class="account_inputSignUp___sBwm form-control" id="userEmail" required>
@@ -502,7 +433,7 @@ $(function() {
 							<input type="hidden" id="lng" name="lng">
 							<input type="hidden" id="sido" name="sido">
 							<input type="hidden" id="sigungu" name="sigungu">
-							<input type="hidden" id="memberRole" name="memberRole" value="일반회원">
+							<input type="hidden" id="memberRole" name="memberRole" value="관리자">
 						</div>
 						<input type="hidden" name="userAddr" id="userAddr">
 						
@@ -548,28 +479,6 @@ $(function() {
 									href="https://corp.bemypet.kr/marketing-agreement/"
 									target="_blank" rel="noopener noreferrer">내용보기</a>
 							</div>
-							<div class="account_loginfunction__TLCNR">
-								<div class="account_checkboxwrap__SLQoe">
-									<input type="checkbox" name="bloodGive" id="bloodGive"><label for="bloodGive"
-										class="account_checkLabel__7ESRF">(선택) 반려동물 혈액 나눔 동의</label>
-								</div>
-								<a class="account_description__zlB3V"
-									href="https://corp.bemypet.kr/marketing-agreement/"
-									target="_blank" rel="noopener noreferrer">내용보기</a>
-							</div>
-							
-							<div class="account_alertText__bGPQB"></div>
-								<div class="account_signUpInputWrapper__kzyF3">
-									<button type="button" class="account_checkButton__wezDS" id="abutton">반려동물 목록</button>
-							</div>
-							<dialog  id="dialog"> 나의 반려동물을 등록해 보아요<br/><br/>
-								<div id="addpet"></div>
-								<div>
-								<button value="add" id="add">반려동물 등록</button><br/><br/>
-								<button value="confirm" id="confirm">완료</button>
-								</div>
-							</dialog>
-							
 							<div class="account_alertText__bGPQB" id="allCheckNeed">필수 동의사항에 동의해야 회원가입이
 								가능합니다</div>
 						</div>

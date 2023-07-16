@@ -9,13 +9,13 @@ import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
-import com.amuldanzi.domain.MarketDTO;
+import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
 import com.amuldanzi.persistence.EducationRepository;
-import com.amuldanzi.persistence.MarketRepository;
+import com.amuldanzi.persistence.MarketInfoRepository;
 import com.amuldanzi.persistence.NoticeRepository;
 
 @Service("adminService")
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 	EducationRepository eduRepo;
 	
 	@Autowired
-	MarketRepository marketRepo;
+	MarketInfoRepository marketRepo;
 	
 	@Autowired
 	NoticeRepository noticeRepo;
@@ -40,9 +40,9 @@ public class AdminServiceImpl implements AdminService {
 	AdvertisementRepository adRepo;
 
 	@Override
-	public List<MarketDTO> getMarketList() {
+	public List<MarketInfoDTO> getMarketList() {
 		// TODO Auto-generated method stub
-		return (List<MarketDTO>)marketRepo.findAll();
+		return (List<MarketInfoDTO>)marketRepo.findAll();
 	}
 
 	@Override

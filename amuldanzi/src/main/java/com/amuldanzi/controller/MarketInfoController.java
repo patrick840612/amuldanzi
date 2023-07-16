@@ -13,30 +13,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amuldanzi.service.ClinicService;
+import com.amuldanzi.service.MarketInfoService;
 
 @Controller
-@RequestMapping("/clinic")
-public class ClinicController {
-	
+@RequestMapping("/marketinfo")
+public class MarketInfoController {
+
+
 	@Autowired
-	ClinicService service; 
+	MarketInfoService service; 
 	
-	@RequestMapping("/clinicInfo")
+	@RequestMapping("/marketInfo")
 	public void clinicPage() {
 		
-		System.out.println("clinicDetail호출");
+		System.out.println("marketInfo호출");
 		
 	}
 	
-	@GetMapping("/clinicMarker")
+	@GetMapping("/marketMarker")
 	@ResponseBody
 	public List<HashMap<String, Object>> clinicDetail(Model model) {
 		
-		System.out.println("clinicDetail호출");
-		List<HashMap<String, Object>> clinic = service.getAllClinics(); 
-		System.out.println(clinic);
+		System.out.println("marketMarker호출");
+		List<HashMap<String, Object>> market = service.getAllmarket(); 
+		System.out.println(market);
 		
-        return clinic; 
+        return market; 
 		
 	}
 
@@ -47,10 +49,10 @@ public class ClinicController {
 		
 		System.out.println("searchAll 요청");
 		
-		List<Map<String, String>> clinicAll = service.getAllHospital();
-		m.addAttribute("searchAll",clinicAll); 
+		List<Map<String, String>> marketAll = service.getAllmarketInfo();
+		m.addAttribute("searchAll",marketAll); 
 	
-		return clinicAll;
+		return marketAll;
 	}
 	
 	@GetMapping("/searchByLocation")
