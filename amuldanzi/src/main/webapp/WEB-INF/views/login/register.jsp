@@ -315,7 +315,7 @@ $(function() {
 			data : { id : userId, userEmail : userEmail, userTel : userTel },
 			dataType : 'json',
 			success : function(result){
-				console.log(result.resultTel);
+
 				// 중복된 전화번호 없음
 				/*if(result.resultEmail == false){
 					$('#EmailCheckDup').text('');
@@ -417,13 +417,16 @@ $(function() {
 	  });
 	  // 반려동물 등록 끝
 	  
+	  // 회원가입
 	  $('#regist').submit(function(){
 		  $('.petgps').each(function() {
 			    if ($(this).val() === '') {
 			      $(this).val('없음');
 			    }
 		  });
-	  });
+	  }); // 회원가입 완료
+	  
+
 
 });
 </script>

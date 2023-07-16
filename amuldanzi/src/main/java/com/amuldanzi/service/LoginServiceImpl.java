@@ -14,8 +14,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.dao.LoginDAO;
+import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.MemberPetDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -50,6 +53,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private LoginDAO loginDAO;
+	
+	@Autowired
+	private LoginPetDAO loginPetDAO;
 	
 	// 구글 로그인
 	public String googleLogin(String code) {
@@ -221,10 +227,13 @@ public class LoginServiceImpl implements LoginService {
 		else return id;
 	}
 	
-	public void regist(MemberInfoDTO member) {
+	public void regist(MemberInfoDTO member, List<MemberPetDTO> petList) {
 		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());
 		member.setUserPassword(pw);
 		loginDAO.save(member);
+		for(MemberPetDTO pet : petList) {
+			loginPetDAO.save(pet);
+		}
 	}
 	
 	public String loginCheck(MemberInfoDTO member) {

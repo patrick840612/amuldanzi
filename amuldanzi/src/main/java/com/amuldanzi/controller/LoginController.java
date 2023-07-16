@@ -126,11 +126,9 @@ public class LoginController {
 	}
 	
 	// 회원가입
-	
 	@RequestMapping("/regist")
 	public String regist(@ModelAttribute MemberInfoDTO member, @ModelAttribute MemberPetDTO pets, Model m) {
-		loginService.regist(member);
-
+		
 		m.addAttribute("id", member.getId());
 		
 		List<MemberPetDTO> petList = new ArrayList<>();
@@ -151,10 +149,13 @@ public class LoginController {
 	        
 	        petList.add(memberPetDTO);
 	    }
+		
+		loginService.regist(member, petList);
 	
 		return "/main/index";
-	}
+	} // 회원가입 완료
 	
+
 	// 중복체크 idCheckServiceCon
 	@RequestMapping("/idCheckServiceCon")
 	@ResponseBody
