@@ -47,10 +47,17 @@
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script>
   $(document).ready(function() {
+	  
+	  let postForm = function() {
+		  let content = $('#editor-one').summernote('code');
+		  $('#content').val(content);
+		} 
+	  
+  
     // 라디오 버튼 클릭 이벤트 핸들러
     function handleRadioChange() {
       var selectedValue = $('input[name="cate"]:checked').val();
@@ -262,6 +269,13 @@
 
     // 라디오 버튼 클릭 이벤트 리스너 등록
     $('input[name="cate"]').on('change', handleRadioChange);
+    
+ 	// 폼 제출 시 postForm 함수 호출
+    $('form').submit(function() {
+        postForm();
+      });
+    
+    
   });
 </script>
 
@@ -307,7 +321,7 @@
 								<li><a><i class="fa fa-edit"></i> 게시판<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/adminInsert">글 추가</a></li>
+										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
 										<li><a href="form_validation.html">신고 글 관리</a></li>
 									</ul></li>
@@ -320,8 +334,8 @@
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">광고 등록</a></li>
-										<li><a href="media_gallery.html">광고 관리</a></li>
+										<li><a href="/admin/adminADInsert">광고 등록</a></li>
+										<li><a href="/admin/adminADList">광고 관리</a></li>
 									</ul></li>
 							</ul>
 						</div>
@@ -393,7 +407,7 @@
 							</div>
 						</div>
 						<div id="insertCateForm">
-							<form action="noticeSave" method="post">
+							<form action="noticeSave" method="POST" enctype="multipart/form-data">
 								<div>
 									<input name="cateId" type="hidden" value="0" /> <span
 										class="question_questionCategory__1QDx6">공지 카테고리</span><span
@@ -422,11 +436,86 @@
 										class="question_titleInput__S7Isd" type="text" name="title" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>
-								<div class="question_questionInputWrapper__fGaar">
-									<textarea placeholder="5자 이상의 글 내용을 입력해주세요"
-										class="question_questionInput___Mb57" type="text"
-										name="content"></textarea>
-									<div class="question_alertText__WnxqW"></div>
+								<div class="x_panel">
+									<div class="x_content">
+										<div id="alerts"></div>
+										<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+											<div class="btn-group">
+												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font" aria-expanded="false"><i class="fa fa-font"></i><b class="caret"></b></a>
+												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+												</ul>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size" aria-expanded="false"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+													<li>
+														<a data-edit="fontSize 5" class="">
+															<p style="font-size:17px">Huge</p>
+														</a>
+													</li>
+													<li>
+														<a data-edit="fontSize 3" class="">
+															<p style="font-size:14px">Normal</p>
+														</a>
+													</li>
+													<li>
+														<a data-edit="fontSize 1" class="">
+															<p style="font-size:11px">Small</p>
+														</a>
+													</li>
+												</ul>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+												<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+												<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+												<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+												<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+												<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+												<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+												<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+												<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+												<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+												<div class="dropdown-menu input-append">
+													<input class="span2" placeholder="URL" type="text" data-edit="createLink">
+													<button class="btn" type="button">Add</button>
+												</div>
+												<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+												<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+											</div>
+		
+											<div class="btn-group">
+												<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+												<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+											</div>
+										</div>
+		
+										<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
+		
+										<textarea name="content" id="content" style="display:none;"></textarea>
+		
+										<br>
+		
+										<div class="ln_solid"></div>
+									</div>
 								</div>
 								<div>
 									<button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
@@ -459,43 +548,37 @@
 	<script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
-	<!-- Chart.js -->
-	<script src="/admin/vendors/Chart.js/dist/Chart.min.js"></script>
-	<!-- gauge.js -->
-	<script src="/admin/vendors/gauge.js/dist/gauge.min.js"></script>
 	<!-- bootstrap-progressbar -->
-	<script
-		src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
-	<!-- Skycons -->
-	<script src="/admin/vendors/skycons/skycons.js"></script>
-	<!-- Flot -->
-	<script src="/admin/vendors/Flot/jquery.flot.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.pie.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.time.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.stack.js"></script>
-	<script src="/admin/vendors/Flot/jquery.flot.resize.js"></script>
-	<!-- Flot plugins -->
-	<script src="/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-	<script src="/admin/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-	<script src="/admin/vendors/flot.curvedlines/curvedLines.js"></script>
-	<!-- DateJS -->
-	<script src="/admin/vendors/DateJS/build/date.js"></script>
-	<!-- JQVMap -->
-	<script src="/admin/vendors/jqvmap/dist/jquery.vmap.js"></script>
-	<script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-	<script
-		src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 	<!-- bootstrap-daterangepicker -->
 	<script src="/admin/vendors/moment/min/moment.min.js"></script>
 	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+	<!-- bootstrap-wysiwyg -->
+	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="/admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="/admin/vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="/admin/vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="/admin/vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
-	<!-- 파일업로드 Scripts -->
-	<script src="/admin/chunks/pages/file/write-83a024a965a9a52e.js"></script>
-
+	
+	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+	
 
 </body>
 </html>

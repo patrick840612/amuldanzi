@@ -1,12 +1,16 @@
 package com.amuldanzi.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.service.LoginService;
 
 import jakarta.servlet.http.Cookie;
@@ -122,13 +127,35 @@ public class LoginController {
 	
 	// 회원가입
 	@RequestMapping("/regist")
-	public String regist(MemberInfoDTO member, Model m) {
-		loginService.regist(member);
+	public String regist(@ModelAttribute MemberInfoDTO member, @ModelAttribute MemberPetDTO pets, Model m) {
+		
 		m.addAttribute("id", member.getId());
-		System.out.println(member);
-		return "/main/index";
-	}
+		
+		List<MemberPetDTO> petList = new ArrayList<>();
+		String[] petNames = pets.getPetName().split(",");
+		String[] whichPets = pets.getWhichPet().split(",");
+		String[] petBloods = pets.getPetBlood().split(",");
+		String[] gpss = pets.getGps().split(",");
+		
+		for (int i = 0; i < petNames.length; i++) {
+
+	        MemberPetDTO memberPetDTO = new MemberPetDTO();
+
+	        memberPetDTO.setPetName(petNames[i]);
+	        memberPetDTO.setWhichPet(whichPets[i]);
+	        memberPetDTO.setPetBlood(petBloods[i]);
+	        memberPetDTO.setGps(gpss[i]);
+	        memberPetDTO.setMemberId(member);
+	        
+	        petList.add(memberPetDTO);
+	    }
+		
+		loginService.regist(member, petList);
 	
+		return "/main/index";
+	} // 회원가입 완료
+	
+
 	// 중복체크 idCheckServiceCon
 	@RequestMapping("/idCheckServiceCon")
 	@ResponseBody
@@ -138,10 +165,6 @@ public class LoginController {
 		boolean resultId = loginService.idCheck(member);
 		boolean resultTel = loginService.telCheck(member);
 		boolean resultEmail = loginService.emailCheck(member);
-		
-		System.out.println("111*****************************************");
-		System.out.println(resultId);
-		System.out.println("--------------------");	
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("resultId", resultId);

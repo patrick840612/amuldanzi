@@ -6,12 +6,12 @@ import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.EducationDTO;
-import com.amuldanzi.domain.MarketDTO;
+import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 
 public interface AdminService {
 
-	List<MarketDTO> getMarketList();
+	List<MarketInfoDTO> getMarketList();
 
 	List<ClinicDTO> getClinicList();
 
@@ -38,6 +38,8 @@ public interface AdminService {
 	void eduDelete(EducationDTO dto);
 
 	void careDelete(CareDTO dto);
+
+	NoticeDTO getNotice(NoticeDTO dto);
 	
 
 }
