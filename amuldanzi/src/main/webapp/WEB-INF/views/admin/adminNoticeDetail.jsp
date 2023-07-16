@@ -54,7 +54,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
+						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
 							<span>애물단지</span></a>
 					</div>
 
@@ -103,8 +103,8 @@
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/adminADInsert">광고 등록</a></li>
-										<li><a href="/admin/adminADList">광고 관리</a></li>
+										<li><a href="/admin/adInsert">광고 등록</a></li>
+										<li><a href="/admin/adList">광고 관리</a></li>
 									</ul></li>
 							</ul>
 						</div>
@@ -188,7 +188,7 @@
 										<div class="item form-group2">
 											<div class="text-right">
 												<button class="btn btn-primary" type="submit">수정</button>
-												<a class="btn btn-primary" href="noticeDelete">삭제</button>
+												<a class="btn btn-primary" href="noticeDelete?id=${notice.id }">삭제</button>
 												<a class="btn btn-primary" href="/admin/adminContentList">목록</a>
 											</div>
 										</div>																		

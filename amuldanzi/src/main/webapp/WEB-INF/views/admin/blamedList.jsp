@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -50,7 +51,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
+						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
 							<span>애물단지</span></a>
 					</div>
 
@@ -72,7 +73,7 @@
 					<br />
 
 					<!-- sidebar menu -->
-					<div id="sidebar-menu"
+										<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>General</h3>
@@ -99,8 +100,8 @@
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/adminADInsert">광고 등록</a></li>
-										<li><a href="/admin/adminADList">광고 관리</a></li>
+										<li><a href="/admin/adInsert">광고 등록</a></li>
+										<li><a href="/admin/adList">광고 관리</a></li>
 									</ul></li>
 							</ul>
 						</div>
@@ -153,216 +154,76 @@
 
 
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 1055px;">
+			<div class="right_col" role="main" style="min-height: 857px;">
 				<div class="">
-					<div class="page-title">
-						<div class="title_left">
-							<h3>광고 게시판</h3>
-						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">검색</button>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<div class="clearfix"></div>
-
-					<div class="row">
-						<div class="col-md-12">
+					<div class="row" style="display: block;">
+						<div class="clearfix"></div>
+						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>광고 리스트</h2>
+									<h2>신고글 리스트</h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-
 									<div class="row">
-										
+										<div class="col-sm-12">
+											<div>
+												<div id="datatable_wrapper"
+													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+													<div class="row">
+														<div class="col-sm-12">
+															<table id="datatable"
+																class="table table-striped table-bordered dataTable no-footer"
+																style="width: 100%;" role="grid"
+																aria-describedby="datatable_info">
+																<thead>
+																	<tr role="row">
+																		<th class="sorting_desc" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Name: activate to sort column ascending"
+																			style="width: 40px;" aria-sort="descending">ID</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Position: activate to sort column ascending"
+																			style="width: 250px;">제목</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Office: activate to sort column ascending"
+																			style="width: 95px;">작성일자</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Age: activate to sort column ascending"
+																			style="width: 40px;">조회수</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Start date: activate to sort column ascending"
+																			style="width: 50px;"></th>
+																	</tr>
+																</thead>
 
 
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										
-										
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="images/media.jpg" alt="image">
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-																class="fa fa-pencil"></i></a> <a href="#"><i
-																class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>Image Name</strong>
-													</p>
-													<p>Snow and Ice Incoming</p>
-												</div>
-											</div>
-										</div>
+																<tbody id="adminBoardList">
+																
+																	<!-- 첫 접속시 공지 내용 불러오기 -->
+																	<c:forEach items="${list}" var="list">
+																		<tr role="row" class="odd">
+																			<td class="sorting_1">${list.id }</td>
+																			<td><a href="/admin/adminNoticeDetail?id=${list.id}">${list.title }</a></td>
+																			<td>${list.regdate }</td>
+																			<td>${list.count }</td>
+																			<td><a href="noticeDelete?id=${list.id }">삭제</a></td>
+																		</tr>
+																	</c:forEach>
 
-										
-										
-										
-										
+																</tbody>
+																
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
