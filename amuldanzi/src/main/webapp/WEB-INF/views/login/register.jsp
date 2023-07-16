@@ -169,6 +169,9 @@ $(function() {
 	  checkboxes.forEach((checkbox) => {
 	    checkbox.checked = isChecked;
 	  });
+	  
+	  // 혈액 나눔 체크박스 트리거 설치
+	  $('#bloodGive').prop('checked', isChecked).trigger('change');
 
 	  if (isChecked) {
 	    checkLabels.forEach((label) => {
@@ -352,7 +355,7 @@ $(function() {
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
-            alert('입력이 올바르지 않습니다');
+            //alert('입력이 올바르지 않습니다');
           }
           if (petCount == 0 && $('#bloodGive').is(':checked') == true){
         	  event.preventDefault();
@@ -427,6 +430,26 @@ $(function() {
 	  }); // 회원가입 완료
 	  
 
+	  
+	  // 혈액제공 동의시 선택 체크 여부
+	  $('#bloodhidden').hide();
+	  
+		$('#bloodGive').change(function () {
+			if ($('#bloodGive').is(':checked')) {
+			    // 체크되었을 때 실행할 코드
+				$('#bloodhidden').show();
+			    
+			} else {
+			    // 체크되지 않았을 때 실행할 코드
+				$('#bloodhidden').hide();
+			}
+			
+		});
+		
+
+
+			    
+
 
 });
 </script>
@@ -436,7 +459,6 @@ $(function() {
 
 <body>
 	
-						
 						
 	<div class="login_contents__1fQZs">
 		<div class="login_loginImgWrapper__ETBnE">
@@ -475,12 +497,21 @@ $(function() {
 								value="" class="account_inputSignUp___sBwm form-control" id="userPass2" required><div></div><div></div>
 							<div class="invalid-feedback">비밀번호가 일치하지 않습니다</div>
 						</div>
-						
+
+
+
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
+							<input type="tel" id="hiddenPhone" class="form-control" required/>	
 							<input type="tel" name="userTel" placeholder="전화번호"
-								value="" class="form-control account_inputSignUp___sBwm" id="userTel" minlength="13" maxlength="13" required><div></div><div></div>								
-							<div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
+								class="account_inputSignUp___sBwm" id="userTel" readonly>
+														
+							<div class="account_alertText__bGPQB"></div>
+							<div class="account_signUpInputWrapper__kzyF3">
+								<button type="button" class="account_checkButton__wezDS" id="textbutton">번호인증</button>
+								<div id="recaptcha-container"></div>
+							</div>								
+							<div class="invalid-feedback">휴대폰 번호를 인증해주세요</div>
 						</div>
 						
 						<div class="account_alertText__bGPQB"></div>
@@ -551,11 +582,28 @@ $(function() {
 							<div class="account_loginfunction__TLCNR">
 								<div class="account_checkboxwrap__SLQoe">
 									<input type="checkbox" name="bloodGive" id="bloodGive"><label for="bloodGive"
-										class="account_checkLabel__7ESRF">(선택) 반려동물 혈액 나눔 동의</label>
+										class="account_checkLabel__7ESRF">(선택) 반려동물 혈액 나눔 동의</label><br/>
 								</div>
+							</div>
+							
+							<div id="bloodhidden">
+							<div class="account_alertText__bGPQB"></div>
+								<div style="color : red;">혈액나눔에 동의하시면 동의한 회원들에게 노출번호가 공개됩니다</div>
+								<div>혈액 나눔 노출번호 (*안심번호로 수정가능)</div>
+								<div class="account_checkboxwrap__SLQoe"><input type="checkbox" name="safeTel" id="safeTel"><label for="safeTel" class="account_checkLabel__7ESRF">안심번호 사용</label></div>
+								<div class="account_signUpInputWrapper__kzyF3">
+								<input type="tel" id="bloodTel" name="bloodTel" placeholder="0500-0000-0000" class="account_inputSignUp___sBwm"/>
+							</div>
 								<a class="account_description__zlB3V"
-									href="https://corp.bemypet.kr/marketing-agreement/"
-									target="_blank" rel="noopener noreferrer">내용보기</a>
+									href="https://i.etcc.co.kr/33"
+									target="_blank" rel="noopener noreferrer">안심번호 만드는 방법 : 어플리케이션 (모바)</a>
+							
+							<div class="account_alertText__bGPQB"></div>
+								<div style="color : green;">혈액 나눔 정보에 메세지를 남겨주세요</div>
+								<div>혈액 나눔 메시지</div>
+								<div class="account_signUpInputWrapper__kzyF3">
+								<textarea style="resize:none; height: 100px; border: 1px solid black;" class="account_inputSignUp___sBwm" id="bloodMessage" name="bloodMessage" placeholder="예) 전화연락 말고 문자남겨주세요"></textarea>
+							</div>
 							</div>
 							
 							<div class="account_alertText__bGPQB"></div>
@@ -605,7 +653,154 @@ $(function() {
 			</div>
 		</div>
 	</div>
+							<dialog  id="textdialog"> 로봇이 아님을 증명해 주세요 <br/><br/>
+							    <form>
+							        핸 드 폰 번 호 : <input id="phoneNumber"/>
+							        <button type="tel" id="phoneNumberButton" disabled="disabled">전화 번호 전송</button>
+							    </form>
+								<br/>
+							    <form>
+							        문자인증코드 : <input id="confirmCode"/>
+							        <button id="confirmCodeButton" disabled="disabled">확인 코드 전송</button>
+							    </form>
+								<br/>
+								<button id="back">회원가입 페이지 돌아가기</button>
+							</dialog>
 
-	</div>
+  	<script type="module">
+        // 필요한 SDK에서 필요한 함수 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
+        import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+     
+        // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
+        const firebaseConfig = {
+          apiKey: "AIzaSyByApv-Y_LC3KFHvR8H9WM-iHtHCeHT6SQ",
+          authDomain: "easylogin-32ddb.firebaseapp.com",
+          projectId: "easylogin-32ddb",
+          storageBucket: "easylogin-32ddb.appspot.com",
+          messagingSenderId: "856131945500",
+          appId: "1:856131945500:web:3d171e4ab73b9edf864bd9",
+          measurementId: "G-5HSVVDRF57"
+        };
+      
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const auth = getAuth();
+        auth.languageCode = 'ko';
+		
+		// 문자인증 받기
+	  	const textdialog = document.querySelector("#textdialog");
+	  	const textbutton = document.querySelector("#textbutton");
+	  
+	 	 $('#hiddenPhone').hide();
+	  
+	 	 $('#back').click(function(){
+			  textdialog.close();
+		  });
+
+		// 로봇인증 확인여부
+		let recaptchaResolved = false;
+
+		$('#textbutton').on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!recaptchaResolved){
+				alert("로봇이 아님을 인증해 주세요");				
+			}else{
+				textdialog.showModal();
+			}
+		});
+
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            'size': 'normal',
+            'callback': (response) => {
+                // console.log(response)
+                // reCAPTCHA가 해결되면 signInWithPhoneNumber을 허용합니다.
+				$('#recaptcha-container').hide();
+				$('#phoneNumberButton').removeAttr('disabled');
+				// $('#textbutton').removeAttr('disabled');
+				// $('#textbutton').attr('class', 'account_checkButton__wezDS');
+				textdialog.showModal();  
+      
+                // reCAPTCHA가 해결되었으므로 변수 값을 true로 설정합니다.
+                recaptchaResolved = true;
+            },
+            'expired-callback': () => {
+                console.log('error')
+                // 응답이 만료되었습니다. 사용자에게 reCAPTCHA를 다시 풀도록 요청합니다.
+				$('#recaptcha-container').show();
+				$('#phoneNumberButton').attr('disabled', true);
+				// $('#textbutton').attr('class', 'account_noCheckButton__dNWQx');
+				// $('#textbutton').attr('disabled', true);
+                // reCAPTCHA가 만료되었으므로 변수 값을 false로 설정합니다.
+                recaptchaResolved = false;
+            }
+        });
+
+        recaptchaVerifier.render().then((widgetId) => {
+                    window.recaptchaWidgetId = widgetId;
+                    const recaptchaResponse = grecaptcha.getResponse(recaptchaWidgetId);   
+        });
+
+        document.getElementById('phoneNumberButton').addEventListener('click', (event) => {
+            event.preventDefault()
+            const phoneNumber = document.getElementById('phoneNumber').value
+            const appVerifier = window.recaptchaVerifier;
+
+            signInWithPhoneNumber(auth, '+82'+phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                // SMS가 전송되었습니다. 사용자에게 메시지에서 코드를 입력하도록 요청하고, confirmationResult.confirm(code)로 사용자를 로그인합니다.
+                window.confirmationResult = confirmationResult;
+                // console.log(confirmationResult)
+                $('#recaptcha-container').hide();
+				$('#confirmCodeButton').removeAttr('disabled');
+                }).catch((error) => {
+                    console.log(error)
+                // 에러; SMS가 전송되지 않았습니다.
+                $('#recaptcha-container').show();
+				$('#confirmCodeButton').attr('disabled', true);
+                });
+        })
+
+        document.getElementById('confirmCodeButton').addEventListener('click', (event) => {
+            event.preventDefault()
+            const code = document.getElementById('confirmCode').value
+            confirmationResult.confirm(code).then((result) => {
+                // 사용자가 성공적으로 로그인했습니다.
+                const user = result.user;
+				const phoneNumber = result.user.phoneNumber;
+                console.log(phoneNumber);
+				$('#userTel').val(formatPhoneNumber(phoneNumber));
+				$('#hiddenPhone').val(formatPhoneNumber(phoneNumber));
+				$('#bloodTel').val(formatPhoneNumber(phoneNumber));
+				textdialog.close();
+
+                }).catch((error) => {
+                console.log(error)    
+                // 사용자가 로그인하지 못했습니다 (유효하지 않은 인증 코드인 경우 등).
+                alert('인증코드가 틀렸습니다');
+                });
+        })
+
+  // 전화번호를 변환하는 함수
+  function formatPhoneNumber(phoneNumber) {
+    var formattedNumber = phoneNumber.replace(/\D/g, ''); // 숫자가 아닌 문자 모두 제거
+
+    if (formattedNumber.startsWith('82')) {
+      formattedNumber = '0' + formattedNumber.slice(2); // 앞에 "0" 한 개를 붙이고 "82"는 잘라냄
+    }
+
+    formattedNumber = formattedNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'); // 하이픈(-) 추가
+    return formattedNumber;
+  }
+
+
+      </script>
+
+
 </body>
 </html>

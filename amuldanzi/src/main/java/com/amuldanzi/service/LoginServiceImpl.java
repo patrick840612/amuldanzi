@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -227,6 +228,7 @@ public class LoginServiceImpl implements LoginService {
 		else return id;
 	}
 	
+	@Transactional
 	public void regist(MemberInfoDTO member, List<MemberPetDTO> petList) {
 		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());
 		member.setUserPassword(pw);

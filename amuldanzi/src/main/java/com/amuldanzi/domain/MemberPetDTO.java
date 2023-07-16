@@ -23,8 +23,6 @@ import lombok.NoArgsConstructor;
 @DynamicInsert
 public class MemberPetDTO {
 
-
-
 	@Id // pk 지정
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	@Column(nullable = false, updatable = false, insertable = false)

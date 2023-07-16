@@ -5,31 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>socialLogin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-    <button id="googleLogin">구글 아이디로 로그인</button>
 
+	<div id="recaptcha-container"></div>
     <form>
         핸드폰 번호 : <input id="phoneNumber"/>
-        <button id="phoneNumberButton">핸드폰 번호 전송</button>
+        <button id="phoneNumberButton" disabled="disabled">핸드폰 번호 전송</button>
     </form>
 
     <form>
         확인 코드 : <input id="confirmCode"/>
-        <button id="confirmCodeButton">확인 코드 전송</button>
+        <button id="confirmCodeButton" disabled="disabled">확인 코드 전송</button>
     </form>
-    <div id="recaptcha-container"></div>
+    
 
     <script type="module">
         // 필요한 SDK에서 필요한 함수 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-        // TODO: 사용하려는 Firebase 제품을 위한 SDK 추가
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // 웹 앱의 Firebase 구성 정보
+     
         // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
         const firebaseConfig = {
           apiKey: "AIzaSyByApv-Y_LC3KFHvR8H9WM-iHtHCeHT6SQ",
@@ -45,54 +43,22 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        const provider = new GoogleAuthProvider();
         const auth = getAuth();
         auth.languageCode = 'ko';
-
-        document.getElementById('googleLogin').addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    // 이것은 Google Access Token입니다. Google API에 액세스하는 데 사용할 수 있습니다.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-                    // 로그인한 사용자 정보
-                    const user = result.user;
-                    console.log(result)
-                    // getAdditionalUserInfo(result)를 사용하여 IdP 데이터 가져오기
-                    // ...
-                }).catch((error) => {
-                    // 에러 처리
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // 사용된 계정의 이메일
-                    const email = error.customData.email;
-                    // 사용된 AuthCredential 유형
-                    const credential = GoogleAuthProvider.credentialFromError(error);
-                    console.log('err', error)
-                    // ...
-                });
-        })
-
-        /*window.recaptchaVerifier = new RecaptchaVerifier(auth, 'phoneNumberButton', {
-            'size': 'invisible',
-            'callback': (response) => {
-                // reCAPTCHA가 해결되면 signInWithPhoneNumber을 허용합니다.
-                onSignInSubmit();
-            }
-        });*/
 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
             'size': 'normal',
             'callback': (response) => {
                 console.log(response)
-                
                 // reCAPTCHA가 해결되면 signInWithPhoneNumber을 허용합니다.
-                // ...
+				$('#recaptcha-container').hide();
+				$('#phoneNumberButton').removeAttr('disabled');         
             },
             'expired-callback': () => {
                 console.log('error')
                 // 응답이 만료되었습니다. 사용자에게 reCAPTCHA를 다시 풀도록 요청합니다.
-                // ...
+				$('#recaptcha-container').show();
+				$('#phoneNumberButton').attr('disabled', true);
             }
         });
 
@@ -111,11 +77,13 @@
                 // SMS가 전송되었습니다. 사용자에게 메시지에서 코드를 입력하도록 요청하고, confirmationResult.confirm(code)로 사용자를 로그인합니다.
                 window.confirmationResult = confirmationResult;
                 console.log(confirmationResult)
-                // ...
+                $('#recaptcha-container').hide();
+				$('#confirmCodeButton').removeAttr('disabled');
                 }).catch((error) => {
                     console.log(error)
                 // 에러; SMS가 전송되지 않았습니다.
-                // ...
+                $('#recaptcha-container').show();
+				$('#confirmCodeButton').attr('disabled', true);
                 });
         })
 
