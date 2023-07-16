@@ -140,7 +140,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -156,8 +156,53 @@
 
 			<!-- page content -->
 			<div class="right_col" role="main" style="min-height: 857px;">
-				
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>공지 게시판</h3>
+						</div>						
+					</div>
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>공지사항</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">									
+									<form>
+										<input name="id" type="hidden" value="${notice.id }">
+										<div class="notice-info">
+											<p>
+												<span class="notice" >${notice.category }</span>
+												<span class="title" >${notice.title }</span>
+												<span class="date" >${notice.regdate }</span>
+											</p>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="">
+											<p>${notice.content }</p>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="item form-group2">
+											<div class="text-right">
+												<button class="btn btn-primary" type="submit">수정</button>
+												<a class="btn btn-primary" href="noticeDelete">삭제</button>
+												<a class="btn btn-primary" href="/admin/adminContentList">목록</a>
+											</div>
+										</div>																		
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+					
+
+					
+
 			<!-- /page content -->
 
 			<!-- footer content -->

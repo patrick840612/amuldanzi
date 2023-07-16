@@ -67,7 +67,15 @@
 						
 						list += '<tr role="row" class="odd">';
 						list += '<td class="sorting_1">'+result[i].id+'</td>';
+						if(result[i].boardCate.cateId == 0){
+						list += '<td class=""><a href="noticeDetail?id='+result[i].id+'">'+result[i].title+'</a></td>';
+						}else if(result[i].boardCate.cateId == 2){
 						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						}else if(result[i].boardCate.cateId == 3){
+						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						}else{
+						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						}		
 						list += '<td>'+result[i].regdate+'</td>';
 						list += '<td>'+result[i].count+'</td>';
 						if(result[i].boardCate.cateId == 0){
@@ -272,7 +280,7 @@
 																	<c:forEach items="${list}" var="list">
 																		<tr role="row" class="odd">
 																			<td class="sorting_1">${list.id }</td>
-																			<td><a href="/admin/adminContentView?cate=0&id=${list.id}">${list.title }</a></td>
+																			<td><a href="/admin/adminNoticeDetail?id=${list.id}">${list.title }</a></td>
 																			<td>${list.regdate }</td>
 																			<td>${list.count }</td>
 																			<td><a href="noticeDelete?id=${list.id }">삭제</a></td>
@@ -316,36 +324,31 @@
 	<script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="/admin/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="/admin/vendors/jszip/dist/jszip.min.js"></script>
-	<script src="/admin/vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="/admin/vendors/pdfmake/build/vfs_fonts.js"></script>
-
+	<!-- bootstrap-daterangepicker -->
+	<script src="/admin/vendors/moment/min/moment.min.js"></script>
+	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="/admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="/admin/vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="/admin/vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="/admin/vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
 
