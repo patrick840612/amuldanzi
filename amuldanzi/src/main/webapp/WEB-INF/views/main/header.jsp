@@ -130,7 +130,7 @@
 									</div>
 								</div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursor" href="/qna/index">커뮤니티</a>
+								class="Header_defaultMenu__cursor" href="/community/communityList">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
 								class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>

@@ -1,6 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-
-
+<%@ page contentType="text/html; charset=UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -18,19 +16,71 @@
 <!-- Custom Theme Style -->
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
-
+<link href="/css/community/community.css" rel="stylesheet">
 <link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
 <link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
-<link href="/admin/chunks/css/text.css" rel="stylesheet">
-
-
-
-
-
+<link href="/css/community/communitytext.css" rel="stylesheet"> 
 </head>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    // 사진 업로드 미리보기
+    $('#uploadFile').on('change', function(event) {
+      var previewContainer = $('#imagePreviewContainer');
+      previewContainer.html('');
+
+      var files = event.target.files;
+
+      for (var i = 0; i < files.length && i < 3; i++) {
+        var file = files[i];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var image = $('<img>').attr('src', e.target.result);
+          var preview = $('<div class="image-preview"></div>').append(image);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 동영상 업로드 미리보기
+    $('#uploadVideo').on('change', function(event) {
+      var previewContainer = $('#videoPreviewContainer');
+      previewContainer.html('');
+
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var video = $('<video controls>').attr('src', e.target.result);
+        var preview = $('<div class="video-preview"></div>').append(video);
+        var deleteButton = $('<span class="delete-button">&times;</span>');
+
+        deleteButton.on('click', function() {
+          preview.remove();
+        });
+
+        preview.append(deleteButton);
+        previewContainer.append(preview);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
@@ -69,10 +119,10 @@
 			<form enctype="multipart/form-data">
 				<div class="question_fileInputWrapper__d9gmU">
 					<span class="question_questionCategory__1QDx6">사진 업로드</span>
-					<div class="question_questionImgContainer__tNqZy"></div>
-					<input id="uploadFile" type="file" multiple=""
-						accept="image/jpg,image/png,image/jpeg,image/gif"
-						style="display: none;"><label for="uploadFile"
+					<div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
+					<input id="uploadFile" type="file" multiple="" accept="image/jpg,image/png,image/jpeg,image/gif"
+						style="display: none;">
+					<label for="uploadFile"
 						class="question_inputFileBtn__zg7jN"><div
 							class="question_inputFileText__Cgamr">사진 첨부</div> <img
 						src="/icons/ICON_PHOTO_CAMERA.svg"></label><span
@@ -81,7 +131,7 @@
 				</div>
 				<div class="question_fileInputWrapper__d9gmU">
 					<span class="question_questionCategory__1QDx6">동영상 업로드</span>
-					<div class="question_questionImgContainer__tNqZy"></div>
+					<div class="question_questionImgContainer__tNqZy" id="videoPreviewContainer"></div>
 					<input id="uploadVideo" type="file"
 						accept="video/mp4,video/quicktime" style="display: none;"><label
 						for="uploadVideo" class="question_inputFileBtn__zg7jN"><div
