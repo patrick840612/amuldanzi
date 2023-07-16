@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
@@ -67,7 +68,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/eduSave")
+	@RequestMapping(value = "/eduSave", method = RequestMethod.POST)
 	public String eduSave(EducationDTO dto) {
 		
 		BoardCategoryDTO category = new BoardCategoryDTO(2,"교육정보");
@@ -121,7 +122,7 @@ public class AdminController {
 //		return "redirect:/admin/adminContentList";
 //	}
 	
-	@RequestMapping("/careSave")
+	@RequestMapping(value = "/careSave", method = RequestMethod.POST)
 	public String careSave(CareDTO dto) {
 		
 		BoardCategoryDTO category = new BoardCategoryDTO(3,"케어정보");
@@ -158,14 +159,24 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/adminADList")
-	public void adminAdList() {
+	@RequestMapping("/adList")
+	public void adList(Model m) {
+		
+		List<AdvertisementDTO> adlist = adminService.getAdList();
+		m.addAttribute("adList", adlist);		
 
 	}
-
-	@RequestMapping("/adminADInsert")
-	public void adminAdInsert() {
+	
+	@RequestMapping("/adInsert")
+	private void adInsert() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
+	public String adSave(AdvertisementDTO dto) {		
+		adminService.adSave(dto);
+		return "redirect:/admin/adList";
 	}
 	
 	@RequestMapping("/adminNoticeDetail")
@@ -173,6 +184,11 @@ public class AdminController {
 		// TODO Auto-generated method stub
 		NoticeDTO notice = adminService.getNotice(dto);
 		m.addAttribute("notice", notice);
+	}
+	
+	@RequestMapping("/blamedList")
+	public void blamedList() {
+		
 	}
 
 }
