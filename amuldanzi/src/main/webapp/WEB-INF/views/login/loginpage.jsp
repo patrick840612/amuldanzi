@@ -190,8 +190,6 @@ $(function(){
 				<div class="login_loginfunctionBar__RYXDN"></div>
 				<div class="login_loginTab__9nBLa" id="regist">회원가입</div>
 				<div class="login_loginTab__9nBLa" id="mregist">관리자 회원가입</div>
-				<a class="login_loginTab__9nBLa" href="/login/firebase">파이어베이스</a>
-				<a class="login_loginTab__9nBLa" href="/login/modal">모달</a>
 			</div>
 		</div>
 	</div>
