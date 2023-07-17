@@ -166,7 +166,7 @@
 									for="광고">광고</label>
 							</div>
 						</div>
-						<form action="adSave" method="POST" enctype="multipart/form-data">
+						<form id="adSave" action="adSave" method="post" enctype="multipart/form-data">
 								<div>
 									<div>
 										<span class="question_questionCategory__1QDx6">글 작성</span><span
@@ -327,16 +327,19 @@
 	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
 	
-	    <script>
+<!-- <script>
     $(document).ready(function() {
 
 
     	  function uploadImage(file) {
-    	    var formData = new FormData();
+    	    
+    		alert("a");
+    		  
+    		var formData = new FormData();
     	    formData.append('file', file);
 
     	    $.ajax({
-    	      url: '/upload/image',
+    	      url: '/admin/adSave',
     	      method: 'POST',
     	      data: formData,
     	      processData: false,
@@ -353,6 +356,43 @@
     	    // ...
     	  }
     	});
-    </script>
+    </script> -->
+<script>
+$(document).ready(function() {
+    $('#adSave').on('submit', function(e) {
+        e.preventDefault();
+        
+        var title = $('[name="title"]').val();
+        var url = $('[name="url"]').val();
+        var content = $('#editor-one').summernote('code');
+        var file = $('#file')[0].files[0];
+        var image = file.name;
+        var image_path = '\\src\\main\\resources\\static\\admin\\files\\ad\\images' + file.name; // 실제 저장 경로로 변경해야 합니다.
+        
+        var formData = new FormData();
+        formData.append('title', title);
+        formData.append('url', url);
+        formData.append('image', image);
+        formData.append('image_path', image_path);
+        formData.append('file', file);
+        
+        $.ajax({
+            url: '/admin/adSave',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log('Ad saved successfully!');
+                // Redirect or update UI as necessary
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error saving ad: ' + errorThrown);
+            }
+        });
+    });
+});
+</script>
+    	
 </body>
 </html>
