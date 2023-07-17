@@ -16,29 +16,24 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeDTO> getNoticeList() {
-		return (List<NoticeDTO>)noticeRepo.findAll();
-	}
-
-	@Override
-	public NoticeDTO noticeList(NoticeDTO dto) {
-		return noticeRepo.findById(dto.getId()).get();
-	}
-
-	@Override
-	public void noticeUpdate(NoticeDTO dto) {
-		noticeRepo.save(dto);
-	}
-
-	@Override
-	public void noticeInsert(NoticeDTO dto) {
 		// TODO Auto-generated method stub
-		noticeRepo.save(dto);
+		return (List<NoticeDTO>)noticeRepo.findAll();
 	}
 
 	@Override
 	public NoticeDTO getNoticeByNoticeTitle(String noticeTitle) {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeRepo.findByTitle(noticeTitle);
 	}
+
+	@Override
+	public void noticeUpdate(NoticeDTO dto) {
+		noticeRepo.save(dto);
+		
+	}
+
+
+
+	
 
 }
