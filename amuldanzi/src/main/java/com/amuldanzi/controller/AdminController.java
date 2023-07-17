@@ -172,10 +172,23 @@ public class AdminController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	@RequestMapping("/adDelete")
+	private String adDelete(AdvertisementDTO dto) {
+		// TODO Auto-generated method stub
+		adminService.adDelete(dto);
+		return "redirect:/admin/adList";	
+	}
+	
 	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
 	public String adSave(AdvertisementDTO dto) {		
 		adminService.adSave(dto);
+		return "redirect:/admin/adList";
+	}
+	
+	@RequestMapping(value = "/adUpdate", method = RequestMethod.POST)
+	public String adUpdate(AdvertisementDTO dto) {
+		adminService.adUpdate(dto);
 		return "redirect:/admin/adList";
 	}
 	

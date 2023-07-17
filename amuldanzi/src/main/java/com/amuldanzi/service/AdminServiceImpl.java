@@ -123,25 +123,43 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void noticeDelete(NoticeDTO dto) {
 		// TODO Auto-generated method stub
-		noticeRepo.delete(dto);
+		noticeRepo.deleteById(dto.getId());
 	}
 
 	@Override
 	public void eduDelete(EducationDTO dto) {
 		// TODO Auto-generated method stub
-		eduRepo.delete(dto);
+		eduRepo.deleteById(dto.getId());
 	}
 
 	@Override
 	public void careDelete(CareDTO dto) {
 		// TODO Auto-generated method stub
-		careRepo.delete(dto);
+		careRepo.deleteById(dto.getId());
 	}
 
 	@Override
 	public NoticeDTO getNotice(NoticeDTO dto) {
 		// TODO Auto-generated method stub
 		return noticeRepo.findById(dto.getId()).get();
+	}
+
+	@Override
+	public void adDelete(AdvertisementDTO dto) {
+		// TODO Auto-generated method stub
+		adRepo.deleteById(dto.getId());
+	}
+
+	@Override
+	public void adUpdate(AdvertisementDTO dto) {
+		// TODO Auto-generated method stub
+		AdvertisementDTO result = adRepo.findById(dto.getId()).get();
+		
+		result.setTitle(dto.getTitle());
+		result.setUrl(dto.getUrl());
+		
+		adRepo.save(result);
+		
 	}
 	
 	

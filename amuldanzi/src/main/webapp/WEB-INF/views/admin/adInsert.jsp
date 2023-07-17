@@ -179,7 +179,7 @@
 										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
-									<input placeholder="사이트 주소를 입력해주세요"
+									<input placeholder="예) https://www.naver.com"
 										class="question_titleInput__S7Isd" type="text" name="url" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>

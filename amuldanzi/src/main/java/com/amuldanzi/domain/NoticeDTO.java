@@ -32,6 +32,8 @@ public class NoticeDTO {
 		
 	private String category;
 	private String title;
+	
+	@Column(length = 6000)
 	private String content;
 	
 	

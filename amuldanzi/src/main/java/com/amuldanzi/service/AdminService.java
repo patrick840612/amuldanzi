@@ -40,6 +40,10 @@ public interface AdminService {
 	void careDelete(CareDTO dto);
 
 	NoticeDTO getNotice(NoticeDTO dto);
+
+	void adDelete(AdvertisementDTO dto);
+
+	void adUpdate(AdvertisementDTO dto);
 	
 
 }
