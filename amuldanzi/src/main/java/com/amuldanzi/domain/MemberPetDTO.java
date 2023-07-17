@@ -11,14 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "memberPet")
 @DynamicInsert
-public class MapDTO {
-
+public class MemberPetDTO {
 
 	@Id // pk 지정
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
@@ -29,13 +32,9 @@ public class MapDTO {
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId;
 	
+	private String petName;
 	private String whichPet;
 	private String petBlood;
-	@Column(updatable = false, insertable = false, columnDefinition = "TINYINT(1) default 1")
-	private boolean bloodGive;
-	private String bloodMessage;
 	private String gps;
-	
-	
 	
 }

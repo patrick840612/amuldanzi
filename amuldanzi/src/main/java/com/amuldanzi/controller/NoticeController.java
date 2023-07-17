@@ -20,6 +20,7 @@ public class NoticeController {
 	
 	@RequestMapping("/notice")
 	public void Notice(Model m) {
+
 		List<NoticeDTO> noticeList = service.getNoticeList();
 		m.addAttribute("noticeList", noticeList);
 		System.out.println(noticeList);
@@ -37,7 +38,7 @@ public class NoticeController {
 	 */
 	
 	@RequestMapping("/noticeDetail")
-	public void noticeDetail(@RequestParam("noticeTitle") String noticeTitle, Model model) {
+	public void noticeDetail(@RequestParam("title") String noticeTitle, Model model) {
 	    NoticeDTO notice = service.getNoticeByNoticeTitle(noticeTitle);
 
 	    if (notice != null) {
@@ -52,6 +53,7 @@ public class NoticeController {
 	        model.addAttribute("error", "해당 공지사항을 찾을 수 없습니다.");
 	        
 	    }
+
 	}
 	/*
 	 * @RequestMapping("/notice") public String notice() { return

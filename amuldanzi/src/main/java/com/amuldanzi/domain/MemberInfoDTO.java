@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name="memberInfo")
 public class MemberInfoDTO {
@@ -25,16 +27,21 @@ public class MemberInfoDTO {
 	private String 	userAddr;
 	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
 	private String 	characterImg;
-	@Column(updatable = false, insertable = false, columnDefinition = "TINYINT(1) default 1")
+	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)") 
 	private boolean	marketingOk;
 	@Column(nullable = true)
 	private String 	memberRole;
-	
-	@Column(nullable = true)
-	private String 	social;
 	@Column(nullable = true)
 	private String 	sido;
 	@Column(nullable = true)
 	private String 	sigungu;
+	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)")
+	private boolean bloodGive;
+	private String bloodMessage;
+	private String bloodTel;
+	
+	@Column(nullable = true)
+	private String 	social;
+
 
 }

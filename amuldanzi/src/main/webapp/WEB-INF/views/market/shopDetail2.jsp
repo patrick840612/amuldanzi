@@ -1,145 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html class="light-theme">
 <head>
 <title>시골청년 | 동네가게</title>
 
-<link rel="preload"
-	href="https://contentweaver-static.kr.karrotmarket.com/_next/static/css/b37d37598eadcded.css"
-	as="style" />
-<link rel="stylesheet"
-	href="https://contentweaver-static.kr.karrotmarket.com/_next/static/css/b37d37598eadcded.css"
+<link rel="preload" href="/chunks/css/market/shopDetail1.css" as="style" />
+<link rel="stylesheet" href="/chunks/css/market/shopDetail1.css"
 	data-n-g="" />
-<link rel="preload"
-	href="https://contentweaver-static.kr.karrotmarket.com/_next/static/css/e09ab0cc07f282c1.css"
-	as="style" />
-<link rel="stylesheet"
-	href="https://contentweaver-static.kr.karrotmarket.com/_next/static/css/e09ab0cc07f282c1.css"
+<link rel="preload" href="/chunks/css/market/shopDetail2.css" as="style" />
+<link rel="stylesheet" href="/chunks/css/market/shopDetail2.css"
 	data-n-p="" />
-<noscript data-n-css=""></noscript>
-<script defer="" nomodule=""
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script>
+
+
 <script
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=6ia8v5rhl6"
 	defer="" data-nscript="beforeInteractive"></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/webpack-38d4bed3e29386b4.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/framework-e45954351f5edb3e.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/main-f1e3d5cbeb73f49d.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/pages/_app-f3d76b39f6e48f29.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/374-6963dd6f1027205c.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/851-85d8c5543dd646e6.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/159-d0e21964a8e9e1b2.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/951-7baea43c01a10514.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/chunks/pages/kr/business-profiles/%5Bpage_business_profile%5D-4b0e0f7d6194ca4d.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/cO1G3oRqM0GyQu-SIwGeS/_buildManifest.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/cO1G3oRqM0GyQu-SIwGeS/_ssgManifest.js"
-	defer=""></script>
-<script
-	src="https://contentweaver-static.kr.karrotmarket.com/_next/static/cO1G3oRqM0GyQu-SIwGeS/_middlewareManifest.js"
-	defer=""></script>
+
 </head>
+
+<jsp:include page="../main/header.jsp"></jsp:include>
+
 <body>
 	<div id="__next">
 		<div class="ye5i0m0">
 			<div class="xg0zir0">
-				<div class="_1nvz3xs0">
-					<div class="_1nvz3xs1 korcsc0">
-						<a class="_1nvz3xs2" href="https://www.daangn.com"><span
-							class="_1nvz3xs3"><svg width="100" height="28"
-									viewBox="0 0 100 28" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M10.6241 5.1897C4.76013 5.1897 0 9.94831 0 15.8104C0 18.2759 0.845096 20.5345 2.24209 22.3276C2.34557 22.4655 2.4663 22.6035 2.56978 22.7414C2.74225 22.9311 2.89747 23.1207 3.08719 23.3104L3.10443 23.3276C5.13956 25.4828 7.70934 27.1207 10.6068 28C13.5043 27.1207 16.0741 25.4828 18.1092 23.3276L18.1264 23.3104C18.2989 23.1207 18.4714 22.9311 18.6439 22.7414C18.7646 22.6035 18.8681 22.4655 18.9715 22.3276C20.3685 20.5345 21.2136 18.2759 21.2136 15.8104C21.2309 9.93107 16.488 5.1897 10.6241 5.1897ZM10.6241 19.8621C8.38197 19.8621 6.57105 18.0518 6.57105 15.8104C6.57105 13.569 8.38197 11.7587 10.6241 11.7587C12.8662 11.7587 14.6771 13.569 14.6771 15.8104C14.6771 18.0518 12.8662 19.8621 10.6241 19.8621Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M14.0743 4.96552C14.7814 4.81035 15.2988 4.18965 15.2988 3.44827C15.2988 2.58621 14.5917 1.87931 13.7293 1.87931C13.4879 1.87931 13.2637 1.93104 13.0567 2.03449C12.8325 0.879318 11.8322 0 10.6076 0C9.38312 0 8.3828 0.879318 8.1586 2.03449C7.95163 1.93104 7.72742 1.87931 7.48597 1.87931C6.62363 1.87931 5.9165 2.58621 5.9165 3.44827C5.9165 4.18965 6.45116 4.81035 7.14103 4.96552C8.22758 4.58621 9.38312 4.37931 10.5904 4.37931C11.7977 4.37931 12.9877 4.58621 14.0743 4.96552Z"
-										fill="#00B493"></path>
-									<path
-										d="M28.8191 15.9481H35.3211C36.1317 15.9481 36.7699 15.4654 36.7699 14.4654C36.7699 13.4654 36.1317 12.9826 35.3211 12.9826H29.6642C29.371 12.9826 29.1985 12.8102 29.1985 12.5344V9.98264C29.1985 9.70678 29.371 9.53437 29.6642 9.53437H35.3211C36.1317 9.53437 36.7699 9.0516 36.7699 8.0516C36.7699 7.0516 36.1317 6.56885 35.3211 6.56885H28.8191C26.6115 6.56885 25.5767 7.5516 25.5767 9.39643V13.1378C25.5767 14.9826 26.6115 15.9481 28.8191 15.9481Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M36.9594 17.1379H30.5608C27.6806 17.1379 25.7834 18.7241 25.7834 21.0517C25.7834 23.3276 27.6806 24.9138 30.5608 24.9138H36.9594C39.8396 24.9138 41.754 23.3276 41.754 21.0517C41.754 18.7414 39.8396 17.1379 36.9594 17.1379ZM36.9594 21.9138H30.5608C29.8537 21.9138 29.4743 21.5345 29.4743 21.0517C29.4743 20.5345 29.8537 20.1379 30.5608 20.1379H36.9594C37.6665 20.1379 38.0632 20.5345 38.0632 21.0517C38.0632 21.5345 37.6493 21.9138 36.9594 21.9138Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M42.3754 9.60339H41.3578V7.65512C41.3578 6.81029 40.6162 6.17236 39.5469 6.17236C38.4776 6.17236 37.7188 6.81029 37.7188 7.65512V15.2068C37.7188 16.0517 38.4776 16.6896 39.5469 16.6896C40.6162 16.6896 41.3578 16.0517 41.3578 15.2068V13.1551H42.3754C43.2032 13.1551 43.8586 12.431 43.8586 11.3965C43.8586 10.3965 43.2032 9.60339 42.3754 9.60339Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M60.5189 17.6206H45.6693C44.807 17.6206 44.0999 17.0516 44.0999 15.9999C44.0999 15.0171 44.807 14.4137 45.6693 14.4137H60.5189C61.3812 14.4137 62.0883 15.0344 62.0883 15.9999C62.0883 17.0344 61.3812 17.6206 60.5189 17.6206ZM57.4662 12.3964V10.4654C57.4662 10.1206 57.2764 9.93092 56.9833 9.93092H46.6869C45.79 9.93092 45.0312 9.36194 45.0312 8.27574C45.0312 7.24125 45.79 6.56885 46.6869 6.56885H57.7766C59.9842 6.56885 61.1052 7.70678 61.1052 9.72402V12.3964C61.1052 13.2413 60.3636 13.8792 59.2943 13.8792C58.225 13.8792 57.4662 13.2413 57.4662 12.3964ZM48.7565 19.7068V20.9826C48.7565 21.2413 48.9462 21.4137 49.2394 21.4137H59.829C60.7258 21.4137 61.4847 21.9999 61.4847 23.0688C61.4847 24.1033 60.7258 24.724 59.829 24.724H48.4633C46.273 24.724 45.1002 23.793 45.1002 21.8102V19.7068C45.1002 18.8619 45.8418 18.224 46.9111 18.224C47.9804 18.224 48.7565 18.8619 48.7565 19.7068Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M63.9343 21.362V9.12063C63.9343 7.44822 64.7794 6.56891 66.5214 6.56891H71.2642C73.0062 6.56891 73.8513 7.43098 73.8513 9.12063V21.362C73.8513 23.0344 73.0062 23.9137 71.2642 23.9137H66.5214C64.7967 23.9137 63.9343 23.0517 63.9343 21.362ZM70.4364 20.2068V10.293C70.4364 10.0517 70.3157 9.91373 70.0914 9.91373H67.7114C67.5044 9.91373 67.3664 10.0689 67.3664 10.293V20.2068C67.3664 20.4482 67.4872 20.5861 67.7114 20.5861H70.0914C70.3157 20.5861 70.4364 20.431 70.4364 20.2068ZM76.0934 23.3448V7.75856C76.0934 6.86201 76.8522 6.17236 77.9215 6.17236C78.9908 6.17236 79.7324 6.87925 79.7324 7.75856V12.862H80.75C81.5779 12.862 82.2332 13.6551 82.2332 14.6379C82.2332 15.7068 81.5779 16.4482 80.75 16.4482H79.7324V23.3448C79.7324 24.2413 78.9908 24.931 77.9215 24.931C76.8522 24.931 76.0934 24.2413 76.0934 23.3448Z"
-										fill="#FF7E36"></path>
-									<path
-										d="M91.5291 10.4136H92.2707V7.60331C92.2707 6.79296 92.9261 6.24124 93.9264 6.24124C94.9267 6.24124 95.5476 6.79296 95.5476 7.60331V15.9826C95.5476 16.793 94.9267 17.3447 93.9264 17.3447C92.9261 17.3447 92.2707 16.793 92.2707 15.9826V13.5171H91.5291C91.1324 13.5171 90.7702 13.3274 90.5288 12.9654C89.5285 15.1723 87.7693 16.9481 85.3202 18.0343C84.5269 18.3792 83.6818 18.155 83.2333 17.4136C82.7849 16.6723 83.0781 15.7067 83.768 15.4136C84.8718 14.9309 85.7859 14.2757 86.493 13.4309H84.7166C84.0439 13.4309 83.4403 13.0343 83.4403 12.1378C83.4403 11.3102 84.0267 10.8447 84.7166 10.8447H87.8383C87.9245 10.5343 88.0107 10.1895 88.0452 9.82744C88.0797 9.55158 87.9417 9.36193 87.683 9.36193H84.8201C84.0095 9.36193 83.4403 8.89641 83.4403 7.96537C83.4403 7.06882 84.0095 6.53434 84.8201 6.53434H88.3039C90.615 6.53434 91.6843 7.63779 91.3394 10.1205C91.3221 10.2068 91.3221 10.3102 91.3049 10.3964C91.3739 10.4137 91.4428 10.4136 91.5291 10.4136ZM98.0311 24.6033C95.8236 24.1378 93.1848 22.9309 91.4773 21.5516C89.8906 23.1205 87.7693 24.2757 85.5272 24.7067C84.7683 24.8619 83.8715 24.4998 83.5955 23.5688C83.3368 22.6723 83.7852 21.8619 84.5958 21.655C87.0449 21.0171 89.08 19.6033 90.0976 17.7067C90.408 17.1378 91.2704 16.7585 92.2362 17.0516C93.2538 17.3619 93.6677 18.3274 93.3572 18.9998L93.34 19.0343C94.7542 20.2067 96.8584 21.1205 98.928 21.5688C99.7213 21.7412 100.187 22.5516 99.9283 23.4654C99.6696 24.3792 98.8073 24.7585 98.0311 24.6033ZM96.3409 16.5688V7.5171C96.3409 6.70676 97.0136 6.15503 98.0484 6.15503C99.066 6.15503 99.7213 6.70676 99.7213 7.5171V16.5688C99.7213 17.3792 99.066 17.9309 98.0484 17.9309C97.0308 17.9309 96.3409 17.3792 96.3409 16.5688Z"
-										fill="#FF7E36"></path></svg></span></a>
-						<nav class="_1nvz3xsk korcsc0">
-							<ul class="_1nvz3xsm korcsc5">
-								<li class="_1nvz3xso"><a class="_1nvz3xsp korcsc4 korcsc2"
-									href="https://www.daangn.com">중고거래</a></li>
-								<li class="_1nvz3xso"><a
-									class="_1nvz3xsp korcsc4 korcsc2 _1nvz3xsq"
-									href="/kr/nearby-stores">동네가게</a></li>
-								<li class="_1nvz3xso"><a class="_1nvz3xsp korcsc4 korcsc2"
-									href="/kr/jobs">알바</a></li>
-								<li class="_1nvz3xso"><a class="_1nvz3xsp korcsc4 korcsc2"
-									href="/kr/realty/">부동산 직거래</a></li>
-								<li class="_1nvz3xso"><a class="_1nvz3xsp korcsc4 korcsc2"
-									href="/kr/car/">중고차 직거래</a></li>
-							</ul>
-						</nav>
-						<div class="korcsc1 korcsc0">
-							<span><button class="_1nvz3xs7 korcsc3 korcsc0 korcsc2">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M3.5999 10.5C3.5999 6.68926 6.68914 3.60002 10.4999 3.60002C14.3107 3.60002 17.3999 6.68926 17.3999 10.5C17.3999 14.3108 14.3107 17.4 10.4999 17.4C6.68914 17.4 3.5999 14.3108 3.5999 10.5ZM10.4999 2.40002C6.0264 2.40002 2.3999 6.02652 2.3999 10.5C2.3999 14.9735 6.0264 18.6 10.4999 18.6C12.5207 18.6 14.3687 17.86 15.7876 16.6362L20.5756 21.4243C20.81 21.6586 21.1899 21.6586 21.4242 21.4243C21.6585 21.19 21.6585 20.8101 21.4242 20.5758L16.6361 15.7877C17.8599 14.3688 18.5999 12.5208 18.5999 10.5C18.5999 6.02652 14.9734 2.40002 10.4999 2.40002Z"
-											fill="#212124"></path></svg>
-								</button>
-								<form novalidate="" class="_1nvz3xs9">
-									<input type="search" class="_1nvz3xsb"
-										placeholder="물품이나 동네를 검색해보세요" value="" />
-								</form></span><span><button class="_1nvz3xs6 korcsc3 korcsc0 korcsc2">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M3 5.00002C3 4.66865 3.26863 4.40002 3.6 4.40002H20.4C20.7314 4.40002 21 4.66865 21 5.00002C21 5.3314 20.7314 5.60002 20.4 5.60002H3.6C3.26863 5.60002 3 5.3314 3 5.00002Z"
-											fill="#212124"></path>
-										<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M3 12C3 11.6687 3.26863 11.4 3.6 11.4H20.4C20.7314 11.4 21 11.6687 21 12C21 12.3314 20.7314 12.6 20.4 12.6H3.6C3.26863 12.6 3 12.3314 3 12Z"
-											fill="#212124"></path>
-										<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M3 19C3 18.6687 3.26863 18.4 3.6 18.4H20.4C20.7314 18.4 21 18.6687 21 19C21 19.3314 20.7314 19.6 20.4 19.6H3.6C3.26863 19.6 3 19.3314 3 19Z"
-											fill="#212124"></path></svg>
-								</button>
-								<button type="button"
-									class="karrot-button _1aul9fg0 korcsc3 korcsc4 _1aul9fg4 _1aul9fg7 _1nvz3xsj">채팅하기</button></span>
-						</div>
-					</div>
-				</div>
+
 				<main class="xg0zir1 undefined">
 					<div class="_1vt74ep0">
 						<div class="swiper _14tcepa0">
@@ -153,13 +39,7 @@
 											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
 											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (1)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676602031017/9bef84368d5788e88f652c27a03ebb80cb2d9f3a99fb01db312a3e0cb86db789.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
+										</span><span class="_14tcepa1"><svg width="16" height="16"
 												viewBox="0 0 16 16" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
 												<g clip-path="url(#clip0_2286_35818)">
@@ -175,246 +55,7 @@
 													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (2)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (2)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676602863566/51de99294cba0243874c490bf8f509327fc870eaca5de01146e694be5c3f033f.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (3)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (3)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676602927238/b54a1989fd22f8f55ab537e754597ec3a5a67d9c00142b997c116ffa85504f1e.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (4)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (4)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676603132109/074a5424675aa6b2044c83f1510ec1700faf5fc0fd504aab4b48eb579926addd.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (5)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (5)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676603138432/c10c49a24145e42e133bc0883eb82fc2c4767cd83125ccac3ceda5fc2db8d167.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (6)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (6)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676603143773/6000c1e572a426dd62580a11180e7c9b2de8c3934c53912171e3a4c066bbf074.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (7)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (7)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676607839383/19780083377b4a04e93cf8bfef436ae28fa923a339b4b57ef7a76b8cb5b5062f.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (8)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (8)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1676607842973/01492f2fda5ebc19f3373c5c2cd658e76249449c866f8d6b0b10acbbb9b23e08.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="_14tcepa4">
-										<span
-											style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-											alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (9)"
-											src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-											decoding="async" data-nimg="fill" class="_19qbbiq0 undefined"
-											style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-										<noscript>
-												<img alt="전라남도 나주시 남평읍 시골청년 비즈프로필 (9)"
-													src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1681975768113/6da757fcb9935a218ca6f6aa0731b17d9d7fb0bbde0eae8f323ec8de86e6448b.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-													decoding="async" data-nimg="fill"
-													style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-													class="_19qbbiq0 undefined" loading="lazy" />
-											</noscript></span><span class="_14tcepa1"><svg width="16" height="16"
-												viewBox="0 0 16 16" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<g clip-path="url(#clip0_2286_35818)">
-												<path
-													d="M0.111344 15.6238C0.134853 15.6628 0.162092 15.7002 0.193059 15.7354C0.204707 15.7487 0.216799 15.7615 0.229313 15.774C0.385246 15.9291 0.590591 16.0043 0.794495 15.9998L5.95674 15.9998C6.38584 15.9998 6.7337 15.652 6.73371 15.2229C6.73371 14.7938 6.38585 14.4459 5.95675 14.4459L2.65309 14.4459L8.77243 8.32639C9.07586 8.02296 9.07586 7.531 8.77243 7.22757C8.46901 6.92414 7.97707 6.92414 7.67364 7.22757L1.55392 13.3474L1.55393 10.043C1.55393 9.61389 1.20607 9.26603 0.776963 9.26603C0.347859 9.26603 5.58291e-07 9.61389 5.20777e-07 10.043L6.79424e-08 15.2228C5.51156e-08 15.3696 0.0406666 15.5068 0.111344 15.6238Z"
-													fill="white"></path>
-												<path
-													d="M15.8887 0.376158C15.8651 0.337174 15.8379 0.299808 15.8069 0.264576C15.7953 0.251317 15.7832 0.238458 15.7707 0.226023C15.6148 0.0709459 15.4094 -0.00433104 15.2055 0.000192298L10.0433 0.000157978C9.61416 0.000156177 9.2663 0.34802 9.26629 0.777133C9.26629 1.20625 9.61415 1.55411 10.0433 1.55411L13.3469 1.55414L7.22757 7.67361C6.92414 7.97704 6.92414 8.469 7.22757 8.77243C7.53099 9.07586 8.02293 9.07586 8.32636 8.77243L14.4461 2.65258V5.95699C14.4461 6.38611 14.7939 6.73397 15.223 6.73397C15.6521 6.73397 16 6.38611 16 5.95699V0.777171C16 0.630449 15.9593 0.493226 15.8887 0.376158Z"
-													fill="white"></path></g>
-												<defs>
-												<clipPath id="clip0_2286_35818">
-												<rect width="16" height="16" fill="white"
-													transform="translate(16 16) rotate(-180)"></rect></clipPath></defs></svg></span>
-									</div>
-								</div>
+
 							</div>
 						</div>
 						<section class="ivwnfa0">
@@ -429,34 +70,15 @@
 												decoding="async" data-nimg="fill"
 												class="_19qbbiq0 undefined"
 												style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-											<noscript>
-													<img alt="시골청년 의 프로필 사진"
-														src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5863590/1677722646074/e956d3d9f7a89abd32a1c13a79476d7290aa53d05f2b2e40c79490551994c6d4.jpeg?q=82&amp;s=640x640&amp;t=crop"
-														decoding="async" data-nimg="fill"
-														style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-														class="_19qbbiq0 undefined" loading="lazy" />
-												</noscript></span></a>
+										</span></a>
 										<div class="d5c2h82 business-profile-content-container">
 											<a class="d5c2h83 business-profile-name"
-												href="/kr/business-profiles/시골청년-d2f00db4a9cc4fb986a85037b8378955">시골청년<!-- --></a><span
-												class="d5c2h85 business-profile-info">남평읍 ∙ 농산물 ∙ 단골
-												41,897</span>
+												href="/kr/business-profiles/시골청년-d2f00db4a9cc4fb986a85037b8378955">상호명<!-- --></a><span
+												class="d5c2h85 business-profile-info">남평읍 ∙ 농산물 </span>
 										</div>
 									</div>
 								</div>
-								<div class="ivwnfa3">
-									<button type="button"
-										class="karrot-button _1aul9fg0 korcsc3 korcsc4 _1aul9fg1 _1aul9fg8 ">
-										<svg viewBox="0 0 24 24" fill="none"
-											xmlns="http://www.w3.org/2000/svg" data-karrot-ui-icon="true"
-											width="12" height="12">
-											<path fill-rule="evenodd" clip-rule="evenodd"
-												d="M11.9999 2C12.3631 2 12.6575 2.29439 12.6575 2.65755V11.3425H21.3425C21.7056 11.3425 22 11.6369 22 12.0001C22 12.3632 21.7056 12.6576 21.3425 12.6576H12.6575V21.3425C12.6575 21.7056 12.3631 22 11.9999 22C11.6368 22 11.3424 21.7056 11.3424 21.3425V12.6576H2.65754C2.29439 12.6576 2 12.3632 2 12.0001C2 11.6369 2.29439 11.3425 2.65754 11.3425H11.3424V2.65755C11.3424 2.29439 11.6368 2 11.9999 2Z"
-												fill="currentColor"></path></svg>
-										단골 맺기
-										<!-- -->
-									</button>
-								</div>
+								
 							</div>
 							<div class="_1gzoib80">
 								<div class="quick-menu-group l5ks380" role="menu">
@@ -533,38 +155,10 @@
 								<div class="tab-panel" role="tabpanel">
 									<div class="_1vt74ep2">
 										<div class="ovsjex0">
-											<div class="ovsjex1">
-												<div class="callout _1jvmwab0 _1jvmwab3" role="status">
-													<div class="callout-icon-wrapper _1jvmwab9">
-														<svg viewBox="0 0 24 24" fill="none"
-															xmlns="http://www.w3.org/2000/svg"
-															data-karrot-ui-icon="true" width="20">
-															<path fill-rule="evenodd" clip-rule="evenodd"
-																d="M21.8002 3.49995C21.8002 3.20492 21.6378 2.93383 21.3777 2.79461C21.1176 2.6554 20.8019 2.67066 20.5564 2.83431L14.758 6.69995H7.0002C4.34923 6.69995 2.2002 8.84899 2.2002 11.5C2.2002 13.8783 3.93002 15.8527 6.2002 16.2336V17.5C6.2002 19.5986 7.90151 21.3 10.0002 21.3C12.0989 21.3 13.8002 19.5986 13.8002 17.5V16.3H14.758L20.5564 20.1656C20.8019 20.3292 21.1176 20.3445 21.3777 20.2053C21.6378 20.0661 21.8002 19.795 21.8002 19.5V3.49995ZM12.2002 16.3H7.8002V17.5C7.8002 18.715 8.78517 19.7 10.0002 19.7C11.2152 19.7 12.2002 18.715 12.2002 17.5V16.3ZM15.0002 14.7C15.1581 14.7 15.3125 14.7467 15.444 14.8343L20.2002 18.0051V4.99477L15.444 8.16559C15.3125 8.2532 15.1581 8.29995 15.0002 8.29995H7.0002C5.23288 8.29995 3.8002 9.73264 3.8002 11.5C3.8002 13.2673 5.23288 14.7 7.0002 14.7H15.0002Z"
-																fill="currentColor"></path></svg>
-													</div>
-													<div class="callout-content _1jvmwaba">
-														<span class="_1jvmwabb">알림<!-- --> <!-- --></span><span
-															class="_1jvmwabc">토요일 일요일은 택배사 휴무로 인해 예약주문시 월요일
-															순차적으로 발송합니다. 저녁,밤,주말 및 공휴일은 늦더라도 채팅남겨주시면 꼭 답장 드리겠습니다. ^^</span>
-													</div>
-												</div>
-											</div>
+											
 											<section class="_1dn09b80">
 												<h6 class="_1dn09b81">정보</h6>
-												<p class="bmnak20">납품,도매,대량문의 환영합니다. 밭떼기 수산나까마 전국 저희 가격
-													따라올 수 없습니다. 12곳 쇼핑몰 납품중입니다. 따라올수 없는 가격과 품질 매일같이 15명의 직원들이
-													발로 뛰고 맛보고 검증하고 계약재배 선주직송 어장관리및 매매 합니다. 되도록 산지직송 선주직송을 원칙으로
-													하나 2차 검수가 필요한 상품 또는 산지 택배비가 말도안되게 비싼 경우에 저희 남평물류로 입고하여 철저하게
-													검수후 발송합니다. 1000원 떼기로 10,000개팔면 1000만원입니다. 대한민국 국민은
-													5,000만명입니다. 이 가능성으로 12년전 시작했습니다. 판로가 없어서 고민이신 선주님들 또는 농민분들
-													환영입니다. 저도 농사지어봣고 지금도 짓고 있습니다. 품질이 좋다면 가격은 더 쳐드립니다. 소비자는
-													1~2000원이 문제가 아닙니다. 품질입니다! 그리고 수산어민들 연락주세요 나까마,중상 말고 어민 또는
-													선주님이 직접 연락주세요. 자기가 관리한 수산물만 취급합니다. 수산은 특히 책임을 질 수 있는 사람과 함께
-													일해야 합니다. 저희 시골청년이 직접 운영하는 자체 어장 선별장은 구룡포에 있습니다. 연락주세요! 저희
-													시골청년 상품에 대해서는 100% AS 진행하며 12년간 천천히 우보천리 하여 현재는 연중 138가지
-													시즌별 30가지 품목만 납품및 판매중입니다. 물건에 문제가 있다면 바로 사진찍어 보내주세요 저희는 100%
-													다 처리해드리고 인정도 빠릅니다!</p>
+												<p class="bmnak20">내용</p>
 												<div class="bmnak21">
 													<div class="_1p3kadl0">
 														<div class="_1p3kadl1">
@@ -674,92 +268,14 @@
 														</div>
 														<div class="_1p3kadl2">
 															<a class="bmnak23 korcsc4" target="_blank"
-																rel="noopener noreferrer" href="www.mrchon.com">www.mrchon.com</a>
+																rel="noopener noreferrer" href="">사이트 주소</a>
 														</div>
 													</div>
 												</div>
-												<div class="bmnak24">
-													<div class="callout _1jvmwab0 _1jvmwab1" role="banner">
-														<div class="callout-content _1jvmwaba">
-															<span class="_1jvmwabc"><b>&quot;당근마켓에서 보고
-																	왔어요&quot; 라고 말해보세요!</b> <!-- -->단골혜택 1. 무료배송쿠폰사용(특정상품)
-																2.반짝무마진특가받기 3.100품질보상제실시<!-- --></span>
-														</div>
-													</div>
-												</div>
-												<div class="bmnak25">
-													<button type="button"
-														class="karrot-button _1aul9fg0 korcsc3 korcsc4 _1aul9fg2 _1aul9fg7 _1aul9fgi ">
-														<span class="bmnak26"><svg viewBox="0 0 24 24"
-																fill="none" xmlns="http://www.w3.org/2000/svg"
-																data-karrot-ui-icon="true" width="16" height="16">
-																<path
-																	d="M11.434 2.43427C11.7464 2.12185 12.253 2.12185 12.5654 2.43427L16.5654 6.43427C16.8778 6.74669 16.8778 7.25322 16.5654 7.56564C16.253 7.87806 15.7464 7.87806 15.434 7.56564L12.7997 4.93132V14C12.7997 14.4418 12.4415 14.8 11.9997 14.8C11.5579 14.8 11.1997 14.4418 11.1997 14V4.93132L8.56539 7.56564C8.25297 7.87806 7.74644 7.87806 7.43402 7.56564C7.1216 7.25322 7.1216 6.74669 7.43402 6.43427L11.434 2.43427Z"
-																	fill="currentColor"></path>
-																<path
-																	d="M4.99971 10.8C4.89153 10.8 4.79971 10.8918 4.79971 11V20C4.79971 20.1081 4.89153 20.2 4.99971 20.2H18.9997C19.1079 20.2 19.1997 20.1081 19.1997 20V11C19.1997 10.8918 19.1079 10.8 18.9997 10.8H15.9997C15.5579 10.8 15.1997 10.4418 15.1997 9.99995C15.1997 9.55812 15.5579 9.19995 15.9997 9.19995H18.9997C19.9915 9.19995 20.7997 10.0081 20.7997 11V20C20.7997 20.9918 19.9915 21.7999 18.9997 21.7999H4.99971C4.00788 21.7999 3.19971 20.9918 3.19971 20V11C3.19971 10.0081 4.00788 9.19995 4.99971 9.19995H7.99971C8.44153 9.19995 8.79971 9.55812 8.79971 9.99995C8.79971 10.4418 8.44153 10.8 7.99971 10.8H4.99971Z"
-																	fill="currentColor"></path></svg></span>공유하기
-														<!-- -->
-													</button>
-												</div>
+												
+												
 											</section>
-											<section class="_1dn09b80">
-												<h6 class="_1dn09b81">쿠폰</h6>
-												<div class="_15fr1lb0">
-													<div class="_1us3p6c0 _1us3p6c2">
-														<div class="_1us3p6c3">
-															<div class="_1cqpubk0">
-																<strong class="_1cqpubk1 _1cqpubk2">단골만 구매가능</strong>
-																<div class="_1cqpubk4 _1cqpubk5">
-																	<span class="_1cqpubk7">단골전용</span>
-																</div>
-																<div class="_1cqpubk8">
-																	<span class="_1cqpubk9 _1cqpubka"><span
-																		class="_1cqpubkc">2023년 09월 30일<!-- -->까지<!-- --></span></span>
-																</div>
-															</div>
-														</div>
-														<button aria-disabled="false"
-															class="_1fiitjh0 korcsc3 _1fiitjh1">
-															<svg viewBox="0 0 24 24" fill="none"
-																xmlns="http://www.w3.org/2000/svg"
-																data-karrot-ui-icon="true" width="1.5rem"
-																height="1.5rem" color="currentColor">
-																<path fill-rule="evenodd" clip-rule="evenodd"
-																	d="M12.0002 1.69995C12.442 1.69995 12.8002 2.05812 12.8002 2.49995V16.5686L18.4345 10.9343C18.7469 10.6218 19.2535 10.6218 19.5659 10.9343C19.8783 11.2467 19.8783 11.7532 19.5659 12.0656L12.5659 19.0656C12.2535 19.3781 11.7469 19.3781 11.4345 19.0656L4.43451 12.0656C4.12209 11.7532 4.12209 11.2467 4.43451 10.9343C4.74693 10.6218 5.25346 10.6218 5.56588 10.9343L11.2002 16.5686V2.49995C11.2002 2.05812 11.5584 1.69995 12.0002 1.69995ZM4.2002 21.5C4.2002 21.0581 4.55837 20.7 5.0002 20.7H19.0002C19.442 20.7 19.8002 21.0581 19.8002 21.5C19.8002 21.9418 19.442 22.2999 19.0002 22.2999H5.0002C4.55837 22.2999 4.2002 21.9418 4.2002 21.5Z"
-																	fill="currentColor"></path></svg>
-															<span class="_1fiitjh3">쿠폰받기</span>
-														</button>
-													</div>
-												</div>
-												<div class="_15fr1lb0">
-													<div class="_1us3p6c0 _1us3p6c2">
-														<div class="_1us3p6c3">
-															<div class="_1cqpubk0">
-																<strong class="_1cqpubk1 _1cqpubk2">무료배송쿠폰</strong>
-																<div class="_1cqpubk4 _1cqpubk5">
-																	<span class="_1cqpubk7">단골전용</span>
-																</div>
-																<div class="_1cqpubk8">
-																	<span class="_1cqpubk9 _1cqpubka"><span
-																		class="_1cqpubkc">2023년 10월 31일<!-- -->까지<!-- --></span></span>
-																</div>
-															</div>
-														</div>
-														<button aria-disabled="false"
-															class="_1fiitjh0 korcsc3 _1fiitjh1">
-															<svg viewBox="0 0 24 24" fill="none"
-																xmlns="http://www.w3.org/2000/svg"
-																data-karrot-ui-icon="true" width="1.5rem"
-																height="1.5rem" color="currentColor">
-																<path fill-rule="evenodd" clip-rule="evenodd"
-																	d="M12.0002 1.69995C12.442 1.69995 12.8002 2.05812 12.8002 2.49995V16.5686L18.4345 10.9343C18.7469 10.6218 19.2535 10.6218 19.5659 10.9343C19.8783 11.2467 19.8783 11.7532 19.5659 12.0656L12.5659 19.0656C12.2535 19.3781 11.7469 19.3781 11.4345 19.0656L4.43451 12.0656C4.12209 11.7532 4.12209 11.2467 4.43451 10.9343C4.74693 10.6218 5.25346 10.6218 5.56588 10.9343L11.2002 16.5686V2.49995C11.2002 2.05812 11.5584 1.69995 12.0002 1.69995ZM4.2002 21.5C4.2002 21.0581 4.55837 20.7 5.0002 20.7H19.0002C19.442 20.7 19.8002 21.0581 19.8002 21.5C19.8002 21.9418 19.442 22.2999 19.0002 22.2999H5.0002C4.55837 22.2999 4.2002 21.9418 4.2002 21.5Z"
-																	fill="currentColor"></path></svg>
-															<span class="_1fiitjh3">쿠폰받기</span>
-														</button>
-													</div>
-												</div>
-											</section>
+											
 											<section class="_1dn09b80">
 												<h6 class="_1dn09b81">후기</h6>
 												<ul class="xsorfq0" role="list">
@@ -839,7 +355,7 @@
 																		decoding="async" data-nimg="fill"
 																		class="_19qbbiq0 undefined"
 																		style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-																	<noscript>
+																		<noscript>
 																			<img
 																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/58436598/1688541485993/YzVkNTUzY2RiYTNlYzkyZTgzYjRiNGU3ZDY1MmViMjJhMDhmZmVhYjU3NzU4NTJiYjljMTE3ZDQ1OGRiYjkzMV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
 																				decoding="async" data-nimg="fill"
@@ -853,7 +369,7 @@
 																	class="badge _1o4zxn90 _1o4zxn91 _1o4zxn9d _1o4zxn99 _1o4zxn98 _1o4zxn9f">아쉬워요</span></span>
 															</div>
 															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->11<!-- --></span>
+																<span class="_1arjc5a5">도움돼요 <!-- -->15<!-- --></span>
 															</div>
 														</div></li>
 													<li class="xsorfq1" role="listitem"><div
@@ -931,7 +447,7 @@
 																		decoding="async" data-nimg="fill"
 																		class="_19qbbiq0 undefined"
 																		style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-																	<noscript>
+																		<noscript>
 																			<img
 																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8273033/1688470860244/OTc2M2JmZWI1YTg0YWZmMzk5NmQyYTgyZWE1MTlkOTA1YWQ1MDM2MWQyYTc1ZGVlM2FiNjJlYjA2MGFkNmE0ZV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
 																				decoding="async" data-nimg="fill"
@@ -945,7 +461,7 @@
 																	class="badge _1o4zxn90 _1o4zxn91 _1o4zxn9d _1o4zxn99 _1o4zxn98 _1o4zxn9f">아쉬워요</span></span>
 															</div>
 															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->19<!-- --></span>
+																<span class="_1arjc5a5">도움돼요 <!-- -->21<!-- --></span>
 															</div>
 														</div></li>
 													<li class="xsorfq1" role="listitem"><div
@@ -1009,7 +525,7 @@
 																		decoding="async" data-nimg="fill"
 																		class="_19qbbiq0 undefined"
 																		style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-																	<noscript>
+																		<noscript>
 																			<img
 																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8825275/1688466722911/ZDM0N2FmNTBkNmEyZDVmNzZjNWMzYzc4OWZlNzRjMWVmM2JlNjAxMzBkMmU3OGE2MWZkZDkwZWQ1NWY3NmY3MV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
 																				decoding="async" data-nimg="fill"
@@ -1019,7 +535,7 @@
 																</div>
 															</div>
 															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->26<!-- --></span>
+																<span class="_1arjc5a5">도움돼요 <!-- -->29<!-- --></span>
 															</div>
 														</div></li>
 												</ul>
@@ -1030,67 +546,7 @@
 														더보기</a>
 												</div>
 											</section>
-											<section class="_1dn09b80">
-												<h6 class="_1dn09b81">소식</h6>
-												<div class="ioq9r80">
-													<ul class="ioq9r81" role="list">
-														<li class="ioq9r82" role="listitem"><a
-															class="cioc2d0"
-															href="/kr/business-posts/직수입-아보카도-지금-물량-풀렸습니다-64af46f16fba76348f6d7429"><div
-																	class="thumbnail-base qudd1g0 qudd1g4 ">
-																	<img
-																		src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_2807015/1689208263697/aefcc4b1902d65357c8b08bc209067f39532a72234faf2555eeb72686523bfe3.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																		class="thumbnail-image qudd1g9" />
-																</div>
-																<div class="cioc2d1">
-																	<span class="cioc2d2">✔직수입 아보카도 지금 물량 풀렸습니다!</span><span
-																		class="cioc2d3">댓글 6</span>
-																</div></a></li>
-														<li class="ioq9r82" role="listitem"><a
-															class="cioc2d0"
-															href="/kr/business-posts/백자메론-마지막-물량-겨우-빼왔습니다-무료배송으로-가져가세요-64adf4af3569972f41f4c520"><div
-																	class="thumbnail-base qudd1g0 qudd1g4 ">
-																	<img
-																		src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_2807015/1689121569953/0430a43ccc8e4f4bddbc63a5d23518d74e3652b00556aa2bd2c3908fa8d775d7.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																		class="thumbnail-image qudd1g9" />
-																</div>
-																<div class="cioc2d1">
-																	<span class="cioc2d2">📢백자메론 마지막 물량 겨우 빼왔습니다!!
-																		무료배송으로 가져가세요!</span><span class="cioc2d3">댓글 6</span>
-																</div></a></li>
-														<li class="ioq9r82" role="listitem"><a
-															class="cioc2d0"
-															href="/kr/business-posts/품절-납작복숭아-대극천-2차-물량입고-하나만사도-무료배송-64acac1fe4c48e4338ebe079"><div
-																	class="thumbnail-base qudd1g0 qudd1g4 ">
-																	<img
-																		src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_5972131/1689037748439/4c468b3b16999fd9578189576d5f770cb4a16ad9fca0e798a251f00a54a87c5d.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																		class="thumbnail-image qudd1g9" />
-																</div>
-																<div class="cioc2d1">
-																	<span class="cioc2d2">❌품절❌🍑납작복숭아(대극천) 2차 물량입고!
-																		하나만사도 무료배송!</span><span class="cioc2d3">댓글 4</span>
-																</div></a></li>
-														<li class="ioq9r82" role="listitem"><a
-															class="cioc2d0"
-															href="/kr/business-posts/신비로운-달콤함-신비복숭아-재입고-택배비는-제가쏩니다-64ab5b109c2a7a46c4984d59"><div
-																	class="thumbnail-base qudd1g0 qudd1g4 ">
-																	<img
-																		src="https://dnvefa72aowie.cloudfront.net/businessPlatform/bizPlatform/profile/center_biz_2807015/1688951327307/b6fdf31708367150fa851a94e3981c8c7cb6d63ec2c4b61f235cc311c3ab907a.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																		class="thumbnail-image qudd1g9" />
-																</div>
-																<div class="cioc2d1">
-																	<span class="cioc2d2">신비로운 달콤함! 신비복숭아 재입고! 택배비는
-																		제가쏩니다!</span><span class="cioc2d3">댓글 2</span>
-																</div></a></li>
-													</ul>
-												</div>
-												<div class="ioq9r83">
-													<a as="a"
-														href="/kr/business-profiles/%EC%8B%9C%EA%B3%A8%EC%B2%AD%EB%85%84-d2f00db4a9cc4fb986a85037b8378955/?tab=POSTS"
-														class="karrot-button _1aul9fg0 korcsc3 korcsc4 _1aul9fg2 _1aul9fg7 _1aul9fgi ">소식
-														더보기</a>
-												</div>
-											</section>
+											
 											<div class="te37xn0" role="banner">
 												<span class="te37xn1">마지막 수정일 <!-- -->2023년 07월 13일<!-- --></span><span
 													class="te37xn2">애물단지 마켓에 등록된 가게의 정보는 가게 관리자가 직접 등록한 것으로
@@ -1109,5 +565,5 @@
 		<div id="qr-modal-portal"></div>
 		<div id="toast-portal"></div>
 	</div>
-</body>
+	<</body>
 </html>

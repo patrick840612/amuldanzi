@@ -23,6 +23,21 @@
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
+<style type="text/css">
+dialog::backdrop{
+	background-color : rgba(0,0,0,0.5);
+	backdrop-filter: blur(1px);
+}
+
+dialog{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	border: 0;
+	text-align: center;
+	border-radius: 20px;
+	padding: 30px 20px 30px 20px;
+	background-color : navy;
+}
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -87,6 +102,8 @@ $(function(){
 		}); // ajax end
 	} // end of loginCheck
 	
+
+	
 	// 구글 로그인 버튼 클릭 시
 	$("#g_login_btn").click(getGoogleLoginUri);
 	// 카카오 로그인 버튼 클릭 시
@@ -95,6 +112,28 @@ $(function(){
 	$("#regist").click(linkToRegist);
 	// 로그인 버튼 클릭 시
 	$("#loginform_submit").click(loginCheck);
+	
+	
+	// 관리자 회원가입 입장
+	$("#mregist").click(function(){
+		
+		  // 모달사용법
+		  const dialog = document.querySelector("#dialog");
+		  dialog.showModal();
+		  
+		  $('#confirm').on("click", (event) => {
+			  event.preventDefault();
+			  dialog.close();
+			  
+			  if($('#pass').val() === 'admin1234'){
+				  $('#pass').val('');
+				  location.href="/login/mregister";
+			  }else{
+				  $('#pass').val('');
+			  }
+			});
+	});
+
 });
 </script>
 
@@ -103,7 +142,15 @@ $(function(){
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
+							
+						 	
+
+
 	<div class="login_contents__1fQZs">
+						<dialog  id="dialog">
+								<input type="text" placeholder="관리자 비밀번호" required name = "pass" id="pass"/>
+								<button value="confirm" id="confirm" class="mbutton">Confirm</button>
+						</dialog>	
 		<div class="login_loginImgWrapper__ETBnE">
 			<img src="/images/logo1.png" class="login_loginImg__aI0wq">
 		</div>
@@ -126,16 +173,6 @@ $(function(){
 		<div class="login_loginSNSText__W8qP8">간편하게 SNS 로그인</div>
 		<div>
 			<div class="login_btnWrapper__gPI6I">
-				<div id="naverIdLogin" style="display: none;">
-					<a id="naverIdLogin_loginButton" href="#"><img
-						src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.0"
-						height="45"></a>
-				</div>
-				<button class="login_loginNaver__HVe_U" id="n_login_btn">
-					<img src="/images/Fill_naver.svg" class="login_logoNaver__A2sVP">네이버로	로그인
-				</button>
-			</div>
-			<div class="login_btnWrapper__gPI6I">
 				<button class="login_loginKakao" id="k_login_btn">
 					<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡 로그인
 				</button>
@@ -152,8 +189,7 @@ $(function(){
 				<div class="login_loginTab__9nBLa">비밀번호 찾기</div>
 				<div class="login_loginfunctionBar__RYXDN"></div>
 				<div class="login_loginTab__9nBLa" id="regist">회원가입</div>
-				<a class="login_loginTab__9nBLa" href="/login/firebase">파이어베이스</a>
-				<a class="login_loginTab__9nBLa" href="/login/modal">모달</a>
+				<div class="login_loginTab__9nBLa" id="mregist">관리자 회원가입</div>
 			</div>
 		</div>
 	</div>

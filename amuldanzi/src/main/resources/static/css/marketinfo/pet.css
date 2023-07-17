@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.content{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	
+}
+
+.font{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	
+}
+
+.custom-file-input {
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  .custom-file-label {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #FE2E64;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .custom-file-label:hover {
+    background-color: #FF3F77;
+  }

@@ -101,13 +101,13 @@
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a rel="noopener noreferrer" href=""
+											<a rel="noopener noreferrer" href="/notice/notice"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">공지사항</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 
-											<a rel="noopener noreferrer" href="/clinic/clinic"
+											<a rel="noopener noreferrer" href="/clinic/clinicInfo"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">병원정보</div></a> 
@@ -121,7 +121,7 @@
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 
-											<a rel="noopener noreferrer" href="/marketShop/marketShop"
+											<a rel="noopener noreferrer" href="/marketinfo/marketInfo"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">마켓정보</div>
