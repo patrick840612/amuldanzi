@@ -175,13 +175,11 @@ $(function() {
 
 	  if (isChecked) {
 	    checkLabels.forEach((label) => {
-	      //allCheckNeed.style.color = "green";
-	      allCheckNeed.style.display = "none";
+	      allCheckNeed.style.color = "green";
 	    });
 	  } else {
 	    checkLabels.forEach((label) => {
-	      //allCheckNeed.style.color = "";
-	      allCheckNeed.style.display = "block";
+	      allCheckNeed.style.color = "";
 	    });
 	  }
 	});
@@ -195,13 +193,11 @@ $(function() {
 
 	    if (isAllChecked) {
 	      checkLabels.forEach((label) => {
-	          //allCheckNeed.style.color = "green";
-	    	  allCheckNeed.style.display = "none";
+	          allCheckNeed.style.color = "green";
 	      });
 	    } else {
 	      checkLabels.forEach((label) => {
-	          //allCheckNeed.style.color = "";
-	          allCheckNeed.style.display = "block";
+	          allCheckNeed.style.color = "";
 	      });
 	    }
 	  });
@@ -616,6 +612,7 @@ $(function() {
 							<div class="account_alertText__bGPQB"></div>
 							<div class="account_signUpInputWrapper__kzyF3">
 								<button type="button" class="account_checkButton__wezDS" id="textbutton">번호인증</button>
+								<div id="recaptcha-container"></div>
 							</div>
 							<div class="invalid-feedback">휴대폰 번호를 인증해주세요</div>
 						</div>
@@ -812,7 +809,7 @@ $(function() {
 		// 로봇인증 확인여부
 		let recaptchaResolved = false;
 
-		/*$('#textbutton').on('click', function(event) {
+		$('#textbutton').on('click', function(event) {
 			event.preventDefault();
 			event.stopPropagation();
 			if (!recaptchaResolved){
@@ -820,12 +817,6 @@ $(function() {
 			}else{
 				textdialog.showModal();
 			}
-		});*/
-
-		$('#textbutton').on('click', function(event) {
-			event.preventDefault();
-			event.stopPropagation();
-			window.open("/login/registerauth","문자인증 페이지 이동","width=800, height=600, left=600, top=200");
 		});
 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
