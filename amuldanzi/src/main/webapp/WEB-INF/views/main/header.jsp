@@ -112,11 +112,12 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">병원정보</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a class="popper_popperTab__LvzGS"><img
-												src="/icons/shop/SHOP_CAT_BTN2.png">
+											<a class="popper_popperTab__LvzGS" href="/education/education"><img
+												src="/icons/shop/SHOP_CAT_BTN2.png" >
 												<div class="popper_popperMenu__8QpIV">교육정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a class="popper_popperTab__LvzGS"><img
+											<a rel="noopener noreferrer" href="/care/care"
+												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
