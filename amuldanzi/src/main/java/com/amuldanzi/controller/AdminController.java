@@ -181,9 +181,26 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
-	public String adSave(AdvertisementDTO dto) {		
-		adminService.adSave(dto);
-		return "redirect:/admin/adList";
+	public String adSave(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
+	    try {
+	        if (!file.isEmpty()) {
+	            String originalFilename = file.getOriginalFilename();
+	            String fileName = new MD5Generator(originalFilename).toString();
+	            String savePath = "src/main/resources/static/files/images";
+	            String filePath = savePath + "/" + fileName;
+	            file.transferTo(new File(filePath));
+	            dto.setImg(fileName);
+	            dto.setImgPath(filePath);
+	            adminService.adSave(dto);
+	        }
+	        
+	        return "redirect:/admin/adList";
+	        
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        // 업로드 실패 처리
+	        return "redirect:/admin/adInsert?error";
+	    }
 	}
 	
 	@RequestMapping(value = "/adUpdate", method = RequestMethod.POST)

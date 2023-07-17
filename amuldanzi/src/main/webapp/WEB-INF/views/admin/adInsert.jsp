@@ -45,6 +45,8 @@
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
 
+
+
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -246,7 +248,7 @@
 		
 											<div class="btn-group">
 												<a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-												<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+												<input name="file" type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
 											</div>
 		
 											<div class="btn-group">
@@ -324,6 +326,33 @@
 	
 	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+	
+	    <script>
+    $(document).ready(function() {
 
+
+    	  function uploadImage(file) {
+    	    var formData = new FormData();
+    	    formData.append('file', file);
+
+    	    $.ajax({
+    	      url: '/upload/image',
+    	      method: 'POST',
+    	      data: formData,
+    	      processData: false,
+    	      contentType: false,
+    	      success: function(response) {
+    	        var imageUrl = response;
+    	        $('#editor-one').summernote('insertImage', imageUrl);
+    	      }
+    	    });
+    	  }
+
+    	  function deleteMedia(src) {
+    	    // 해당 미디어를 삭제하는 로직을 작성합니다.
+    	    // ...
+    	  }
+    	});
+    </script>
 </body>
 </html>
