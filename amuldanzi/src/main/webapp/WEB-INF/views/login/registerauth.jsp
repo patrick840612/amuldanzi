@@ -196,9 +196,7 @@ $(function() {
 	$('#reauth').click(function(){
 		location.reload();
 	});	
-	
 
-	
 });
 </script>
 </head>
@@ -302,6 +300,7 @@ $(function() {
 
         document.getElementById('phoneNumberButton').addEventListener('click', (event) => {
             event.preventDefault()
+
 			const phoneNumber = $('#phoneNumber');
 	    	const phoneNumberValue = phoneNumber.val();
 
@@ -339,8 +338,6 @@ $(function() {
                 });
 			}
         })
-
-
 
         document.getElementById('confirmCodeButton').addEventListener('click', (event) => {
             event.preventDefault()

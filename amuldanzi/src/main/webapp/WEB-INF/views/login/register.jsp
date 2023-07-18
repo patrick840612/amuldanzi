@@ -380,11 +380,13 @@ $(function() {
 	  
 	  // 회원가입
 	  $('#regist').submit(function(){
-		  $('.petgps').each(function() {
-			    if ($(this).val() === '') {
-			      $(this).val('없음');
-			    }
-		  });
+		  if(petCount>0){
+			  $('.petgps').each(function() {
+				    if ($(this).val() === '') {
+				      $(this).val('없음');
+				    }
+			  });
+		  }
 	  }); // 회원가입 완료
 	  
 

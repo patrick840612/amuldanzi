@@ -233,8 +233,11 @@ public class LoginServiceImpl implements LoginService {
 		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());
 		member.setUserPassword(pw);
 		loginDAO.save(member);
-		for(MemberPetDTO pet : petList) {
-			loginPetDAO.save(pet);
+		
+		if (petList != null) {
+			for(MemberPetDTO pet : petList) {
+				loginPetDAO.save(pet);
+			}
 		}
 	}
 	

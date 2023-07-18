@@ -130,26 +130,33 @@ public class LoginController {
 	public String regist(@ModelAttribute MemberInfoDTO member, @ModelAttribute MemberPetDTO pets, Model m) {
 		
 		m.addAttribute("id", member.getId());
-		
 		List<MemberPetDTO> petList = new ArrayList<>();
-		String[] petNames = pets.getPetName().split(",");
-		String[] whichPets = pets.getWhichPet().split(",");
-		String[] petBloods = pets.getPetBlood().split(",");
-		String[] gpss = pets.getGps().split(",");
 		
-		for (int i = 0; i < petNames.length; i++) {
-
-	        MemberPetDTO memberPetDTO = new MemberPetDTO();
-
-	        memberPetDTO.setPetName(petNames[i]);
-	        memberPetDTO.setWhichPet(whichPets[i]);
-	        memberPetDTO.setPetBlood(petBloods[i]);
-	        memberPetDTO.setGps(gpss[i]);
-	        memberPetDTO.setMemberId(member);
-	        
-	        petList.add(memberPetDTO);
-	    }
-		
+		if (pets != null) {		
+			
+//			String[] petNames = pets.getPetName().split(",");
+//			String[] whichPets = pets.getWhichPet().split(",");
+//			String[] petBloods = pets.getPetBlood().split(",");
+//			String[] gpss = pets.getGps().split(",");
+	        String[] petNames = (pets.getPetName() != null) ? pets.getPetName().split(",") : new String[0];
+	        String[] whichPets = (pets.getWhichPet() != null) ? pets.getWhichPet().split(",") : new String[0];
+	        String[] petBloods = (pets.getPetBlood() != null) ? pets.getPetBlood().split(",") : new String[0];
+	        String[] gpss = (pets.getGps() != null) ? pets.getGps().split(",") : new String[0];
+			
+			for (int i = 0; i < petNames.length; i++) {
+	
+		        MemberPetDTO memberPetDTO = new MemberPetDTO();
+	
+		        memberPetDTO.setPetName(petNames[i]);
+		        memberPetDTO.setWhichPet(whichPets[i]);
+		        memberPetDTO.setPetBlood(petBloods[i]);
+		        memberPetDTO.setGps(gpss[i]);
+		        memberPetDTO.setMemberId(member);
+		        
+		        petList.add(memberPetDTO);
+		    }
+		 }
+			
 		loginService.regist(member, petList);
 	
 		return "/main/index";
