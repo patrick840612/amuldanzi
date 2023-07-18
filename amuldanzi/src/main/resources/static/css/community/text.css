@@ -11646,7 +11646,9 @@ to {
 
 .question_questionContainer__xQp_P .question_questionContent__Y4VxA .question_fileInputWrapper__d9gmU
 	{
-	margin: 50px 0
+	margin: 50px 0;
+	position: relative;
+	top: 230px;
 }
 
 .question_questionContainer__xQp_P .question_questionContent__Y4VxA .question_questionImgContainer__tNqZy
@@ -11722,15 +11724,17 @@ to {
 
 .question_questionContainer__xQp_P .question_questionContent__Y4VxA .question_submitBtn__vDrt_
 	{
-	width: 240px;
-	height: 40px;
-	background-color: #fcd11e;
-	border-radius: 21px;
-	border: none;
-	margin: 60px auto 100px;
-	display: block;
-	cursor: pointer;
-	font-weight: 700
+    width: 240px;
+    height: 40px;
+    position: relative;
+    background-color: #fcd11e;
+    border-radius: 21px;
+    border: none;
+    margin: 60px auto 93px;
+    display: block;
+    cursor: pointer;
+    font-weight: 700;
+    top: 100px;
 }
 
 .question_questionContainer__xQp_P .question_questionContent__Y4VxA .question_submitBtn__vDrt_:hover

@@ -16,51 +16,76 @@
 <!-- Custom Theme Style -->
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
-<link href="/css/community/community.css" rel="stylesheet">
-<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+<link href="/css/community/community.css" rel="stylesheet"> 
 <link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
-<link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
-<link href="/css/community/communitytext.css" rel="stylesheet"> 
+<link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet"> 
+<link href="/css/community/text.css" rel="stylesheet"> 
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function() {
-    // 사진 업로드 미리보기
-    $('#uploadFile').on('change', function(event) {
-      var previewContainer = $('#imagePreviewContainer');
-      previewContainer.html('');
+	$(document).ready(function() {
+	    // 사진 업로드 미리보기
+	    $('#uploadFile').on('change', function(event) {
+	      var previewContainer = $('#imagePreviewContainer');
+	      previewContainer.html('');
+	
+	      var files = event.target.files;
+	
+	      for (var i = 0; i < files.length && i < 3; i++) {
+	        var file = files[i];
+	        var reader = new FileReader();
+	
+	        reader.onload = function(e) {
+	          var image = $('<img>').attr('src', e.target.result);
+	          var preview = $('<div class="image-preview"></div>').append(image);
+	          var deleteButton = $('<span class="delete-button">&times;</span>');
+	
+	          deleteButton.on('click', function() {
+	            preview.remove();
+	          });
+	
+	          preview.append(deleteButton);
+	          previewContainer.append(preview);
+	        };
+	
+	        reader.readAsDataURL(file);
+	      }
+	    });
+	  });
 
-      var files = event.target.files;
-
-      for (var i = 0; i < files.length && i < 3; i++) {
-        var file = files[i];
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
-
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
-
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    });
-  });
+	$(document).ready(function() {
+	    // 이미지 삭제 버튼 클릭 시
+	    $('.delete-button').on('click', function() {
+	        var imagePath = $(this).prev().find('img').attr('src');
+	        var fileName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+	        console.log(fileName);
+	        deleteImage(fileName);
+	    });
+	}); 
+	
+	function deleteImage(imageName) {
+	    $.ajax({
+	        url: '/community/deleteImage',
+	        data: {"imageName":imageName},
+	        type: 'DELETE',
+	        success: function() {
+	            // Image deleted successfully, update the UI or perform any additional actions
+	            console.log("성공");
+	        },
+	        error: function(xhr, status, error) {
+	            // Handle the error case, if any
+	            console.error(error);
+	        }
+	    });
+	}
 </script>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-    <form enctype="multipart/form-data" action="/community/submit" method="post">
+    <form enctype="multipart/form-data" action="/community/modify" method="post">
         <div class="question_questionContainer__xQp_P">
             <div class="question_questionContent__Y4VxA">
                 <span class="question_questionCategory__1QDx6">카테고리</span><span class="question_questionMark__AykT_">*</span>
@@ -73,20 +98,20 @@ $(document).ready(function() {
                 <div>
                     <div>
                         <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id">
+                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId" value="${community.memberId.id}">
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <div>
                         <span class="question_questionCategory__1QDx6">글 작성</span><span class="question_questionMark__AykT_">*</span>
                     </div>
-                    <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" name="commTitle">
+                    <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" name="commTitle" value="${community.commTitle}">
                     <div class="question_alertText__WnxqW"></div>
                 </div>
                 <div class="question_questionInputWrapper__fGaar">
-                    <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="commContent"></textarea>
+                    <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="commContent" >${community.commContent }</textarea>
                     <div class="question_alertText__WnxqW"></div>
                 </div>
-                <div class="question_fileInputWrapper__d9gmU">
+                <div class="question_fileInputWrapper__d9gmU"> 
                     <span class="question_questionCategory__1QDx6">사진 업로드</span>
                     <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
                     <input id="uploadFile" name="files" type="file" multiple="" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
@@ -102,9 +127,18 @@ $(document).ready(function() {
                         <li>사진은 최대 3개까지 업로드 가능합니다.</li>
                     </ul>
                 </div>
-                <button type="submit" class="question_submitBtn__vDrt_" >글 등록</button>
+                 <input type="hidden" name="comm_no" value="${community.commNo}"> 
+                <button type="submit" class="question_submitBtn__vDrt_" >글 수정</button>
             </div>
         </div>
     </form>
+		    <c:forEach var="image" items="${commImages}">
+			<div class="image-preview-container">
+			        <span>
+			            <img class="image-preview" src="/images/community/${image}" alt="Community Image" style="width: 200px; height: 200px;">
+			        </span>
+			        <button class="delete-button" onclick="deleteImage('${image}')" style="position:relative; left:93px" >&times;</button>
+			    </div>
+			</c:forEach><br/>
 </body>
 </html>
