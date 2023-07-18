@@ -302,20 +302,16 @@ $(function() {
 			success : function(result){
 				console.log(result.resultTel);
 				// 중복된 전화번호 없음
-				/*if(result.resultEmail == false){
-					$('#EmailCheckDup').text('');
-					$('#EmailCheckDup').removeClass('duplicateCheck2');
-					userEmailCheck.setCustomValidity(""); 
+				if(result.resultTel == false){
+					$('#TelCheckDup').text('');
+					$('#TelCheckDup').removeClass('alert-danger d-flex align-items-center');
+					userTelCheck.setCustomValidity("");
 				}else{
 					// 중복전화번호
-					if(userEmail.length == 0){
-						$('#EmailCheckDup').text('필수 입력');
-					}else{
-						$('#EmailCheckDup').text('중복');
-					}
-					$('#EmailCheckDup').addClass('duplicateCheck2');
-					userEmailCheck.setCustomValidity("중복오류");
-				}*/
+					$('#TelCheckDup').text('전화번호 중복');
+					$('#TelCheckDup').addClass('alert-danger d-flex align-items-center');
+					userTelCheck.setCustomValidity("중복오류");
+				}
 			},
 			error : function(err){
 				alert('error');
@@ -409,8 +405,8 @@ $(function() {
 						
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
-							<input type="tel" name="userTel" placeholder="전화번호"
-								value="" class="form-control account_inputSignUp___sBwm" id="userTel" minlength="13" maxlength="13" required><div></div><div></div>								
+							<input type="tel" name="userTel" placeholder="전화번호(010-0000-0000)"
+								value="" class="form-control account_inputSignUp___sBwm" id="userTel" minlength="13" maxlength="13" required><div id="TelCheckDup"></div><div></div>								
 							<div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
 						</div>
 						
@@ -491,21 +487,6 @@ $(function() {
 			</div>
 
 			<div>
-				<div class="login_loginSNSText__W8qP8">간편하게 SNS 회원가입</div>
-				<div>
-					<div class="login_btnWrapper__gPI6I">
-						<button class="login_loginKakao" id="k_login_btn">
-							<img src="/images/icon_kakao.svg" class="login_loginKakao__TI4hn">카카오톡
-							회원가입
-						</button>
-					</div>
-					<div class="login_btnWrapper__gPI6I">
-						<button class="login_loginGoogle__g9yTZ" id="g_login_btn">
-							<img src="/images/Fill_google.svg"
-								class="login_logoGoogle__CAPsi">Google 회원가입
-						</button>
-					</div>
-				</div>
 				<div class="login_loginBar__546og"></div>
 
 				<div class="login_loginfunction__KPcAe">
@@ -515,6 +496,5 @@ $(function() {
 		</div>
 	</div>
 
-	</div>
 </body>
 </html>
