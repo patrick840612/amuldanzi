@@ -18,10 +18,7 @@
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
 
-
-
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 
 <style>
@@ -37,10 +34,11 @@
 	color: white;
 }
 
-
-
+/* New CSS for the video */
+.video-container {
+    text-align: left;
+}
 </style>
-
 
 </head>
 
@@ -63,46 +61,26 @@
 	<br />
 	<br />
 
-
-
 	<div class="container">
-		<div class="row">
-			<h3>
-				<center>제목 : ${care.title}</center>
-			</h3>
-			<br />
-		</div>
-		<!--.row -->
+		<h3>
+			<center>제목 : ${care.title}</center>
+		</h3>
+		<br />
 	</div>
 	<!--./container -->
 
 	<div class="container">
-		<div class="row">
-
-			<!--.col -->
-			<div class="col-md-8">
-				<video controls autoplay muted playsinline>
-					<source src="${care.video}" type="video/mp4">
-				</video>
-			</div>
-			
-			
-
-
-			<br />
-
+		<div class="col-md-12 video-container">
+			<video controls autoplay muted playsinline>
+				<source src="${care.video}" type="video/mp4">
+			</video>
 		</div>
-		<br />
-		<h4>영상정보 : ${care.content}</h4>
-		<br />
-		<div class="col-md-6 offset-md-3">
-			<a href="/care/care" class="btn btn-pink">목록가기</a>
-		</div>
-		<br /> <br /> <br /> <br /> <br />
-		<!--./row -->
 	</div>
-	<!--./container -->
 
+	<h4>영상정보 : ${care.content}</h4>
+	<div class="col-md-6 offset-md-3">
+		<a href="/care/care" class="btn btn-pink">목록가기</a>
+	</div>
 
 </body>
 </html>
