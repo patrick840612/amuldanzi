@@ -164,7 +164,7 @@ public class CommunityController {
 				System.out.println(imageName);  
 				String userDir = System.getProperty("user.dir");
 				
-				String imagePath = userDir + "/src/main/resources/static/images/community/files/" + imageName;
+				String imagePath = userDir + "/src/main/resources/static/images/community/" + imageName;
 				File file = new File(imagePath);
 			
 			if (file.exists() && file.delete()) {

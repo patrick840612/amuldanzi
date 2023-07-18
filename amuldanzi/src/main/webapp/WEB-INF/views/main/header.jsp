@@ -36,7 +36,7 @@
 		<div class="Header_headerArea__tufnp">
 			<header class="Header_headerContainer__m5wGA">
 				<div class="Header_contents__f5njA">
-					<a href="/main/index"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
+					<a href="/admin/adminMain"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
