@@ -30,39 +30,6 @@
 	crossorigin="anonymous">
 
 <style>
-dialog::backdrop{
-	background-color : rgba(0,0,0,0.3);
-	backdrop-filter: blur(1px);
-}
-
-dialog{
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-	border: 0;
-	text-align: center;
-	border-radius: 20px;
-	padding: 20px 50px 10px 50px;
-	background-color : #ec879e;
-}
-
-.duplicateCheck{
-	width: 300px;
-    height: 33px;
-    border: none;
-    border-bottom: 1px solid #e4e4e6;
-    font-size: 14px;
-	color : green;
-	font-weight: bold;
-}
-
-.duplicateCheck2{
-	width: 300px;
-    height: 33px;
-    border: none;
-    border-bottom: 1px solid #e4e4e6;
-    font-size: 14px;
-	color : red;
-	font-weight: bold;
-}
 
 .account_signUpInputWrapper__kzyF3 {
   display: flex;
@@ -72,27 +39,7 @@ dialog{
   flex-grow: 1;
 }
 
-#EmailCheckDup{
-	width: 200px;
-	display: none;
-    justify-content: center;
-    align-items: center;
-}
 
-#idCheckDup{
-	width: 200px;
-	display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.idCheck{
-	width: 200px;
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .account_checkButton__wezDS{
 	width: 100px !important;
@@ -103,13 +50,6 @@ dialog{
 	justify-content: center;
 }
 
-input.addpet::placeholder {
-  text-align: center;
-}
-
-.addpet{
-	margin-right: 10px;
-}
 
 .account_signUpInputWrapper__kzyF3{
 
@@ -132,7 +72,7 @@ input.addpet::placeholder {
   margin-left: 200px; /* Use flex for the button container */
 }
 
-
+.account_noCheckButton__dNWQx{}
 
 </style>
 
@@ -150,14 +90,11 @@ $(function() {
 	
       Array.prototype.filter.call(forms, (form) => {
         form.addEventListener('submit', function (event) {
-         /*  if ($("#userPass").val() != $("#userPass2").val()){
-        	  event.preventDefault();
-              event.stopPropagation();
-          } */
+ 
           if (!form.checkValidity()) {
               event.preventDefault();
               event.stopPropagation();
-              //alert('입력이 올바르지 않습니다');
+ 
             }
 
           form.classList.add('was-validated');
@@ -184,13 +121,13 @@ $(function() {
 						$('#TelCheckDup').text('');
 						$('#TelCheckDup').removeClass('alert-danger d-flex align-items-center');
 						userTelCheck.setCustomValidity("");
-						//$('#phoneNumberButton').removeAttr('disabled');
+
 					}else{
 						// 중복전화번호
 						$('#TelCheckDup').text('중복');
 						$('#TelCheckDup').addClass('alert-danger d-flex align-items-center');
 						userTelCheck.setCustomValidity("중복오류");
-						//$('#phoneNumberButton').attr('disabled', true);
+
 					}
 				},
 				error : function(err){
@@ -204,8 +141,9 @@ $(function() {
 		event.preventDefault();
 	    const phoneNumber = $('#phoneNumber');
 	    const phoneNumberValue = phoneNumber.val();
+	    const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{3,4}-?\d{4}$/;
 
-	    if (/^\d{11}$/.test(phoneNumberValue)) {
+	    if (phoneRegex.test(phoneNumberValue)) {
 
 	      const formattedPhoneNumber = phoneNumberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
 	      phoneNumber.val(formattedPhoneNumber);
@@ -224,13 +162,13 @@ $(function() {
 						$('#TelCheckDup').text('');
 						$('#TelCheckDup').removeClass('alert-danger d-flex align-items-center');
 						userTelCheck.setCustomValidity("");
-						//$('#phoneNumberButton').removeAttr('disabled');
+
 					}else{
 						// 중복전화번호
 						$('#TelCheckDup').text('중복');
 						$('#TelCheckDup').addClass('alert-danger d-flex align-items-center');
 						userTelCheck.setCustomValidity("중복오류");
-						//$('#phoneNumberButton').attr('disabled', true);
+
 					}
 				},
 				error : function(err){
@@ -238,11 +176,14 @@ $(function() {
 					console.log(err);
 				}
 			}); // 비동기 통신 종료
-	    } else {
-
+	    } else if(phoneNumberValue == ""){
+	    	
+	    }else{
+	    	alert("올바른 휴대폰 번호 형식을 입력하세요.\n예: '010-0000-0000' 또는 11자리 숫자");
 	    }
 
 	});
+					
 
 	$('#selfclose').click(function(){
 		// 원본페이지 이동 시키기 : opener.location.href="/login/loginpage";
@@ -288,7 +229,7 @@ $(function() {
 							<div></div><div></div>								
 							<div class="account_alertText__bGPQB"></div>
 							<div class="account_signUpInputWrapper__kzyF3">
-								<button id="confirmCodeButton" class="account_checkButton__wezDS" disabled="disabled">확인 코드 전송</button>
+								<button id="confirmCodeButton" class="account_noCheckButton__dNWQx" disabled="disabled">확인 코드 전송</button>
 							</div>
 						</div>
 					</form>
@@ -368,6 +309,8 @@ $(function() {
 				alert("로봇이 아님을 인증해 주세요");				
 			}else if(recaptchaResolved && $('#TelCheckDup').text() == '중복'){
 				alert("전화번호가 가입되어 있습니다");
+			}else if(phoneNumberValue == ""){
+
 			}else{
 
             const phoneNumber = document.getElementById('phoneNumber').value
@@ -381,6 +324,7 @@ $(function() {
                 $('#recaptcha-container').hide();
 				$('#confirmCode').removeAttr('readonly');
 				$('#confirmCodeButton').removeAttr('disabled');
+				$('#confirmCodeButton').attr('class', 'account_checkButton__wezDS');
 
                 }).catch((error) => {
                     console.log(error);
@@ -391,6 +335,7 @@ $(function() {
 				$('#confirmCodeButton').attr('disabled', true);
 				$('#phoneNumber').attr('readonly', true);
 				$('#phoneNumber').val('');
+				$('#confirmCodeButton').attr('class', 'account_noCheckButton__dNWQx');
                 });
 			}
         })

@@ -558,7 +558,7 @@ $(function() {
 </script>
 </head>
 
-<jsp:include page="../main/header.jsp"></jsp:include>
+<jsp:include page="../../main/header.jsp"></jsp:include>
 
 <body>
 	
