@@ -61,12 +61,12 @@ public class LoginServiceImpl implements LoginService {
 	// 구글 로그인
 	public String googleLogin(String code) {
         String accessToken = getAccessToken(code);
-        System.out.println("accessToken = " + accessToken);
+        //System.out.println("accessToken = " + accessToken);
         JsonNode userResourceNode = getUserResource(accessToken);
         
         String email = userResourceNode.get("email").asText();
         
-        System.out.println("email = " + email);
+        //System.out.println("email = " + email);
         
         return email;
 	}

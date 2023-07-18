@@ -44,6 +44,7 @@ public class LoginController {
 	// 구글 로그인
 	@RequestMapping(value="/googleCallback", method = RequestMethod.GET)
 	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
+		
 		String email = loginService.googleLogin(code);
 		MemberInfoDTO member = new MemberInfoDTO();
 		member.setUserEmail(email);
