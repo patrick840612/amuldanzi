@@ -568,7 +568,7 @@ $(function() {
 
 						<div class="account_signUpInputWrapper__kzyF3">
 							<input type="text" id="addr2" placeholder="상세주소" class="account_inputSignUp___sBwm form-control"  name="userAddr2">
-							<div class="account_alertText__bGPQB"></div>
+							<div class="account_alertText__bGPQB"></div><div></div><div></div>
 							<div class="account_signUpInputWrapper__kzyF3">
 								<button type="button" class="account_checkButton__wezDS" id="addrbutton">주소찾기</button>
 							</div>
@@ -657,7 +657,7 @@ $(function() {
 							<dialog id="dialog"> 나의 반려동물을 등록해 보아요<br/><br/>
 								<div id="addpet"></div>
 								<div>
-								<button value="add" id="add">반려동물 등록</button><br/><br/>
+								<button value="add" id="add">반려동물 등록(추가)</button><br/><br/>
 								<button value="confirm" id="confirm">완료</button>
 								</div>
 							</dialog>
