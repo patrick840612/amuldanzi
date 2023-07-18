@@ -310,7 +310,7 @@ $(function() {
 			}else if(recaptchaResolved && $('#TelCheckDup').text() == '중복'){
 				alert("전화번호가 가입되어 있습니다");
 			}else if(phoneNumberValue == ""){
-
+				alert("전화번호를 입력해 주세요");
 			}else{
 
             const phoneNumber = document.getElementById('phoneNumber').value
