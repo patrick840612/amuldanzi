@@ -63,6 +63,10 @@
 .center-align {
 	text-align: center;
 }
+
+.card-header {
+	background-color: pink;
+}
 </style>
 
 
@@ -94,13 +98,18 @@
 
 								</div>
 								<div class="card-body">
+								<br />
 									<div>${notice.content}</div>
+									<br />
+									<br />
+									<br />
+									<center>
+									<a href="/notice/notice" class="btn btn-pink">목록가기</a>
+								</center>
 								</div>
 							</div>
-							<br />
-							<div class="col-md-6 offset-md-3"><center>
-								<a href="/notice/notice" class="btn btn-pink">목록가기</a></center>
-							</div>
+							
+
 
 						</div>
 					</div>

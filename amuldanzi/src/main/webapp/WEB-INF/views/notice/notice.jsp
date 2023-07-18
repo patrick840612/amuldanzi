@@ -43,6 +43,15 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 
+<style>
+.table-bordred thead {
+	background-color: pink;
+}
+
+.col-md-12 {
+	margin-left: -90px;
+}
+</style>
 
 
 
@@ -54,24 +63,27 @@
 	<div class="main_mainContents__GXYBn2">
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<p class="main_mainTitle__nxOQS">
-			<h1><center><strong>공지사항</strong></center></h1>
+		<h1>
+			<center>
+				<strong>공지사항</strong>
+			</center>
+		</h1>
 		</p>
+		<br />
 		<h5>
 			<center>애물단지에서 알려드리는 공지사항입니다.</center>
 		</h5>
 		<br />
 		<hr class="popper_popperMenuDivider__j1QQj">
 
-		<br /> <br />
+		<br /> <br /> <br />
+
 		<div class="container">
 			<div class="row">
-
-
 				<div class="col-md-12">
-					<div class="table-responsive">
-
-
-						<table id="mytable" class="table table-bordred table-striped" style="margin: auto;">
+					<div class="table">
+						<table id="mytable" class="table table-bordred table-striped"
+							style="margin: auto;">
 
 							<thead>
 								<th><center>공지번호</center></th>
@@ -83,19 +95,20 @@
 							<tbody>
 
 								<tr>
-								<c:forEach items="${noticeList}" var="notice">
-									<td>${notice.id}</td>
-									<td align="left"><a href="/notice/noticeDetail?title=${notice.title }">
-							${notice.title }</a></td>
-									<td>${notice.regdate }</td>
-									<td>${notice.count }</td>
+									<c:forEach items="${noticeList}" var="notice">
+										<td><center>${notice.id}</center></td>
+										<td align="left"><a
+											href="/notice/noticeDetail?title=${notice.title}"><center>
+													${notice.title}</center></a></td>
+										<td><center>${notice.regdate}</center></td>
+										<td><center>${notice.count}</center></td>
 								</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 
 						<div class="clearfix"></div>
-						<ul class="pagination pull-right">
+						<ul class="pagination justify-content-center">
 							<li class="disabled"><a href="#"><span
 									class="glyphicon glyphicon-chevron-left"></span></a></li>
 							<li class="active"><a href="#">1</a></li>
@@ -108,10 +121,10 @@
 						</ul>
 
 					</div>
-
 				</div>
 			</div>
 		</div>
+
 
 
 		<div class="modal fade" id="edit" tabindex="-1" role="dialog"
