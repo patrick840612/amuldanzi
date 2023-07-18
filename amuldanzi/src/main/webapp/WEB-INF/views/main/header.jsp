@@ -49,19 +49,19 @@
 											<a   rel="noopener noreferrer" href="../pet/gps"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">GPS</div>
+												<div class="popper_popperMenu__8QpIV">위치찾기</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a   rel="noopener noreferrer" href="../pet/blood"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">수혈 정보</div>
+												<div class="popper_popperMenu__8QpIV">혈액나눔정보</div>
 											</a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a   rel="noopener noreferrer" href="../pet/emotion"
 												class="popper_popperTab__LvzGS"> <img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">표정 맞추기</div>
+												<div class="popper_popperMenu__8QpIV">표정맞추기</div>
 											</a>
 										</div>
 									</div>

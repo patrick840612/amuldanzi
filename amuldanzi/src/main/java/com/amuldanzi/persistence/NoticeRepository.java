@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.amuldanzi.domain.NoticeDTO;
 
 @Repository
-public interface NoticeRepository extends JpaRepository<NoticeDTO, Long> {
+public interface NoticeRepository extends JpaRepository<NoticeDTO, Integer> {
 
     NoticeDTO findByTitle(String noticeTitle);
 
