@@ -131,13 +131,8 @@ public class LoginController {
 		
 		m.addAttribute("id", member.getId());
 		List<MemberPetDTO> petList = new ArrayList<>();
-		
-		if (pets != null) {		
-			
-//			String[] petNames = pets.getPetName().split(",");
-//			String[] whichPets = pets.getWhichPet().split(",");
-//			String[] petBloods = pets.getPetBlood().split(",");
-//			String[] gpss = pets.getGps().split(",");
+		if (pets != null && hasPetData(pets)) {		
+
 	        String[] petNames = (pets.getPetName() != null) ? pets.getPetName().split(",") : new String[0];
 	        String[] whichPets = (pets.getWhichPet() != null) ? pets.getWhichPet().split(",") : new String[0];
 	        String[] petBloods = (pets.getPetBlood() != null) ? pets.getPetBlood().split(",") : new String[0];
@@ -162,6 +157,14 @@ public class LoginController {
 		return "/main/index";
 	} // 회원가입 완료
 	
+	// MemberPetDTO pets 에 값이 있는지 확인
+	private boolean hasPetData(MemberPetDTO pets) {
+		 return pets != null &&
+		           (pets.getPetName() != null && !pets.getPetName().isEmpty()) ||
+		           (pets.getWhichPet() != null && !pets.getWhichPet().isEmpty()) ||
+		           (pets.getPetBlood() != null && !pets.getPetBlood().isEmpty()) ||
+		           (pets.getGps() != null && !pets.getGps().isEmpty());
+	}
 
 	// 중복체크 idCheckServiceCon
 	@RequestMapping("/idCheckServiceCon")
