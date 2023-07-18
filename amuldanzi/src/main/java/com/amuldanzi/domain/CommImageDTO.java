@@ -2,6 +2,7 @@ package com.amuldanzi.domain;
 
 import java.util.Date;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.DynamicInsert;
 
 import jakarta.persistence.Column;
@@ -13,39 +14,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "community")
+@Table(name = "commImg")
 @DynamicInsert
-public class CommunityDTO {
+public class CommImageDTO {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = true, updatable = false, insertable = false)
-	private Integer commNo;
+	private Integer emiId;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
-	@JoinColumn(name="id", referencedColumnName = "id")
-	private MemberInfoDTO memberId;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "commNo", referencedColumnName = "commNo")
+	private CommunityDTO CommunityNum;
 	
-	private String commTitle; 
+	@Column(nullable = false) 
+	private String commImgOriginName;
 	
-	@Column(length = 6000)
-	private String commContent;
+	@Column(nullable = false)
+	private String commImgFileName;
+	
+	@Column(nullable = false)
+	private String commImgPath;
 	
 	@Column(columnDefinition = "date default sysdate()"
 			,insertable = false
 			,updatable = true)
-	private Date commDate;
-	 
-	@Transient
-	private Integer likeCount;
-	
-	@Column(columnDefinition = "integer default 0")
-	private Integer answerCount;
+	private Date commImgdate;
 	
 }

@@ -17,6 +17,25 @@
       height: 300px; /* 원하는 높이로 조정 */
       overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
     }
+ 
+    .image-preview-container {
+        display: inline-block;
+        text-align: center;
+        margin-right: 10px;
+        position: relative;
+	    bottom: 625px;
+	    left: 490px;
+    }
+
+    .image-preview {
+        width: 200px;
+        height: 200px;
+    }
+
+    .delete-button {
+        display: block;
+        margin-top: 5px;
+    }
 
     .image-preview .delete-button {
       position: absolute;
