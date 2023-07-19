@@ -42,4 +42,9 @@ public class MarketController {
 		
 	}
 	
+	@RequestMapping("/dolbomiShop")
+	public void dolbomiShop() {
+		
+	}
+	
 }

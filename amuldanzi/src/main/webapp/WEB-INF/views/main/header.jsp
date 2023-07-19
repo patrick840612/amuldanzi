@@ -88,7 +88,7 @@
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">쇼핑몰</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a   rel="noopener noreferrer" href=""
+											<a   rel="noopener noreferrer" href="/market/dolbomiShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">돌보미</div></a>
