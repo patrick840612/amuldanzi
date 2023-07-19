@@ -38,14 +38,43 @@
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+
 <link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 사진 업로드 미리보기
+	  $('#uploadFile').on('change', function(event) {
+	    var previewContainer = $('#imagePreviewContainer');
+	    previewContainer.html('');
 
+	    var files = event.target.files;
+	    if (files && files.length > 0) {
+	      var file = files[0];
+	      var reader = new FileReader();
+	      reader.onload = function(e) {
+	        var image = $('<img>').attr('src', e.target.result);
+	        var preview = $('<div class="image-preview"></div>').append(image);
+	        var deleteButton = $('<span class="delete-button">&times;</span>');
+
+	        deleteButton.on('click', function() {
+	          preview.remove();
+	        });
+
+	        preview.append(deleteButton);
+	        previewContainer.append(preview);
+	      };
+
+	      reader.readAsDataURL(file);
+	    }
+	  });
+	});
+</script>
 
 <body class="nav-md">
 	<div class="container body">
@@ -185,92 +214,21 @@
 										class="question_titleInput__S7Isd" type="text" name="url" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>
-								<div class="x_panel">
-									<div class="x_content">
-										<div id="alerts"></div>
-										<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font" aria-expanded="false"><i class="fa fa-font"></i><b class="caret"></b></a>
-												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-												</ul>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size" aria-expanded="false"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-													<li>
-														<a data-edit="fontSize 5" class="">
-															<p style="font-size:17px">Huge</p>
-														</a>
-													</li>
-													<li>
-														<a data-edit="fontSize 3" class="">
-															<p style="font-size:14px">Normal</p>
-														</a>
-													</li>
-													<li>
-														<a data-edit="fontSize 1" class="">
-															<p style="font-size:11px">Small</p>
-														</a>
-													</li>
-												</ul>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-												<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-												<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-												<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-												<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-												<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-												<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-												<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-												<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-												<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-												<div class="dropdown-menu input-append">
-													<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-													<button class="btn" type="button">Add</button>
-												</div>
-												<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-												<input name="file" type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-												<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-											</div>
-										</div>
-		
-										<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
-		
-										<textarea name="content" id="content" style="display:none;"></textarea>
-		
-										<br>
-		
-										<div class="ln_solid"></div>
-									</div>
-								</div>
+				                <div class="question_fileInputWrapper__d9gmU">
+				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
+				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
+				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
+				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
+				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
+				                    <img src="/icons/ICON_PHOTO_CAMERA.svg">
+				                    </label>
+				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
+				                </div>
 								<div>
 									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
 								</div>
 								<br />
-							</form>
+						</form>
 					</div>
 				</div>				
 			</div>
@@ -324,75 +282,7 @@
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
 	
-	
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-	
-<!-- <script>
-    $(document).ready(function() {
 
-
-    	  function uploadImage(file) {
-    	    
-    		alert("a");
-    		  
-    		var formData = new FormData();
-    	    formData.append('file', file);
-
-    	    $.ajax({
-    	      url: '/admin/adSave',
-    	      method: 'POST',
-    	      data: formData,
-    	      processData: false,
-    	      contentType: false,
-    	      success: function(response) {
-    	        var imageUrl = response;
-    	        $('#editor-one').summernote('insertImage', imageUrl);
-    	      }
-    	    });
-    	  }
-
-    	  function deleteMedia(src) {
-    	    // 해당 미디어를 삭제하는 로직을 작성합니다.
-    	    // ...
-    	  }
-    	});
-    </script> -->
-<script>
-$(document).ready(function() {
-    $('#adSave').on('submit', function(e) {
-        e.preventDefault();
-        
-        var title = $('[name="title"]').val();
-        var url = $('[name="url"]').val();
-        var content = $('#editor-one').summernote('code');
-        var file = $('#file')[0].files[0];
-        var image = file.name;
-        var image_path = '\\src\\main\\resources\\static\\admin\\files\\ad\\images' + file.name; // 실제 저장 경로로 변경해야 합니다.
-        
-        var formData = new FormData();
-        formData.append('title', title);
-        formData.append('url', url);
-        formData.append('image', image);
-        formData.append('image_path', image_path);
-        formData.append('file', file);
-        
-        $.ajax({
-            url: '/admin/adSave',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log('Ad saved successfully!');
-                // Redirect or update UI as necessary
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error saving ad: ' + errorThrown);
-            }
-        });
-    });
-});
-</script>
     	
 </body>
 </html>

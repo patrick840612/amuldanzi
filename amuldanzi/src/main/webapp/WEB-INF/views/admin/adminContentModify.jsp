@@ -438,6 +438,16 @@
 											</div>
 											<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
 										</div>
+				
+										<div class="btn-group">
+											<a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+											<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+										</div>
+				
+										<div class="btn-group">
+											<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+											<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+										</div>
 									</div>
 				
 									<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
@@ -541,6 +551,16 @@
 											<button class="btn" type="button">Add</button>
 										</div>
 										<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+									</div>
+			
+									<div class="btn-group">
+										<a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+										<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+									</div>
+			
+									<div class="btn-group">
+										<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+										<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
 									</div>
 								</div>
 			

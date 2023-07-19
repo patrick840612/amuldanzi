@@ -1,5 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,12 +38,70 @@
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+
 <link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 사진 업로드 미리보기
+	  $('#uploadFile').on('change', function(event) {
+	    var previewContainer = $('#imagePreviewContainer');
+	    previewContainer.html('');
+
+	    var files = event.target.files;
+	    if (files && files.length > 0) {
+	      var file = files[0];
+	      var reader = new FileReader();
+	      reader.onload = function(e) {
+	        var image = $('<img>').attr('src', e.target.result);
+	        var preview = $('<div class="image-preview"></div>').append(image);
+	        var deleteButton = $('<span class="delete-button">&times;</span>');
+
+	        deleteButton.on('click', function() {
+	          preview.remove();
+	        });
+
+	        preview.append(deleteButton);
+	        previewContainer.append(preview);
+	      };
+
+	      reader.readAsDataURL(file);
+	    }
+	  });
+	});
+	
+	$(document).ready(function() {
+	    // 이미지 삭제 버튼 클릭 시
+	    $('.delete-button').on('click', function() {
+	        var imagePath = $(this).prev().find('img').attr('src');
+	        var fileName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+	        console.log(fileName);
+	        deleteImage(fileName);
+	    });
+	}); 
+	
+	function deleteImage(imageName) {
+	    $.ajax({
+	        url: '/community/deleteImage',
+	        data: {"imageName":imageName},
+	        type: 'DELETE',
+	        success: function() {
+	            // Image deleted successfully, update the UI or perform any additional actions
+	            console.log("성공");
+	        },
+	        error: function(xhr, status, error) {
+	            // Handle the error case, if any
+	            console.error(error);
+	        }
+	    });
+	}
+</script>
+
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -73,7 +130,7 @@
 					<br />
 
 					<!-- sidebar menu -->
-										<div id="sidebar-menu"
+					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>General</h3>
@@ -151,77 +208,65 @@
 			</div>
 			<!-- /top navigation -->
 
-
-
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 1055px;">
-				<div class="">
-					<div class="page-title">
-						<div class="title_left">
-							<h3>광고 게시판</h3>
-						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">검색</button>
-									</span>
-								</div>
+			<div class="right_col" role="main">
+				<!-- top tiles -->
+				<div class="question_questionContainer__xQp_P">
+					<div class="question_questionContent__Y4VxA">
+						<span class="question_questionCategory__1QDx6">카테고리</span><span
+							class="question_questionMark__AykT_">*</span>
+						<div class="question_radioWrap__WZ6ME">
+							<div>
+								<input type="radio" name="question" id="광고" value="광고" checked="광고"><label
+									for="광고">광고</label>
 							</div>
 						</div>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<div class="row">
-						<div class="col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>광고 리스트</h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-
-									<div class="row">
-										
-
-									<c:forEach var="adList" items="${adList}">
-										<div class="col-md-55">
-											<div class="thumbnail">
-												<div class="image view view-first">
-													<img style="width: 100%; display: block;"
-														src="/admin/files/ad/images/${adList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';">														
-													<div class="mask no-caption">
-														<div class="tools tools-bottom">
-															<a target="_blank" href="${adList.url }"><i class="fa fa-link"></i></a> 
-															<a href="#"><i class="fa fa-pencil"></i></a>
-															<a href="adDelete?id=${adList.id }"><i class="fa fa-times"></i></a>
-														</div>
-													</div>
-												</div>
-												<div class="caption">
-													<p>
-														<strong>${adList.title }</strong>
-													</p>													
-													<p>${adList.regdate }</p>
-												</div>
-											</div>
-										</div>
-									</c:forEach>						
+						<form id="adModify" action="adModify" method="post" enctype="multipart/form-data">
+								<div>
+									<div>
+										<span class="question_questionCategory__1QDx6">글 작성</span><span
+											class="question_questionMark__AykT_">*</span>
 									</div>
+									<input placeholder="제목을 입력해주세요"
+										class="question_titleInput__S7Isd" type="text" name="title" value=""/>
+									<div class="question_alertText__WnxqW"></div>
 								</div>
-							</div>
-						</div>
+								<div>
+									<div>
+										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
+											class="question_questionMark__AykT_">*</span>
+									</div>
+									<input placeholder="예) https://www.naver.com"
+										class="question_titleInput__S7Isd" type="text" name="url" />
+									<div class="question_alertText__WnxqW"></div>
+								</div>
+				                <div class="question_fileInputWrapper__d9gmU">
+				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
+				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
+				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
+				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
+				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
+				                    <img src="/icons/ICON_PHOTO_CAMERA.svg">
+				                    </label>
+				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
+				                </div>
+								<div>
+									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
+								</div>
+								<br />
+						</form>
 					</div>
-				</div>
+				</div>				
 			</div>
 			<!-- /page content -->
 
 			<!-- footer content -->
 			<footer>
+				<div class="pull-right">
+					Gentelella - Bootstrap Admin Template by <a
+						href="https://colorlib.com">Colorlib</a>
+				</div>
+				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
 		</div>
@@ -235,34 +280,35 @@
 	<script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="/admin/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="/admin/vendors/jszip/dist/jszip.min.js"></script>
-	<script src="/admin/vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="/admin/vendors/pdfmake/build/vfs_fonts.js"></script>
-
+	<!-- bootstrap-daterangepicker -->
+	<script src="/admin/vendors/moment/min/moment.min.js"></script>
+	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="/admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="/admin/vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="/admin/vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="/admin/vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
+	
 
+    	
 </body>
 </html>

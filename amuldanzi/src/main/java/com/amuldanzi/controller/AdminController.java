@@ -2,6 +2,8 @@ package com.amuldanzi.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.service.AdminService;
+import com.amuldanzi.util.MD5Generator;
 
 @Controller
 @RequestMapping("/admin")
@@ -153,10 +156,20 @@ public class AdminController {
 
 	@RequestMapping("/adList")
 	public void adList(Model m) {
+	    List<AdvertisementDTO> adlist = adminService.getAdList();
 
-		List<AdvertisementDTO> adlist = adminService.getAdList();
-		m.addAttribute("adList", adlist);
+	    try {
+	        for (AdvertisementDTO ad : adlist) {
+	            String decodedImagePath = URLDecoder.decode(ad.getImgPath(), "UTF-8");
+	            ad.setImgPath(decodedImagePath);
+	        }
+	    } catch (UnsupportedEncodingException e) {
+	        // 디코딩 실패 시 예외 처리
+	        e.printStackTrace();
+	        // 예외 처리 방식을 적절히 선택하여 처리하세요.
+	    }
 
+	    m.addAttribute("adList", adlist);
 	}
 
 	@RequestMapping("/adInsert")
@@ -172,89 +185,70 @@ public class AdminController {
 		return "redirect:/admin/adList";
 	}
 
-//	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
-//	public String adSave(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
-//		
-//		
-//		
-//	    try {
-//	    	System.out.println("========================================================");
-//	    	System.out.println(file);
-//	    	String oriFilename = file.getOriginalFilename();
-//	    	System.out.println("[[[[["+oriFilename);
-//			
-//			if(oriFilename !=null && !oriFilename.equals("")) {
-//				System.out.println("********************************************************=");
-//				System.out.println("파일첨부가 있는 경우");
-//
-//				
-//
-//				String filename = new MD5Generator(oriFilename).toString();
-//
-//				
-//
-//				String savePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\admin\\files\\ad\\images";
-//
-//				if(!new File(savePath).exists()) {
-//
-//					new File(savePath).mkdir(); //카테고리별로 파일을 만들어 관리
-//
-//				}
-//
-//				String filepath =  savePath + "\\" + filename;
-//
-//				//filepath = "기본폴더\files\zxxxxxxxxxx12233xxxxxx"
-//
-//				file.transferTo(new File(filepath));
-//				
-//				dto.setImg(oriFilename);
-//				dto.setImgPath(filepath);
-//				
-//				adminService.adSave(dto);
-//				
-//				
-//				
-//	            
-//	        }else {
-//	        	
-//	        	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//	        
-//	        	adminService.adSave(dto);
-//	        
-//	        }
-//	        
-//	        return "redirect:/admin/adList";
-//	        
-//	    } catch (Exception ex) {
-//	    	
-//	        ex.printStackTrace();
-//	        // 업로드 실패 처리
-//	        return "redirect:/admin/adInsert?error";
-//	    }
-//	}
-
 	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
-	public String adSave(AdvertisementDTO adDto, @RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
+	public String adSave(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
+		
+		
+		
+	    try {
+	    	System.out.println("========================================================");
+	    	System.out.println(file);
+	    	String oriFilename = file.getOriginalFilename();
+	    	System.out.println("[[[[["+oriFilename);
+			
+			if(oriFilename !=null && !oriFilename.equals("")) {
+				System.out.println("********************************************************=");
+				System.out.println("파일첨부가 있는 경우");
 
-		try {
-			// Save the file
-			String filepath = adDto.getImgPath(); // Get the filepath from the DTO
-			file.transferTo(new File(filepath));
+				
 
-			// Save the Ad to the database
-			adminService.adSave(adDto);
+				String filename = new MD5Generator(oriFilename).toString();
 
-			redirectAttributes.addFlashAttribute("message", "Ad saved successfully!");
-		} catch (IOException e) {
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("message", "Error saving ad: " + e.getMessage());
-		}
+				
 
-		return "redirect:/admin/adList";
+				String savePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\admin\\files\\ad\\images";
+
+				if(!new File(savePath).exists()) {
+
+					new File(savePath).mkdir(); //카테고리별로 파일을 만들어 관리
+
+				}
+
+				String filepath =  savePath + "\\" + filename;
+
+				//filepath = "기본폴더\files\zxxxxxxxxxx12233xxxxxx"
+
+				file.transferTo(new File(filepath));
+				
+				dto.setImg(filename);
+				dto.setImgPath(filepath);
+				
+				adminService.adSave(dto);
+				
+				
+				
+	            
+	        }else {
+	        	
+	        	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	        
+	        	adminService.adSave(dto);
+	        
+	        }
+	        
+	        return "redirect:/admin/adList";
+	        
+	    } catch (Exception ex) {
+	    	
+	        ex.printStackTrace();
+	        // 업로드 실패 처리
+	        return "redirect:/admin/adInsert?error";
+	    }
 	}
 
-	@RequestMapping(value = "/adUpdate", method = RequestMethod.POST)
+
+
+	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
 	public String adUpdate(AdvertisementDTO dto) {
 		adminService.adUpdate(dto);
 		return "redirect:/admin/adList";
