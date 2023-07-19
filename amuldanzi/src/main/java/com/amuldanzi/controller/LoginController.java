@@ -23,6 +23,7 @@ import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.service.LoginService;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -44,7 +45,7 @@ public class LoginController {
 	// 구글 로그인
 	@RequestMapping(value="/googleCallback", method = RequestMethod.GET)
 	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
-		
+
 		String email = loginService.googleLogin(code);
 		MemberInfoDTO member = new MemberInfoDTO();
 		member.setUserEmail(email);
@@ -104,7 +105,7 @@ public class LoginController {
 	
 	// jwt토큰 생성
 	@RequestMapping("/login")
-	public String login(MemberInfoDTO id, HttpServletResponse res) {
+	public String login(MemberInfoDTO id, HttpServletResponse res, Model m) {
 		MemberInfoDTO member = loginService.selectById(id);
 		
 		JwtDTO jwt = loginService.createJwt(member);
@@ -122,8 +123,12 @@ public class LoginController {
 		cookie2.setMaxAge((int) (refresh_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
 		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
         res.addCookie(cookie2);
+        
 		
-		return "/main/index";
+        m.addAttribute("id", id.getId());
+        return "/main/index";
+
+
 	}
 	
 	// 회원가입
@@ -134,6 +139,7 @@ public class LoginController {
 		List<MemberPetDTO> petList = new ArrayList<>();
 		if (pets != null && hasPetData(pets)) {		
 
+			// 반려동물 목록이 있으면 있는 수만큼 memberPetDTO 객체 생성하여 setter, 반려동물 없으면 없는 걸로 처리(삼항연산자)
 	        String[] petNames = (pets.getPetName() != null) ? pets.getPetName().split(",") : new String[0];
 	        String[] whichPets = (pets.getWhichPet() != null) ? pets.getWhichPet().split(",") : new String[0];
 	        String[] petBloods = (pets.getPetBlood() != null) ? pets.getPetBlood().split(",") : new String[0];
@@ -158,7 +164,7 @@ public class LoginController {
 		return "/main/index";
 	} // 회원가입 완료
 	
-	// MemberPetDTO pets 에 값이 있는지 확인
+	// MemberPetDTO pets 에 값이 있는지 확인 하는 함수
 	private boolean hasPetData(MemberPetDTO pets) {
 		 return pets != null &&
 		           (pets.getPetName() != null && !pets.getPetName().isEmpty()) ||
@@ -184,5 +190,27 @@ public class LoginController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/cookietest", method = RequestMethod.GET)
+    public String cookie(MemberInfoDTO member, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String accessToken = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("access_token".equals(cookie.getName())) {
+                    accessToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        String id = (String)loginService.getClaims(accessToken).get("id");
+
+        // 다른 로직 수행 또는 화면을 반환하는 등의 코드 작성
+        // return "your_page"; 
+        return "/login/register";
+    }
+
+
 
 }

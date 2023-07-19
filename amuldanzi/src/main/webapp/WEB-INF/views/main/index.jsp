@@ -28,9 +28,19 @@
 <link href="/chunks/css/text.css" rel="stylesheet">
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
 
+	// id값이 있으면 
+	if(${not empty id}){
+        var encodedId = encodeURIComponent("${id}");
+        location.href = "/login/cookietest?id=" + encodedId;
 
-
+	}
+	
+});
+</script>
 </head>
 
 <jsp:include page="./header.jsp"></jsp:include>
