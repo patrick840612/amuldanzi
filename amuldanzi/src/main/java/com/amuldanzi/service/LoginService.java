@@ -5,6 +5,7 @@ import java.util.List;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
+import com.amuldanzi.domain.MemberSocialDTO;
 
 import io.jsonwebtoken.Claims;
 
@@ -12,7 +13,7 @@ public interface LoginService {
 
 	public String googleLogin(String code);
 	public String kakaoLogin(String code);
-	public String sLoginCheck(MemberInfoDTO member);
+	public String sRegistCheck(MemberSocialDTO member);
 	public String loginCheck(MemberInfoDTO member);
 	public void regist(MemberInfoDTO member, List<MemberPetDTO> petList);
 	public Claims getClaims(String token);

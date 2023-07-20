@@ -1,5 +1,19 @@
 package com.amuldanzi.service;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,9 +30,11 @@ import org.springframework.web.client.RestTemplate;
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.dao.LoginPetDAO;
+import com.amuldanzi.dao.LoginSocialDAO;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
+import com.amuldanzi.domain.MemberSocialDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,21 +42,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.mindrot.jbcrypt.BCrypt;
 
 @Service("loginService")
 public class LoginServiceImpl implements LoginService {
@@ -54,6 +55,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private LoginDAO loginDAO;
+	
+	@Autowired
+	private LoginSocialDAO loginSocialDAO;
 	
 	@Autowired
 	private LoginPetDAO loginPetDAO;
@@ -218,10 +222,10 @@ public class LoginServiceImpl implements LoginService {
 	}
 	
 	// 소셜로그인 체크
-	public String sLoginCheck(MemberInfoDTO member) {
+	public String sRegistCheck(MemberSocialDTO member) {
 		String id;
 		
-		id = loginDAO.sLoginCheck(member);
+		id = loginSocialDAO.sRegistCheck(member);
 		
 		if(id == null)return "";
 		else return id;

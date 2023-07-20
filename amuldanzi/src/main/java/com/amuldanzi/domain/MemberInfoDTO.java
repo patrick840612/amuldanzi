@@ -40,8 +40,7 @@ public class MemberInfoDTO {
 	private String bloodMessage;
 	private String bloodTel;
 	
-	@Column(nullable = true)
-	private String 	social;
+
 
 
 }

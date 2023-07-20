@@ -20,6 +20,7 @@ import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
+import com.amuldanzi.domain.MemberSocialDTO;
 import com.amuldanzi.service.LoginService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +39,12 @@ public class LoginController {
 	@Autowired
 	private ConfigUtils util;
 	
+	@Autowired
+	private HttpServletRequest request;
+	
+	@Autowired
+	private HttpServletResponse res;
+	
 	// 페이지 이동
 	@RequestMapping("/{step}")
 	public String login(@PathVariable String step) {
@@ -49,22 +56,32 @@ public class LoginController {
 	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
 
 		String email = loginService.googleLogin(code);
-		MemberInfoDTO member = new MemberInfoDTO();
-		member.setUserEmail(email);
+		MemberSocialDTO member = new MemberSocialDTO();
+		member.setSocialKey(email);
 		member.setSocial("google");
-		String id = loginService.sLoginCheck(member);
+		String id = loginService.sRegistCheck(member);
 		
 		if(id != "") {
-			m.addAttribute("id", id);
-			return "/main/index";
+			MemberInfoDTO mem = new MemberInfoDTO();
+			mem.setId(id);
+			creatJwtToken(mem);
+			return "redirect:/main/index";
 		}else {
 			m.addAttribute("member", member);
-			return "/login/register";
+			return "/login/socialregisterauth";
 		}
 	}
 	
+	// 구글 로그인 문자 인증
+	@RequestMapping("/socialgoogleAuth")
+	public String socialgoogleAuth(MemberInfoDTO member, MemberSocialDTO membersocial) {
+
+		
+		return "/main/index";
+	}
+	
 	// 카카오 로그인
-	@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam@PathVariable String code, Model m) {
 		String email = loginService.kakaoLogin(code);
 		String social = "kakao";
@@ -81,7 +98,7 @@ public class LoginController {
 			m.addAttribute("member", member);
 			return "/login/register";
 		}
-	}
+	}*/
 	
 	// 구글 로그인 uri 생성하기
 	@ResponseBody
@@ -107,7 +124,7 @@ public class LoginController {
 	
 	// jwt토큰 생성
 	@RequestMapping("/login")
-	public String login(MemberInfoDTO id, HttpServletResponse res, Model m) {
+	public String login(MemberInfoDTO id) {
 		MemberInfoDTO member = loginService.selectById(id);
 		
 		JwtDTO jwt = loginService.createJwt(member);
@@ -131,6 +148,27 @@ public class LoginController {
         return "/main/index";
 
 
+	}
+	
+	private void creatJwtToken(MemberInfoDTO id) {
+		MemberInfoDTO member = loginService.selectById(id);
+		
+		JwtDTO jwt = loginService.createJwt(member);
+		
+		Cookie cookie1 = new Cookie("access_token", jwt.getAccess_token());
+		long access_token_valid = jwt.getAccess_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
+		cookie1.setHttpOnly(true); // 보안설정 -> JavaScript코드로 쿠키에 접근 불가
+        cookie1.setMaxAge((int) (access_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
+        cookie1.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
+        res.addCookie(cookie1);
+        
+        Cookie cookie2 = new Cookie("refresh_token", jwt.getRefresh_token());
+		long refresh_token_valid = jwt.getRefresh_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
+		cookie2.setHttpOnly(true);
+		cookie2.setMaxAge((int) (refresh_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
+		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
+        res.addCookie(cookie2);
+		
 	}
 	
 	// 회원가입
@@ -195,7 +233,7 @@ public class LoginController {
 	// 헤더에서 토큰으로 id값을 얻어오기(토큰이 없으면 값이 없음)
 	@RequestMapping(value = "/loginWithToken", method = RequestMethod.POST)
 	@ResponseBody
-    public Map<String,Object> loginWithToken(MemberInfoDTO member, HttpServletRequest request, Model m) {
+    public Map<String,Object> loginWithToken(MemberInfoDTO member, Model m) {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		
