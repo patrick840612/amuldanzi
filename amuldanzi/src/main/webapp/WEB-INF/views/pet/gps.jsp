@@ -99,7 +99,7 @@
         });
     	//500밀리초마다 임의의 좌표(위도 및 경도)를 생성하고 동일한 채널에 게시하여 마커가 지도의 일부 임의 지점을 자동으로 표시하고 해당 지점을 통과하는 경로를 생성합니다.
     	//테스트용 코딩 
-    	/*
+    	
 	    function newPoint(time) {
 		      var radius = 0.01;
 		      var x = Math.random() * radius;
@@ -108,8 +108,8 @@
 		        }
 		      setInterval(function() {
 		      pubnub.publish({channel:pnChannel, message:newPoint()});
-		      }, 500);
-		      */
+		      }, 4000);
+		      
     </script> 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBOVnOwiiflRUtvahCdSBef0vpW4yskfrk&callback=initialize"></script>
   </body>

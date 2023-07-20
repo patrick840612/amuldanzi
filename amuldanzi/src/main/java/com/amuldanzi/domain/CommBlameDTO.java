@@ -3,10 +3,7 @@ package com.amuldanzi.domain;
 import java.util.Date;
 
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,31 +17,26 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "community")
+@Table(name = "cmBlame")
 @DynamicInsert
-public class CommunityDTO {
+public class CommBlameDTO {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = true, updatable = false, insertable = false)
-	private Integer commNo;
+	@Column(nullable = false, updatable = false, insertable = false)
+	private Integer blameId;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "commNo", referencedColumnName = "commNo")
+	private CommunityDTO CommunityNum;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId;
 	
-	private String commTitle; 
-	
-	@Column(length = 6000)
-	private String commContent;
-	
 	@Column(columnDefinition = "date default sysdate()"
 			,insertable = false
 			,updatable = true)
-	private Date commDate; 
-	
-	@Column(columnDefinition = "integer default 0")
-	private Integer answerCount;
+	private Date blameDate;
 	
 }

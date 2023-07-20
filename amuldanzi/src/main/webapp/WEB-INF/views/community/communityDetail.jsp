@@ -34,7 +34,309 @@
 </head>
 
 <jsp:include page="../main/header.jsp"></jsp:include>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript">
+$(document).ready(function() {
+    function updateLikeCount() {
+        $.ajax({
+            type: "GET",
+            url: "/community/likeCount",
+            data: {
+                commNo: "${community.commNo}"
+            },
+            success: function(response) {
+                var likeCount = response.likeCount;
+                $("#likeCount").text(likeCount);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function updateBlameCount() {
+        $.ajax({
+            type: "GET",
+            url: "/community/blameCount",
+            data: {
+                commNo: "${community.commNo}"
+            },
+            success: function(response) {
+                var blameCount = response.blameCount;
+                $("#blameCount").text(blameCount);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function likeCommunity(commMemberId, commNo, event) {
+        event.preventDefault();
+
+        // 현재 좋아요 상태 확인
+        var isLiked = $("#like-button").hasClass("liked");
+
+        // 이미 좋아요가 되어있는 경우 좋아요 취소 요청을 보냅니다.
+        if (isLiked) {
+            $.ajax({
+                url: "/community/unlike",
+                type: "DELETE",
+                data: {
+                    commMemberId: commMemberId,
+                    commNo: commNo
+                },
+                success: function(response) {
+                    updateLikeCount();
+                    console.log("좋아요 취소 성공");
+                    // 좋아요 취소 후 버튼 스타일 변경
+                    $("#like-button").removeClass("liked");
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        } else {
+            // 좋아요를 처리하는 요청을 보냅니다.
+            $.ajax({
+                url: "/community/like",
+                type: "POST",
+                data: {
+                    commMemberId: commMemberId,
+                    commNo: commNo
+                },
+                success: function(response) {
+                    updateLikeCount();
+                    console.log("좋아요 성공");
+                    // 좋아요 처리 후 버튼 스타일 변경
+                    $("#like-button").addClass("liked");
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+    function blameCommunity(commMemberId, commNo, event) {
+        event.preventDefault();
+
+        // 현재 좋아요 상태 확인
+        var isLiked = $("#blame-button").hasClass("liked");
+
+        // 이미 좋아요가 되어있는 경우 좋아요 취소 요청을 보냅니다.
+        if (isLiked) {
+            $.ajax({
+                url: "/community/unblame",
+                type: "DELETE",
+                data: {
+                    commMemberId: commMemberId,
+                    commNo: commNo
+                },
+                success: function(response) {
+                    updateBlameCount();
+                    console.log("신고 취소 성공");
+                    // 좋아요 취소 후 버튼 스타일 변경
+                    $("#blame-button").removeClass("liked");
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        } else {
+            // 좋아요를 처리하는 요청을 보냅니다.
+            $.ajax({
+                url: "/community/blame",
+                type: "POST",
+                data: {
+                    commMemberId: commMemberId,
+                    commNo: commNo
+                },
+                success: function(response) {
+                    updateBlameCount();
+                    console.log("신고 성공");
+                    // 좋아요 처리 후 버튼 스타일 변경
+                    $("#blame-button").addClass("liked");
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+    // 좋아요 버튼 클릭 이벤트
+    $("#like-button").click(function(event) {
+        var commMemberId = "${community.memberId.id}";
+        var commNo = "${community.commNo}";
+        likeCommunity(commMemberId, commNo, event);
+    });
+
+    // 신고 버튼 클릭 이벤트
+    $("#blame-button").click(function(event) {
+        var commMemberId = "${community.memberId.id}";
+        var commNo = "${community.commNo}";
+        blameCommunity(commMemberId, commNo, event);
+    });
+
+    // 초기 좋아요 및 신고 숫자 업데이트
+    updateLikeCount();
+    updateBlameCount();
+
+
+    $("#submit-button").click(function(event) {
+        event.preventDefault();
+        addReply();
+    });
+        
+        var commNo = "${community.commNo}"; // 글번호 변수
+        var memberId = "${community.memberId.id}"; // ID 변수
+        var replyContent = $("#reply-content").val(); // 댓글 내용
+
+        function addReply() {
+            var commNo = "${community.commNo}"; // 글번호 변수
+            var memberId = "${community.memberId.id}"; // ID 변수
+            var replyContent = $("#reply-content").val(); // 댓글 내용
+
+            // AJAX 요청 보내기
+            $.ajax({
+                url: "/community/addReply",
+                type: "POST",
+                data: {
+                    commNo: commNo,
+                    memberId: memberId,
+                    replyContent: replyContent
+                },
+                success: function(response) {
+                    // 댓글 등록 성공 시 처리할 로직 작성
+                    console.log("성공");
+                    $("#reply-content").val("");
+                    fetchReplies(); // Update the reply list after adding a reply
+                    replyCount()
+                },
+                error: function(error) {
+                    // 오류 발생 시 처리할 로직 작성
+                }
+            });
+        }
+   
+
+    function fetchReplies() {
+        $.ajax({
+            type: "GET",
+            url: "/community/getReplies",
+            dataType: "json",
+            data: {
+                commNo: "${community.commNo}"
+            },
+            success: function(response) {
+                console.log("성공");
+                // 서버에서 반환된 댓글 리스트 데이터를 처리하여 화면에 표시
+                displayReplies(response);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function displayReplies(replies) {
+        // 댓글 리스트를 보여줄 영역을 선택
+        var replyList = $("#replyList");
+        replyList.empty(); // 기존 댓글 리스트 내용 초기화
+
+        // 댓글 데이터를 반복하여 동적으로 댓글 리스트 생성
+        var commentDiv = $("<div>").addClass("comment_qaDetailComment__guTi_");
+        for (var i = 0; i < replies.length; i++) {
+            var reply = replies[i];
+            var commentIdWrapper = $("<div>").addClass("comment_qaCommentIdWrapper__u6F4S");
+            var commentUserId = $("<div>").text(reply.id); // 댓글 작성자 ID
+            var commentDate = $("<div>").text(reply.replyDate); // 댓글 작성 일시
+            var commentContent = $("<div style ='position:relative; top:25px;'>").text(reply.replyContent); // 댓글 내용
+
+            commentIdWrapper.append(commentUserId);
+            commentIdWrapper.append(commentContent);
+            commentIdWrapper.append(commentDate); 
+              
+
+            var deleteButton = $("<button>")
+                .addClass("commentLabel_defaultLabel__JHgyL delete-button")
+                .text("댓글 삭제")
+                .data("commNo", reply.commNo)
+                .data("replyNo", reply.replyNo); 
+
+
+            var buttonContainer = $("<div style ='position:relative; width: 265px; left: 883px; margin: 0;'>")
+            .addClass("comment_buttonContainer__JHgyL") 
+            .append(deleteButton);
+
+            commentDiv.append(commentIdWrapper); 
+            commentDiv.append(buttonContainer);
+
+            var hr = $("<hr/>");  
+            commentDiv.append(hr);
+                
+
+            replyList.append(commentDiv);
+        } 
+        updateLikeCount();
+        updateBlameCount(); 
+     
+    }
+    fetchReplies();
+
+ // 댓글 삭제 함수
+    function deleteReply(commNo, replyNo) {
+        $.ajax({
+            url: "/community/deleteReply",
+            type: "DELETE",
+            data: {
+                commNo: commNo,
+                replyNo: replyNo
+            },
+            success: function(response) {
+                console.log("댓글 삭제 성공");
+                // 삭제된 댓글을 화면에서 제거
+                fetchReplies();
+                replyCount();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // 댓글 삭제 버튼 클릭 이벤트
+    $(document).on("click", ".delete-button", function(event) {
+        var commNo = $(this).data("commNo");
+        var replyNo = $(this).data("replyNo");
+        console.log(commNo);
+        console.log(replyNo);
+        deleteReply(commNo, replyNo);
+    });
+
+    function replyCount() {
+        $.ajax({
+          type: "GET",
+          url: "/community/replyCount", // 가져올 replyCount의 URL을 올바르게 변경합니다.
+          data: {
+            commNo: "${community.commNo}"
+          },
+          success: function(response) {
+            var replyCount = response.replyCount;
+            $("#replyCount").text(replyCount); // 가져온 값을 replyCount 요소에 업데이트합니다.
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+          }
+        });
+      }
+
+    replyCount();
+    
+});
+
 </script> 
 <body >
 	<div class="qaDetail_qaDetailContainer__GdYJp">
@@ -60,8 +362,8 @@
 							<div>
        							 <a href="/community/communityModify?comm_no=${community.commNo}" class="commentLabel_defaultLabel__JHgyL">게시글 수정</a>
 							    <button class="commentLabel_defaultLabel__JHgyL">게시글 삭제</button>
-								<button class="commentLabel_defaultLabel__JHgyL" type="submit">좋아요 </button>
-								<button class="commentLabel_defaultLabel__JHgyL">신고 0</button>
+								<button class="commentLabel_defaultLabel__JHgyL" id="like-button">좋아요 &nbsp;&nbsp;<span id="likeCount">${likeCount}</span></button>
+								<button class="commentLabel_defaultLabel__JHgyL" id="blame-button">신고 &nbsp;&nbsp;<span id="blameCount">${blameCount}</span></button>
 							</div>
 						</div>
 				<br/>
@@ -78,42 +380,25 @@
 				data-ad-slot="6986428526" data-ad-format="auto"
 				data-full-width-responsive="true" style="display: block;"></ins>
 			<div class="qaDetail_qaDetailAnswerWrapper__TJpOV">
-				<div class="qaDetail_qaDetailTotal__wSReo">댓글 ${community.answerCount}</div>
+				<div class="qaDetail_qaDetailTotal__wSReo">댓글: &nbsp<span id="replyCount">${replyCount}</span></div>
 				<div class="qaDetail_qaDetailComment__7y1PJ">
+					
+					
+					<!-- 댓글 -->
 					<div class="answer_qaAnswerInputWrapper___cOZ0">
-						<textarea placeholder="댓글을 입력해주세요"></textarea>
+						<textarea id="reply-content" placeholder="댓글을 입력해주세요"></textarea>
 						<div class="answer_inputBtnWrapper__8hVzb">
 							<div class="answer_questionImgContainer__oRcY2"></div>
 							<div class="answer_answerBtnContainer__VgUOs">
-								<form enctype="multipart/form-data">
-									<input id="uploadFile" type="file" multiple=""
-										accept="image/jpg,image/png,image/jpeg,image/gif"
-										class="answer_fileUploadWrapper__Q0Qrd">
-								</form>
 								<div>
-									<label for="uploadFile" class="answer_photoBtn__J_YLl"><img
-										src="/icons/ICON_Camera.png">사진첨부</label>
-									<button class="answer_submitBtn__lKInH">등록</button>
+									<button id="submit-button" class="answer_submitBtn__lKInH">등록</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="qaDetail_qaDetailAnswer__E9eTw" id="answers-30298">
-					<div class="comment_qaDetailComment__guTi_">
-						<div class="comment_qaCommentIdWrapper__u6F4S">
-							<div>${community.memberId.id}</div><!-- 여기는 사용자 로그인 세션값이 들어가야함  -->
-							<div>${community.commDate}</div>
+				</div> 
+						<div id="replyList">
 						</div>
-						<div class="comment_qaDetailImgNone__ngvPO"></div> 
-						<div class="comment_commentInfo__OI8e5">
-							<div>
-								<button class="commentLabel_defaultLabel__JHgyL" onclick="likeCommunity(${community.commNo})">좋아요 0</button>
-								<button class="commentLabel_defaultLabel__JHgyL">싫어요 0</button>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

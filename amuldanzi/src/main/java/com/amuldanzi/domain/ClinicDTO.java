@@ -37,7 +37,7 @@ public class ClinicDTO {
 	private     String 		time;
 	
 		
-	@Column(columnDefinition = "integer default 0" )
+	@Column(columnDefinition = "integer default 0")
 	private  	Integer		count;
 	
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)

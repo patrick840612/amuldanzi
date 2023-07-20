@@ -9,4 +9,7 @@ public interface MemberRepository extends CrudRepository<MemberInfoDTO, Integer>
 
 	@Query("SELECT m FROM MemberInfoDTO m WHERE m.id = ?1")
 	MemberInfoDTO findId(String memberId);
+
+	 @Query(value = "SELECT * FROM member_info WHERE id = :commMemberId", nativeQuery = true)
+	MemberInfoDTO getMemberId(String commMemberId);
 }

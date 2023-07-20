@@ -4,19 +4,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.slf4j.IMarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amuldanzi.domain.CommImageDTO;
+import com.amuldanzi.domain.CommLikeDTO;
+import com.amuldanzi.domain.CommReplyDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.service.CommImageService;
@@ -40,15 +44,14 @@ public class CommunityController {
 		
 	
 		@RequestMapping("/communityList")
-		public String communityList(Model m) {
+		public String communityList(Model m) throws InterruptedException {
 			
 			List<HashMap<String, Object>> result = communityService.selectCommunityList();
 			
 			m.addAttribute("communityList",result); 
-			//System.out.println("*******************************1111111111");
-		    //System.out.println(result);
-		    //System.out.println("*******************************1111111111");
+			Thread.sleep(2000); 
 			return "/community/communityList";
+			
 		}
 		
 		@RequestMapping("/communityInsert")
@@ -154,6 +157,7 @@ public class CommunityController {
 		
 		
 		@DeleteMapping("/deleteImage")
+		@ResponseBody
 		public void deleteImage(String imageName) {
 			
 			
@@ -167,44 +171,47 @@ public class CommunityController {
 				String imagePath = userDir + "/src/main/resources/static/images/community/" + imageName;
 				File file = new File(imagePath);
 			
-			if (file.exists() && file.delete()) {
-			    System.out.println("이미지 삭제 성공: " + imageName);
-			    commImageService.deleteImage(imageName);
-			} else {
-			    System.out.println("이미지 삭제 실패: " + imageName);
-			    // 실패 처리 로직 추가
+				if (file.exists() && file.delete()) {
+				    System.out.println("이미지 삭제 성공: " + imageName);
+				    commImageService.deleteImage(imageName);
+				} else {
+				    System.out.println("이미지 삭제 실패: " + imageName);
+				    // 실패 처리 로직 추가
 				} 
 			}catch (Exception e) {
 		        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
 		        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
 		        // 오류 처리 로직 추가
-		    } 
+		    }
+			
+			System.out.println("삭제작업끝");
 		}
 		
 		@PostMapping("/modify")
-		public String modifyCommunity(@RequestParam("memberId") String memberId,
-		                              CommunityDTO dto,
+		public String modifyCommunity(CommunityDTO dto,
 		                              @RequestParam("files") MultipartFile[] files,
 		                              Integer comm_no,
 		                              String commTitle,
 		                              String commContent) {
 
-			System.out.println(memberId.getClass().getTypeName()+"\\\\\\\\\\\\\\\\\\***********");
+			 
 		    // 커뮤니티 글 수정 로직 수행
 		    communityService.modifyCommunity(comm_no, commTitle, commContent);
 
 		    try {
+		    	
+		    	System.out.println("****************** modify 호출 *************");
 		        // memberId를 사용하여 MemberInfoDTO를 데이터베이스에서 조회
-		        MemberInfoDTO memberDto = memberService.findById(memberId);
+		        MemberInfoDTO memberDto = memberService.findById(dto.getMemberId().getId());
 
 		        if (memberDto == null) {
-		            System.out.println("Invalid memberId: " + memberId);
+		            System.out.println("Invalid memberId: " + memberDto);
 		            return "redirect:/error"; // 에러 페이지로 리다이렉트
 		        }
 
 		        dto.setMemberId(memberDto);
 
-		        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\community\\files";
+		        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\community";
 		        if (!new File(savePath).exists()) {
 		            new File(savePath).mkdir();
 		        }
@@ -246,8 +253,9 @@ public class CommunityController {
 		}
 		
 		@PostMapping("/delete")
-		public String deleteCommunity(@RequestParam("comm_no") Integer comm_no) {
+		public String deleteCommunity(@RequestParam("comm_no") Integer comm_no) throws InterruptedException {
 		    
+			System.out.println("delete 호출  ************** ");
 			System.out.println(comm_no); 
 		    
 		    // 이미지 삭제 로직 구현
@@ -272,16 +280,179 @@ public class CommunityController {
 		    	
 		    }
 		    
+		    communityService.deleteLikeInfo(comm_no); 
+		    communityService.deleteBlameInfo(comm_no);
 		    commImageService.deleteImagesByCommunityNo(comm_no);
-		    
 		    // 게시글 삭제 로직 구현
 		    communityService.deleteCommunity(comm_no);
 		    
+		    Thread.sleep(2000);
+		    
 		    return "redirect:/community/communityList"; // 삭제 후 게시글 목록 페이지로 리다이렉트
 		}
- 
+  
 		
 		
+		@PostMapping("/like")
+		@ResponseBody
+		public String CommLike(String commNo, String commMemberId) {
+			
+			System.out.println("*-********* like 호출 ***************");
+			System.out.println(commMemberId); 
+			System.out.println("***********************************");
+			
+			CommLikeDTO commLike = new CommLikeDTO(); 
+			
+			// commNo에 해당하는 CommunityDTO 객체 조회
+			CommunityDTO community = communityService.getCommunityByCommNo(commNo);
+			// commMemberId에 해당하는 MemberInfoDTO 객체 조회
+			MemberInfoDTO member = memberService.getMemberInfoById(commMemberId);
+			
+			communityService.saveLike(commNo, commMemberId);  
+			
+			return "redirect:/community/communityDetail?comm_no=" + commNo;
+			 
+		}  
+		
+		@DeleteMapping("/unlike")
+		@ResponseBody
+		public void CommUnlike(String commNo, String commMemberId) {
+		
+			communityService.deleteCommUnlike(commNo, commMemberId);
+			  
+		}
+		
+		@GetMapping("/likeCount")
+		@ResponseBody
+		public Map<String, Integer> getLikeCount(@RequestParam("commNo") Integer commNo) {
+			  
+			Integer likeCount = communityService.getCommLikeCount(commNo);
+
+			  // 좋아요 갯수를 Map에 담아서 반환
+			  Map<String, Integer> result = new HashMap<>();
+			  result.put("likeCount", likeCount);
+			  
+			  System.out.println(likeCount);
+			  
+			  return result;
+			} 
+		
+		
+		@PostMapping("/blame")
+		@ResponseBody
+		public String Commblame(String commNo, String commMemberId) {
+			
+			System.out.println("*-********* blame 호출 ***************");
+			System.out.println(commMemberId); 
+			System.out.println("***********************************");
+			
+			CommLikeDTO commLike = new CommLikeDTO(); 
+			
+			// commNo에 해당하는 CommunityDTO 객체 조회
+			CommunityDTO community = communityService.getCommunityByCommNo(commNo);
+			// commMemberId에 해당하는 MemberInfoDTO 객체 조회
+			MemberInfoDTO member = memberService.getMemberInfoById(commMemberId);
+			
+			communityService.saveBlame(commNo, commMemberId);  
+			
+			return "redirect:/community/communityDetail?comm_no=" + commNo;
+			 
+		}  
+		
+		
+		@DeleteMapping("/unblame")
+		@ResponseBody
+		public void CommUnblame(String commNo, String commMemberId) {
+		
+			communityService.CommUnblame(commNo, commMemberId);
+			  
+		}
+		
+		
+		@GetMapping("/blameCount")
+		@ResponseBody
+		public Map<String, Integer> getBlameCount(@RequestParam("commNo") Integer commNo) {
+			  
+			Integer blameCount = communityService.getBlameCount(commNo);
+
+			  // 좋아요 갯수를 Map에 담아서 반환
+			  Map<String, Integer> result = new HashMap<>();
+			  result.put("blameCount", blameCount);
+			  
+			  System.out.println(blameCount);
+			  
+			  return result;
+			} 
+		
+		
+		@PostMapping("/addReply")
+		@ResponseBody
+		public String addReply(String commNo, String memberId, String replyContent) {
+			
+
+			System.out.println("*-********* reply 호출 ***************");
+			System.out.println(commNo);
+			System.out.println(memberId); 
+			System.out.println(replyContent);
+			System.out.println("***********************************");
+			
+			CommLikeDTO commLike = new CommLikeDTO(); 
+			
+			// commNo에 해당하는 CommunityDTO 객체 조회
+			CommunityDTO community = communityService.getCommunityByCommNo(commNo);
+			// commMemberId에 해당하는 MemberInfoDTO 객체 조회
+			MemberInfoDTO member = memberService.getMemberInfoById(memberId);
+			
+			communityService.saveReply(commNo, memberId, replyContent);  
+			
+			return "redirect:/community/communityDetail?comm_no=" + commNo;
+			
+			
+		}
+		
+		
+		@GetMapping("/getReplies")
+		@ResponseBody
+		public List<HashMap<String, Object>> getReplies(String commNo, Model m) { 
+			
+			CommunityDTO community = communityService.getCommunityByCommNo(commNo); 
+			List<HashMap<String, Object>> replyAll = communityService.selectReply(commNo); 
+			m.addAttribute("replyAll", replyAll); 
+			
+			return  replyAll;
+		}
+		
+		
+		@DeleteMapping("/deleteReply")
+		@ResponseBody
+		public void deleReply(String commNo, String replyNo) {
+			
+			System.out.println("deleteReply 호출 *********************");
+			System.out.println(commNo);
+			System.out.println(replyNo);
+			
+			//CommunityDTO community = communityService.getCommunityByCommNo(commNo); 
+			//CommReplyDTO reply = communityService.getReplyNo(replyNo);
+			
+			communityService.deleteReply(commNo, replyNo);
+			
+			
+		}
+		
+		@GetMapping("/replyCount")
+		@ResponseBody
+		public Map<String, Integer> replyCount(@RequestParam("commNo") Integer commNo) {
+			  
+			Integer replyCount = communityService.getreplyLikeCount(commNo);
+
+			  // 좋아요 갯수를 Map에 담아서 반환
+			  Map<String, Integer> result = new HashMap<>();
+			  result.put("replyCount", replyCount);
+			  
+			  System.out.println(replyCount);
+			  
+			  return result;
+			} 
 		
 		
 }
