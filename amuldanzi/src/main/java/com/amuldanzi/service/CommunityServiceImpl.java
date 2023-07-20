@@ -3,11 +3,13 @@ package com.amuldanzi.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amuldanzi.domain.CommImageDTO;
+import com.amuldanzi.domain.CommReplyDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.persistence.CommImageRepository;
 import com.amuldanzi.persistence.CommLikeRepository;
@@ -69,9 +71,7 @@ public class CommunityServiceImpl implements CommuityService {
 	}
 
 	@Override
-	public void deleteImage(String imageName) { 
-		
-		
+	public void deleteImage(String imageName) {  
 		
 	}
 
@@ -104,7 +104,126 @@ public class CommunityServiceImpl implements CommuityService {
 
 		commRepo.deleteCommunity(comm_no); 
 		
-	} 
+	}
+
+	@Override
+	public CommunityDTO getCommunityByCommNo(String commNo) { 
+		
+		return commRepo.getCommunityByCommNo(commNo);
+	}
+
+	@Override
+	@Transactional
+	public Integer saveLike(String commNo, String commMemberId) {
+
+		return commLikeRepo.saveLike(commNo, commMemberId);
+		
+	}
+
+	@Override
+	public Integer getCommLikeCount(Integer commNo) {  
+		
+		return commLikeRepo.getCommLikeCount(commNo);
+	}
+
+	@Override
+	@Transactional
+	public void deleteLikeInfo(Integer comm_no) {
+		 
+		commLikeRepo.deleteByCommunity(comm_no);
+		
+	}
+
+	@Override
+	@Transactional
+	public void deleteCommUnlike(String commNo, String commMemberId) { 
+		
+		commLikeRepo.deleteCommUnlike(commNo, commMemberId);
+		
+	}
+
+	@Override
+	@Transactional
+	public Integer saveBlame(String commNo, String commMemberId) {
+		
+		return commLikeRepo.saveBlame(commNo, commMemberId);
+		
+	}
+
+	@Override
+	@Transactional
+	public void CommUnblame(String commNo, String commMemberId) { 
+		
+		commLikeRepo.deleteCommUnblame(commNo, commMemberId);
+	}
+
+	
+	@Override
+	@Transactional
+	public void deleteBlameInfo(Integer comm_no) {
+
+		commLikeRepo.deleteByBlame(comm_no);
+		
+	}
+
+	@Override
+	public Integer getBlameCount(Integer commNo) { 
+		
+		return commLikeRepo.getCommBlameCount(commNo);
+	}
+
+	@Override
+	@Transactional
+	public void saveReply(String commNo, String memberId, String replyContent) {
+
+		commRepo.saveReply(commNo, memberId, replyContent);
+		
+	}
+
+	@Override
+	public List<HashMap<String,Object>> selectReply(String commNo) {
+
+		List<Object[]> replyData = commRepo.replyList(commNo);
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		
+		for(Object[] objArray : replyData) {
+			
+			HashMap<String, Object> map = new HashMap<>();
+            
+            map.put("replyContent", objArray[0]);
+            // 필요한 다른 필드들도 추가할 수 있습니다. 
+            map.put("replyDate", objArray[1]);
+            map.put("id", objArray[2]); 
+            map.put("replyNo", objArray[3]); 
+            map.put("commNo", objArray[4]);  
+            result.add(map); 
+			
+		} 
+		
+		return result;
+	}
+
+	@Override
+	public CommReplyDTO getReplyNo(String replyNo) { 
+		
+		return commRepo.getReplyNo(replyNo);
+	}
+
+	@Override
+	@Transactional
+	public void deleteReply(String commNo, String replyNo) {
+ 
+		commRepo.deleteReply(commNo, replyNo);
+		
+	}
+
+	@Override
+	public Integer getreplyLikeCount(Integer commNo) {
+		 
+		return commRepo.getreplyLikeCount(commNo);
+	}
+ 
  
 		
 	}

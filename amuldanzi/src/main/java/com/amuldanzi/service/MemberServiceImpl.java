@@ -19,4 +19,10 @@ public class MemberServiceImpl implements MemberService {
 		return  memberRepository.findId(memberId);
 	}
 
+	@Override
+	public MemberInfoDTO getMemberInfoById(String commMemberId) { 
+		
+		return memberRepository.getMemberId(commMemberId);
+	}
+
 }

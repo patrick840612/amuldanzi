@@ -34,9 +34,9 @@
 </head>
 
 <jsp:include page="../main/header.jsp"></jsp:include>
-
-
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script type="text/javascript"> 
+</script> 
 <body>
 	<div class="main_mainContents__GXYBn">
 		<br /> <br /> <br /> <br /> <br /> <br />
@@ -51,14 +51,6 @@
 
 						<div class="qaList_qaListLabelWrapper__f7K7c">
 							<div class="qaList_communityType__p7p5C">TOP1</div>
-							<!--  <div class="animalLabel_animalLabelContainer__b_BDd">
-										<img src="/icons/community/ANIMALICON_DOG_RIRI.svg">
-										<div>강아지</div>
-									</div>
-								</div>
-								<div class="qaList_qaListTitle__Z1Ssh">카페에서</div>
-								<div class="qaList_qaListText__2Cm8R">별이 카페에서 책상에 턱올리기ㅋㅋ
-									아귀여워라진짜🩷</div> -->
 						</div>
 						<div class="qaList_qaListImg__DiWnU">
 							<span
@@ -70,12 +62,6 @@
 								style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
 								<noscript></noscript></span>
 						</div>
-
-						<!--					<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">댓글 : 1</div>
-							<div>아몬드별이네</div>
-							<div>1시간 전</div>
-						</div>-->
 
 						<div class="qaList_qaListLabelWrapper__f7K7c">
 							<div class="qaList_communityType__p7p5C">TOP2</div>
@@ -120,10 +106,10 @@
 			<hr class="popper_popperMenuDivider__j1QQj">
 			</br>
 			<div class="community_loungeList__HbstN">
-				<div class="qaList_qaListContainer__73To2">
+				<div class="qaList_qaListContainer__73To2"> 
 					<div class="qaList_qaListWrapper___YnhH">
-						<div>
-							<c:forEach items="${communityList}" var="community">
+						<div> 
+						<c:forEach items="${communityList}" var="community">
 								<div class="qaList_qaListTitle__Z1Ssh">
 									<a href="/community/communityDetail?comm_no=${community['comm_no']}">${community['title']}</a></div>
 								<div class="qaList_qaListText__2Cm8R">${community['content']}</div>
@@ -137,17 +123,18 @@
 									</span>
 								</div>
 								<div class="qaList_qaListAbout__qL7GR">
-									<div class="qaList_communityType__p7p5C">댓글 :
-										${community['count']}</div>
+									<div></div>
 									<div>${community['id']}</div>
 									<div>${community['date']}</div>
-								</div><hr/>
-							</c:forEach>
+								</div><hr/> 
 							<div class="qaList_labelWrapper__vsqC0">
+							
 						<div class="qaList_desktopLabelContainer__EEK_6"></div>
 					</div>
-					<hr class="qaList_qaListDivider__blo7m">
+					</c:forEach> 
 				</div>
+			</div>
+			</div>
 			</div>
 			<ul class="pagination">
 				<li class="disabled"><a class="" href="#"

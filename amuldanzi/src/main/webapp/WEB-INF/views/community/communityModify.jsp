@@ -25,62 +25,62 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+    // 사진 업로드 미리보기
+    $('#uploadFile').on('change', function(event) {
+      var previewContainer = $('#imagePreviewContainer');
+      previewContainer.html('');
 
-	$(document).ready(function() {
-	    // 사진 업로드 미리보기
-	    $('#uploadFile').on('change', function(event) {
-	      var previewContainer = $('#imagePreviewContainer');
-	      previewContainer.html('');
-	
-	      var files = event.target.files;
-	
-	      for (var i = 0; i < files.length && i < 3; i++) {
-	        var file = files[i];
-	        var reader = new FileReader();
-	
-	        reader.onload = function(e) {
-	          var image = $('<img>').attr('src', e.target.result);
-	          var preview = $('<div class="image-preview"></div>').append(image);
-	          var deleteButton = $('<span class="delete-button">&times;</span>');
-	
-	          deleteButton.on('click', function() {
-	            preview.remove();
-	          });
-	
-	          preview.append(deleteButton);
-	          previewContainer.append(preview);
-	        };
-	
-	        reader.readAsDataURL(file);
-	      }
-	    });
-	  });
+      var files = event.target.files;
 
-	$(document).ready(function() {
-	    // 이미지 삭제 버튼 클릭 시
-	    $('.delete-button').on('click', function() {
-	        var imagePath = $(this).prev().find('img').attr('src');
-	        var fileName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-	        console.log(fileName);
-	        deleteImage(fileName);
-	    });
-	}); 
-	
-	function deleteImage(imageName) {
-	    $.ajax({
-	        url: '/community/deleteImage',
-	        data: {"imageName":imageName},
-	        type: 'DELETE',
-	        success: function() {
-	            // Image deleted successfully, update the UI or perform any additional actions
-	            console.log("성공");
-	        },
-	        error: function(xhr, status, error) {
-	            // Handle the error case, if any
-	            console.error(error);
-	        }
-	    });
-	}
+      for (var i = 0; i < files.length && i < 3; i++) {
+        var file = files[i];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var image = $('<img>').attr('src', e.target.result);
+          var preview = $('<div class="image-preview"></div>').append(image);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 이미지 삭제 버튼 클릭 시
+    $(document).on('click', '.deleteAjax', function() { 
+      var imagePreview = $(this).closest('.ajaxImage');
+      var imagePath = imagePreview.find('img').attr('src');
+      var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+      console.log(imageName);
+      deleteImage(imageName, imagePreview);
+    });
+  });
+
+  function deleteImage(imageName, imagePreview) {
+    $.ajax({
+      url: '/community/deleteImage',
+      data: {"imageName": imageName},
+      type: 'DELETE',
+      success: function() {
+        // 이미지가 성공적으로 삭제되었을 때, UI를 업데이트하거나 추가 작업을 수행할 수 있습니다.
+        imagePreview.remove();
+        console.log("성공");
+      },
+      error: function(error) {
+        // 에러가 발생한 경우 처리할 수 있습니다.
+        console.log('에러')
+        console.error(error);
+      }
+    });
+  }
 </script>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
@@ -98,7 +98,7 @@
                 <div>
                     <div>
                         <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId" value="${community.memberId.id}">
+                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value="${community.memberId.id}">
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <div>
@@ -133,11 +133,11 @@
         </div>
     </form>
 		    <c:forEach var="image" items="${commImages}">
-			<div class="image-preview-container">
+			<div class="ajaxImage">
 			        <span>
 			            <img class="image-preview" src="/images/community/${image}" alt="Community Image" style="width: 200px; height: 200px;">
 			        </span>
-			        <button class="delete-button" onclick="deleteImage('${image}')" style="position:relative; left:93px" >&times;</button>
+			        <button class="deleteAjax" onclick="deleteImage('${image}')" style="position:relative; left:93px" >&times;</button>
 			    </div>
 			</c:forEach><br/>
 </body>

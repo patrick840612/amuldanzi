@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.amuldanzi.domain.CommReplyDTO;
 import com.amuldanzi.domain.CommunityDTO; 
 
 public interface CommunityRepository  extends CrudRepository<CommunityDTO, Integer>{
@@ -32,4 +33,23 @@ public interface CommunityRepository  extends CrudRepository<CommunityDTO, Integ
 	@Query(value = "DELETE FROM community WHERE comm_no = :commNo", nativeQuery = true)
 	void deleteCommunity(@Param("commNo") Integer comm_no);
 
+    @Query(value = "SELECT * FROM community WHERE comm_no = :commNo", nativeQuery = true)
+	CommunityDTO getCommunityByCommNo(String commNo);
+
+    @Query(value = "INSERT INTO reply (comm_no, id, reply_content) VALUES (?1, ?2, ?3)", nativeQuery = true)
+	void saveReply(String commNo, String memberId, String replyContent);
+
+    @Query(value = "SELECT r.reply_content, r.reply_date, r.id, r.reply_no, r.comm_no  FROM reply r WHERE comm_no = :commNo", nativeQuery = true)
+	List<Object[]> replyList(String commNo);
+
+	@Query(value= "SELECT * FROM reply r WHERE reply_no = :replyNo", nativeQuery=true)
+	CommReplyDTO getReplyNo(String replyNo); 
+	
+	@Modifying
+	@Query(value = "DELETE FROM reply WHERE comm_no = :commNo AND reply_no = :replyNo" , nativeQuery=true)
+	void deleteReply(String commNo, String replyNo);
+
+	@Query(value = "SELECT COUNT(*) FROM reply WHERE comm_no = :commNo", nativeQuery=true)
+	Integer getreplyLikeCount(Integer commNo);
+  
 }

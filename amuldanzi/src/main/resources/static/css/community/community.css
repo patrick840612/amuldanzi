@@ -18,7 +18,7 @@
       overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
     }
  
-    .image-preview-container {
+    .ajaxImage {
         display: inline-block;
         text-align: center;
         margin-right: 10px;
@@ -32,7 +32,7 @@
         height: 200px;
     }
 
-    .delete-button {
+    .deleteAjax {
         display: block;
         margin-top: 5px;
     }

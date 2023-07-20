@@ -18,7 +18,7 @@ public interface ClinicRepository extends CrudRepository<ClinicDTO, Integer> {
 	List<Map<String, String>> findAllHospital();
 
 	//@Query("SELECT  title as title, c.addr as addr, c.tel as tel, c.time as time  FROM ClinicDTO c WHERE c.addr LIKE CONCAT('%', :addr, '%')")  
-	@Query(value = "SELECT c.title AS title, c.addr AS addr, c.tel AS tel, c.time AS time, c.lat AS lat, c.lng AS lng FROM clinic c WHERE c.addr LIKE %:addr%", nativeQuery = true)
+	@Query(value = "SELECT c.title AS title, c.addr AS addr, c.tel AS tel, c.time AS time, c.lat AS lat, c.lng AS lng FROM clinic c WHERE SUBSTRING(c.addr, 1, 2) = SUBSTRING(:addr, 1, 2)", nativeQuery = true)
 	List<Object[]> getAllAddresses(@Param("addr") String addr);
 
 
