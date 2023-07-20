@@ -2,8 +2,9 @@ package com.amuldanzi.domain;
 
 import java.util.Date;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ public class CommImageDTO {
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "commNo", referencedColumnName = "commNo")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private CommunityDTO CommunityNum;
 	
 	@Column(nullable = false) 
