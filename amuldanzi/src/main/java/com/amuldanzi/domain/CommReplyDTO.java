@@ -30,9 +30,11 @@ public class CommReplyDTO {
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "commNo", referencedColumnName = "commNo")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private CommunityDTO CommunityNum;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId; 
 	

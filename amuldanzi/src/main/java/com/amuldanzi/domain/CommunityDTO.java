@@ -28,6 +28,7 @@ public class CommunityDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = true, updatable = false, insertable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Integer commNo;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
