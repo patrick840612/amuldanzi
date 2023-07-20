@@ -139,7 +139,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public NoticeDTO getNotice(NoticeDTO dto) {
+	public NoticeDTO getNoticeById(NoticeDTO dto) {
 		// TODO Auto-generated method stub
 		return noticeRepo.findById(dto.getId()).get();
 	}
@@ -157,10 +157,26 @@ public class AdminServiceImpl implements AdminService {
 		
 		result.setTitle(dto.getTitle());
 		result.setUrl(dto.getUrl());
+		result.setImg(dto.getImg());
+		result.setImgPath(dto.getImgPath());
 		
 		adRepo.save(result);
 		
 	}
+
+	@Override
+	public void deleteImage(String imageName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public AdvertisementDTO getAdById(AdvertisementDTO dto) {
+		// TODO Auto-generated method stub
+		return adRepo.findById(dto.getId()).get();
+	}
+
+
 	
 	
 	

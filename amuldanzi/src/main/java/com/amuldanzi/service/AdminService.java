@@ -39,11 +39,14 @@ public interface AdminService {
 
 	void careDelete(CareDTO dto);
 
-	NoticeDTO getNotice(NoticeDTO dto);
+	NoticeDTO getNoticeById(NoticeDTO dto);
 
 	void adDelete(AdvertisementDTO dto);
 
 	void adUpdate(AdvertisementDTO dto);
-	
+
+	void deleteImage(String imageName);
+
+	AdvertisementDTO getAdById(AdvertisementDTO dto);
 
 }
