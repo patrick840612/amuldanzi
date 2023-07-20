@@ -41,6 +41,41 @@
 	border-color: hotpink;
 	color: white;
 }
+
+.custom-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.custom-thumbnails .thumbnail {
+  width: 370px;
+  height: 350px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-thumbnails .caption {
+  text-align: center;
+}
+
+.custom-thumbnails .btn-pink {
+  width: 100%;
+}
+
+.custom-thumbnails .thumbnail {
+  position: relative;
+}
+
+.custom-thumbnails .button-container {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
 </style>
 
 
@@ -64,33 +99,29 @@
 	<br />
 	<br />
 	<br />
-	<div class="container">
-		<div class="row">
-			<ul class="thumbnails">
-				<c:forEach items="${careList}" var="care" varStatus="status">
-					<c:if test="${status.index % 3 == 0}">
-						<c:set var="active" value="${status.index == 0}" />
-						<div class="item ${active ? 'active' : ''}">
-					</c:if>
-					<div class="col-md-4">
-						<div class="thumbnail">
-							<img src="${care.img}" alt="ALT NAME" class="img-responsive"></img>
-							<div class="caption">
-								<h3>${care.title}</h3>
-								<p align="center">
-									<a href="/care/careDetail?id=${care.id}"
-										class="btn btn-pink btn-block">더보기</a>
-								</p>
+<div class="container">
+  <div class="row">
+    <div class="custom-thumbnails">
+      <c:forEach items="${careList}" var="care" varStatus="status">
+        <div class="thumbnail">
+          <img src="${care.img}" alt="ALT NAME" class="img-responsive" width="350" height="270">
+          <div class="caption">
+            <h3>${care.title}</h3>
+          </div>
+          <div class="button-container">
+            <a href="/care/careDetail?id=${care.id}" class="btn btn-pink">더보기</a>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
+  </div>
+</div>
 
-							</div>
-						</div>
-					</div>
-					<c:if test="${(status.index + 1) % 3 == 0 || status.last}">
-		</div>
-		</c:if>
-		</c:forEach>
-		</ul>
 	</div>
-	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
 </body>
 </html>
