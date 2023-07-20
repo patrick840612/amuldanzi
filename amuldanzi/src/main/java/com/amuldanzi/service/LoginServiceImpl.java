@@ -66,6 +66,8 @@ public class LoginServiceImpl implements LoginService {
         
         String email = userResourceNode.get("email").asText();
         
+        System.out.println(userResourceNode.toPrettyString());
+        
         //System.out.println("email = " + email);
         
         return email;
@@ -219,6 +221,7 @@ public class LoginServiceImpl implements LoginService {
 		return email;
 	}
 	
+	// 소셜로그인 체크
 	public String sLoginCheck(MemberInfoDTO member) {
 		String id;
 		
@@ -228,6 +231,7 @@ public class LoginServiceImpl implements LoginService {
 		else return id;
 	}
 	
+	// 회원가입 시 반려동물 목록을 확인하여 함께 입력
 	@Transactional
 	public void regist(MemberInfoDTO member, List<MemberPetDTO> petList) {
 		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());

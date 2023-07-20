@@ -43,10 +43,8 @@ dialog{
 <script type="text/javascript">
 $(function(){
 	
-	// id값이 있으면 메인페이지 이동
-	if(${not empty id}){
-		location.href="/login/login?id={id}";
-	}
+	// Model에 id가 있으면(구글 또는 카카오 로그인확인하여 db에 데이터가 있을 경우) /main/login 으로 이동
+	if(${not empty id}) location.href="/main/login?id=${id}";
 	
 	// 구글 로그인 uri 가져오기
 	const getGoogleLoginUri = ()=>{

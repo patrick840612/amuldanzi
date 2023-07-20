@@ -43,10 +43,6 @@ a[href^='tel'] {
 		<jsp:include page="../main/header.jsp"></jsp:include>
 
 
-		
-	
-
-
 		<!-- 컨텐츠 영역 -->
 		<main id="doc-contents">
 			<div class="doc-wrap">
@@ -73,60 +69,12 @@ a[href^='tel'] {
 						<!--// snb -->
 
 						<nav class="lnb">
-							<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span>ON
-									AIR</span></a>
+							<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span><!-- on air --></span></a>
 							<!-- 활성화 클래스 on -->
-							<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span>방송편성표</span></a>
+							<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span >방송편성표</span></a>
 
-							<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span>방송알림</span></a>
+							<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span><!-- 방송알림 --></span></a>
 						</nav>
-
-						<!-- pgm 레이어 -->
-						<article id="modal-pgm" class="modal-layer">
-							<header>
-								<h1>TV쇼핑 스페셜 프로그램</h1>
-							</header>
-							<main>
-								<ul>
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=11670&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/518134775_02.jpg"
-											alt="쇼미더트렌드"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13136&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/52893904_02.jpg"
-											alt="더 컬렉션"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13231&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/514808505_02.jpg"
-											alt="뷰티시그널"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13206&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/76363682_02.jpg"
-											alt="최은경의 W"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13284&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/51785875_02.jpg"
-											alt="요즘핫픽"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13287&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/514209773_02.jpg"
-											alt="마이뷰티클럽"></a></li>
-
-									<li><a
-										href="/shop/tveshop/pgminfo/specialPgm.gs?pgmId=13313&lseq=409698"><img
-											src="//image.gsshop.com/planprd/banner_ETC/75194295_02.jpg"
-											alt="똑소리"></a></li>
-
-								</ul>
-							</main>
-							<button class="close-btn g" onclick="closeLayer('#modal-pgm')">닫기</button>
-						</article>
 
 					</section>
 				</header>
@@ -136,44 +84,8 @@ a[href^='tel'] {
 				<!-- 메인 컨텐츠 -->
 				<section id="tv-index">
 					<div id="on-air">
-						<!-- 동영상 플레이어 -->
-						<div id="on-air-player">
-							<video id="videojs-player" class="video-js vjs-fluid placeholder"
-								playsinline></video>
-						</div>
-						<div id="player-control" class="ready">
-							<div id="player-control-inner">
-								<div class="ctrlbox-A nav">
-									<button class="play">
-										<span class="blind">재생</span>
-									</button>
-									<p id="rtimeWrap" class="times">
-										<span class="blind">남은시간</span><span id="rtime">00:00:00</span>
-									</p>
-								</div>
-								<div class="ctrlbox-B nav">
-									<button class="stop">
-										<strong class="blind">일시정지</strong>
-									</button>
-								</div>
-								<div class="ctrlbox-C">
-									<button class="fullscreen">
-										<span class="blind">전체화면</span>
-									</button>
-
-									<button class="go">
-										<strong class="blind">상품보기</strong>
-									</button>
-
-									<button class="volume">
-										<span class="blind">볼륨</span>
-									</button>
-								</div>
-							</div>
-						</div>
+						 <iframe src="http://192.168.0.69:5000/viewer.html" width="100%" height="425px" frameborder="0" ></iframe>
 					</div>
-					<!--// on-air -->
-
 					<!-- 현재 방송중인 상품 : 메인 페이지  on air와 같은 구조 -->
 					<article id="on-air-prd"></article>
 				</section>
@@ -195,7 +107,7 @@ a[href^='tel'] {
 										<div class="prd-img">
 
 											<img src=""
-												onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
+												onerror=""
 												alt="상품이미지"> <span class="badge-abs"> </span> <span
 												class="toggle-zzim" id=""></span>
 
@@ -240,7 +152,7 @@ a[href^='tel'] {
 										<div class="prd-img">
 
 											<img src=""
-												onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
+												onerror=""
 												alt="상품이미지"> <span class="badge-abs"> </span> <span
 												class="toggle-zzim" id=""></span>
 
