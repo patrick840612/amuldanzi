@@ -61,14 +61,10 @@ public class LoginServiceImpl implements LoginService {
 	// 구글 로그인
 	public String googleLogin(String code) {
         String accessToken = getAccessToken(code);
-        //System.out.println("accessToken = " + accessToken);
         JsonNode userResourceNode = getUserResource(accessToken);
         
         String email = userResourceNode.get("email").asText();
-        
-        System.out.println(userResourceNode.toPrettyString());
-        
-        //System.out.println("email = " + email);
+        // System.out.println(userResourceNode.toPrettyString());
         
         return email;
 	}
@@ -250,7 +246,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		if(password != null) {
 			if(BCrypt.checkpw(member.getUserPassword(), password)) return member.getId();
-			return "";
+			else return "";
 		}else return "";
 	}
 	
@@ -266,7 +262,7 @@ public class LoginServiceImpl implements LoginService {
                 .claim("address", member.getUserAddr())
                 .claim("tel", member.getUserTel())
                 .claim("email", member.getUserEmail())
-                .claim("social", member.getSocial())
+                .claim("memberRole", member.getMemberRole())
                 .setExpiration(expireDate)
                 .signWith(key)
                 .compact();
