@@ -21,6 +21,8 @@ import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.service.LoginService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -124,8 +126,8 @@ public class LoginController {
 		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
         res.addCookie(cookie2);
         
-		
-        m.addAttribute("id", id.getId());
+        //m.addAttribute("id", id.getId());
+        
         return "/main/index";
 
 
@@ -190,11 +192,16 @@ public class LoginController {
 		return map;
 	}
 	
-	@RequestMapping(value = "/cookietest", method = RequestMethod.GET)
-    public String cookie(MemberInfoDTO member, HttpServletRequest request) {
+	// 헤더에서 토큰으로 id값을 얻어오기(토큰이 없으면 값이 없음)
+	@RequestMapping(value = "/loginWithToken", method = RequestMethod.POST)
+	@ResponseBody
+    public Map<String,Object> loginWithToken(MemberInfoDTO member, HttpServletRequest request, Model m) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
         Cookie[] cookies = request.getCookies();
         String accessToken = null;
-
+        
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("access_token".equals(cookie.getName())) {
@@ -204,12 +211,14 @@ public class LoginController {
             }
         }
 
-        String id = (String)loginService.getClaims(accessToken).get("id");
-
-        // 다른 로직 수행 또는 화면을 반환하는 등의 코드 작성
-        // return "your_page"; 
-        return "/login/register";
-    }
+		if(accessToken != null) {
+	        String id = (String)loginService.getClaims(accessToken).get("id");
+	        map.put("id", id);
+	        m.addAttribute("id", id);
+		}
+       
+        return map;
+    } // 헤더 로그인 조건 완료
 
 
 

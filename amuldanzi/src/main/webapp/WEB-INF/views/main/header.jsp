@@ -27,9 +27,51 @@
 <link href="/chunks/css/text.css" rel="stylesheet">
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
 
-
-
+	// 로그인 상태 확인
+	$.ajax({
+		type : 'post',
+		url : "/login/loginWithToken",
+		dataType : 'json',
+		success : function(result){
+			console.log(result);
+			if(result.id){
+				$('#login').text('로그아웃');	
+			}
+		},
+		error : function(err){				
+			alert('Error');
+			console.log(err);
+		}
+	}); 
+	
+	// 로그인시 header 변경  
+	/*if(${not empty id}){
+		
+        var encodedId = encodeURIComponent("${id}");
+        //location.href = "/login/loginWithToken?id=" + encodedId;
+        let paramId = { id : encodedId };
+        
+		$.ajax({
+			type : 'post',
+			url : "/login/loginWithToken",
+			data : paramId,
+			dataType : 'json',
+			success : function(result){
+				//$("#header").load("/main/header", result);
+			},
+			error : function(err){				
+				alert('Error');
+				console.log(err);
+			}
+		}); // ajax end
+	}// header 변경 완료 */ 
+	
+});
+</script>
 </head>
 <body>
 	<div id="__next">
@@ -134,7 +176,7 @@
 								class="Header_defaultMenu__cursor" href="/community/communityList">커뮤니티</a>
 								<div></div></li>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>
+								class="Header_defaultMenu__cursor" href="/login/loginpage" id="login">로그인</a>
 								<div></div></li>
 					</nav>
 							<div class="main_contents__NGg5K">
