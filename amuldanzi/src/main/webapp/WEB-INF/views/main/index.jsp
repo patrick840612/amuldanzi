@@ -32,12 +32,8 @@
 <script type="text/javascript">
 $(function(){
 
-	// id값이 있으면 
-	if(${not empty id}){
-        var encodedId = encodeURIComponent("${id}");
-        location.href = "/login/cookietest?id=" + encodedId;
 
-	}
+	
 	
 });
 </script>

@@ -248,8 +248,10 @@ public class LoginServiceImpl implements LoginService {
 	public String loginCheck(MemberInfoDTO member) {
 		String password = loginDAO.loginCheck(member.getId());
 		
-		if(BCrypt.checkpw(member.getUserPassword(), password)) return member.getId();
-		else return "";
+		if(password != null) {
+			if(BCrypt.checkpw(member.getUserPassword(), password)) return member.getId();
+			return "";
+		}else return "";
 	}
 	
 	// memberInfoDTO로 jwt 토큰 생성
