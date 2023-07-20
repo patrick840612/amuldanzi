@@ -107,7 +107,7 @@ a[href^='tel'] {
 										<div class="prd-img">
 
 											<img src=""
-												onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
+												onerror=""
 												alt="상품이미지"> <span class="badge-abs"> </span> <span
 												class="toggle-zzim" id=""></span>
 
@@ -152,7 +152,7 @@ a[href^='tel'] {
 										<div class="prd-img">
 
 											<img src=""
-												onerror="this.src='//image.gsshop.com/mi13/img/etc/no_img_214.gif'"
+												onerror=""
 												alt="상품이미지"> <span class="badge-abs"> </span> <span
 												class="toggle-zzim" id=""></span>
 
