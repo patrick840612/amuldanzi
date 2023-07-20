@@ -213,10 +213,12 @@ public class LoginController {
 
 		if(accessToken != null) {
 	        String id = (String)loginService.getClaims(accessToken).get("id");
+	        String memberRole = (String)loginService.getClaims(accessToken).get("memberRole");
 	        map.put("id", id);
+	        map.put("memberRole", memberRole);
 	        m.addAttribute("id", id);
 		}
-       
+        
         return map;
     } // 헤더 로그인 조건 완료
 

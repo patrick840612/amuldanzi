@@ -37,16 +37,19 @@ $(function(){
 		url : "/login/loginWithToken",
 		dataType : 'json',
 		success : function(result){
-			console.log(result);
-			if(result.id){
-				$('#login').text('로그아웃');	
+			if(result.memberRole == "관리자"){
+				$('#login').text('admin');	
+			}else if(result.memberRole == "일반회원"){
+				$('#login').text('마이페이지');	
+			}else{
+				
 			}
 		},
 		error : function(err){				
 			alert('Error');
 			console.log(err);
 		}
-	}); 
+	}); // 로그인 상태 확인 완료
 	
 	// 로그인시 header 변경  
 	/*if(${not empty id}){
@@ -82,7 +85,7 @@ $(function(){
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursorNone">나의 반려 동물</a>
+								class="Header_defaultMenu__cursorNone">나의 반려 동물${id}</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">
