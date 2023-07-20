@@ -137,7 +137,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -193,11 +193,11 @@
 											<div class="thumbnail">
 												<div class="image view view-first">
 													<img style="width: 100%; display: block;"
-														src="/admin/files/ad/images/${adList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';">														
+														src="/images/ad/${adList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';">														
 													<div class="mask no-caption">
 														<div class="tools tools-bottom">
 															<a target="_blank" href="${adList.url }"><i class="fa fa-link"></i></a> 
-															<a href="#"><i class="fa fa-pencil"></i></a>
+															<a href="adDetail?id=${adList.id }"><i class="fa fa-pencil"></i></a>
 															<a href="adDelete?id=${adList.id }"><i class="fa fa-times"></i></a>
 														</div>
 													</div>

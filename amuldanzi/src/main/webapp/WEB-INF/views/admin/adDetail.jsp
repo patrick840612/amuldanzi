@@ -82,12 +82,12 @@ $(document).ready(function() {
 	        var fileName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
 	        console.log(fileName);
 	        deleteImage(fileName);
-	    });
-	}); 
+		    });
+		}); 
 	
 	function deleteImage(imageName) {
 	    $.ajax({
-	        url: '/community/deleteImage',
+	        url: '/admin/deleteImage',
 	        data: {"imageName":imageName},
 	        type: 'DELETE',
 	        success: function() {
@@ -228,7 +228,7 @@ $(document).ready(function() {
 											class="question_questionMark__AykT_">*</span>
 									</div>
 									<input placeholder="제목을 입력해주세요"
-										class="question_titleInput__S7Isd" type="text" name="title" value=""/>
+										class="question_titleInput__S7Isd" type="text" name="title" value="${adDetail.title }"/>
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 								<div>
@@ -236,8 +236,9 @@ $(document).ready(function() {
 										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
+									<input type="hidden" name="id" value="${adDetail.id }">
 									<input placeholder="예) https://www.naver.com"
-										class="question_titleInput__S7Isd" type="text" name="url" />
+										class="question_titleInput__S7Isd" type="text" name="url" value="${adDetail.url }" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 				                <div class="question_fileInputWrapper__d9gmU">
@@ -251,10 +252,19 @@ $(document).ready(function() {
 				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
 				                </div>
 								<div>
-									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
+									<button class="question_submitBtn__vDrt_" type="submit">광고 수정</button>
 								</div>
 								<br />
 						</form>
+						
+							<div class="image-preview-container">
+						        <span>
+						            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="Community Image" style="width: 200px; height: 200px;">
+						        </span>
+						        <button class="delete-button" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
+						    </div>
+						
+
 					</div>
 				</div>				
 			</div>
