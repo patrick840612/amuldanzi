@@ -55,7 +55,7 @@ public class LoginController {
 		return "/login/"+step;
 	}
 	
-	// 페이지 이동시 회원역할에 따른 헤더 변경하기 함수
+	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
 	private Map<String,Object> headerChange() {
 		Map<String,Object> map = new HashMap<String, Object>();
         Cookie[] cookies = request.getCookies();
