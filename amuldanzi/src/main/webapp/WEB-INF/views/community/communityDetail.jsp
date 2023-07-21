@@ -53,7 +53,8 @@ $(document).ready(function() {
             }
         });
     }
-
+ 
+	
 	// 신고 개수 업데이트 하는 함수
     function updateBlameCount() {
         $.ajax({
@@ -65,6 +66,7 @@ $(document).ready(function() {
             success: function(response) {
                 var blameCount = response.blameCount;
                 $("#blameCount").text(blameCount);
+ 
             },
             error: function(error) {
                 console.error(error);
@@ -268,7 +270,8 @@ $(document).ready(function() {
                 .addClass("commentLabel_defaultLabel__JHgyL delete-button")
                 .text("댓글 삭제")
                 .data("commNo", reply.commNo)
-                .data("replyNo", reply.replyNo); 
+                .data("replyNo", reply.replyNo)
+            	.data("id", reply.id);
 
 
             var buttonContainer = $("<div style ='position:relative; width: 265px; left: 883px; margin: 0;'>")
@@ -291,17 +294,27 @@ $(document).ready(function() {
     fetchReplies();
 
  // 댓글 삭제 함수
-    function deleteReply(commNo, replyNo) {
+    function deleteReply(commNo, replyNo, id) {
         $.ajax({
             url: "/community/deleteReply",
             type: "DELETE",
             data: {
                 commNo: commNo,
-                replyNo: replyNo
+                replyNo: replyNo,
+                id: id
             },
             success: function(response) {
-                console.log("댓글 삭제 성공");
+                console.log("ajax 성공");
                 // 삭제된 댓글을 화면에서 제거
+                
+                if(response == ""){
+                	fetchReplies();
+                }
+                else{
+
+					alert(response) 
+                }
+                
                 fetchReplies();
                 replyCount();
             },
@@ -315,9 +328,11 @@ $(document).ready(function() {
     $(document).on("click", ".delete-button", function(event) {
         var commNo = $(this).data("commNo");
         var replyNo = $(this).data("replyNo");
+        var id = $(this).data("id");
         console.log(commNo);
         console.log(replyNo);
-        deleteReply(commNo, replyNo);
+        console.log(id);
+        deleteReply(commNo, replyNo, id);
     });
 
     // 댓글 개수 업데이트 함수 
@@ -347,7 +362,7 @@ $(document).ready(function() {
 	<div class="qaDetail_qaDetailContainer__GdYJp">
 		<div class="qaDetail_qaDetailContent__ggrjL">
 			<form action="/community/delete" method="post">
-			<input name="comm_no" type="hidden" value="${community.commNo}"/>
+			<input name="comm_no" id = "communityBoard + ${community.commNo}" type="hidden" value="${community.commNo}"/>
 			
 			<div class="qaDetail_qaDetailQuestion__AXVqt">
 				<div class="qaDetail_qaDetailTitle__xKc9F">					

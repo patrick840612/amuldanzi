@@ -53,14 +53,36 @@ public class CommunityController {
 	
 		// 커뮤니티 리스트 불러오기 
 		@RequestMapping("/communityList")
-		public String communityList(Model m) throws InterruptedException {
+		public String communityList(@RequestParam(name = "page", defaultValue = "1") int currentPage, Model m) throws InterruptedException {
 			
+			int itemsPerPage = 5;
 			// Service 를 통해 커뮤니티 리스트를 불러옴 
 			List<HashMap<String, Object>> result = communityService.selectCommunityList();
+			List<HashMap<String, Object>> result2 = communityService.selectLikeCommunityList();
 			
+			
+			int totalItems = result.size();
+		    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+			
+		    // 현재 페이지 번호가 1 미만이면 1로 설정
+		    currentPage = Math.max(1, currentPage);
+		    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+		    currentPage = Math.min(currentPage, totalPages);
+		    
+		    int startIndex = (currentPage - 1) * itemsPerPage;
+	        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+	        List<HashMap<String, Object>> communityList = result.subList(startIndex, endIndex);
+		    
+		    
+		    
 			// 뷰에서 데이터를 사용하기위해 모델에 담음
-			m.addAttribute("communityList",result); 
+			m.addAttribute("communityList",communityList); 
+			m.addAttribute("communityLikeList",result2);
+			m.addAttribute("totalPages", totalPages);
+	        m.addAttribute("currentPage", currentPage);
 			
+			Map<String,Object> map = headerChange();
+	        m.addAttribute("id", map.get("id"));
 			// 파일 업로드를 위해 2.5초동안 지연 시킴
 			Thread.sleep(2500); 
 			
@@ -509,14 +531,30 @@ public class CommunityController {
 		// 댓글 삭제하기 
 		@DeleteMapping("/deleteReply")
 		@ResponseBody
-		public void deleReply(String commNo, String replyNo) {
+		public String deleReply(String commNo, String replyNo, String id, Model m) {
 			
 			System.out.println("deleteReply 호출 *********************");
 			System.out.println(commNo);
 			System.out.println(replyNo); 
-			
-			communityService.deleteReply(commNo, replyNo);
-			
+			System.out.println(id);
+			Map<String,Object> map = headerChange();
+	        m.addAttribute("id", map.get("id"));
+	    	System.out.println("*************아ㅏㅏ이ㅣㅣ디ㅣㅣ");
+			System.out.println(map.get("id"));
+	        
+	        if(map.get("id").equals(id)) { 
+	        
+	        	System.out.println(id);
+	        	System.out.println(map.get("id"));
+	        	communityService.deleteReply(commNo, replyNo);
+	        	
+	        	return "";
+	        
+	        } else {
+	        	
+	        	return "댓글을 입력한 사용자가 아닙니다";
+	        	
+	        }
 			
 		}
 		
