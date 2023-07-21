@@ -2,8 +2,6 @@ package com.amuldanzi.service;
 
 import java.util.List;
 
-import com.amuldanzi.domain.CommImageDTO;
-
 public interface CommImageService {
 
 	// 이미지 조회 

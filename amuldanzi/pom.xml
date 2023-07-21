@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.amuldanzi</groupId>
 	<artifactId>amuldanzi</artifactId>
@@ -67,10 +68,11 @@
 				spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- JSP 연동 -->
 		<!-- jstl -->
-		<!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+		<!--
+		https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
 
 		<dependency>
 			<groupId>
@@ -80,7 +82,8 @@
 
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+		<!--
+		https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -88,21 +91,22 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
+		<!--
+		https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
 		<dependency>
 			<groupId>
 				org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>
 				tomcat-embed-jasper</artifactId>
 			<version>11.0.0-M6</version>
 		</dependency>
-		
+
 		<!-- oauth2 login 
 		<dependency>
 			<groupId>com.github.scribejava</groupId>		    
@@ -121,35 +125,37 @@
         </dependency> -->
 
 		<!-- JWT -->
-	    <dependency>
-	        <groupId>io.jsonwebtoken</groupId>
-	        <artifactId>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>
 				jjwt-api</artifactId>
-	        <version>0.11.5</version>
+			<version>0.11.5</version>
 		</dependency>
-	    <dependency>
-	        <groupId>
+		<dependency>
+			<groupId>
 				io.jsonwebtoken</groupId>
-	        <artifactId>jjwt-jackson</artifactId>
-	        <version>0.11.5</version>
-	        <scope>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>
 				runtime</scope>
 		</dependency>
-	    <dependency>
-		    <groupId>io.jsonwebtoken</groupId>
-		    <artifactId>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>
 				jjwt-impl</artifactId>
-		    <version>0.11.5</version>
+			<version>0.11.5</version>
 		</dependency>
 
 
 		<!-- 암호화 -->
 		<dependency>
-		    <groupId>
+			<groupId>
 				org.mindrot</groupId>
-		    <artifactId>jbcrypt</artifactId>
-		    <version>0.4</version>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
 		</dependency>
+
+
 
 		<!-- swagger 설정 -->
 

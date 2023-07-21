@@ -6,9 +6,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
  
 // 파이썬과 연결되는 클라이언트
 public class Client { 
