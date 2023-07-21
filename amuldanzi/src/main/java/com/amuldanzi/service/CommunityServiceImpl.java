@@ -1,9 +1,9 @@
 package com.amuldanzi.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import com.amuldanzi.persistence.CommImageRepository;
 import com.amuldanzi.persistence.CommLikeRepository;
 import com.amuldanzi.persistence.CommunityRepository;
 
+import jakarta.servlet.ServletContext;
 import jakarta.transaction.Transactional;
 
 @Service("communityService")
@@ -32,9 +33,11 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public void saveCommunity(CommunityDTO dto, List<CommImageDTO> fileDtos) {
  
+		// 커뮤니티 글 정보 저장
 		commRepo.save(dto); 
 		for(CommImageDTO com : fileDtos) {
 			
+			// 이미지 파일정보 한장씩 저장
 			commImgRepo.save(com); 
 		}
 		
@@ -43,12 +46,13 @@ public class CommunityServiceImpl implements CommuityService {
     @Override
     public List<HashMap<String, Object>> selectCommunityList() {
     	
+    	// 모든 커뮤니티글 목록을 조회하며 HashMap 으로 변환합니다.
         List<Object[]> listData = commRepo.selectCommunityList();
-        
         List<HashMap<String, Object>> result = new ArrayList<>();
         
         for (Object[] objArray : listData) {
         	
+        	// 각 커뮤니티 글 정보를 HashMap 에 담습니다.
         	HashMap<String, Object> map = new HashMap<>();
         	map.put("id", objArray[0]);
             // 필요한 다른 필드들도 추가할 수 있습니다. 
@@ -67,6 +71,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public CommunityDTO getCommunityByNo(Integer commNo) { 
 		 
+		// 커뮤니티 글 번호를 기준으로 해당 커뮤니티 글 조회 
 		return commRepo.findByCommNo(commNo);
 	}
 
@@ -79,13 +84,14 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public void modifyCommunity(Integer comm_no, String commTitle, String commContent) {
 
+		// 커뮤니티 글 수정 로직을 구현 하기 
 		commRepo.modifyCommunity(comm_no, commTitle, commContent);
 	    System.out.println("커뮤니티 수정 성공");
 		
 	}
 
 	@Override
-	@Transactional
+	@Transactional // 데이터 일관성과 안정성을 보장하기 위해 
 	public void saveCommunityWithImages(CommunityDTO dto, List<CommImageDTO> fileDtos, Integer comm_no) {
 		 		
 		// 영속화 설정(지향 프로그래밍에서 사용되는 개념으로, 객체의 상태를 데이터베이스와 같은 영구 저장소에 저장하여 지속적으로 사용할 수 있게 하는 것을 말함)
@@ -102,6 +108,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public void deleteCommunity(Integer comm_no) {
 
+		// 글번호에 맞는 이미지 삭제하기
 		commRepo.deleteCommunity(comm_no); 
 		
 	}
@@ -109,6 +116,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public CommunityDTO getCommunityByCommNo(String commNo) { 
 		
+		// 글 번호에 맞는 해당 커뮤니티 글 조회
 		return commRepo.getCommunityByCommNo(commNo);
 	}
 
@@ -116,6 +124,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public Integer saveLike(String commNo, String commMemberId) {
 
+		// 좋아요 클릭 시 회원 정보 저장 
 		return commLikeRepo.saveLike(commNo, commMemberId);
 		
 	}
@@ -123,6 +132,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public Integer getCommLikeCount(Integer commNo) {  
 		
+		// 좋아요 수 세기 
 		return commLikeRepo.getCommLikeCount(commNo);
 	}
 
@@ -130,6 +140,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public void deleteLikeInfo(Integer comm_no) {
 		 
+		// 좋아요 한번 더 클릭 시 정보 삭제 
 		commLikeRepo.deleteByCommunity(comm_no);
 		
 	}
@@ -137,7 +148,8 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	@Transactional
 	public void deleteCommUnlike(String commNo, String commMemberId) { 
-		
+
+		// 좋아요 한번더 클릭 시 정보 삭제 
 		commLikeRepo.deleteCommUnlike(commNo, commMemberId);
 		
 	}
@@ -146,6 +158,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public Integer saveBlame(String commNo, String commMemberId) {
 		
+		// 신고 버튼 클릭시 정보 저장
 		return commLikeRepo.saveBlame(commNo, commMemberId);
 		
 	}
@@ -154,6 +167,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public void CommUnblame(String commNo, String commMemberId) { 
 		
+		// 신고버튼 한번더 클릭 시 정보 저장
 		commLikeRepo.deleteCommUnblame(commNo, commMemberId);
 	}
 
@@ -162,6 +176,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public void deleteBlameInfo(Integer comm_no) {
 
+		// 글 번호를 기준으로 신고 정보 삭제 
 		commLikeRepo.deleteByBlame(comm_no);
 		
 	}
@@ -169,6 +184,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public Integer getBlameCount(Integer commNo) { 
 		
+		// 신고글 수 세기 
 		return commLikeRepo.getCommBlameCount(commNo);
 	}
 
@@ -176,6 +192,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Transactional
 	public void saveReply(String commNo, String memberId, String replyContent) {
 
+		// 댓글 입력 정보 저장하기 
 		commRepo.saveReply(commNo, memberId, replyContent);
 		
 	}
@@ -183,6 +200,7 @@ public class CommunityServiceImpl implements CommuityService {
 	@Override
 	public List<HashMap<String,Object>> selectReply(String commNo) {
 
+		// 댓글 리스트 불러오기 object 로담아서 json 구조로 가져오기
 		List<Object[]> replyData = commRepo.replyList(commNo);
 		
 		List<HashMap<String, Object>> result = new ArrayList<>();
@@ -204,12 +222,14 @@ public class CommunityServiceImpl implements CommuityService {
 		return result;
 	}
 
+	// 댓글 리스트 불러오기
 	@Override
 	public CommReplyDTO getReplyNo(String replyNo) { 
 		
 		return commRepo.getReplyNo(replyNo);
 	}
 
+	// 댓글 삭제하기 
 	@Override
 	@Transactional
 	public void deleteReply(String commNo, String replyNo) {
@@ -218,11 +238,13 @@ public class CommunityServiceImpl implements CommuityService {
 		
 	}
 
+	// 댓글 수 세기
 	@Override
 	public Integer getreplyLikeCount(Integer commNo) {
 		 
 		return commRepo.getreplyLikeCount(commNo);
 	}
+ 
  
  
 		
