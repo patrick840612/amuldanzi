@@ -3,11 +3,13 @@ package com.amuldanzi.controller;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -218,30 +220,40 @@ public class AdminController {
 	    return "redirect:/admin/adList";
 	}
 
+	// 게시글 수정하기 -> 현재 업로드된 이미지 삭제하기 
 	@DeleteMapping("/deleteImage")
-	public void deleteImage(String imageName) {	
+	@ResponseBody
+	public void deleteImage(String imageName) {		
 		  
 		try {
 			
 			System.out.println("*****************delete 호출*************");
 			System.out.println(imageName);  
+			
+			// 현재 실행중인 사용자 디렉토리 
 			String userDir = System.getProperty("user.dir");
 			
+			// 이미지 파일 전체 경로 생성
 			String imagePath = userDir + "/src/main/resources/static/images/ad/" + imageName;
 			File file = new File(imagePath);
 		
-		if (file.exists() && file.delete()) {
-		    System.out.println("이미지 삭제 성공: " + imageName);
-		    adminService.deleteImage(imageName);
-		} else {
-		    System.out.println("이미지 삭제 실패: " + imageName);
-		    // 실패 처리 로직 추가
+			// 이미지 파일이 존재하고, 삭제가 성공적으로 수행되면 
+			if (file.exists() && file.delete()) {
+			    System.out.println("이미지 삭제 성공: " + imageName);
+			    // 이미지 정보를 이미지 테이블에서도 삭제
+			    adminService.deleteImage(imageName);
+			} else {
+				
+			    System.out.println("이미지 삭제 실패: " + imageName); 
+			    
 			} 
 		}catch (Exception e) {
 	        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
 	        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
 	        // 오류 처리 로직 추가
-	    } 
+	    }
+		
+		System.out.println("삭제작업끝");
 	}
 
 	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
