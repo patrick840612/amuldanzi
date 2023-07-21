@@ -1,8 +1,13 @@
 package com.amuldanzi.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.amuldanzi.service.LoginService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -11,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QnaController {
 	
 	
-	
-
 	
 	@RequestMapping("/header")
 	public void header() {
