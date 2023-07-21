@@ -169,8 +169,22 @@ $(function(){
 							<li class="Header_headerLi__6LLa5"><a
 								class="Header_defaultMenu__cursor" href="/community/communityList">커뮤니티</a>
 								<div></div></li>
-							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursor" href="/login/loginpage" id="login">로그인</a>
+							<li class="Header_headerLi__6LLa5">
+							
+							<!-- 비 로그인시 -->
+							<c:if test="${memberRole == '' || memberRole == null}">
+								<a class="Header_defaultMenu__cursor" href="/login/loginpage" id="login">로그인</a>
+							</c:if>
+							
+							<c:if test="${memberRole == '관리자'}">
+								<a class="Header_defaultMenu__cursor" href="/admin/adminMain" id="admin1234">관리자</a>
+							</c:if>
+							
+							<c:if test="${memberRole == '일반회원'}">
+								<a class="Header_defaultMenu__cursor" href="/" id="home">마이페이지</a>
+							</c:if>
+
+
 								<div></div></li>
 					</nav>
 							<div class="main_contents__NGg5K">
