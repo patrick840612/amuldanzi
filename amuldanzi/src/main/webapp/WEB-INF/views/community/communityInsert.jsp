@@ -24,39 +24,78 @@
 <link href="/css/community/communitytext.css" rel="stylesheet"> 
 </head>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+ 
+    <script>
+        $(document).ready(function() {
+            var imageFiles = []; // 이미지 파일들을 저장할 배열
 
-$(document).ready(function() {
-    // 사진 업로드 미리보기
-    $('#uploadFile').on('change', function(event) {
-      var previewContainer = $('#imagePreviewContainer');
-      previewContainer.html('');
+            // 사진 업로드 미리보기 
+            $('#uploadFile').on('change', function(event) {
+                var previewContainer = $('#imagePreviewContainer');
+                previewContainer.html('');
 
-      var files = event.target.files;
+                var files = event.target.files;
+				console.log(files)
+                
+                for (var i = 0; i < files.length && i < 3; i++) {
+                    (function(file, id) {
+                        var reader = new FileReader();
 
-      for (var i = 0; i < files.length && i < 3; i++) {
-        var file = files[i];
-        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var imageSrc = e.target.result;
+                            var image = $('<img>').attr('src', imageSrc);
+                            var preview = $('<div class="image-preview" data-id="' + id + '"></div>').append(image);
+                            var deleteButton = $('<span class="delete-button">&times;</span>');
 
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
+                            preview.append(deleteButton);
+                            previewContainer.append(preview);
+                            // 이미지 목록에 추가 (중복 방지)
+                            if (!imageFiles.some(function(item) { return item.id === id; })) {
+                                imageFiles.push({ id: id, file: file });
+                                // hidden input 추가
+                                var hiddenInput = $('<input type="hidden">').attr('name', 'image_' + id).attr('id', 'hiddenInput_' + id).val(file);
+                                $('form').append(hiddenInput);
+                            }
+                        };
 
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
+                        reader.readAsDataURL(file);
+                    })(files[i], i); // 각 파일에 고유한 식별자(id)를 전달
+                }
+            });
 
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
+            // 삭제 버튼 이벤트 위임
+            $('#imagePreviewContainer').on('click', '.delete-button', function() {
+				alert("dddddd");
+                console.log('삭제ㅔㅔㅔ');
+                var id = $(this).parent('.image-preview').data('id');
+                $(this).parent('.image-preview').remove();
+                // 해당 이미지의 hidden input도 제거
+                $(`#hiddenInput_${id}`).remove();
+                // 이미지 목록에서 삭제
+                imageFiles = imageFiles.filter(function(item) {
+                    return item.id !== id;
+                });
 
-        reader.readAsDataURL(file);
-      }
-    });
-  });
-</script>
+                // files 변수에서도 이미지를 제거
+                var files = $('#uploadFile')[0].files;
+                var newFiles = [];
+                for (var i = 0; i < files.length; i++) {
+                    if (i !== id) {
+                        newFiles.push(files[i]);
+                    }
+                }
+                // 새로운 FileList 객체 생성
+                var dataTransfer = new DataTransfer();
+                for (var i = 0; i < newFiles.length; i++) {
+                    dataTransfer.items.add(newFiles[i]);
+                }
+                $('#uploadFile')[0].files = dataTransfer.files;
+            });
+        });
+    </script> 
+</html>
+ 
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
@@ -73,7 +112,7 @@ $(document).ready(function() {
                 <div>
                     <div>
                         <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id">
+                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value = "yunjae127">
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <div>

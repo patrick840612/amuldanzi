@@ -20,27 +20,32 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "reply")
+@Table(name = "reply") // 댓글
 @DynamicInsert
 public class CommReplyDTO {
 
+	// 댓글 id
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer replyNo;
 	
+	// 커뮤니티 글 번호 외부키
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "commNo", referencedColumnName = "commNo")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private CommunityDTO CommunityNum;
 	
+	// 회원 id 외부키
 	@ManyToOne(optional = false, fetch = FetchType.LAZY) 
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId; 
 	
+	// 댓글 내용
 	@Column(nullable = false, updatable = false, insertable = false)
 	private String replyContent; 
 	
+	// 댓글 일시 
 	@Column(columnDefinition = "date default sysdate()"
 			,insertable = false
 			,updatable = true)

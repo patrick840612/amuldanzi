@@ -2,6 +2,7 @@ package com.amuldanzi.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amuldanzi.domain.CommImageDTO;
 import com.amuldanzi.domain.CommLikeDTO;
-import com.amuldanzi.domain.CommReplyDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.service.CommImageService;
@@ -43,21 +42,28 @@ public class CommunityController {
 		private MemberService memberService;
 		
 	
+		// 커뮤니티 리스트 불러오기 
 		@RequestMapping("/communityList")
 		public String communityList(Model m) throws InterruptedException {
 			
+			// Service 를 통해 커뮤니티 리스트를 불러옴 
 			List<HashMap<String, Object>> result = communityService.selectCommunityList();
 			
+			// 뷰에서 데이터를 사용하기위해 모델에 담음
 			m.addAttribute("communityList",result); 
-			Thread.sleep(2000); 
+			
+			// 파일 업로드를 위해 2.5초동안 지연 시킴
+			Thread.sleep(2500); 
+			
 			return "/community/communityList";
 			
 		}
 		
+		// 인서트 페이지 매핑 
 		@RequestMapping("/communityInsert")
 		public void communityInsert() {
 			
-		}
+		} 
 		
 		@PostMapping("/submit")
 		public String submitCommunity(CommunityDTO dto, @RequestParam("files") MultipartFile[] files) {
@@ -71,15 +77,18 @@ public class CommunityController {
 			MemberInfoDTO memberDto = memberService.findById(dto.getMemberId().getId());
 			
 			System.out.println("<<"+memberDto);
-
+			
+			// 조회된 회원 정보 없으면 에러페이지로 리다이렉트 
 			if (memberDto == null) {
 			    System.out.println("Invalid memberId: " + dto.getMemberId().getId());
 			    return "redirect:/error";  // 에러 페이지로 리다이렉트
 			}
 
+			// 커뮤니티 데이터에 해당하는 회원 정보 설정
 			dto.setMemberId(memberDto);
 			System.out.println(memberDto);
 			
+			// 이미지 파일을 저장할 경로 설정 
 			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\community";
 			if(!new File(savePath).exists()) {
 				
@@ -88,6 +97,7 @@ public class CommunityController {
 			
 			List<CommImageDTO> fileDtos = new ArrayList<>();
 			
+			// 업로드된 파일 처리 
 			for (int i = 0; i < files.length; i++) {
 		        MultipartFile file = files[i];
 		        String origFilename = file.getOriginalFilename();
@@ -124,7 +134,7 @@ public class CommunityController {
 			
 		}
 		
-		
+		// 디테일 페이지 불러오기 
 		@RequestMapping("/communityDetail")
 		private String  communityDetail(Integer comm_no, Model model) { 
 			
@@ -135,20 +145,24 @@ public class CommunityController {
 			List<String> commImages = commImageService.getCommImagesByNo(comm_no);
 			
 			model.addAttribute("community", community); 
-			//System.out.println(community);
-			//System.out.println("*********************");
-	        model.addAttribute("commImages", commImages);
-	        //System.out.println("이미지 ==>>>>>>>>>>>");
+			//System.out.println(community); 
+	        model.addAttribute("commImages", commImages); 
 	        //System.out.println(commImages);
 	        return "/community/communityDetail";
 			 
 		}
 		
+		// 게시글 수정하기 
 		@GetMapping("/communityModify")
 		public String communityModifyPage(Integer comm_no, Model model) {
-		    // 게시글 번호에 해당하는 게시글 정보를 가져와서 모델에 추가합니다.
+			 
+			// 커뮤니티 번호르 파라미터로 받아서 해당 번호의 커뮤니티 정보를 조회
 		    CommunityDTO community = communityService.getCommunityByNo(comm_no);
+		    
+		    // 커뮤니티 번호에 해당하는 이미지 파일 경로들 가져오기 
 		    List<String> commImages = commImageService.getCommImagesByNo(comm_no);
+		    
+		    // 두개의 정보 모델에 담기 
 		    model.addAttribute("community", community);
 		    model.addAttribute("commImages", commImages);
 		    
@@ -156,6 +170,7 @@ public class CommunityController {
 		}
 		
 		
+		// 게시글 수정하기 -> 현재 업로드된 이미지 삭제하기 
 		@DeleteMapping("/deleteImage")
 		@ResponseBody
 		public void deleteImage(String imageName) {
@@ -166,17 +181,23 @@ public class CommunityController {
 				
 				System.out.println("*****************delete 호출*************");
 				System.out.println(imageName);  
+				
+				// 현재 실행중인 사용자 디렉토리 
 				String userDir = System.getProperty("user.dir");
 				
+				// 이미지 파일 전체 경로 생성
 				String imagePath = userDir + "/src/main/resources/static/images/community/" + imageName;
 				File file = new File(imagePath);
 			
+				// 이미지 파일이 존재하고, 삭제가 성공적으로 수행되면 
 				if (file.exists() && file.delete()) {
 				    System.out.println("이미지 삭제 성공: " + imageName);
+				    // 이미지 정보를 이미지 테이블에서도 삭제
 				    commImageService.deleteImage(imageName);
 				} else {
-				    System.out.println("이미지 삭제 실패: " + imageName);
-				    // 실패 처리 로직 추가
+					
+				    System.out.println("이미지 삭제 실패: " + imageName); 
+				    
 				} 
 			}catch (Exception e) {
 		        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
@@ -187,6 +208,7 @@ public class CommunityController {
 			System.out.println("삭제작업끝");
 		}
 		
+		// 수정 버튼 클릭시 게시글 수정
 		@PostMapping("/modify")
 		public String modifyCommunity(CommunityDTO dto,
 		                              @RequestParam("files") MultipartFile[] files,
@@ -196,6 +218,7 @@ public class CommunityController {
 
 			 
 		    // 커뮤니티 글 수정 로직 수행
+			// comm_no , commTitle , commContent 을 사용하여 커뮤니티 글 수정
 		    communityService.modifyCommunity(comm_no, commTitle, commContent);
 
 		    try {
@@ -208,9 +231,10 @@ public class CommunityController {
 		            System.out.println("Invalid memberId: " + memberDto);
 		            return "redirect:/error"; // 에러 페이지로 리다이렉트
 		        }
-
+		        // 조회한 회원 정보 커뮤니티 데이터 설정
 		        dto.setMemberId(memberDto);
 
+		        // 이미지 파일 저장 경로 설정 
 		        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\community";
 		        if (!new File(savePath).exists()) {
 		            new File(savePath).mkdir();
@@ -218,7 +242,7 @@ public class CommunityController {
 
 		        List<CommImageDTO> fileDtos = new ArrayList<>();
 		         
-
+		        // 업로드된 파일 처리
 		        for (int i = 0; i < files.length; i++) {
 		            MultipartFile file = files[i];
 		            String origFilename = file.getOriginalFilename();
@@ -279,23 +303,24 @@ public class CommunityController {
 			    }
 		    	
 		    }
-		    
+		    // 좋아요 정보 먼저 삭제 
 		    communityService.deleteLikeInfo(comm_no); 
+		    // 싫어요 정보 먼저 삭제 
 		    communityService.deleteBlameInfo(comm_no);
+		    // 이미지 데이터 베이스 삭제
 		    commImageService.deleteImagesByCommunityNo(comm_no);
 		    // 게시글 삭제 로직 구현
-		    communityService.deleteCommunity(comm_no);
-		    
-		    Thread.sleep(2000);
-		    
+		    communityService.deleteCommunity(comm_no); 
+		    		    		    
 		    return "redirect:/community/communityList"; // 삭제 후 게시글 목록 페이지로 리다이렉트
 		}
   
 		
-		
+		// 좋아요 버튼 구현
 		@PostMapping("/like")
 		@ResponseBody
 		public String CommLike(String commNo, String commMemberId) {
+			
 			
 			System.out.println("*-********* like 호출 ***************");
 			System.out.println(commMemberId); 
@@ -308,20 +333,27 @@ public class CommunityController {
 			// commMemberId에 해당하는 MemberInfoDTO 객체 조회
 			MemberInfoDTO member = memberService.getMemberInfoById(commMemberId);
 			
+			// 커뮤니티 글에 좋아요 정보 저장
 			communityService.saveLike(commNo, commMemberId);  
+			
 			
 			return "redirect:/community/communityDetail?comm_no=" + commNo;
 			 
 		}  
 		
+		
+		// 좋아요버튼 한번 더 누르면 좋아요 횟수 철회 구현
 		@DeleteMapping("/unlike")
 		@ResponseBody
 		public void CommUnlike(String commNo, String commMemberId) {
 		
+			// 저장정보 삭제 
 			communityService.deleteCommUnlike(commNo, commMemberId);
 			  
 		}
 		
+		
+		// 좋아요 수 구현
 		@GetMapping("/likeCount")
 		@ResponseBody
 		public Map<String, Integer> getLikeCount(@RequestParam("commNo") Integer commNo) {
@@ -337,7 +369,7 @@ public class CommunityController {
 			  return result;
 			} 
 		
-		
+		//신고 버튼 구현 
 		@PostMapping("/blame")
 		@ResponseBody
 		public String Commblame(String commNo, String commMemberId) {
@@ -359,7 +391,7 @@ public class CommunityController {
 			 
 		}  
 		
-		
+		//신고 취소 구현 
 		@DeleteMapping("/unblame")
 		@ResponseBody
 		public void CommUnblame(String commNo, String commMemberId) {
@@ -369,6 +401,7 @@ public class CommunityController {
 		}
 		
 		
+		// 신고 횟수 출력
 		@GetMapping("/blameCount")
 		@ResponseBody
 		public Map<String, Integer> getBlameCount(@RequestParam("commNo") Integer commNo) {
@@ -384,12 +417,11 @@ public class CommunityController {
 			  return result;
 			} 
 		
-		
+		// 댓글 입력하기 
 		@PostMapping("/addReply")
 		@ResponseBody
 		public String addReply(String commNo, String memberId, String replyContent) {
 			
-
 			System.out.println("*-********* reply 호출 ***************");
 			System.out.println(commNo);
 			System.out.println(memberId); 
@@ -403,6 +435,7 @@ public class CommunityController {
 			// commMemberId에 해당하는 MemberInfoDTO 객체 조회
 			MemberInfoDTO member = memberService.getMemberInfoById(memberId);
 			
+			//입력정보 저장 하기 
 			communityService.saveReply(commNo, memberId, replyContent);  
 			
 			return "redirect:/community/communityDetail?comm_no=" + commNo;
@@ -410,35 +443,38 @@ public class CommunityController {
 			
 		}
 		
-		
+		// 댓글 리스트 불러오기 
 		@GetMapping("/getReplies")
 		@ResponseBody
 		public List<HashMap<String, Object>> getReplies(String commNo, Model m) { 
 			
-			CommunityDTO community = communityService.getCommunityByCommNo(commNo); 
+			// 커뮤니티 글 번호 사용 해당 커뮤니티 글 정보 조회 
+			CommunityDTO community = communityService.getCommunityByCommNo(commNo);
+			
+			// 글 번호 조회한 게시글의 정보 조회 replyAll 에 저장 
 			List<HashMap<String, Object>> replyAll = communityService.selectReply(commNo); 
+			
+			// 데이터를 jsp 에서 사용할 수 있게 만들기 
 			m.addAttribute("replyAll", replyAll); 
 			
 			return  replyAll;
 		}
 		
-		
+		// 댓글 삭제하기 
 		@DeleteMapping("/deleteReply")
 		@ResponseBody
 		public void deleReply(String commNo, String replyNo) {
 			
 			System.out.println("deleteReply 호출 *********************");
 			System.out.println(commNo);
-			System.out.println(replyNo);
-			
-			//CommunityDTO community = communityService.getCommunityByCommNo(commNo); 
-			//CommReplyDTO reply = communityService.getReplyNo(replyNo);
+			System.out.println(replyNo); 
 			
 			communityService.deleteReply(commNo, replyNo);
 			
 			
 		}
 		
+		// 댓글 수 반환 
 		@GetMapping("/replyCount")
 		@ResponseBody
 		public Map<String, Integer> replyCount(@RequestParam("commNo") Integer commNo) {
