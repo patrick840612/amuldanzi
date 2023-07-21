@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amuldanzi.persistence.ClinicRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service("clinicService")
 public class ClinicServiceImpl implements ClinicService {

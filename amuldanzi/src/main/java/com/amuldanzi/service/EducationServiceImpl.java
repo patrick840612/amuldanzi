@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.persistence.EducationRepository;
-import com.amuldanzi.persistence.NoticeRepository;
 
 @Service("EducationService")
 public class EducationServiceImpl implements EducationService {

@@ -2,7 +2,6 @@ package com.amuldanzi.domain;
 
 import java.util.Date;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.DynamicInsert;
 
 import jakarta.persistence.Column;
