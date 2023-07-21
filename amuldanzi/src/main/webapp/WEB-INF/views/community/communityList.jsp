@@ -36,6 +36,28 @@
 <jsp:include page="../main/header.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script type="text/javascript"> 
+function updateBlameCount(commNo) {
+    $.ajax({
+      type: "GET",
+      url: "/community/blameCount",
+      data: {
+        commNo: commNo
+      },
+      success: function(response) {
+        var blameCount = response.blameCount;
+        $("#blameCount").text(blameCount);
+
+        if (blameCount >= 5) {
+            console.log(commNo)
+          $("#communityBoard" + commNo).hide();
+        }
+      },
+      error: function(error) {
+        console.error(error);
+      }
+    });
+  }  
+  
 </script> 
 <body>
 	<div class="main_mainContents__GXYBn">
@@ -49,46 +71,26 @@
 				<div class="qaList_qaListContainer__73To2">
 					<div class="qaList_qaListWrapper___YnhH">
 
-						<div class="qaList_qaListLabelWrapper__f7K7c">
-							<div class="qaList_communityType__p7p5C">TOP1</div>
-						</div>
-						<div class="qaList_qaListImg__DiWnU">
-							<span
-								style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-								alt="community_image"
-								src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-								decoding="async" data-nimg="fill" sizes="100vw"
-								srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
-								style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-								<noscript></noscript></span>
-						</div>
 
+						<c:forEach items="${communityLikeList}" var="likeList">
 						<div class="qaList_qaListLabelWrapper__f7K7c">
-							<div class="qaList_communityType__p7p5C">TOP2</div>
+							<div class="qaList_qaListTitle__Z1Ssh" style="color:blue">
+							<a href="/community/communityDetail?comm_no=${likeList['commNo']}">
+							${likeList['title']}</a><br/><br/><span style="color:black;">좋아요${likeList['likeCount']}</span></div> 
 						</div>
 						<div class="qaList_qaListImg__DiWnU">
 							<span
 								style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
 								alt="community_image"
-								src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
+								src="/images/community/${likeList['path']}"
 								decoding="async" data-nimg="fill" sizes="100vw"
-								srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
 								style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
 								<noscript></noscript></span>
 						</div>
-						<div class="qaList_qaListLabelWrapper__f7K7c">
-							<div class="qaList_communityType__p7p5C">TOP3</div>
-						</div>
-						<div class="qaList_qaListImg__DiWnU">
-							<span
-								style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-								alt="community_image"
-								src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-								decoding="async" data-nimg="fill" sizes="100vw"
-								srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
-								style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-								<noscript></noscript></span>
-						</div>
+						</c:forEach>			
+						
+						
+						
 						<div>
 						 <form action='/community/communityInsert' method='GET'>
 						    <input class='commentLabel_defaultLabel__JHgyL' type='submit' value='글 쓰기'/>
@@ -110,6 +112,7 @@
 					<div class="qaList_qaListWrapper___YnhH">
 						<div> 
 						<c:forEach items="${communityList}" var="community">
+							<div id="communityBoard${community['comm_no']}">
 								<div class="qaList_qaListTitle__Z1Ssh">
 									<a href="/community/communityDetail?comm_no=${community['comm_no']}">${community['title']}</a></div>
 								<div class="qaList_qaListText__2Cm8R">${community['content']}</div>
@@ -131,30 +134,44 @@
 							
 						<div class="qaList_desktopLabelContainer__EEK_6"></div>
 					</div>
+					</div>
+					  <script>
+					    // commNo 값을 전달하여 게시글 숨김 처리
+					    updateBlameCount(${community['comm_no']});
+					  </script>
 					</c:forEach> 
 				</div>
 			</div>
 			</div>
 			</div>
-			<ul class="pagination">
-				<li class="disabled"><a class="" href="#"
-					aria-label="Go to first page">‹</a></li>
-				<li class="disabled"><a class="" href="#"
-					aria-label="Go to previous page">···</a></li>
-				<li class="active"><a class="" href="#"
-					aria-label="Go to page number 1">1</a></li>
-				<li class=""><a class="" href="#"
-					aria-label="Go to page number 2">2</a></li>
-				<li class=""><a class="" href="#"
-					aria-label="Go to page number 3">3</a></li>
-				<li class=""><a class="" href="#"
-					aria-label="Go to page number 4">4</a></li>
-				<li class=""><a class="" href="#"
-					aria-label="Go to page number 5">5</a></li>
-				<li class=""><a class="" href="#" aria-label="Go to next page">···</a></li>
-				<li class=""><a class="" href="#" aria-label="Go to last page">›</a></li>
-			</ul>
-
+       		 <ul class="pagination">
+            <!-- 처음 페이지로 이동하는 링크를 추가합니다 -->
+			<li class="${currentPage == 1 ? 'disabled' : ''}">
+			    <a href="/community/communityList?page=1" aria-label="처음 페이지로 이동">«</a>
+			</li>
+			
+			<!-- 이전 페이지로 이동하는 링크를 추가합니다 -->
+			<li class="${currentPage == 1 ? 'disabled' : ''}">
+			    <a href="/community/communityList?page=${currentPage - 1}" aria-label="이전 페이지로 이동">‹</a>
+			</li>
+			
+			<!-- 페이지 번호를 표시합니다 -->
+			<c:forEach begin="1" end="${totalPages}" var="pageNumber">
+			    <li class="${pageNumber == currentPage ? 'active' : ''}">
+			        <a href="/community/communityList?page=${pageNumber}" aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a>
+			    </li>
+			</c:forEach>
+			
+			<!-- 다음 페이지로 이동하는 링크를 추가합니다 -->
+			<li class="${currentPage == totalPages ? 'disabled' : ''}">
+			    <a href="/community/communityList?page=${currentPage + 1}" aria-label="다음 페이지로 이동">›</a>
+			</li>
+			
+			<!-- 마지막 페이지로 이동하는 링크를 추가합니다 -->
+			<li class="${currentPage == totalPages ? 'disabled' : ''}">
+			    <a href="/community/communityList?page=${totalPages}" aria-label="마지막 페이지로 이동">»</a>
+			</li>
+        </ul>
 		</div>
 		<hr class="popper_popperMenuDivider__j1QQj">
 	</div>

@@ -61,5 +61,16 @@ public interface CommunityRepository  extends CrudRepository<CommunityDTO, Integ
 	// 댓글수 반환하는 쿼리
 	@Query(value = "SELECT COUNT(*) FROM reply WHERE comm_no = :commNo", nativeQuery=true)
 	Integer getreplyLikeCount(Integer commNo);
+
+	@Query(value = "SELECT c.id AS id, c.comm_title AS title, c.comm_date AS date , l.like_count AS likeCount, i.comm_img_file_name AS path, c.comm_no AS commNo  "
+            + "FROM community c "
+            + "LEFT JOIN ( "
+            + "    SELECT comm_no, COUNT(*) AS like_count "
+            + "    FROM cm_like "
+            + "    GROUP BY comm_no "
+            + ") l ON c.comm_no = l.comm_no "
+            + "LEFT JOIN comm_img i ON c.comm_no = i.comm_no "
+            + "ORDER BY l.like_count DESC LIMIT 3 ", nativeQuery = true)
+	List<Object[]> selectLikeCommunityList();
   
 }

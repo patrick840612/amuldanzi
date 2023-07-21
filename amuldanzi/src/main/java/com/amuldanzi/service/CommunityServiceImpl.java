@@ -244,6 +244,31 @@ public class CommunityServiceImpl implements CommuityService {
 		 
 		return commRepo.getreplyLikeCount(commNo);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectLikeCommunityList() {
+		
+		// 모든 커뮤니티글 목록을 조회하며 HashMap 으로 변환합니다.
+        List<Object[]> listData = commRepo.selectLikeCommunityList();
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        
+        for (Object[] objArray : listData) {
+        	
+        	// 각 커뮤니티 글 정보를 HashMap 에 담습니다.
+        	HashMap<String, Object> map = new HashMap<>();
+        	map.put("id", objArray[0]);
+            // 필요한 다른 필드들도 추가할 수 있습니다. 
+            map.put("title", objArray[1]);
+            map.put("date", objArray[2]); 
+            map.put("likeCount", objArray[3]); 
+            map.put("path", objArray[4]); 
+            map.put("commNo", objArray[5]);
+            result.add(map);
+        	
+        }
+        return result; 
+        
+	}
  
  
  

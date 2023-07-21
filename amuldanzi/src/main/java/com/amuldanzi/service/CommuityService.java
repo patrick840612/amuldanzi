@@ -71,6 +71,8 @@ public interface CommuityService {
 
     // 커뮤니티 글 번호를 기준으로 댓글의 좋아요 수를 조회하는 메서드입니다.
     Integer getreplyLikeCount(Integer commNo);
+
+	List<HashMap<String, Object>> selectLikeCommunityList();
  
  
 

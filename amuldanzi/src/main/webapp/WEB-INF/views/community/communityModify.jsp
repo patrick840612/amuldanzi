@@ -26,33 +26,70 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    // 사진 업로드 미리보기
-    $('#uploadFile').on('change', function(event) {
-      var previewContainer = $('#imagePreviewContainer');
-      previewContainer.html('');
+	 var imageFiles = []; // 이미지 파일들을 저장할 배열
 
-      var files = event.target.files;
+     // 사진 업로드 미리보기 
+     $('#uploadFile').on('change', function(event) {
+         var previewContainer = $('#imagePreviewContainer');
+         previewContainer.html('');
 
-      for (var i = 0; i < files.length && i < 3; i++) {
-        var file = files[i];
-        var reader = new FileReader();
+         var files = event.target.files;
+			console.log(files)
+         
+         for (var i = 0; i < files.length && i < 3; i++) {
+             (function(file, id) {
+                 var reader = new FileReader();
 
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
+                 reader.onload = function(e) {
+                     var imageSrc = e.target.result;
+                     var image = $('<img>').attr('src', imageSrc);
+                     var preview = $('<div class="image-preview" data-id="' + id + '"></div>').append(image);
+                     var deleteButton = $('<span class="delete-button">&times;</span>');
 
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
+                     preview.append(deleteButton);
+                     previewContainer.append(preview);
+                     // 이미지 목록에 추가 (중복 방지)
+                     if (!imageFiles.some(function(item) { return item.id === id; })) {
+                         imageFiles.push({ id: id, file: file });
+                         // hidden input 추가
+                         var hiddenInput = $('<input type="hidden">').attr('name', 'image_' + id).attr('id', 'hiddenInput_' + id).val(file);
+                         $('form').append(hiddenInput);
+                     }
+                 };
 
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
+                 reader.readAsDataURL(file);
+             })(files[i], i); // 각 파일에 고유한 식별자(id)를 전달
+         }
+     });
 
-        reader.readAsDataURL(file);
-      }
-    });
+     // 이미지 미리보기 삭제 구현 
+     // 삭제 버튼 이벤트 위임
+     $('#imagePreviewContainer').on('click', '.delete-button', function() {
+         
+         var id = $(this).parent('.image-preview').data('id');
+         $(this).parent('.image-preview').remove();
+         // 해당 이미지의 hidden input도 제거
+         $(`#hiddenInput_${id}`).remove();
+         // 이미지 목록에서 삭제
+         imageFiles = imageFiles.filter(function(item) {
+             return item.id !== id;
+         });
+
+         // files 변수에서도 이미지를 제거
+         var files = $('#uploadFile')[0].files;
+         var newFiles = [];
+         for (var i = 0; i < files.length; i++) {
+             if (i !== id) {
+                 newFiles.push(files[i]);
+             }
+         }
+         // 새로운 FileList 객체 생성
+         var dataTransfer = new DataTransfer();
+         for (var i = 0; i < newFiles.length; i++) {
+             dataTransfer.items.add(newFiles[i]);
+         }
+         $('#uploadFile')[0].files = dataTransfer.files;
+     });
 
     // 이미지 삭제 버튼 클릭 시
     $(document).on('click', '.deleteAjax', function() { 
