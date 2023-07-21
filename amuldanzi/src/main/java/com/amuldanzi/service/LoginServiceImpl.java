@@ -347,4 +347,16 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return result;
 	}
+	
+	// 소셜용 전화번호로 아이디와 전화번가져오기
+	public MemberInfoDTO socialCheck(@Nullable MemberInfoDTO member) {
+		MemberInfoDTO mem = new MemberInfoDTO();
+		Optional<MemberInfoDTO> select = loginDAO.findByUserTel(member.getUserTel());
+		if(select.isPresent()) {
+		    mem = select.get();
+		}
+		System.out.println("***********************1234564165");
+		System.out.println(mem);
+		return mem;
+	}
 }

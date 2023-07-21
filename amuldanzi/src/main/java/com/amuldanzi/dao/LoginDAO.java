@@ -21,5 +21,4 @@ public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
 	@Query(value = "SELECT * FROM member_info WHERE user_tel = :userTel", nativeQuery = true)
 	Optional<MemberInfoDTO> findByUserTel(String userTel);
 	
-
 }

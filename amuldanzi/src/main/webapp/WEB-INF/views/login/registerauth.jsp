@@ -141,7 +141,8 @@ $(function() {
 		event.preventDefault();
 	    const phoneNumber = $('#phoneNumber');
 	    const phoneNumberValue = phoneNumber.val();
-	    const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{3,4}-?\d{4}$/;
+	    const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{4}-?\d{4}$/;
+	    //const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{3,4}-?\d{4}$/;
 
 	    if (phoneRegex.test(phoneNumberValue)) {
 
@@ -192,7 +193,7 @@ $(function() {
 
 	// 부모창 데이터 가져오기 : alert($(opener.document).find('#id').val());
 	
-	// 자식창 데이터 부모창으로 넘겨주기 : 
+	// 새로고침 
 	$('#reauth').click(function(){
 		location.reload();
 	});	
@@ -251,7 +252,7 @@ $(function() {
 
      
         // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
-        /*const firebaseConfig = {
+        const firebaseConfig = {
           apiKey: "AIzaSyByApv-Y_LC3KFHvR8H9WM-iHtHCeHT6SQ",
           authDomain: "easylogin-32ddb.firebaseapp.com",
           projectId: "easylogin-32ddb",
@@ -259,19 +260,8 @@ $(function() {
           messagingSenderId: "856131945500",
           appId: "1:856131945500:web:3d171e4ab73b9edf864bd9",
           measurementId: "G-5HSVVDRF57"
-        };*/
+        };
 
-  //테스트용(나중에 지우기)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAdgoCzIS8Ho9EbtznhlqXofYDlS6euKek",
-    authDomain: "textauth-103f2.firebaseapp.com",
-    projectId: "textauth-103f2",
-    storageBucket: "textauth-103f2.appspot.com",
-    messagingSenderId: "92681438318",
-    appId: "1:92681438318:web:5a378658b05dd0cb27127f",
-    measurementId: "G-JF04YXQZLZ"
-  };
-      
         // Firebase 초기화
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);

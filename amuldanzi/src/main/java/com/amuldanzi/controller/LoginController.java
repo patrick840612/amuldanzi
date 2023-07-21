@@ -98,11 +98,12 @@ public class LoginController {
 		if(id != "") {
 			MemberInfoDTO mem = new MemberInfoDTO();
 			mem.setId(id);
-			creatJwtToken(mem);
+			
+			mem.setMemberRole(creatJwtToken(mem).getMemberRole());
 			return "redirect:/main/index";
 		}else {
 			m.addAttribute("member", member);
-			return "/login/socialregisterauth";
+			return "redirect:/login/socialregisterauth?socialKey="+email+"&social=google";
 		}
 	}
 	
@@ -111,7 +112,7 @@ public class LoginController {
 	public String socialgoogleAuth(MemberInfoDTO member, MemberSocialDTO membersocial) {
 
 		
-		return "/main/index";
+		return "/main/index"; // jsp 파일 ( ViewResolver에 지정 )
 	}
 	
 	// 카카오 로그인
@@ -185,7 +186,8 @@ public class LoginController {
 
 	}
 	
-	private void creatJwtToken(MemberInfoDTO id) {
+	// 토큰생성 함수
+	private MemberInfoDTO creatJwtToken(MemberInfoDTO id) {
 		MemberInfoDTO member = loginService.selectById(id);
 		
 		JwtDTO jwt = loginService.createJwt(member);
@@ -204,6 +206,7 @@ public class LoginController {
 		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
         res.addCookie(cookie2);
 		
+        return member;
 	}
 	
 	// 회원가입
@@ -235,6 +238,9 @@ public class LoginController {
 		 }
 			
 		loginService.regist(member, petList);
+		
+		creatJwtToken(member);
+		m.addAttribute("memberRole", member.getMemberRole());
 	
 		return "/main/index";
 	} // 회원가입 완료
@@ -265,6 +271,19 @@ public class LoginController {
 		return map;
 	}
 	
+	// 중복체크 idCheckServiceCon
+	@RequestMapping("/socialCheckServiceCon")
+	@ResponseBody
+	public Map<String,Object> socialCheckServiceCon(MemberInfoDTO member, Model m) {
+		
+		// 중복 체크 메소드 호출
+		MemberInfoDTO mem = loginService.socialCheck(member);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("member", mem);
+		return map;
+	}
+		
 	// 헤더에서 토큰으로 id값을 얻어오기(토큰이 없으면 값이 없음)
 	@RequestMapping(value = "/loginWithToken", method = RequestMethod.POST)
 	@ResponseBody
