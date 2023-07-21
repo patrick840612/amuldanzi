@@ -63,6 +63,8 @@ public class CommunityController {
 		@RequestMapping("/communityInsert")
 		public void communityInsert() {
 			
+			
+			
 		} 
 		
 		@PostMapping("/submit")

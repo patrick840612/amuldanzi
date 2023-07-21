@@ -64,10 +64,10 @@
                 }
             });
 
+            // 이미지 미리보기 삭제 구현 
             // 삭제 버튼 이벤트 위임
             $('#imagePreviewContainer').on('click', '.delete-button', function() {
-				alert("dddddd");
-                console.log('삭제ㅔㅔㅔ');
+                
                 var id = $(this).parent('.image-preview').data('id');
                 $(this).parent('.image-preview').remove();
                 // 해당 이미지의 hidden input도 제거
