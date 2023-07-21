@@ -173,14 +173,14 @@ $(document).ready(function() {
 
     // 좋아요 버튼 클릭 이벤트
     $("#like-button").click(function(event) {
-        var commMemberId = "${community.memberId.id}";
+        var commMemberId = "${id}";
         var commNo = "${community.commNo}";
         likeCommunity(commMemberId, commNo, event);
     });
 
     // 신고 버튼 클릭 이벤트
     $("#blame-button").click(function(event) {
-        var commMemberId = "${community.memberId.id}";
+        var commMemberId = "${id}";
         var commNo = "${community.commNo}";
         blameCommunity(commMemberId, commNo, event);
     });
@@ -190,19 +190,16 @@ $(document).ready(function() {
     updateBlameCount();
 
 
-    // 댓글 등로 버튼 클릭시 
+    // 댓글 등록 버튼 클릭시 
     $("#submit-button").click(function(event) {
         event.preventDefault(); // 강제 submit 막고
         addReply(); // 함수 호출
     });
         
-        var commNo = "${community.commNo}"; // 글번호 변수
-        var memberId = "${community.memberId.id}"; // ID 변수
-        var replyContent = $("#reply-content").val(); // 댓글 내용
 
         function addReply() {
             var commNo = "${community.commNo}"; // 글번호 변수
-            var memberId = "${community.memberId.id}"; // ID 변수
+            var memberId = "${id}"; // ID 변수
             var replyContent = $("#reply-content").val(); // 댓글 내용
 
             // AJAX 요청 보내기
@@ -368,8 +365,23 @@ $(document).ready(function() {
 				</div>
 						<div class="comment_commentInfo__OI8e5">
 							<div>
-       							 <a href="/community/communityModify?comm_no=${community.commNo}" class="commentLabel_defaultLabel__JHgyL">게시글 수정</a>
+								<c:choose>
+							    <c:when test="${community.memberId.id eq id}">
+							        <a href="/community/communityModify?comm_no=${community.commNo}" class="commentLabel_defaultLabel__JHgyL">게시글 수정</a>
+							    </c:when>
+							    <c:otherwise> 
+							    </c:otherwise>
+							    </c:choose>
+							   
+							   <c:choose>
+							    <c:when test="${community.memberId.id eq id}">
 							    <button class="commentLabel_defaultLabel__JHgyL">게시글 삭제</button>
+							     </c:when>
+							    <c:otherwise> 
+							    </c:otherwise> 
+							    </c:choose>
+							    
+							    
 								<button class="commentLabel_defaultLabel__JHgyL" id="like-button">좋아요 &nbsp;&nbsp;<span id="likeCount">${likeCount}</span></button>
 								<button class="commentLabel_defaultLabel__JHgyL" id="blame-button">신고 &nbsp;&nbsp;<span id="blameCount">${blameCount}</span></button>
 							</div>

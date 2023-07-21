@@ -64,10 +64,10 @@
                 }
             });
 
+            // 이미지 미리보기 삭제 구현 
             // 삭제 버튼 이벤트 위임
             $('#imagePreviewContainer').on('click', '.delete-button', function() {
-				alert("dddddd");
-                console.log('삭제ㅔㅔㅔ');
+                
                 var id = $(this).parent('.image-preview').data('id');
                 $(this).parent('.image-preview').remove();
                 // 해당 이미지의 hidden input도 제거
@@ -112,7 +112,7 @@
                 <div>
                     <div>
                         <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value = "yunjae127">
+                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value = "${id}">
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <div>
