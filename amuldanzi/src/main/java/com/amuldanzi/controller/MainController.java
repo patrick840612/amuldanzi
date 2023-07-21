@@ -25,7 +25,7 @@ public class MainController {
 	
 	@RequestMapping("/index")
 	public void index(Model m) {
-		//System.out.println("/main/index 확인");
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/main/index 확인");
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));

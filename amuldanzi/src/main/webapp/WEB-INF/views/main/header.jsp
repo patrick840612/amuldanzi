@@ -31,7 +31,7 @@
 <script type="text/javascript">
 $(function(){
 
-
+	// 일단 남겨둠
 	//if(${not empty id})
 	/*async function getDataAndSetPage() {
 		  try {
@@ -76,7 +76,7 @@ $(function(){
 					<nav class="Header_headerList__D3V50">
 						<ul>
 							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursorNone">나의 반려 동물${id}</a>
+								class="Header_defaultMenu__cursorNone">나의 반려 동물</a>
 								<div></div>
 								<div class="Header_headerCircle__x9lE1"></div>
 								<div class="Header_shopPopper__4_A07">

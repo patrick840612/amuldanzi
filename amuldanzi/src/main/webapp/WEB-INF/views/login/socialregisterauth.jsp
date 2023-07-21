@@ -28,6 +28,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+	
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firebaseui@latest/dist/firebaseui.css" />
 
 <style>
 
@@ -39,23 +41,17 @@
   flex-grow: 1;
 }
 
-
-
 .account_checkButton__wezDS{
 	width: 100px !important;
 	height: 40px;
 }
 
 .account_signUpInputWrapper__kzyF3{
-	justify-content: center;
-}
-
-
-.account_signUpInputWrapper__kzyF3{
-
+	
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  justify-content: center;
 }
 
 .eventLabel_animalLabelContainer__J2NDN{
@@ -74,131 +70,61 @@
 
 .account_noCheckButton__dNWQx{}
 
+#phone{
+	padding-top: 100px;
+}
+
+.duplicateCheck{
+	width: 300px;
+    height: 33px;
+    border: none;
+    font-size: 14px;
+	color : green;
+	font-weight: bold;
+}
+
+.duplicateCheck2{
+	width: 300px;
+    height: 33px;
+    border: none;
+    border-bottom: 1px solid #e4e4e6;
+    font-size: 14px;
+	color : red;
+	font-weight: bold;
+}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
 
+	// 현재 URL의 쿼리 파라미터를 읽어옴
+	let queryParams = new URLSearchParams(window.location.search);
 
-	// customValidity 용 js변수 (jquery 작동안함)
-	var userTelCheck = document.getElementById("phoneNumber");
+	// 'socialKey'과 'social' 값을 변수에 저장
+	let socialKey = queryParams.get('socialKey');
+	let social = queryParams.get('social');
+	$('#socialKey').val(socialKey);
+	$('#social').val(social);
 	
-	//*** 유효성검사
-    window.addEventListener('load', () => {
-      const forms = document.getElementsByClassName('validation-form');
-	
-      Array.prototype.filter.call(forms, (form) => {
-        form.addEventListener('submit', function (event) {
- 
-          if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
- 
-            }
-
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false); //*** 유효성검사 끝
-    
-
-		//**** userTel 전화번호 중복체크 시작
-		$('#phoneNumber').on('keyup',function(){
-			///입력한 userTel가져오기
-			let userTel = $('#phoneNumber').val();
-			let userId = "";
-			//ajax로 userTel보내기 idCheckServiceCon
-			$.ajax({
-				url : '<c:url value='/login/idCheckServiceCon'/>',
-				type : 'post',
-				data : { id : userId, userTel : userTel },
-				dataType : 'json',
-				success : function(result){
-
-					// 중복된 전화번호 없음
-					if(result.resultTel == false){
-						$('#TelCheckDup').text('');
-						$('#TelCheckDup').removeClass('alert-danger d-flex align-items-center');
-						userTelCheck.setCustomValidity("");
-
-					}else{
-						// 중복전화번호
-						$('#TelCheckDup').text('중복');
-						$('#TelCheckDup').addClass('alert-danger d-flex align-items-center');
-						userTelCheck.setCustomValidity("중복오류");
-
-					}
-				},
-				error : function(err){
-					alert('error');
-					console.log(err);
-				}
-			}); // 비동기 통신 종료
-		}); // Tel 중복체크(키업 이벤트) 종료
-			    
-	$('#phoneNumber').blur(function(){
-		event.preventDefault();
-	    const phoneNumber = $('#phoneNumber');
-	    const phoneNumberValue = phoneNumber.val();
-	    const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{3,4}-?\d{4}$/;
-
-	    if (phoneRegex.test(phoneNumberValue)) {
-
-	      const formattedPhoneNumber = phoneNumberValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-	      phoneNumber.val(formattedPhoneNumber);
-			let userTel = $('#phoneNumber').val();
-			let userId = "";
-			//ajax로 userTel보내기 idCheckServiceCon
-			$.ajax({
-				url : '<c:url value='/login/idCheckServiceCon'/>',
-				type : 'post',
-				data : { id : userId, userTel : userTel },
-				dataType : 'json',
-				success : function(result){
-
-					// 중복된 전화번호 없음
-					if(result.resultTel == false){
-						$('#TelCheckDup').text('');
-						$('#TelCheckDup').removeClass('alert-danger d-flex align-items-center');
-						userTelCheck.setCustomValidity("");
-
-					}else{
-						// 중복전화번호
-						$('#TelCheckDup').text('중복');
-						$('#TelCheckDup').addClass('alert-danger d-flex align-items-center');
-						userTelCheck.setCustomValidity("중복오류");
-
-					}
-				},
-				error : function(err){
-					alert('error');
-					console.log(err);
-				}
-			}); // 비동기 통신 종료
-	    } else if(phoneNumberValue == ""){
-	    	
-	    }else{
-	    	alert("올바른 휴대폰 번호 형식을 입력하세요.\n예: '010-0000-0000' 또는 11자리 숫자");
-	    }
-
-	});
-					
-
-	$('#selfclose').click(function(){
-		// 원본페이지 이동 시키기 : opener.location.href="/login/loginpage";
-		self.close();
-	});	
-
-	// 부모창 데이터 가져오기 : alert($(opener.document).find('#id').val());
-	
-	// 자식창 데이터 부모창으로 넘겨주기 : 
+	// 새로고침
 	$('#reauth').click(function(){
 		location.reload();
 	});	
 	
+
+	
+					
+
+	$('#regist').click(function(){
+
+
+	});	
+
+
+	
 	// 문자인증후 구글로 회원가입 or 로그인하기
-	$('#socialauth').on('click',function(){
+	/*$('#socialauth').on('click',function(){
 		
 		let userTel = $('#userTel').val();
 		let social = $('#social').val();
@@ -218,29 +144,27 @@ $(function() {
 				console.log(err);
 			}
 		}); // 비동기 통신 종료
-	}); // Tel 중복체크(키업 이벤트) 종료
+	}); // Tel 중복체크(키업 이벤트) 종료*/
 
 });
 </script>
 </head>
 
-<body onload="window.resizeTo(800,600)" style="overflow: hidden;">
+<body style="overflow: hidden;">
 	
-			<div class="account_contents__E8DTc"> 
+			<div class="account_contents__E8DTc" id="phone"> 
 				<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpDesc__FZLyl">휴대폰 번호 인증</div>
-					<form action="/login/socialgoogleAuth" method="get">
 						<form>
 							<div class="account_alertText__bGPQB"></div>
 							<div class="account_signUpInputWrapper__kzyF3">
 	
-								<input id="userTel" name="userTel" class="account_inputSignUp___sBwm" placeholder="핸드폰 번호" readonly value="010-4711-3012"/>
-								<div id="TelCheckDup"></div><div></div>								
+								<input type="tel" name="phoneNumber" id="phoneNumber" class="account_inputSignUp___sBwm" placeholder="핸드폰 번호" />
+								<div></div><div></div>								
 								<div class="account_alertText__bGPQB"></div>
 								<div class="account_signUpInputWrapper__kzyF3">
 									<button id="phoneNumberButton" class="account_checkButton__wezDS">전화 번호 전송</button>
 								</div>
-								<div class="invalid-feedback">휴대폰 번호를 인증해주세요</div>
 							</div>
 						</form>
 						<br/>
@@ -253,33 +177,65 @@ $(function() {
 									<button id="confirmCodeButton" class="account_noCheckButton__dNWQx" disabled="disabled">확인 코드 전송</button>
 								</div>
 							</div>
-							<input type="text" value="${member.social}" name="social" id="social"/>
-							<input type="text" value="${member.socialKey}" name="socialKey" id="socialKey"/>
-								
 						</form>
-						<input type="button" value="서브밋" id="socialauth" class="eventLabel_animalLabelContainer__J2NDN"/>
-					</form>
-					<br/>
-					<div id="recaptcha-container"></div><br/><br/><br/>
 
+				</div>	
+					<br/>
+					<form action="/login/socialgoogleAuth" method="post">
+						<div class="account_signUpFormContainer__tTwFf" id="require">
+							<div class="account_signUpDesc__FZLyl">필수 입력 사항</div>	
+							<div class="account_signUpInputWrapper__kzyF3">
+								<input placeholder="아이디" id="id" name="id" class="account_inputSignUp___sBwm"/>
+								<div></div><div></div>
+							
+								<div class="account_alertText__bGPQB"></div>
+								<div class="account_signUpInputWrapper__kzyF3">
+										<button id="dupCheckButton" class="account_checkButton__wezDS">중복 체크</button>
+								</div>
+							</div>
+							
+								<div class="account_signUpInputWrapper__kzyF3">
+									<div id="TelCheckDup" class="duplicateCheck"></div>
+								</div>
+							<br/>
+							<div class="account_signUpInputWrapper__kzyF3">
+								<input type="password" placeholder="비밀번호" id="userPassword" name="userPassword" class="account_inputSignUp___sBwm"/>
+								<div></div><div></div>
+								<div class="account_alertText__bGPQB"></div>
+								<div class="account_signUpInputWrapper__kzyF3">
+									<button id="passViewButton" class="account_checkButton__wezDS">비번보기</button>
+								</div>
+							</div>
+							<input type="text" name="social" id="social"/>
+							<input type="text" name="socialKey" id="socialKey"/>
+							<input type="text" name="userTel" id="userTel"/>
+						</div>							
+					<br/><br/>
+					<div class="account_signUpFormContainer__tTwFf">
 					<div class="account_signUpInputWrapper__kzyF3">
 						<div class="buttonContainer">
 							<input type="button" value="다시 인증하기" id="reauth" class="eventLabel_animalLabelContainer__J2NDN"/>	
-							<input type="button" value="닫 기" id="selfclose" class="eventLabel_animalLabelContainer__J2NDN"/>
+							<input type="submit" value="가입하기" id="regist" class="eventLabel_animalLabelContainer__J2NDN" disabled="disabled"/>
 						</div>
 					</div>
-				</div>
+					</div>
+					</form>
+					
 			</div>
-			
-  	<!-- <script type="module">
-        // 필요한 SDK에서 필요한 함수 가져오기
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
-        import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-     
-        // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
-        /*const firebaseConfig = {
+<div id="recaptcha-container"></div>
+
+    <!-- Firebase UI 라이브러리 추가 -->
+	<script src="https://cdn.jsdelivr.net/npm/firebaseui@latest/dist/firebaseui.js"></script>
+  	
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+
+    <script type="text/javascript">
+	    // 웹 앱의 Firebase 구성 정보
+	    // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
+        /*var firebaseConfig = {
           apiKey: "AIzaSyByApv-Y_LC3KFHvR8H9WM-iHtHCeHT6SQ",
           authDomain: "easylogin-32ddb.firebaseapp.com",
           projectId: "easylogin-32ddb",
@@ -288,134 +244,236 @@ $(function() {
           appId: "1:856131945500:web:3d171e4ab73b9edf864bd9",
           measurementId: "G-5HSVVDRF57"
         };*/
+	    
+        //테스트용(나중에 지우기)
+        const firebaseConfig = {
+          apiKey: "AIzaSyAdgoCzIS8Ho9EbtznhlqXofYDlS6euKek",
+          authDomain: "textauth-103f2.firebaseapp.com",
+          projectId: "textauth-103f2",
+          storageBucket: "textauth-103f2.appspot.com",
+          messagingSenderId: "92681438318",
+          appId: "1:92681438318:web:5a378658b05dd0cb27127f",
+          measurementId: "G-JF04YXQZLZ"
+        };
 
-  //테스트용(나중에 지우기)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAdgoCzIS8Ho9EbtznhlqXofYDlS6euKek",
-    authDomain: "textauth-103f2.firebaseapp.com",
-    projectId: "textauth-103f2",
-    storageBucket: "textauth-103f2.appspot.com",
-    messagingSenderId: "92681438318",
-    appId: "1:92681438318:web:5a378658b05dd0cb27127f",
-    measurementId: "G-JF04YXQZLZ"
-  };
-      
-        // Firebase 초기화
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        //$('#require').hide();///////////////////////////////////////      주석 풀기
+        
+     	// Firebase 초기화
+        const app = firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics(app);
 
-        const auth = getAuth();
+        var auth = firebase.auth();
         auth.languageCode = 'ko';
-		
-		// 로봇인증 확인여부
-		let recaptchaResolved = false;
 
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-            'size': 'normal',
+        // reCAPTCHA가 자동 인증
+        const recaptchaContainer = document.getElementById('recaptcha-container');
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
+            'size': 'invisible',
             'callback': (response) => {
-                // console.log(response)
-                // reCAPTCHA가 해결되면 signInWithPhoneNumber을 허용합니다.
-				$('#recaptcha-container').hide();
-				$('#phoneNumber').removeAttr('readonly');
-     
-                // reCAPTCHA가 해결되었으므로 변수 값을 true로 설정합니다.
-                recaptchaResolved = true;
-            },
-            'expired-callback': () => {
-                console.log('error')
-                // 응답이 만료되었습니다. 사용자에게 reCAPTCHA를 다시 풀도록 요청합니다.
-				$('#recaptcha-container').show();
-				$('#phoneNumber').attr('readonly', true);
-
-                // reCAPTCHA가 만료되었으므로 변수 값을 false로 설정합니다.
-                recaptchaResolved = false;
+              onSignInSubmit();
             }
         });
 
-        recaptchaVerifier.render().then((widgetId) => {
-                    window.recaptchaWidgetId = widgetId;
-                    const recaptchaResponse = grecaptcha.getResponse(recaptchaWidgetId);   
-        });
-
-        document.getElementById('phoneNumberButton').addEventListener('click', (event) => {
-            event.preventDefault()
-
-			const phoneNumber = $('#phoneNumber');
-	    	const phoneNumberValue = phoneNumber.val();
-
-			if (!recaptchaResolved){
-				alert("로봇이 아님을 인증해 주세요");				
-			}else if(recaptchaResolved && $('#TelCheckDup').text() == '중복'){
-				alert("전화번호가 가입되어 있습니다");
-			}else if(phoneNumberValue == ""){
-				alert("전화번호를 입력해 주세요");
+        document.getElementById('phoneNumberButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var appVerifier = window.recaptchaVerifier;
+            const phoneRegex = /^(010|01[1|6|7|8|9])-?\d{4}-?\d{4}$/;
+            
+			if (phoneNumber == ""){
+				alert("전화번호를 입력해 주세요");				
+			}else if(!phoneRegex.test(phoneNumber)){
+				alert("전화번호 형식이 잘못되었습니다");	
 			}else{
-
-            const phoneNumber = document.getElementById('phoneNumber').value
-            const appVerifier = window.recaptchaVerifier;
-
-            signInWithPhoneNumber(auth, '+82'+phoneNumber, appVerifier)
-                .then((confirmationResult) => {
-                // SMS가 전송되었습니다. 사용자에게 메시지에서 코드를 입력하도록 요청하고, confirmationResult.confirm(code)로 사용자를 로그인합니다.
+	            firebase.auth().signInWithPhoneNumber('+82'+phoneNumber, appVerifier)
+                .then(function(confirmationResult) {
+               	// SMS가 전송되었습니다. 사용자에게 메시지에서 코드를 입력하도록 요청하고, confirmationResult.confirm(code)로 사용자를 로그인합니다.
                 window.confirmationResult = confirmationResult;
-                // console.log(confirmationResult.confirm);
-                $('#recaptcha-container').hide();
-				$('#confirmCode').removeAttr('readonly');
+                console.log(confirmationResult);
 				$('#confirmCodeButton').removeAttr('disabled');
 				$('#confirmCodeButton').attr('class', 'account_checkButton__wezDS');
-
-                }).catch((error) => {
+				$('#confirmCode').removeAttr('readonly');
+				
+                }).catch(function(error) {
                     console.log(error);
-					alert("잘못된 전화번호 입니다");
+    				$('#confirmCodeButton').attr('disabled', true);
+    				$('#phoneNumber').val('');
+    				$('#confirmCodeButton').attr('class', 'account_noCheckButton__dNWQx');
+    				$('#confirmCode').attr('readonly', true);
                 // 에러; SMS가 전송되지 않았습니다.
-                $('#recaptcha-container').show();
-				$('#confirmCode').attr('readonly', true);
-				$('#confirmCodeButton').attr('disabled', true);
-				$('#phoneNumber').attr('readonly', true);
-				$('#phoneNumber').val('');
-				$('#confirmCodeButton').attr('class', 'account_noCheckButton__dNWQx');
+    				alert('SMS가 전송되지 않았습니다.');
                 });
 			}
         })
 
-        document.getElementById('confirmCodeButton').addEventListener('click', (event) => {
-            event.preventDefault()
-            const code = document.getElementById('confirmCode').value
-            confirmationResult.confirm(code).then((result) => {
-                // 사용자가 성공적으로 로그인했습니다.
-                const user = result.user;
-				const phoneNumber = result.user.phoneNumber;
-                console.log(phoneNumber);
-				opener.$('#userTel').val(formatPhoneNumber(phoneNumber));
-				opener.$('#hiddenPhone').val(formatPhoneNumber(phoneNumber));
-				opener.$('#bloodTel').val(formatPhoneNumber(phoneNumber));
+        document.getElementById('confirmCodeButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            var code = document.getElementById('confirmCode').value;
+            confirmationResult.confirm(code).then(function(result) {
+            	// 사용자가 성공적으로 로그인했습니다.
+                var user = result.user;
+                console.log(result);
+                const phoneNumber = result.user.phoneNumber;
+				$('#userTel').val(formatPhoneNumber(phoneNumber));
+				$('#require').show();
+				$('#require').show().trigger('showEvent');
 
-				recaptchaResolved = false;
-				$('#confirmCode').attr('readonly', true);
-				$('#phoneNumber').attr('readonly', true);
-				$('#recaptcha-container').show();
-				self.close();
 
-                }).catch((error) => {
-                console.log(error)    
-                // 사용자가 로그인하지 못했습니다 (유효하지 않은 인증 코드인 경우 등).
+
+
+                }).catch(function(error) {
+                console.log(error);
+             	// 사용자가 로그인하지 못했습니다 (유효하지 않은 인증 코드인 경우 등)
                 alert('인증코드가 틀렸습니다');
-                });
+                $('#require').hide();
+            });
         })
+        
+        // 필수 입력사항 보일 때 전화번호와 아이디 체크
+          $('#require').on('showEvent', function() {
+		    // 이벤트가 발생했을 때 실행될 작업을 여기에 작성합니다.
+		  		let userId = "";
+		  		
+				//ajax로 userTel보내기 
+				$.ajax({
+					url : '<c:url value='/login/socialCheckServiceCon'/>',
+					type : 'post',
+					data : { id : userId, userTel : $('#userTel').val() },
+					dataType : 'json',
+					success : function(result){
+						
+						// 중복된 전화번호 없음
+						if(result.member.userTel == null || result.member.userTel == ""){
+							$('#TelCheckDup').text('아이디와 비밀번호를 입력해 주세요');
+							$('#id').removeAttr('readonly');
 
-  // 전화번호를 변환하는 함수
-  function formatPhoneNumber(phoneNumber) {
-    var formattedNumber = phoneNumber.replace(/\D/g, ''); // 숫자가 아닌 문자 모두 제거
+						}else{
+							// 중복전화번호
+							$('#TelCheckDup').text('아이디와 연결합니다');
+							$('#id').val(result.member.id);
+							$('#id').attr('readonly', true);
+						}
+					},
+					error : function(err){
+						alert('error');
+						console.log(err);
+					}
+		 		}); // 비동기 통신 종료
+		  }); // 필수 입력사항 보일 때 전화번호와 아이디 체크 끝
+        
+      // 전화번호를 변환하는 함수
+	  function formatPhoneNumber(phoneNumber) {
+	    var formattedNumber = phoneNumber.replace(/\D/g, ''); // 숫자가 아닌 문자 모두 제거
+	
+	    if (formattedNumber.startsWith('82')) {
+	      formattedNumber = '0' + formattedNumber.slice(2); // 앞에 "0" 한 개를 붙이고 "82"는 잘라냄
+	    }
+	
+	    formattedNumber = formattedNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'); // 하이픈(-) 추가
+	    return formattedNumber;
+	  }
+        
+        function showPopup() {
+        	  // 현재 확장 프로그램 내의 파일의 경로를 가져오기 위해 runtime.getURL 사용
+        	  const popupUrl = chrome.runtime.getURL('popup.html');
+        	}
 
-    if (formattedNumber.startsWith('82')) {
-      formattedNumber = '0' + formattedNumber.slice(2); // 앞에 "0" 한 개를 붙이고 "82"는 잘라냄
-    }
+       	$('recaptcha-container').onclick = function() {
+       	  showPopup();
+       	};
+       	
+       	
+        // 초기 아이디 중복 체크 버튼 상태
+        let isButtonChecked = false;
 
-    formattedNumber = formattedNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'); // 하이픈(-) 추가
-    return formattedNumber;
-  }
-      </script> -->
+        // 버튼 클릭 시 호출되는 함수
+        function toggleButtonText() {
+          if (isButtonChecked) {
+            $('#dupCheckButton').text('중복 체크');
+          } else {
+            $('#dupCheckButton').text('다른 아이디 입력');
+          }
+          isButtonChecked = !isButtonChecked; // 버튼 상태를 토글합니다.
+        }
 
+        // 아이디 중복체크 버튼 클릭
+        // 중복 체크 버튼에 클릭 이벤트 리스너 추가
+        $('#dupCheckButton').on('click', function(event) {
+          event.preventDefault();
+          
+          // 버튼의 텍스트가 "다른 아이디 입력"일 때
+          if (!isButtonChecked) {
+				//ajax로 userTel보내기 idCheckServiceCon
+				$.ajax({
+					url : '<c:url value='/login/idCheckServiceCon'/>',
+					type : 'post',
+					data : { id : $('#id').val() },
+					dataType : 'json',
+					success : function(result){
+						
+						// 중복된 id 없음
+						if(result.resultId == false){
+							$('#TelCheckDup').text('사용 가능한 아이디 입니다');
+							$('#id').attr('readonly', true);
+						}else{
+							// 중복아이디
+							$('#TelCheckDup').text($('#id').val()+'아이디는 사용 불가능합니다');
+							$('#id').removeAttr('readonly');
+							$('#id').val('');
+							toggleButtonText();
+						}
+					},
+					error : function(err){
+						alert('error');
+						console.log(err);
+					}
+		 		}); // 비동기 통신 종료
+
+          } else { // 버튼의 텍스트가 "중복 체크"일 때
+        	  $('#id').removeAttr('readonly');
+        	  $('#id').val('');
+        	  $('#TelCheckDup').text('');
+          }
+
+          // 텍스트 변경 함수 호출
+          toggleButtonText();
+        }); // 중복 체크 토글 끝
+        
+        
+        // 비번 보기 숨기기
+        // 초기 비번 안보일 때
+        let isPassButtonChecked = false;
+
+        // 버튼 클릭 시 호출되는 함수
+        function toggleButtonPass() {
+          if (isPassButtonChecked) {
+            $('#passViewButton').text('비번보기');
+          } else {
+            $('#passViewButton').text('비번숨기기');
+          }
+          isPassButtonChecked = !isPassButtonChecked; // 버튼 상태를 토글합니다.
+        }
+
+        // 비번 체크 버튼에 클릭 이벤트 리스너 추가
+        $('#passViewButton').on('click', function(event) {
+          event.preventDefault();
+          
+          // 버튼의 텍스트가 "비번보기"일 때
+          if (!isPassButtonChecked) {
+
+        	  $('#userPassword').attr('type', 'text');
+        	  
+          } else { // 버튼의 텍스트가 "비번숨기기"일 때
+        	  $('#userPassword').attr('type', 'password');
+          }
+
+          // 텍스트 변경 함수 호출
+          toggleButtonPass();
+        }); // 중복 체크 토글 끝
+        
+
+       	
+    </script>			
 
 </body>
 </html>

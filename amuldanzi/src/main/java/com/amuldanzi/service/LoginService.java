@@ -2,6 +2,8 @@ package com.amuldanzi.service;
 
 import java.util.List;
 
+import org.springframework.lang.Nullable;
+
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
@@ -22,5 +24,6 @@ public interface LoginService {
 	public boolean idCheck(MemberInfoDTO member);
 	public boolean emailCheck(MemberInfoDTO member);
 	public boolean telCheck(MemberInfoDTO member);
+	public MemberInfoDTO socialCheck(@Nullable MemberInfoDTO member);
 	
 }
