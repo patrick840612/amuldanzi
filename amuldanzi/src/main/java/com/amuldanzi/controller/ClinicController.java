@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/clinic")
 public class ClinicController {
 	
+	
 	@Autowired
 	ClinicService service; 
 	
@@ -33,7 +34,6 @@ public class ClinicController {
 	
 	@RequestMapping("/clinicInfo")
 	public void clinicPage(Model m) {
-		
 		System.out.println("clinicDetail호출");
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
@@ -41,7 +41,8 @@ public class ClinicController {
 		
 	}
 	
-	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
+
+	// 페이지 이동시 회원역할에 따른 헤더 변경하기 함수
 	private Map<String,Object> headerChange() {
 		Map<String,Object> map = new HashMap<String, Object>();
         Cookie[] cookies = request.getCookies();
@@ -70,6 +71,7 @@ public class ClinicController {
 		return map;
 		
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
+
 	
 	@GetMapping("/clinicMarker")
 	@ResponseBody
