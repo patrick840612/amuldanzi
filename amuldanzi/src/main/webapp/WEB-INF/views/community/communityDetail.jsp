@@ -26,9 +26,7 @@
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
-
-
-
+ 
 
 
 </head>
@@ -36,8 +34,9 @@
 <jsp:include page="../main/header.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
 $(document).ready(function() {
+	// 좋아요 개수 업데이트 하는 함수 
     function updateLikeCount() {
         $.ajax({
             type: "GET",
@@ -49,12 +48,13 @@ $(document).ready(function() {
                 var likeCount = response.likeCount;
                 $("#likeCount").text(likeCount);
             },
-            error: function(xhr, status, error) {
+            error: function(error) {
                 console.error(error);
             }
         });
     }
 
+	// 신고 개수 업데이트 하는 함수
     function updateBlameCount() {
         $.ajax({
             type: "GET",
@@ -66,13 +66,16 @@ $(document).ready(function() {
                 var blameCount = response.blameCount;
                 $("#blameCount").text(blameCount);
             },
-            error: function(xhr, status, error) {
+            error: function(error) {
                 console.error(error);
             }
         });
     }
 
+	// 좋아요 / 좋아요 취소 기능 처리 함수
     function likeCommunity(commMemberId, commNo, event) {
+
+        // submit 으로 넘어가는걸 막고
         event.preventDefault();
 
         // 현재 좋아요 상태 확인
@@ -119,7 +122,9 @@ $(document).ready(function() {
         }
     }
 
+	// 신고 / 신고 취소 기능을 처리하는 함수
     function blameCommunity(commMemberId, commNo, event) {
+        
         event.preventDefault();
 
         // 현재 좋아요 상태 확인
@@ -185,9 +190,10 @@ $(document).ready(function() {
     updateBlameCount();
 
 
+    // 댓글 등로 버튼 클릭시 
     $("#submit-button").click(function(event) {
-        event.preventDefault();
-        addReply();
+        event.preventDefault(); // 강제 submit 막고
+        addReply(); // 함수 호출
     });
         
         var commNo = "${community.commNo}"; // 글번호 변수
@@ -212,8 +218,8 @@ $(document).ready(function() {
                     // 댓글 등록 성공 시 처리할 로직 작성
                     console.log("성공");
                     $("#reply-content").val("");
-                    fetchReplies(); // Update the reply list after adding a reply
-                    replyCount()
+                    fetchReplies(); // 댓글 등록 후 댓글 목록 업데이트
+                    replyCount(); // 댓글 개수 업데이트 
                 },
                 error: function(error) {
                     // 오류 발생 시 처리할 로직 작성
@@ -241,6 +247,7 @@ $(document).ready(function() {
         });
     }
 
+    // 댓글 리스트를 화면에 표시하는 함수 
     function displayReplies(replies) {
         // 댓글 리스트를 보여줄 영역을 선택
         var replyList = $("#replyList");
@@ -316,6 +323,7 @@ $(document).ready(function() {
         deleteReply(commNo, replyNo);
     });
 
+    // 댓글 개수 업데이트 함수 
     function replyCount() {
         $.ajax({
           type: "GET",
