@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -221,30 +223,26 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/deleteImage")
-	public void deleteImage(String imageName) {	
-		  
-		try {
-			
-			System.out.println("*****************delete 호출*************");
-			System.out.println(imageName);  
-			String userDir = System.getProperty("user.dir");
-			
-			String imagePath = userDir + "/src/main/resources/static/images/ad/" + imageName;
-			File file = new File(imagePath);
-		
-		if (file.exists() && file.delete()) {
-		    System.out.println("이미지 삭제 성공: " + imageName);
-		    adminService.deleteImage(imageName);
-		} else {
-		    System.out.println("이미지 삭제 실패: " + imageName);
-		    // 실패 처리 로직 추가
-			} 
-		}catch (Exception e) {
-	        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
-	        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
-	        // 오류 처리 로직 추가
-	    } 
-	}
+    public void deleteImage(String imageName) {
+        if (StringUtils.isEmpty(imageName)) {
+            // 이미지 이름이 비어있으면 무시
+            return;
+        }
+
+        try {
+            // 여기서 imageName을 이용하여 이미지 파일 경로를 구한다.
+        	String imagePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\ad" + imageName;
+            File imageFile = new File(imagePath);
+
+            // 파일이 존재하면 삭제
+            if (imageFile.exists()) {
+                Files.delete(imageFile.toPath());
+            }
+        } catch (IOException e) {
+            // 파일 삭제 중 오류 발생 시, 로그를 남기거나 예외를 처리하는 등의 추가 작업 가능
+            e.printStackTrace();
+        }
+    }
 
 	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
 	public String adUpdate(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {

@@ -48,58 +48,49 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	  // 사진 업로드 미리보기
-	  $('#uploadFile').on('change', function(event) {
-	    var previewContainer = $('#imagePreviewContainer');
-	    previewContainer.html('');
+    // 사진 업로드 미리보기
+    $('#uploadFile').on('change', function(event) {
+        var previewContainer = $('#imagePreviewContainer');
+        previewContainer.html('');
 
-	    var files = event.target.files;
-	    if (files && files.length > 0) {
-	      var file = files[0];
-	      var reader = new FileReader();
-	      reader.onload = function(e) {
-	        var image = $('<img>').attr('src', e.target.result);
-	        var preview = $('<div class="image-preview"></div>').append(image);
-	        var deleteButton = $('<span class="delete-button">&times;</span>');
+        var files = event.target.files;
+        if (files && files.length > 0) {
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var image = $('<img>').attr('src', e.target.result);
+                var preview = $('<div class="image-preview"></div>').append(image);
+                var deleteButton = $('<span class="delete-button">&times;</span>');
 
-	        deleteButton.on('click', function() {
-	          preview.remove();
-	        });
+                deleteButton.on('click', function() {
+                    preview.remove();
+                    deleteImage(file.name); // 미리보기 이미지 삭제 시 서버에 저장된 파일도 함께 삭제
+                });
 
-	        preview.append(deleteButton);
-	        previewContainer.append(preview);
-	      };
+                preview.append(deleteButton);
+                previewContainer.append(preview);
+            };
 
-	      reader.readAsDataURL(file);
-	    }
-	  });
-	});
-	
-	$(document).ready(function() {
-	    // 이미지 삭제 버튼 클릭 시
-	    $('.delete-button').on('click', function() {
-	        var imagePath = $(this).prev().find('img').attr('src');
-	        var fileName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-	        console.log(fileName);
-	        deleteImage(fileName);
-		    });
-		}); 
-	
-	function deleteImage(imageName) {
-	    $.ajax({
-	        url: '/admin/deleteImage',
-	        data: {"imageName":imageName},
-	        type: 'DELETE',
-	        success: function() {
-	            // Image deleted successfully, update the UI or perform any additional actions
-	            console.log("성공");
-	        },
-	        error: function(xhr, status, error) {
-	            // Handle the error case, if any
-	            console.error(error);
-	        }
-	    });
-	}
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
+function deleteImage(imageName) {
+    $.ajax({
+        url: '/admin/deleteImage',
+        data: {"imageName":imageName},
+        type: 'DELETE',
+        success: function() {
+            // Image deleted successfully, update the UI or perform any additional actions
+            console.log("성공");
+        },
+        error: function(xhr, status, error) {
+            // Handle the error case, if any
+            console.error(error);
+        }
+    });
+}
 </script>
 
 <body class="nav-md">
