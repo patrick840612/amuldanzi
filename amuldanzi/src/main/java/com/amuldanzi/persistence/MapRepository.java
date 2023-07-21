@@ -1,6 +1,5 @@
 package com.amuldanzi.persistence;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;

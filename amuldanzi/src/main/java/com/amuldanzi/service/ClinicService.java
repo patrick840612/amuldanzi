@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.amuldanzi.domain.ClinicDTO;
-
 public interface ClinicService {
 
 	//List<ClinicDTO> getClinicList();

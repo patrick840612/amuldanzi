@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.amuldanzi.domain.CareDTO;
-import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.service.CareService;
-import com.amuldanzi.service.EducationService;
 
 @Controller
 @RequestMapping("/care")

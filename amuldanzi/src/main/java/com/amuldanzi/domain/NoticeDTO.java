@@ -1,9 +1,6 @@
 package com.amuldanzi.domain;
 
-import java.time.LocalDate;
 import java.util.Date;
-
-import org.eclipse.jdt.internal.compiler.ast.FalseLiteral;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,9 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity

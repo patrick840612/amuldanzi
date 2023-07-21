@@ -3,8 +3,6 @@ package com.amuldanzi.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.amuldanzi.domain.MemberPetDTO;
-
 public interface MapService {
 
 	// 서울 데이터 검색결과 호출 함수 

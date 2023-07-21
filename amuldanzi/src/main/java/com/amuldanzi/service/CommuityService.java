@@ -2,7 +2,6 @@ package com.amuldanzi.service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.amuldanzi.domain.CommImageDTO;
 import com.amuldanzi.domain.CommReplyDTO;
