@@ -222,27 +222,41 @@ public class AdminController {
 	    return "redirect:/admin/adList";
 	}
 
+	// 게시글 수정하기 -> 현재 업로드된 이미지 삭제하기 
 	@DeleteMapping("/deleteImage")
-    public void deleteImage(String imageName) {
-        if (StringUtils.isEmpty(imageName)) {
-            // 이미지 이름이 비어있으면 무시
-            return;
-        }
-
-        try {
-            // 여기서 imageName을 이용하여 이미지 파일 경로를 구한다.
-        	String imagePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\ad" + imageName;
-            File imageFile = new File(imagePath);
-
-            // 파일이 존재하면 삭제
-            if (imageFile.exists()) {
-                Files.delete(imageFile.toPath());
-            }
-        } catch (IOException e) {
-            // 파일 삭제 중 오류 발생 시, 로그를 남기거나 예외를 처리하는 등의 추가 작업 가능
-            e.printStackTrace();
-        }
-    }
+	@ResponseBody
+	public void deleteImage(String imageName) {		
+		  
+		try {
+			
+			System.out.println("*****************delete 호출*************");
+			System.out.println(imageName);  
+			
+			// 현재 실행중인 사용자 디렉토리 
+			String userDir = System.getProperty("user.dir");
+			
+			// 이미지 파일 전체 경로 생성
+			String imagePath = userDir + "/src/main/resources/static/images/ad/" + imageName;
+			File file = new File(imagePath);
+		
+			// 이미지 파일이 존재하고, 삭제가 성공적으로 수행되면 
+			if (file.exists() && file.delete()) {
+			    System.out.println("이미지 삭제 성공: " + imageName);
+			    // 이미지 정보를 이미지 테이블에서도 삭제
+			    adminService.deleteImage(imageName);
+			} else {
+				
+			    System.out.println("이미지 삭제 실패: " + imageName); 
+			    
+			} 
+		}catch (Exception e) {
+	        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
+	        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
+	        // 오류 처리 로직 추가
+	    }
+		
+		System.out.println("삭제작업끝");
+	}
 
 	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
 	public String adUpdate(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
