@@ -158,7 +158,7 @@ public class LoginController {
 	
 	// jwt토큰 생성
 	@RequestMapping("/login")
-	public String login(MemberInfoDTO id) {
+	public String login(MemberInfoDTO id, Model m) {
 		MemberInfoDTO member = loginService.selectById(id);
 		
 		JwtDTO jwt = loginService.createJwt(member);
@@ -177,8 +177,9 @@ public class LoginController {
 		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
         res.addCookie(cookie2);
         
-        //m.addAttribute("id", id.getId());
-        
+        m.addAttribute("id", member.getId());
+        m.addAttribute("memberRole", member.getMemberRole());
+
         return "/main/index";
 
 
