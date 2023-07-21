@@ -38,6 +38,7 @@ public class CareController {
 		System.out.println(careList);
 		
 		Map<String,Object> map = headerChange();
+		m.addAttribute("id", map.get("id"));
 	    m.addAttribute("memberRole", map.get("memberRole"));
 		
 	}

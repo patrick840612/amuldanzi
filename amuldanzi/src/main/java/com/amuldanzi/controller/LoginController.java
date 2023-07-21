@@ -33,16 +33,16 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;
-	
-	@Autowired
 	private ConfigUtils util;
 	
 	@Autowired
-	private HttpServletRequest request;
+	private HttpServletResponse res;
+
+	@Autowired
+	private LoginService loginService;
 	
 	@Autowired
-	private HttpServletResponse res;
+	private HttpServletRequest request;
 	
 	// 페이지 이동
 	@RequestMapping("/{step}")
