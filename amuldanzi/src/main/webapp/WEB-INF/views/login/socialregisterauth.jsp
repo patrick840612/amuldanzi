@@ -68,7 +68,10 @@
   margin-left: 200px; /* Use flex for the button container */
 }
 
-.account_noCheckButton__dNWQx{}
+.account_noCheckButton__dNWQx{
+	width: 100px !important;
+	height: 40px;
+} 
 
 #phone{
 	padding-top: 100px;
@@ -290,7 +293,7 @@ $(function() {
     <script type="text/javascript">
 	    // 웹 앱의 Firebase 구성 정보
 	    // Firebase JS SDK v7.20.0 이상의 경우, measurementId는 선택 사항입니다.
-        /*var firebaseConfig = {
+        var firebaseConfig = {
           apiKey: "AIzaSyByApv-Y_LC3KFHvR8H9WM-iHtHCeHT6SQ",
           authDomain: "easylogin-32ddb.firebaseapp.com",
           projectId: "easylogin-32ddb",
@@ -298,10 +301,10 @@ $(function() {
           messagingSenderId: "856131945500",
           appId: "1:856131945500:web:3d171e4ab73b9edf864bd9",
           measurementId: "G-5HSVVDRF57"
-        };*/
+        };
 	    
         //테스트용(나중에 지우기)
-        const firebaseConfig = {
+        /*const firebaseConfig = {
           apiKey: "AIzaSyAdgoCzIS8Ho9EbtznhlqXofYDlS6euKek",
           authDomain: "textauth-103f2.firebaseapp.com",
           projectId: "textauth-103f2",
@@ -309,7 +312,7 @@ $(function() {
           messagingSenderId: "92681438318",
           appId: "1:92681438318:web:5a378658b05dd0cb27127f",
           measurementId: "G-JF04YXQZLZ"
-        };
+        };*/
 
         $('#require').hide();
         

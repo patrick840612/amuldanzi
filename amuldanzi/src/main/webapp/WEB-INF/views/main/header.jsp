@@ -31,38 +31,7 @@
 <script type="text/javascript">
 $(function(){
 
-	// 일단 남겨둠
-	//if(${not empty id})
-	/*async function getDataAndSetPage() {
-		  try {
-		    await $.ajax({
-		      type: 'post',
-		      url: "/login/loginWithToken",
-		      dataType: 'json',
-			  success : function(result){
-				    if (result.memberRole == "관리자") {
-					      $('#login').text('admin');
-					    } else if (result.memberRole == "일반회원") {
-					      $('#login').text('마이페이지');
-					    } else {
-					      // Handle other cases
-					    }
-									
-				},
-				error : function(err){				
-					alert('Error');
-					console.log(err);
-				}
-		    });
-		    
-		  }catch (err) {
-		      alert('Error');
-		      console.log(err);
-		   }
 
-	}*/
-		// 호출하여 실행
-		//getDataAndSetPage();
 		
 });
 </script>

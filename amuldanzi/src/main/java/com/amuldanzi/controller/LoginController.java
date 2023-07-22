@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,6 +87,7 @@ public class LoginController {
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
 	
 	// 소셜 회원가입 성공 
+	@Transactional
 	@RequestMapping("/socialRegist")
 	public String socialRegist(MemberInfoDTO member, MemberSocialDTO memberSocial, Model m) {
 
@@ -96,7 +98,16 @@ public class LoginController {
 			Map<String,Object> map = headerChange();
 	        m.addAttribute("memberRole", map.get("memberRole"));
 		}else { // 일반회원 가입도 안되어 있고 소셜회원 가입도 안 되었을 때
-
+			memberSocial.setMemberId(member);
+			member.setBloodGive(false);
+			member.setMarketingOk(false);
+			member.setMemberRole("일반회원");
+			List<MemberPetDTO> petList = new ArrayList<>();
+			loginService.regist(member, petList);
+			loginService.socialRegist(memberSocial);
+			creatJwtToken(member);
+			Map<String,Object> map = headerChange();
+	        m.addAttribute("memberRole", map.get("memberRole"));
 		}
         
  		return "redirect:/main/index"; // jsp 파일 ( ViewResolver에 지정 )
@@ -126,24 +137,27 @@ public class LoginController {
 	
 	
 	// 카카오 로그인
-	/*@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
+	@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam@PathVariable String code, Model m) {
 		String email = loginService.kakaoLogin(code);
 		String social = "kakao";
 		
-		MemberInfoDTO member = new MemberInfoDTO();
-		member.setUserEmail(email);
+		MemberSocialDTO member = new MemberSocialDTO();
+		member.setSocialKey(email);
 		member.setSocial(social);
-		String id = loginService.sLoginCheck(member);
+		String id = loginService.sRegistCheck(member);
 		
-		if(id != "") {
-			m.addAttribute("id", id);
-			return "/main/index";
-		}else {
+		if(id != "") {// 카카오 가입 되어 있을 때
+			MemberInfoDTO mem = new MemberInfoDTO();
+			mem.setId(id);
+			
+			mem.setMemberRole(creatJwtToken(mem).getMemberRole());
+			return "redirect:/main/index";
+		}else { // 카카오로 회원 가입 안되어 있을 때
 			m.addAttribute("member", member);
-			return "/login/register";
+			return "redirect:/login/socialregisterauth?socialKey="+email+"&social=kakao";
 		}
-	}*/
+	}
 	
 	// 구글 로그인 uri 생성하기
 	@ResponseBody

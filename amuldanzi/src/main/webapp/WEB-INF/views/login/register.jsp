@@ -489,7 +489,39 @@ $(function() {
 			}); // 비동기 통신 종료
 		}); // Tel 중복체크 종료
 			    
+		
+		// 구글 로그인 uri 가져오기
+		const getGoogleLoginUri = ()=>{
+			$.ajax({
+				url : '/login/getGoogleLoginUri',
+				success : function(result){
+					location.href=result;
+				},
+				error : function(err){
+					console.log(err);
+					alert('Error');
+				}
+			});
+		} // 구글 로그인 버튼 클릭 함수 종료
+		
+		// 카카오 로그인 uri 가져오기
+		const getKakaoLoginUri = () =>{
+			$.ajax({
+				url : '/login/getKakaoLoginUri',
+				success : function(result){
+					location.href=result;
+				},
+				error : function(err){
+					console.log(err);
+					alert('Error');
+				}
+			});
+		} // 카카오 로그인 버튼 클릭 함수 종료
 
+		// 구글 로그인 버튼 클릭 시
+		$("#g_login_btn").click(getGoogleLoginUri);
+		// 카카오 로그인 버튼 클릭 시
+		$("#k_login_btn").click(getKakaoLoginUri);
 
 });
 </script>

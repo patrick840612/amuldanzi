@@ -163,8 +163,7 @@ public class LoginServiceImpl implements LoginService {
 			});
 	
 			access_token = jsonMap.get("access_token").toString();
-			
-			//System.out.println("access_token : " + access_token);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
