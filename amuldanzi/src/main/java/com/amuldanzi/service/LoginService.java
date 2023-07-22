@@ -25,5 +25,6 @@ public interface LoginService {
 	public boolean emailCheck(MemberInfoDTO member);
 	public boolean telCheck(MemberInfoDTO member);
 	public MemberInfoDTO socialCheck(@Nullable MemberInfoDTO member);
+	public void socialRegist(MemberSocialDTO memberSocial);
 	
 }

@@ -355,8 +355,13 @@ public class LoginServiceImpl implements LoginService {
 		if(select.isPresent()) {
 		    mem = select.get();
 		}
-		System.out.println("***********************1234564165");
-		System.out.println(mem);
+		//System.out.println("***********************1234564165");
+		//System.out.println(mem);
 		return mem;
+	}
+	
+	// 소셜 회원가입 하기
+	public void socialRegist(MemberSocialDTO memberSocial) {
+		loginSocialDAO.save(memberSocial);
 	}
 }

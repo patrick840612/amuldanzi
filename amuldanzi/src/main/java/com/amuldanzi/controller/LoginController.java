@@ -85,6 +85,23 @@ public class LoginController {
 		
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
 	
+	// 소셜 회원가입 성공 
+	@RequestMapping("/socialRegist")
+	public String socialRegist(MemberInfoDTO member, MemberSocialDTO memberSocial, Model m) {
+
+		if(member.getUserPassword() == null) { // 일반회원 가입은 되어 있지만 소셜회원 가입은 안 되었을 때
+			memberSocial.setMemberId(member);
+			loginService.socialRegist(memberSocial);
+			creatJwtToken(member);
+			Map<String,Object> map = headerChange();
+	        m.addAttribute("memberRole", map.get("memberRole"));
+		}else { // 일반회원 가입도 안되어 있고 소셜회원 가입도 안 되었을 때
+
+		}
+        
+ 		return "redirect:/main/index"; // jsp 파일 ( ViewResolver에 지정 )
+	}// 소셜 회원가입 성공 끝
+	
 	// 구글 로그인
 	@RequestMapping(value="/googleCallback", method = RequestMethod.GET)
 	public String googleLogin(@RequestParam@PathVariable String code, Model m) {
@@ -93,27 +110,20 @@ public class LoginController {
 		MemberSocialDTO member = new MemberSocialDTO();
 		member.setSocialKey(email);
 		member.setSocial("google");
-		String id = loginService.sRegistCheck(member);
+		String id = loginService.sRegistCheck(member); // 구글 회원가입 체크
 		
-		if(id != "") {
+		if(id != "") { // 구글 가입 되어 있을 때
 			MemberInfoDTO mem = new MemberInfoDTO();
 			mem.setId(id);
 			
 			mem.setMemberRole(creatJwtToken(mem).getMemberRole());
 			return "redirect:/main/index";
-		}else {
+		}else { // 구글로 회원 가입 안되어 있을 때
 			m.addAttribute("member", member);
 			return "redirect:/login/socialregisterauth?socialKey="+email+"&social=google";
 		}
 	}
 	
-	// 구글 로그인 문자 인증
-	@RequestMapping("/socialgoogleAuth")
-	public String socialgoogleAuth(MemberInfoDTO member, MemberSocialDTO membersocial) {
-
-		
-		return "/main/index"; // jsp 파일 ( ViewResolver에 지정 )
-	}
 	
 	// 카카오 로그인
 	/*@RequestMapping(value = "/kakaoCallback", method = RequestMethod.GET)
@@ -157,34 +167,17 @@ public class LoginController {
 		return id;
 	}
 	
-	// jwt토큰 생성
+	// 일반회원 로그인시 jwt토큰 생성
 	@RequestMapping("/login")
 	public String login(MemberInfoDTO id, Model m) {
-		MemberInfoDTO member = loginService.selectById(id);
-		
-		JwtDTO jwt = loginService.createJwt(member);
-		
-		Cookie cookie1 = new Cookie("access_token", jwt.getAccess_token());
-		long access_token_valid = jwt.getAccess_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
-		cookie1.setHttpOnly(true); // 보안설정 -> JavaScript코드로 쿠키에 접근 불가
-        cookie1.setMaxAge((int) (access_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
-        cookie1.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
-        res.addCookie(cookie1);
-        
-        Cookie cookie2 = new Cookie("refresh_token", jwt.getRefresh_token());
-		long refresh_token_valid = jwt.getRefresh_token_valid().getTime() - System.currentTimeMillis(); // 만료 날짜와 현재 시간의 차이를 계산
-		cookie2.setHttpOnly(true);
-		cookie2.setMaxAge((int) (refresh_token_valid / 1000)); // 쿠키 유효기간은 초 단위로 설정
-		cookie2.setPath("/"); // 쿠키의 범위를 전체 애플리케이션으로 설정 (루트 패스 이하 모든 경로에서 쿠키 접근 가능)
-        res.addCookie(cookie2);
+
+		MemberInfoDTO member = creatJwtToken(id);
         
         m.addAttribute("id", member.getId());
         m.addAttribute("memberRole", member.getMemberRole());
 
         return "/main/index";
-
-
-	}
+	} // 일반 회원 로그인 완료
 	
 	// 토큰생성 함수
 	private MemberInfoDTO creatJwtToken(MemberInfoDTO id) {
@@ -207,7 +200,7 @@ public class LoginController {
         res.addCookie(cookie2);
 		
         return member;
-	}
+	} // 토큰 생성 함수 완료
 	
 	// 회원가입
 	@RequestMapping("/regist")
