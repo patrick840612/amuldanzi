@@ -181,7 +181,7 @@
 											</p>
 										</div>
 										<div class="ln_solid"></div>
-										<div class="">
+										<div class="qaDetail_qaDetailText__ClRN5" style="white-space: pre-wrap">
 											<p>${notice.content }</p>
 										</div>
 										<div class="ln_solid"></div>

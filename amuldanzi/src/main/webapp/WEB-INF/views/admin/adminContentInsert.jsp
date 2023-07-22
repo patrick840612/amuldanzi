@@ -1,4 +1,5 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -36,27 +37,26 @@
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
-<link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
-<link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
-<link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
+
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
+
+
+<link href="/admin/summernote/summernote-lite.css" rel="stylesheet">
+
+
+
 </head>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script>
   $(document).ready(function() {
-	  
-      $('#noticeForm').show(); 
-      $('#eduForm').hide();
-      $('#careForm').hide();
-	  
-	  let postForm = function() {
-		  let content = $('#editor-one').summernote('code');
-		  $('#content').val(content);
-		}  
-  
+    
+	$('#noticeForm').show();
+    $('#eduForm').hide();
+    $('#careForm').hide();
+
     // 라디오 버튼 클릭 이벤트 핸들러
     function handleRadioChange() {
       var selectedValue = $('input[name="cate"]:checked').val();
@@ -64,10 +64,10 @@
       var eduForm = $('#eduForm');
       var careForm = $('#careForm');
       var noticeCategory = $('#noticeCategory');
-	  var insertButton = $('#insertButton');
+      var insertButton = $('#insertButton');
 
-	  if (selectedValue === '0') {
-    	// 선택한 라디오 버튼에 따라 form 영역 변경  
+     if (selectedValue === '0') {
+       // 선택한 라디오 버튼에 따라 form 영역 변경  
         $('#noticeForm').show(); 
         $('#eduForm').hide();
         $('#careForm').hide();
@@ -80,485 +80,437 @@
       }else if(selectedValue === '3'){        
           $('#noticeForm').hide(); 
           $('#eduForm').hide();
-          $('#careForm').show();	  
- 	  
+          $('#careForm').show();     
+      
       }
 
       // 기타 필요한 작업 수행
     }
 
+
     // 라디오 버튼 클릭 이벤트 리스너 등록
     $('input[name="cate"]').on('change', handleRadioChange);
     
- 	// 폼 제출 시 postForm 함수 호출
+    // 폼 제출 시 postForm 함수 호출
     $('form').submit(function() {
         postForm();
-      });
+    });
+
+
+    // 교육 이미지 업로드 미리보기
+    $('#eduUploadFile').on('change', function(event) {
+      var previewContainer = $('#eduImagePreviewContainer');
+      previewContainer.html('');
+
+      var files = event.target.files;
+      if (files && files.length > 0) {
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var image = $('<img>').attr('src', e.target.result);
+          var preview = $('<div class="image-preview"></div>').append(image);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 교육 비디오 업로드 미리보기
+    $('#eduUploadVideoFile').on('change', function(event) {
+      var previewContainer = $('#eduVideoPreviewContainer');
+      previewContainer.html('');
+
+      var files = event.target.files;
+      if (files && files.length > 0) {
+        var file = files[0];
+        var video = document.createElement('video');
+        video.setAttribute('controls', 'controls');
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var videoSrc = e.target.result;
+          video.setAttribute('src', videoSrc);
+          var preview = $('<div class="video-preview"></div>').append(video);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
     
     
+    // 케어 이미지 업로드 미리보기
+    $('#careUploadFile').on('change', function(event) {
+      var previewContainer = $('#careImagePreviewContainer');
+      previewContainer.html('');
+
+      var files = event.target.files;
+      if (files && files.length > 0) {
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var image = $('<img>').attr('src', e.target.result);
+          var preview = $('<div class="image-preview"></div>').append(image);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 케어 비디오 업로드 미리보기
+    $('#careUploadVideoFile').on('change', function(event) {
+      var previewContainer = $('#careVideoPreviewContainer');
+      previewContainer.html('');
+
+      var files = event.target.files;
+      if (files && files.length > 0) {
+        var file = files[0];
+        var video = document.createElement('video');
+        video.setAttribute('controls', 'controls');
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var videoSrc = e.target.result;
+          video.setAttribute('src', videoSrc);
+          var preview = $('<div class="video-preview"></div>').append(video);
+          var deleteButton = $('<span class="delete-button">&times;</span>');
+
+          deleteButton.on('click', function() {
+            preview.remove();
+          });
+
+          preview.append(deleteButton);
+          previewContainer.append(preview);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
   });
 </script>
 
 <body class="nav-md">
-	<div class="container body">
-		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
-							<span>애물단지</span></a>
-					</div>
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i> <span>애물단지</span></a>
+          </div>
 
-					<div class="clearfix"></div>
+          <div class="clearfix"></div>
 
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="/admin/production/images/img.jpg" alt="..."
-								class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>환영합니다</span>
-							<h2>관리자님</h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
+          <!-- menu profile quick info -->
+          <div class="profile clearfix">
+            <div class="profile_pic">
+              <img src="/admin/production/images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>환영합니다</span>
+              <h2>관리자님</h2>
+            </div>
+          </div>
+          <!-- /menu profile quick info -->
 
-					<br />
+          <br />
 
-					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<h3>General</h3>
-							<ul class="nav side-menu">
-								<li><a><i class="fa fa-user"></i> 회원관리<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="form.html">역할관리</a></li>
-										<li><a href="form_advanced.html">문의관리</a></li>
-									</ul></li>
-								<li><a><i class="fa fa-edit"></i> 게시판<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="/admin/adminContentInsert">글 추가</a></li>
-										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
-										<li><a href="form_validation.html">신고 글 관리</a></li>
-									</ul></li>
-								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="general_elements.html">방송 일정</a></li>
-										<li><a href="media_gallery.html">상품 관리</a></li>
-									</ul></li>
-								<li><a><i class="fa fa-tags"></i> 광고 <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="/admin/adInsert">광고 등록</a></li>
-										<li><a href="/admin/adList">광고 관리</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /sidebar menu -->
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <h3>General</h3>
+              <ul class="nav side-menu">
+                <li>
+                  <a>
+                    <i class="fa fa-user"></i> 회원관리<span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li><a href="form.html">역할관리</a></li>
+                    <li><a href="form_advanced.html">문의관리</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a>
+                    <i class="fa fa-edit"></i> 게시판<span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li><a href="/admin/adminContentInsert">글 추가</a></li>
+                    <li><a href="/admin/adminContentList">기존 글 관리</a></li>
+                    <li><a href="form_validation.html">신고 글 관리</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a>
+                    <i class="fa fa-video-camera"></i> 라이브 커머스<span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li><a href="general_elements.html">방송 일정</a></li>
+                    <li><a href="media_gallery.html">상품 관리</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a>
+                    <i class="fa fa-tags"></i> 광고<span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li><a href="/admin/adInsert">광고 등록</a></li>
+                    <li><a href="/admin/adList">광고 관리</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /sidebar menu -->
 
-					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
-					</div>
-					<!-- /menu footer buttons -->
-				</div>
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+              <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+          </div>
+          <nav class="nav navbar-nav">
+            <ul class="navbar-right">
+              <li class="nav-item dropdown open" style="padding-left: 15px;">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
+                  data-toggle="dropdown" aria-expanded="false">
+                  <img src="/images/img.jpg" alt="">관리자
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="login.html">
+                    <i class="fa fa-sign-out pull-right"></i> Log Out
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <!-- top tiles -->
+        <div class="question_questionContainer__xQp_P">
+          <div class="question_questionContent__Y4VxA">
+            <span class="question_questionCategory__1QDx6">카테고리</span>
+            <span class="question_questionMark__AykT_">*</span>
+            <div class="question_radioWrap__WZ6ME" id="cateList">
+              <div>
+                <input type="radio" name="cate" id="공지" value="0" checked>
+                <label for="공지">공지</label>
+              </div>
+              <div>
+                <input type="radio" name="cate" id="교육정보" value="2">
+                <label for="교육정보">교육정보</label>
+              </div>
+              <div>
+                <input type="radio" name="cate" id="케어정보" value="3">
+                <label for="케어정보">케어정보</label>
+              </div>
+            </div>
+            
+			<div id="noticeForm">
+			  <form action="noticeSave" method="POST" enctype="multipart/form-data">
+			    <div>
+			      <input name="cateId" type="hidden" value="0" />
+			      <span class="question_questionCategory__1QDx6">공지 카테고리</span>
+			      <span class="question_questionMark__AykT_">*</span>
+			
+			      <div class="question_radioWrap__WZ6ME" id="cateList">
+			        <div>
+			          <input type="radio" name="category" id="중요공지" value="중요공지" checked>
+			          <label for="중요공지">중요 공지</label>
+			        </div>
+			        <div>
+			          <input type="radio" name="category" id="일반공지" value="일반공지">
+			          <label for="일반공지">일반 공지</label>
+			        </div>
+			      </div>
+			    </div>			
+			    <div>
+			      <div>
+			        <span class="question_questionCategory__1QDx6">글 작성</span>
+			        <span class="question_questionMark__AykT_">*</span>
+			      </div>
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <div class="question_alertText__WnxqW"></div>
+			    </div>
+			    <div class="question_questionInputWrapper__fGaar">
+			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			    </div>
+			    <div>
+			      <button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
+			    </div>
+			    <br />
+			  </form>
 			</div>
-
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-					<nav class="nav navbar-nav">
-						<ul class=" navbar-right">
-							<li class="nav-item dropdown open" style="padding-left: 15px;">
-								<a href="javascript:;" class="user-profile dropdown-toggle"
-								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/images/img.jpg" alt="">관리자
-							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Log Out</a>
-								</div>
-							</li>
-						</ul>
-					</nav>
-				</div>
+			<div id="eduForm">
+			  <form action="eduSave" method="POST" enctype="multipart/form-data">
+			    <div>
+			      <span class="question_questionCategory__1QDx6">교육 카테고리</span>
+			      <span class="question_questionMark__AykT_">*</span>
+			
+			      <div class="question_radioWrap__WZ6ME" id="cateList">
+			        <div>
+			          <input type="radio" name="animal" id="eduDog" value="강아지" checked>
+			          <label for="eduDog">강아지</label>
+			        </div>
+			        <div>
+			          <input type="radio" name="animal" id="eduCat" value="고양이">
+			          <label for="eduCat">고양이</label>
+			        </div>
+			      </div>
+			    </div>
+			    <div>
+			      <div>
+			        <span class="question_questionCategory__1QDx6">교육 단계</span>
+			        <span class="question_questionMark__AykT_">*</span>
+			      </div>
+			      <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step">
+			      <div class="question_alertText__WnxqW"></div>
+			    </div>
+			    <div>
+			      <div>
+			        <span class="question_questionCategory__1QDx6">교육 난이도</span>
+			        <span class="question_questionMark__AykT_">*</span>
+			      </div>
+			      <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level">
+			      <div class="question_alertText__WnxqW"></div>
+			    </div>
+			    <div>
+			      <div>
+			        <span class="question_questionCategory__1QDx6">글 작성</span>
+			        <span class="question_questionMark__AykT_">*</span>
+			      </div>
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <div class="question_alertText__WnxqW"></div>
+			    </div>
+			    <div class="question_questionInputWrapper__fGaar">
+			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			    </div>
+			    <div class="eduFileForm">
+				    <div class="question_fileInputWrapper__d9gmU">
+				      <span class="question_questionCategory__1QDx6">사진 업로드</span>
+				      <div class="question_questionImgContainer__tNqZy" id="eduImagePreviewContainer"></div>
+				      <input id="eduUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
+				      <label for="eduUploadFile" class="question_inputFileBtn__zg7jN">
+				        <div class="question_inputFileText__Cgamr">사진 첨부</div>
+				        <img src="/icons/ICON_PHOTO_CAMERA.svg">
+				      </label>
+				      <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
+				    </div>
+				    <div class="question_fileInputWrapper__d9gmU">
+				      <span class="question_questionCategory__1QDx6">비디오 업로드</span>
+				      <div class="question_questionImgContainer__tNqZy" id="eduVideoPreviewContainer"></div>
+				      <input id="eduUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
+				      <label for="eduUploadVideoFile" class="question_inputFileBtn__zg7jN">
+				        <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+				        <img src="/icons/ICON_VIDEO_CAMERA.svg">
+				      </label>
+				      <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
+				    </div>
+			    </div>
+			    <div>
+			      <button class="question_submitBtn__vDrt_" type="submit">교육정보 등록</button>
+			    </div>
+			    <br />
+			  </form>
 			</div>
-			<!-- /top navigation -->
-
-			<!-- page content -->
-			<div class="right_col" role="main">
-				<!-- top tiles -->
-				<div class="question_questionContainer__xQp_P">
-					<div class="question_questionContent__Y4VxA">
-						<span class="question_questionCategory__1QDx6">카테고리</span><span
-							class="question_questionMark__AykT_">*</span>
-						<div class="question_radioWrap__WZ6ME" id="cateList">
-							<div>
-								<input type="radio" name="cate" id="공지" value="0" checked><label
-									for="공지">공지</label>
-							</div>
-							<div>
-								<input type="radio" name="cate" id="교육정보" value="2"><label
-									for="교육정보">교육정보</label>
-							</div>
-							<div>
-								<input type="radio" name="cate" id="케어정보" value="3"><label
-									for="케어정보">케어정보</label>
-							</div>
-						</div>
-						<div id="noticeForm">
-							<form action="noticeSave" method="POST" enctype="multipart/form-data">
-								<div>
-									<input name="cateId" type="hidden" value="0" /> <span
-										class="question_questionCategory__1QDx6">공지 카테고리</span><span
-										class="question_questionMark__AykT_">*</span>
-
-									<div class="question_radioWrap__WZ6ME" id="cateList">
-										<div>
-											<input type="radio" name="category" id="중요공지" value="중요공지"
-												checked><label for="중요공지">중요 공지</label>
-										</div>
-										<div>
-											<input type="radio" name="category" id="일반공지" value="일반공지"><label
-												for="일반공지">일반 공지</label>
-										</div>
-
-									</div>
-
-								</div>
-
-								<div>
-									<div>
-										<span class="question_questionCategory__1QDx6">글 작성</span><span
-											class="question_questionMark__AykT_">*</span>
-									</div>
-									<input placeholder="제목을 입력해주세요"
-										class="question_titleInput__S7Isd" type="text" name="title" />
-									<div class="question_alertText__WnxqW"></div>
-								</div>
-								<div class="x_panel">
-									<div class="x_content">
-										<div id="alerts"></div>
-										<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font" aria-expanded="false"><i class="fa fa-font"></i><b class="caret"></b></a>
-												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-												</ul>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size" aria-expanded="false"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-												<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-													<li>
-														<a data-edit="fontSize 5" class="">
-															<p style="font-size:17px">Huge</p>
-														</a>
-													</li>
-													<li>
-														<a data-edit="fontSize 3" class="">
-															<p style="font-size:14px">Normal</p>
-														</a>
-													</li>
-													<li>
-														<a data-edit="fontSize 1" class="">
-															<p style="font-size:11px">Small</p>
-														</a>
-													</li>
-												</ul>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-												<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-												<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-												<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-												<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-												<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-												<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-												<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-												<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-												<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-											</div>
-		
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-												<div class="dropdown-menu input-append">
-													<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-													<button class="btn" type="button">Add</button>
-												</div>
-												<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-											</div>
-										</div>
-		
-										<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
-		
-										<textarea name="content" id="content" style="display:none;"></textarea>
-		
-										<br>
-		
-										<div class="ln_solid"></div>
-									</div>
-								</div>
-								<div>
-									<button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
-								</div>
-								<br />
-							</form>
-						</div>
-						<div id="eduForm">
-						 <form action="eduSave" method="POST" enctype="multipart/form-data">
-				        	<div>
-				                <span class="question_questionCategory__1QDx6">교육 카테고리</span><span
-				                   class="question_questionMark__AykT_">*</span>
-				
-				                <div class="question_radioWrap__WZ6ME" id="cateList">
-				                   <div>
-				                      <input type="radio" name="animal" id="강아지" value="강아지"
-				                         checked><label for="강아지">강아지</label>
-				                   </div>
-				                   <div>
-				                      <input type="radio" name="animal" id="고양이" value="고양이"><label
-				                         for="고양이">고양이</label>
-				                   </div>
-				
-				                </div>
-				
-				             </div>
-					         <div>
-					             <div>
-					                <span class="question_questionCategory__1QDx6">교육 단계</span>
-					                <span class="question_questionMark__AykT_">*</span>
-					             </div>
-					             <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step">
-					             <div class="question_alertText__WnxqW"></div>
-					         </div>
-					         <div>
-					             <div>
-					                <span class="question_questionCategory__1QDx6">교육 난이도</span>
-					                <span class="question_questionMark__AykT_">*</span>
-					             </div>
-					             <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level">
-					             <div class="question_alertText__WnxqW"></div>
-					         </div>
-				             
-				
-				             <div>
-				                <div>
-				                   <span class="question_questionCategory__1QDx6">글 작성</span><span
-				                      class="question_questionMark__AykT_">*</span>
-				                </div>
-				                <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"/>
-				                <div class="question_alertText__WnxqW"></div>
-				             </div>
-				             <div class="x_panel">
-								<div class="x_content">
-									<div id="alerts"></div>
-									<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-										<div class="btn-group">
-											<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font" aria-expanded="false"><i class="fa fa-font"></i><b class="caret"></b></a>
-											<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-											</ul>
-										</div>
-				
-										<div class="btn-group">
-											<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size" aria-expanded="false"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-											<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-												<li>
-													<a data-edit="fontSize 5" class="">
-														<p style="font-size:17px">Huge</p>
-													</a>
-												</li>
-												<li>
-													<a data-edit="fontSize 3" class="">
-														<p style="font-size:14px">Normal</p>
-													</a>
-												</li>
-												<li>
-													<a data-edit="fontSize 1" class="">
-														<p style="font-size:11px">Small</p>
-													</a>
-												</li>
-											</ul>
-										</div>
-				
-										<div class="btn-group">
-											<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-											<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-											<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-											<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-										</div>
-				
-										<div class="btn-group">
-											<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-											<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-											<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-											<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-										</div>
-				
-										<div class="btn-group">
-											<a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-											<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-											<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-											<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-										</div>
-				
-										<div class="btn-group">
-											<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-											<div class="dropdown-menu input-append">
-												<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-												<button class="btn" type="button">Add</button>
-											</div>
-											<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-										</div>
-									</div>
-				
-									<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
-				
-									<textarea name="content" id="content" style="display:none;"></textarea>
-				
-									<br>
-				
-									<div class="ln_solid"></div>
-								</div>
-							</div>
-							<div>
-								<button class="question_submitBtn__vDrt_" type="submit">교육정보 등록</button>
-							</div>
-							<br/>
-						</form>
-						</div>
-						<div id="careForm">
-						<form action="careSave" method="POST" enctype="multipart/form-data">
-			    		  <div>
-			                  <span class="question_questionCategory__1QDx6">케어 카테고리</span><span
-			                     class="question_questionMark__AykT_">*</span>
+			<div id="careForm">
+			  <form action="careSave" method="POST" enctype="multipart/form-data">
+			    <div>
+			      <span class="question_questionCategory__1QDx6">케어 카테고리</span><span class="question_questionMark__AykT_">*</span>
 			
-			                  <div class="question_radioWrap__WZ6ME" id="cateList">
-			                  	<div>
-			                  		<input type="radio" name="animal" id="강아지" value="강아지" checked>
-			                  		<label for="강아지">강아지</label>
-			               		</div>
-			               		<div>
-			                  		<input type="radio" name="animal" id="고양이" value="고양이">
-			                  		<label for="고양이">고양이</label>
-			               		</div>
-			                  </div>
-			
-			               </div>
-			
-			               <div>
-			                  <div>
-			                     <span class="question_questionCategory__1QDx6">글 작성</span>
-			                     <span class="question_questionMark__AykT_">*</span>
-			                  </div>
-			                  <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"/>
-			                  <div class="question_alertText__WnxqW"></div>
-			               </div>
-			               <div class="x_panel">
-							<div class="x_content">
-								<div id="alerts"></div>
-								<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-									<div class="btn-group">
-										<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font" aria-expanded="false"><i class="fa fa-font"></i><b class="caret"></b></a>
-										<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-										</ul>
-									</div>
-			
-									<div class="btn-group">
-										<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size" aria-expanded="false"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-										<ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-											<li>
-												<a data-edit="fontSize 5" class="">
-													<p style="font-size:17px">Huge</p>
-												</a>
-											</li>
-											<li>
-												<a data-edit="fontSize 3" class="">
-													<p style="font-size:14px">Normal</p>
-												</a>
-											</li>
-											<li>
-												<a data-edit="fontSize 1" class="">
-													<p style="font-size:11px">Small</p>
-												</a>
-											</li>
-										</ul>
-									</div>
-			
-									<div class="btn-group">
-										<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-										<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-										<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-										<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-									</div>
-			
-									<div class="btn-group">
-										<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-										<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-										<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-										<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-									</div>
-			
-									<div class="btn-group">
-										<a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-										<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-										<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-										<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-									</div>
-			
-									<div class="btn-group">
-										<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-										<div class="dropdown-menu input-append">
-											<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-											<button class="btn" type="button">Add</button>
-										</div>
-										<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-									</div>
-								</div>
-			
-								<div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"><div style="text-align: left;"><br></div></div>
-			
-								<textarea name="content" id="content" style="display:none;"></textarea>
-			
-								<br>
-			
-								<div class="ln_solid"></div>
-							</div>
-						</div>
-						<div>
-							<button class="question_submitBtn__vDrt_" type="submit">케어정보 등록</button>
-						</div>
-						<br />
-					</form>
-						</div>						
+			      <div class="question_radioWrap__WZ6ME" id="cateList">
+			        <div>
+			          <input type="radio" name="animal" id="careDog" value="강아지" checked>
+			          <label for="careDog">강아지</label>
+			        </div>
+			        <div>
+			          <input type="radio" name="animal" id="careCat" value="고양이">
+			          <label for="careCat">고양이</label>
+			        </div>
+			      </div>
+			    </div>
+			    <div>
+			      <div>
+			        <span class="question_questionCategory__1QDx6">글 작성</span>
+			        <span class="question_questionMark__AykT_">*</span>
+			      </div>
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <div class="question_alertText__WnxqW"></div>
+			    </div>
+			    <div class="question_questionInputWrapper__fGaar">
+			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			    </div>
+			    <div class="question_fileInputWrapper__d9gmU">
+			      <span class="question_questionCategory__1QDx6">사진 업로드</span>
+			      <div class="question_questionImgContainer__tNqZy" id="careImagePreviewContainer"></div>
+			      <input id="careUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
+			      <label for="careUploadFile" class="question_inputFileBtn__zg7jN">
+			        <div class="question_inputFileText__Cgamr">사진 첨부</div>
+			        <img src="/icons/ICON_PHOTO_CAMERA.svg">
+			      </label>
+			      <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
+			    </div>
+			    <div class="question_fileInputWrapper__d9gmU">
+			      <span class="question_questionCategory__1QDx6">사진 업로드</span>
+			      <div class="question_questionImgContainer__tNqZy" id="careVideoPreviewContainer"></div>
+			      <input id="careUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
+			      <label for="careUploadVideoFile" class="question_inputFileBtn__zg7jN">
+			        <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+			        <img src="/icons/ICON_PHOTO_CAMERA.svg">
+			      </label>
+			      <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
+			    </div>
+			    <div>
+			      <button class="question_submitBtn__vDrt_" type="submit">케어정보 등록</button>
+			    </div>
+			    <br />
+			  </form>
+			</div>
 					</div>
 				</div>
 			</div>
@@ -585,14 +537,17 @@
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
 	<!-- bootstrap-progressbar -->
-	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
 	<!-- bootstrap-daterangepicker -->
 	<script src="/admin/vendors/moment/min/moment.min.js"></script>
-	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<!-- bootstrap-wysiwyg -->
-	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
 	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
 	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
 	<!-- jQuery Tags Input -->
@@ -606,15 +561,12 @@
 	<!-- Autosize -->
 	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
 	<!-- jQuery autocomplete -->
-	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<script
+		src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 	<!-- starrr -->
 	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
-	
-	
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-	
 
 </body>
 </html>
