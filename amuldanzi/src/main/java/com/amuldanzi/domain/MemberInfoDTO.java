@@ -19,7 +19,7 @@ public class MemberInfoDTO {
 	private String 	userPassword;
 	private String 	userEmail;
 	private String 	userName;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String 	userTel;
 	private String 	userAddr;
 	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
@@ -34,8 +34,4 @@ public class MemberInfoDTO {
 	private boolean bloodGive;
 	private String bloodMessage;
 	private String bloodTel;
-	
-
-
-
 }

@@ -87,7 +87,6 @@
 	width: 300px;
     height: 33px;
     border: none;
-    border-bottom: 1px solid #e4e4e6;
     font-size: 14px;
 	color : red;
 	font-weight: bold;
@@ -116,36 +115,90 @@ $(function() {
 	
 					
 
-	$('#regist').click(function(){
-
-
+	$('#regist').click(function(event){
+		event.preventDefault();
+		if($('#dupCheckButton').text() == '중복 체크' && $('#id').val().length == 0){
+			$('#TelCheckDup').text('아이디 입력 및 중복 체크 해주세요');
+			$('#TelCheckDup').removeClass('duplicateCheck').addClass('duplicateCheck2');
+		}else if($('#dupCheckButton').text() == '중복 체크'){	
+			$('#TelCheckDup').text('아이디 중복 체크를 해주세요');
+			$('#TelCheckDup').removeClass('duplicateCheck').addClass('duplicateCheck2');
+		}else if($('#userPassword').val().length == 0){
+			$('#PassCheck').text('비밀번호를 입력해 주세요');
+			$('#PassCheck').removeClass('duplicateCheck').addClass('duplicateCheck2');
+		}else if($('#userPassword').val().length < 6 || $('#userPassword').val().length > 16){
+			$('#PassCheck').text('비밀번호는 6자 이상 16자 이하로 입력해주세요');
+			$('#PassCheck').removeClass('duplicateCheck').addClass('duplicateCheck2');
+		}else{
+			$('#socialRegist').submit();			
+		}
 	});	
-
-
 	
-	// 문자인증후 구글로 회원가입 or 로그인하기
-	/*$('#socialauth').on('click',function(){
-		
-		let userTel = $('#userTel').val();
-		let social = $('#social').val();
-		let socialKey = $('#socialKey').val();
-		//ajax로 userTel보내기 idCheckServiceCon
-		$.ajax({
-			url : '/login/socialgoogleAuth',
-			type : 'post',
-			data : { social : social, userTel : userTel, socialKey : socialKey },
-			dataType : 'text',
-			success : function(result){
+    // 아이디 중복체크 버튼 토글 시작       	
+    // 초기 아이디 중복 체크 버튼 상태
+    let isButtonChecked = false;
 
-	
-			},
-			error : function(err){
-				alert('error');
-				console.log(err);
-			}
-		}); // 비동기 통신 종료
-	}); // Tel 중복체크(키업 이벤트) 종료*/
+    // 버튼 클릭 시 호출되는 함수
+    function toggleButtonText() {
+      if (isButtonChecked) {
+        $('#dupCheckButton').text('중복 체크');
+      } else {
+        $('#dupCheckButton').text('다른 아이디 입력');
+      }
+      isButtonChecked = !isButtonChecked; // 버튼 상태를 토글합니다.
+    }
 
+    // 중복 체크 버튼에 클릭 이벤트 리스너 추가
+    $('#dupCheckButton').on('click', function(event) {
+      event.preventDefault();
+      
+      // 버튼의 텍스트가 "중복 체크"일 때
+      if (!isButtonChecked) {
+			//ajax로 userTel보내기 idCheckServiceCon
+			$.ajax({
+				url : '<c:url value='/login/idCheckServiceCon'/>',
+				type : 'post',
+				data : { id : $('#id').val() },
+				dataType : 'json',
+				success : function(result){
+					
+					// 중복된 id 없음
+					if(result.resultId == false){
+						if($('#id').val().length == 0){
+							$('#TelCheckDup').text('아이디를 입력해 주세요');
+							$('#TelCheckDup').removeClass('duplicateCheck').addClass('duplicateCheck2');
+						}else if($('#id').val().length < 6 || $('#id').val().length > 16){
+							$('#TelCheckDup').text('아이디는 6자 이상 16자 이하로 입력해주세요');
+							$('#TelCheckDup').removeClass('duplicateCheck').addClass('duplicateCheck2');
+						}else{
+							$('#TelCheckDup').text('사용 가능한 아이디 입니다');
+							$('#TelCheckDup').removeClass('duplicateCheck2').addClass('duplicateCheck');
+							$('#id').attr('readonly', true);
+							toggleButtonText();							
+						}
+					}else{
+						// 중복아이디
+						$('#TelCheckDup').text($('#id').val()+'아이디는 사용 불가능합니다');
+						$('#TelCheckDup').removeClass('duplicateCheck').addClass('duplicateCheck2');
+						$('#id').removeAttr('readonly');
+						$('#id').val('');
+
+					}
+				},
+				error : function(err){
+					alert('error');
+					console.log(err);
+				}
+	 		}); // 비동기 통신 종료
+
+      } else { // 버튼의 텍스트가 "다른 아이디 입력"일 때
+    	 $('#id').removeAttr('readonly');
+    	 $('#id').val('');
+    	 $('#TelCheckDup').text('');
+         // 텍스트 변경 함수 호출
+         toggleButtonText();
+      }
+    }); // 중복 체크 토글 끝
 });
 </script>
 </head>
@@ -181,34 +234,36 @@ $(function() {
 
 				</div>	
 					<br/>
-					<form action="/login/socialgoogleAuth" method="post">
+					<form action="/login/socialRegist" method="post" id="socialRegist">
 						<div class="account_signUpFormContainer__tTwFf" id="require">
 							<div class="account_signUpDesc__FZLyl">필수 입력 사항</div>	
 							<div class="account_signUpInputWrapper__kzyF3">
-								<input placeholder="아이디" id="id" name="id" class="account_inputSignUp___sBwm"/>
+								<input placeholder="아이디" id="id" name="id" class="account_inputSignUp___sBwm" minlength="6" maxlength="16" required />
 								<div></div><div></div>
-							
 								<div class="account_alertText__bGPQB"></div>
 								<div class="account_signUpInputWrapper__kzyF3">
 										<button id="dupCheckButton" class="account_checkButton__wezDS">중복 체크</button>
 								</div>
 							</div>
-							
 								<div class="account_signUpInputWrapper__kzyF3">
 									<div id="TelCheckDup" class="duplicateCheck"></div>
 								</div>
 							<br/>
 							<div class="account_signUpInputWrapper__kzyF3">
-								<input type="password" placeholder="비밀번호" id="userPassword" name="userPassword" class="account_inputSignUp___sBwm"/>
+								<input type="password" placeholder="비밀번호" id="userPassword" name="userPassword" class="account_inputSignUp___sBwm" minlength="6" maxlength="16" required/>
 								<div></div><div></div>
 								<div class="account_alertText__bGPQB"></div>
 								<div class="account_signUpInputWrapper__kzyF3">
 									<button id="passViewButton" class="account_checkButton__wezDS">비번보기</button>
 								</div>
 							</div>
+							<div class="account_signUpInputWrapper__kzyF3">
+									<div id="PassCheck" class="duplicateCheck"></div>
+							</div>
 							<input type="text" name="social" id="social"/>
 							<input type="text" name="socialKey" id="socialKey"/>
 							<input type="text" name="userTel" id="userTel"/>
+							
 						</div>							
 					<br/><br/>
 					<div class="account_signUpFormContainer__tTwFf">
@@ -257,6 +312,43 @@ $(function() {
         };
 
         //$('#require').hide();///////////////////////////////////////      주석 풀기
+        $('#regist').removeAttr('disabled'); //////////////////////////     삭제하기 테스트용
+        
+        // 필수 입력사항 보일 때 전화번호와 아이디 체크
+        $('#require').on('showEvent', function() {
+		    // 이벤트가 발생했을 때 실행될 작업을 여기에 작성합니다.
+		  		let userId = "";
+		  		
+				//ajax로 userTel보내기 
+				$.ajax({
+					url : '<c:url value='/login/socialCheckServiceCon'/>',
+					type : 'post',
+					data : { id : userId, userTel : $('#userTel').val() },
+					dataType : 'json',
+					success : function(result){
+						
+						// 중복된 전화번호 없음
+						if(result.member.userTel == null || result.member.userTel == ""){
+							$('#TelCheckDup').text('아이디와 비밀번호를 입력해 주세요');
+							$('#id').removeAttr('readonly');
+
+						}else{
+							// 중복전화번호
+							$('#TelCheckDup').text('아이디와 연결합니다');
+							$('#id').val(result.member.id);
+							$('#id').attr('readonly', true);
+							
+							setTimeout(() => {
+								$('#socialRegist').submit();
+							}, 300);
+						}
+					},
+					error : function(err){
+						alert('error');
+						console.log(err);
+					}
+		 		}); // 비동기 통신 종료
+		  }); // 필수 입력사항 보일 때 전화번호와 아이디 체크 끝
         
      	// Firebase 초기화
         const app = firebase.initializeApp(firebaseConfig);
@@ -270,10 +362,10 @@ $(function() {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
             'size': 'invisible',
             'callback': (response) => {
-              onSignInSubmit();
+              //onSignInSubmit();
             }
         });
-
+        
         document.getElementById('phoneNumberButton').addEventListener('click', function(event) {
             event.preventDefault();
             var phoneNumber = document.getElementById('phoneNumber').value;
@@ -315,51 +407,22 @@ $(function() {
                 console.log(result);
                 const phoneNumber = result.user.phoneNumber;
 				$('#userTel').val(formatPhoneNumber(phoneNumber));
-				$('#require').show();
+				//$('#require').show();
 				$('#require').show().trigger('showEvent');
+				$('#regist').removeAttr('disabled');
+				$('#confirmCode').attr('readonly', true);
+	            $('#confirmCodeButton').attr('disabled', true);
+				$('#phoneNumber').attr('readonly', true);
+	            $('#phoneNumberButton').attr('disabled', true);
 
-
-
-
-                }).catch(function(error) {
+            }).catch(function(error) {
                 console.log(error);
              	// 사용자가 로그인하지 못했습니다 (유효하지 않은 인증 코드인 경우 등)
                 alert('인증코드가 틀렸습니다');
                 $('#require').hide();
-            });
+                $('#regist').attr('disabled', true);
+             });
         })
-        
-        // 필수 입력사항 보일 때 전화번호와 아이디 체크
-          $('#require').on('showEvent', function() {
-		    // 이벤트가 발생했을 때 실행될 작업을 여기에 작성합니다.
-		  		let userId = "";
-		  		
-				//ajax로 userTel보내기 
-				$.ajax({
-					url : '<c:url value='/login/socialCheckServiceCon'/>',
-					type : 'post',
-					data : { id : userId, userTel : $('#userTel').val() },
-					dataType : 'json',
-					success : function(result){
-						
-						// 중복된 전화번호 없음
-						if(result.member.userTel == null || result.member.userTel == ""){
-							$('#TelCheckDup').text('아이디와 비밀번호를 입력해 주세요');
-							$('#id').removeAttr('readonly');
-
-						}else{
-							// 중복전화번호
-							$('#TelCheckDup').text('아이디와 연결합니다');
-							$('#id').val(result.member.id);
-							$('#id').attr('readonly', true);
-						}
-					},
-					error : function(err){
-						alert('error');
-						console.log(err);
-					}
-		 		}); // 비동기 통신 종료
-		  }); // 필수 입력사항 보일 때 전화번호와 아이디 체크 끝
         
       // 전화번호를 변환하는 함수
 	  function formatPhoneNumber(phoneNumber) {
@@ -381,64 +444,6 @@ $(function() {
        	$('recaptcha-container').onclick = function() {
        	  showPopup();
        	};
-       	
-       	
-        // 초기 아이디 중복 체크 버튼 상태
-        let isButtonChecked = false;
-
-        // 버튼 클릭 시 호출되는 함수
-        function toggleButtonText() {
-          if (isButtonChecked) {
-            $('#dupCheckButton').text('중복 체크');
-          } else {
-            $('#dupCheckButton').text('다른 아이디 입력');
-          }
-          isButtonChecked = !isButtonChecked; // 버튼 상태를 토글합니다.
-        }
-
-        // 아이디 중복체크 버튼 클릭
-        // 중복 체크 버튼에 클릭 이벤트 리스너 추가
-        $('#dupCheckButton').on('click', function(event) {
-          event.preventDefault();
-          
-          // 버튼의 텍스트가 "다른 아이디 입력"일 때
-          if (!isButtonChecked) {
-				//ajax로 userTel보내기 idCheckServiceCon
-				$.ajax({
-					url : '<c:url value='/login/idCheckServiceCon'/>',
-					type : 'post',
-					data : { id : $('#id').val() },
-					dataType : 'json',
-					success : function(result){
-						
-						// 중복된 id 없음
-						if(result.resultId == false){
-							$('#TelCheckDup').text('사용 가능한 아이디 입니다');
-							$('#id').attr('readonly', true);
-						}else{
-							// 중복아이디
-							$('#TelCheckDup').text($('#id').val()+'아이디는 사용 불가능합니다');
-							$('#id').removeAttr('readonly');
-							$('#id').val('');
-							toggleButtonText();
-						}
-					},
-					error : function(err){
-						alert('error');
-						console.log(err);
-					}
-		 		}); // 비동기 통신 종료
-
-          } else { // 버튼의 텍스트가 "중복 체크"일 때
-        	  $('#id').removeAttr('readonly');
-        	  $('#id').val('');
-        	  $('#TelCheckDup').text('');
-          }
-
-          // 텍스트 변경 함수 호출
-          toggleButtonText();
-        }); // 중복 체크 토글 끝
-        
         
         // 비번 보기 숨기기
         // 초기 비번 안보일 때
