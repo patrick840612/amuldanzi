@@ -1,6 +1,7 @@
 package com.amuldanzi.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.service.CommuityService;
 import com.amuldanzi.service.LoginService;
+import com.amuldanzi.service.NoticeService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,9 +27,23 @@ public class MainController {
 	@Autowired
 	private HttpServletRequest request;
 	
+	@Autowired
+	private CommuityService communityService;
+	   
+	@Autowired
+	private NoticeService service;
+	
 	@RequestMapping("/index")
 	public void index(Model m) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/main/index 확인");
+		
+      List<HashMap<String, Object>> communityLikeList = communityService.selectLikeCommunityList();
+      List<NoticeDTO> noticeList = service.getNoticeList();
+	      
+	      
+      m.addAttribute("noticeList", noticeList);
+      m.addAttribute("communityLikeList", communityLikeList);  		
+		
+		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
