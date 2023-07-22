@@ -86,7 +86,7 @@
 								</div>
 							</div>
 						</a>
-					</article>
+					</article> 
 					<!-- 상품 반복 끝 -->
 				</c:forEach>
 
