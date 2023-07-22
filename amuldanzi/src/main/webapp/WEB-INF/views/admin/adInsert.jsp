@@ -43,6 +43,8 @@
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
+
+
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -228,6 +230,7 @@ $(document).ready(function() {
 									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
 								</div>
 								<br />
+								
 						</form>
 					</div>
 				</div>				
@@ -281,8 +284,6 @@ $(document).ready(function() {
 	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
-	
-
     	
 </body>
 </html>

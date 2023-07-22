@@ -11503,6 +11503,7 @@ to {
 	resize: none;
 	border: 1px solid #e4e4e6;
 	border-radius: 10px;
+	white-space: pre-wrap !important;
 	font-size: 15px
 }
 

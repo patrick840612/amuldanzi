@@ -48,18 +48,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  // 사진 업로드 미리보기
-  $('#uploadFile').on('change', function(event) {
-    var previewContainer = $('#imagePreviewContainer');
-    previewContainer.html('');
+    // 사진 업로드 미리보기
+    $('#uploadFile').on('change', function(event) {
+      var previewContainer = $('#imagePreviewContainer');
+      previewContainer.html('');
 
-    var files = event.target.files;
-
-    // 이미지가 선택되지 않았을 경우 미리보기 컨테이너를 숨깁니다.
-    if (files.length === 0) {
-      previewContainer.hide();
-    } else {
-      previewContainer.show();
+      var files = event.target.files;
 
       for (var i = 0; i < files.length && i < 3; i++) {
         var file = files[i];
@@ -80,37 +74,35 @@ $(document).ready(function() {
 
         reader.readAsDataURL(file);
       }
-    }
+    });
+
+    // 이미지 삭제 버튼 클릭 시
+    $(document).on('click', '.deleteAjax', function() { 
+      var imagePreview = $(this).closest('.ajaxImage');
+      var imagePath = imagePreview.find('img').attr('src');
+      var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+      console.log(imageName);
+      deleteImage(imageName, imagePreview);
+    });
   });
 
-  // 이미지 삭제 버튼 클릭 시
-  $(document).on('click', '.deleteAjax', function() {
-    event.stopPropagation(); // 이벤트 버블링 방지
-    var imagePreview = $(this).closest('.image-preview'); // 수정된 부분
-    var imagePath = imagePreview.find('img').attr('src');
-    var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-    console.log(imageName);
-    deleteImage(imageName, imagePreview);
-  });
-});
-
-function deleteImage(imageName, imagePreview) {
-  $.ajax({
-    url: '/admin/deleteImage',
-    data: {"imageName": imageName},
-    type: 'DELETE',
-    success: function() {
-      // 이미지가 성공적으로 삭제되었을 때, UI를 업데이트하거나 추가 작업을 수행할 수 있습니다.
-      imagePreview.remove();
-      console.log("성공");
-    },
-    error: function(error) {
-      // 에러가 발생한 경우 처리할 수 있습니다.
-      console.log('에러')
-      console.error(error);
-    }
-  });
-}
+  function deleteImage(imageName, imagePreview) {
+    $.ajax({
+      url: '/admin/deleteImage',
+      data: {"imageName": imageName},
+      type: 'DELETE',
+      success: function() {
+        // 이미지가 성공적으로 삭제되었을 때, UI를 업데이트하거나 추가 작업을 수행할 수 있습니다.
+        imagePreview.remove();
+        console.log("성공");
+      },
+      error: function(error) {
+        // 에러가 발생한 경우 처리할 수 있습니다.
+        console.log('에러')
+        console.error(error);
+      }
+    });
+  }
 </script>
 
 <body class="nav-md">
@@ -254,14 +246,7 @@ function deleteImage(imageName, imagePreview) {
 								</div>
 				                <div class="question_fileInputWrapper__d9gmU">
 				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
-				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer">
-								        <div class="ajaxImage">
-									        <span>
-									            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="Community Image" style="width: 200px; height: 200px;">
-									        </span>
-									        <button class="deleteAjax" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
-									    </div>	                    
-				                    </div>
+				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
 				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
 				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
 				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
@@ -274,6 +259,15 @@ function deleteImage(imageName, imagePreview) {
 								</div>
 								<br />
 						</form>
+						
+						<div class="ajaxImage">
+					        <span>
+					            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="Community Image" style="width: 200px; height: 200px;">
+					        </span>
+					        <button class="deleteAjax" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
+					    </div>
+						
+
 					</div>
 				</div>				
 			</div>
