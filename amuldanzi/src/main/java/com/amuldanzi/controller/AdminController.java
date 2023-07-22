@@ -65,15 +65,56 @@ public class AdminController {
 		return "redirect:/admin/adminContentList";
 	}
 
+	
 	@RequestMapping(value = "/eduSave", method = RequestMethod.POST)
-	public String eduSave(EducationDTO dto) {
+	public String eduSave(@RequestParam("file") MultipartFile file, @RequestParam("videoFile") MultipartFile videoFile, EducationDTO dto) {
 
 		BoardCategoryDTO category = new BoardCategoryDTO(2, "교육정보");
 		dto.setBoardCate(category);
 		dto.setCount(0);
-		adminService.eduSave(dto);
+		try {
+	        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\edu";
+	        String saveVideoPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\videos\\edu";
 
-		return "redirect:/admin/adminContentList";
+	        if (!new File(savePath).exists()) {
+	            new File(savePath).mkdir(); // 이미지 폴더 생성
+	        }
+
+	        if (!new File(saveVideoPath).exists()) {
+	            new File(saveVideoPath).mkdir(); // 비디오 폴더 생성
+	        }
+
+	        String oriFilename = file.getOriginalFilename();
+	        String oriVideoFilename = videoFile.getOriginalFilename();
+
+	        if (oriFilename != null && !oriFilename.equals("")) {
+	            String filename = new MD5Generator(oriFilename).toString();
+	            String filepath = savePath + "\\" + filename;
+	            file.transferTo(new File(filepath));
+
+	            dto.setImg(filename);
+	            dto.setImgPath(filepath);
+	        }
+
+	        if (oriVideoFilename != null && !oriVideoFilename.equals("")) {
+	            String videofilename = new MD5Generator(oriVideoFilename).toString();
+	            String videofilepath = saveVideoPath + "\\" + videofilename;
+	            videoFile.transferTo(new File(videofilepath)); // 수정: 동영상 파일 저장
+
+	            dto.setVideo(videofilename); // 수정: 동영상 파일명을 설정
+	            dto.setVideoPath(videofilepath); // 수정: 동영상 파일 경로를 설정
+	        }
+
+	        // 데이터베이스에 저장
+	        adminService.eduSave(dto);
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        // 업로드 실패 처리
+	        System.out.println("예외 메시지: " + ex.getMessage());
+	        return "redirect:/admin/adminContentInsert?error";
+	    }
+
+	    return "redirect:/admin/adminContentList";
 	}
 
 //	@RequestMapping("/eduSave")
@@ -119,14 +160,54 @@ public class AdminController {
 //	}
 
 	@RequestMapping(value = "/careSave", method = RequestMethod.POST)
-	public String careSave(CareDTO dto) {
+	public String careSave(@RequestParam("file") MultipartFile file, @RequestParam("videoFile") MultipartFile videoFile, CareDTO dto) {
+	    BoardCategoryDTO category = new BoardCategoryDTO(3, "케어정보");
+	    dto.setBoardCate(category);
+	    dto.setCount(0);
 
-		BoardCategoryDTO category = new BoardCategoryDTO(3, "케어정보");
-		dto.setBoardCate(category);
-		dto.setCount(0);
-		adminService.careSave(dto);
-		return "redirect:/admin/adminContentList";
+	    try {
+	        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\care";
+	        String saveVideoPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\videos\\care";
 
+	        if (!new File(savePath).exists()) {
+	            new File(savePath).mkdir(); // 이미지 폴더 생성
+	        }
+
+	        if (!new File(saveVideoPath).exists()) {
+	            new File(saveVideoPath).mkdir(); // 비디오 폴더 생성
+	        }
+
+	        String oriFilename = file.getOriginalFilename();
+	        String oriVideoFilename = videoFile.getOriginalFilename();
+
+	        if (oriFilename != null && !oriFilename.equals("")) {
+	            String filename = new MD5Generator(oriFilename).toString();
+	            String filepath = savePath + "\\" + filename;
+	            file.transferTo(new File(filepath));
+
+	            dto.setImg(filename);
+	            dto.setImgPath(filepath);
+	        }
+
+	        if (oriVideoFilename != null && !oriVideoFilename.equals("")) {
+	            String videofilename = new MD5Generator(oriVideoFilename).toString();
+	            String videofilepath = saveVideoPath + "\\" + videofilename;
+	            videoFile.transferTo(new File(videofilepath)); // 수정: 동영상 파일 저장
+
+	            dto.setVideo(videofilename); // 수정: 동영상 파일명을 설정
+	            dto.setVideoPath(videofilepath); // 수정: 동영상 파일 경로를 설정
+	        }
+
+	        // 데이터베이스에 저장
+	        adminService.careSave(dto);
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        // 업로드 실패 처리
+	        System.out.println("예외 메시지: " + ex.getMessage());
+	        return "redirect:/admin/adminContentInsert?error";
+	    }
+
+	    return "redirect:/admin/adminContentList";
 	}
 
 	@RequestMapping("/noticeDelete")
@@ -220,7 +301,7 @@ public class AdminController {
 	    return "redirect:/admin/adList";
 	}
 
-	// 게시글 수정하기 -> 현재 업로드된 이미지 삭제하기 
+	// 광고 수정하기 -> 현재 업로드된 이미지 삭제하기 
 	@DeleteMapping("/deleteImage")
 	@ResponseBody
 	public void deleteImage(String imageName) {		
