@@ -1,7 +1,4 @@
-
 <%@ page contentType="text/html; charset=UTF-8"%>
-
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -13,35 +10,183 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>애물단지</title>
 
-
-
-
+ 
 <!-- 부트스트랩 -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
-
-
-
+<link href="/css/bootstrap.min.css" rel="stylesheet"> 
 <link href="/chunks/css/c552b37c371c331c.css" rel="stylesheet">
 <link href="/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
+ 
+<style>
+    
+    #popupDiv {  /* 팝업창 css */
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    background: white;
+    width: 500px;
+    height: 500px;
+    display: none; 
+    }
+    
+    #popup_mask { /* 팝업 배경 css */
+        position: fixed;
+        width: 100%;
+        height: 1000px;
+        top: 0px;
+        left: 0px;
+         display: none; 
+         background-color:#000;
+         opacity: 0.8;
+    }  
+       /* 이미지 스타일링 */
+        #slideshow {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        
+          #slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+        
+        
+          #popCloseBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+        #caption {
+			    text-align: center;
+			    padding: 30px; /* Increased padding to make the text area larger */
+			    font-size: 22px;
+			    font-family: 'Arial', sans-serif; /* Change font style to Arial or any other font you prefer */
+			    font-weight: bold; /* Make the text bold */
+			    color: #ff1493; /* Pink color */
+			    position: absolute;
+			    z-index: 2;
+			    bottom: 0; /* 위치 조정을 통해 이미지 아래에 배치 */
+			    left: 50%; /* 가운데 정렬 */
+			    transform: translateX(-50%); /* 가운데 정렬 */
+			    width: 80%; /* Increased width to make the text area wider */
+			    border-radius: 10px; /* Rounded corners for the text area */
+			}
 
+        /* 클릭 버튼 스타일링 */
+        #clickButton {
+            position: absolute;
+            z-index: 2;
+            bottom: 80px; /* 위치 조정을 통해 이미지 아래에 배치 */
+            left: 50%; /* 가운데 정렬 */
+            transform: translateX(-50%); /* 가운데 정렬 */
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            animation: sparkle 1s infinite alternate;
+            transition: background-color 0.3s ease;
+        }
+        
+         /* 클릭 버튼 애니메이션 */
+        @keyframes sparkle {
+            from { background-color: rgba(255, 255, 255, 0); box-shadow: none; }
+            to { background-color: #ff1493; box-shadow: 0 0 5px #rgba(255, 255, 255, 0); }
+        }
+    </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-$(function(){
+var currentSlideIndex = 0;
+var slideInterval;
+
+//팝업창을 로드되자마자 보이도록 실행
+$(document).ready(function() {
+    showPopup();
+
+$("#popCloseBtn").click(function(event) {
+    hidePopup();
+});
 
 
+
+function showPopup() {
+    $("#popupDiv").css({
+        "top": (($(window).height() - $("#popupDiv").outerHeight()) / 2 + $(window).scrollTop()) + "px",
+        "left": (($(window).width() - $("#popupDiv").outerWidth()) / 2 + $(window).scrollLeft()) + "px"
+    });
+
+    $("#popup_mask").css("display", "block");
+    $("#popupDiv").css("display", "block");
+    $("body").css("overflow", "hidden");
+
+    // 이미지 슬라이드 쇼 시작
+    startSlideshow();
+}
+
+function hidePopup() {
+    $("#popup_mask").css("display", "none");
+    $("#popupDiv").css("display", "none");
+    $("body").css("overflow", "auto");
+
+ // 이미지 슬라이드 쇼 정지
+    stopSlideshow();
+}
+
+	// 이미지 슬라이드 쇼 시작 함수
+	function startSlideshow() {
+		
+		$("#slideshow img").eq(currentSlideIndex).css("opacity", "1");
+		
+	    slideInterval = setInterval(nextSlide, 3000); // 2초마다 다음 슬라이드로 이동
+	}
 	
+	// 이미지 슬라이드 쇼 정지 함수
+	function stopSlideshow() {
+	    clearInterval(slideInterval);
+	}
+	
+	// 다음 슬라이드로 이동 함수
+	function nextSlide() {
+	      var slides = $("#slideshow img");
+          var nextSlideIndex = (currentSlideIndex + 1) % slides.length;
+
+          // 현재 슬라이드를 투명하게 만들고 다음 슬라이드를 표시
+          slides.eq(currentSlideIndex).css("opacity", "0");
+          slides.eq(nextSlideIndex).css("opacity", "1");
+
+          currentSlideIndex = nextSlideIndex;
+	}
+
+
+
 });
 </script>
-</head>
-
+</head> 
 <jsp:include page="./header.jsp"></jsp:include>
 
+
 <body>
+ 
 	<div class="main_mainContents__GXYBn2">
+	<c:forEach items="${noticeList}" var="notice">
+    <a href="/notice/noticeDetail?title=${notice.title}"><div>${notice.title},${notice.regdate}</a></div>
+ </c:forEach>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
 		<p class="main_mainTitle__nxOQS">라이브 커머스</p>
@@ -282,157 +427,57 @@ $(function(){
 		<br/>
 		<p class="main_mainTitle__nxOQS">커뮤니티</p>
 			<div class="community_loungeLeftContent__wnv1Z">
+			<c:forEach items="${communityLikeList}" var = "likeList">
 				<div class="community_loungeList__HbstN">
 					<div class="qaList_qaListContainer__73To2">
 						<div class="qaList_qaListWrapper___YnhH">
 							<div>
-								<div class="qaList_qaListLabelWrapper__f7K7c">
-									<div class="qaList_communityType__p7p5C">라운지</div>
-									<div class="animalLabel_animalLabelContainer__b_BDd">
-										<img src="/icons/community/ANIMALICON_DOG_RIRI.svg">
-										<div>강아지</div>
-									</div>
-								</div>
-								<div class="qaList_qaListTitle__Z1Ssh">카페에서</div>
-								<div class="qaList_qaListText__2Cm8R">별이 카페에서 책상에 턱올리기ㅋㅋ
-									아귀여워라진짜🩷</div>
+							<a href="/community/communityDetail?comm_no=${likeList['commNo']}">
+								<div class="qaList_qaListTitle__Z1Ssh">${likeList['title']}</a></div>
+								<div class="qaList_qaListText__2Cm8R">${likeList['content']}</div>
 							</div>
 							<div class="qaList_qaListImg__DiWnU">
 								<span
 									style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
 									alt="community_image"
-									src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-									decoding="async" data-nimg="fill" sizes="100vw"
-									srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
+									src="/images/community/${likeList['path']}"
+									decoding="async" data-nimg="fill" sizes="100vw" 
 									style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
 								<noscript></noscript></span>
 							</div>
 						</div>
 						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">댓글 : 1</div>
-							<div>아몬드별이네</div>
-							<div>1시간 전</div>
+							<div class="qaList_communityType__p7p5C">좋아요 : ${likeList['likeCount'] }</div>
+							<div>${likeList['id']}</div>
+							<div>${likeList['date']}</div>
 						</div>
 						<div class="qaList_labelWrapper__vsqC0">
 							<div class="qaList_desktopLabelContainer__EEK_6"></div>
 						</div>
 						<hr class="qaList_qaListDivider__blo7m">
 					</div>		
-				</div>
-				<div class="community_loungeList__HbstN">
-					<div class="qaList_qaListContainer__73To2">
-						<div class="qaList_qaListWrapper___YnhH">
-							<div>
-								<div class="qaList_qaListLabelWrapper__f7K7c">
-									<div class="qaList_communityType__p7p5C">라운지</div>
-									<div class="animalLabel_animalLabelContainer__b_BDd">
-										<img src="/icons/community/ANIMALICON_DOG_RIRI.svg">
-										<div>강아지</div>
-									</div>
-								</div>
-								<div class="qaList_qaListTitle__Z1Ssh">카페에서</div>
-								<div class="qaList_qaListText__2Cm8R">별이 카페에서 책상에 턱올리기ㅋㅋ
-									아귀여워라진짜🩷</div>
-							</div>
-							<div class="qaList_qaListImg__DiWnU">
-								<span
-									style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-									alt="community_image"
-									src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-									decoding="async" data-nimg="fill" sizes="100vw"
-									srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
-									style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-								<noscript></noscript></span>
-							</div>
-						</div>
-						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">댓글 : 1</div>
-							<div>아몬드별이네</div>
-							<div>1시간 전</div>
-						</div>
-						<div class="qaList_labelWrapper__vsqC0">
-							<div class="qaList_desktopLabelContainer__EEK_6"></div>
-						</div>
-						<hr class="qaList_qaListDivider__blo7m">
-					</div>		
-				</div>
-				<div class="community_loungeList__HbstN">
-					<div class="qaList_qaListContainer__73To2">
-						<div class="qaList_qaListWrapper___YnhH">
-							<div>
-								<div class="qaList_qaListLabelWrapper__f7K7c">
-									<div class="qaList_communityType__p7p5C">라운지</div>
-									<div class="animalLabel_animalLabelContainer__b_BDd">
-										<img src="/icons/community/ANIMALICON_DOG_RIRI.svg">
-										<div>강아지</div>
-									</div>
-								</div>
-								<div class="qaList_qaListTitle__Z1Ssh">카페에서</div>
-								<div class="qaList_qaListText__2Cm8R">별이 카페에서 책상에 턱올리기ㅋㅋ
-									아귀여워라진짜🩷</div>
-							</div>
-							<div class="qaList_qaListImg__DiWnU">
-								<span
-									style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-									alt="community_image"
-									src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-									decoding="async" data-nimg="fill" sizes="100vw"
-									srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
-									style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-								<noscript></noscript></span>
-							</div>
-						</div>
-						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">댓글 : 1</div>
-							<div>아몬드별이네</div>
-							<div>1시간 전</div>
-						</div>
-						<div class="qaList_labelWrapper__vsqC0">
-							<div class="qaList_desktopLabelContainer__EEK_6"></div>
-						</div>
-						<hr class="qaList_qaListDivider__blo7m">
-					</div>		
-				</div>
-				<div class="community_loungeList__HbstN">
-					<div class="qaList_qaListContainer__73To2">
-						<div class="qaList_qaListWrapper___YnhH">
-							<div>
-								<div class="qaList_qaListLabelWrapper__f7K7c">
-									<div class="qaList_communityType__p7p5C">라운지</div>
-									<div class="animalLabel_animalLabelContainer__b_BDd">
-										<img src="/icons/community/ANIMALICON_DOG_RIRI.svg">
-										<div>강아지</div>
-									</div>
-								</div>
-								<div class="qaList_qaListTitle__Z1Ssh">카페에서</div>
-								<div class="qaList_qaListText__2Cm8R">별이 카페에서 책상에 턱올리기ㅋㅋ
-									아귀여워라진짜🩷</div>
-							</div>
-							<div class="qaList_qaListImg__DiWnU">
-								<span
-									style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-									alt="community_image"
-									src="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75"
-									decoding="async" data-nimg="fill" sizes="100vw"
-									srcset="/_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fbff-images.bemypet.kr%2Fmedia%2Fcache%2Fdf%2Fdf%2Fdfdf24ee721b42f1258883e6e5074ac6.jpg&amp;w=3840&amp;q=75 3840w"
-									style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-								<noscript></noscript></span>
-							</div>
-						</div>
-						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">댓글 : 1</div>
-							<div>아몬드별이네</div>
-							<div>1시간 전</div>
-						</div>
-						<div class="qaList_labelWrapper__vsqC0">
-							<div class="qaList_desktopLabelContainer__EEK_6"></div>
-						</div>
-						<hr class="qaList_qaListDivider__blo7m">
-					</div>		
-				</div>
+				</div>  
+				</c:forEach>
 			</div>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
 	</div>
+	 <div id ="popup_mask" ></div> <!-- 팝업 배경 DIV --> 
+	 
+    <div id="popupDiv" style="top: 857px;left: 710.5px;display: block;"> <!-- 팝업창 -->
+    
+    
+        <div id="slideshow" >
+            <img src="/images/pet/pet01.jpg" alt="Slide 1" style="opacity: 1;">
+            <img src="/images/pet/pet02.jpg" alt="Slide 2">
+            <img src="/images/pet/pet03.jpg" alt="Slide 3">
+            <img src="/images/pet/pet04.jpg" alt="Slide 4">
+        </div>
+        <div id="caption">반려동물 표정 맞추러 가기</div>
+    	<a href="/pet/emotion">
+            <button id="clickButton">☞Click☜</button>
+        </a> 
+        <button id="popCloseBtn">close</button>
+    </div>
 </body>
 </html>

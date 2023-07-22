@@ -263,6 +263,7 @@ public class CommunityServiceImpl implements CommuityService {
             map.put("likeCount", objArray[3]); 
             map.put("path", objArray[4]); 
             map.put("commNo", objArray[5]);
+            map.put("content", objArray[6]);
             result.add(map);
         	
         }
