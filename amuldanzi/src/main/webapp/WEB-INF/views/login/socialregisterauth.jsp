@@ -114,7 +114,7 @@ $(function() {
 
 	
 					
-
+	// 일반회원 미가입 소셜회원 가입하기
 	$('#regist').click(function(event){
 		event.preventDefault();
 		if($('#dupCheckButton').text() == '중복 체크' && $('#id').val().length == 0){
@@ -260,9 +260,9 @@ $(function() {
 							<div class="account_signUpInputWrapper__kzyF3">
 									<div id="PassCheck" class="duplicateCheck"></div>
 							</div>
-							<input type="text" name="social" id="social"/>
-							<input type="text" name="socialKey" id="socialKey"/>
-							<input type="text" name="userTel" id="userTel"/>
+							<input type="hidden" name="social" id="social"/>
+							<input type="hidden" name="socialKey" id="socialKey"/>
+							<input type="hidden" name="userTel" id="userTel"/>
 							
 						</div>							
 					<br/><br/>
@@ -311,8 +311,7 @@ $(function() {
           measurementId: "G-JF04YXQZLZ"
         };
 
-        //$('#require').hide();///////////////////////////////////////      주석 풀기
-        $('#regist').removeAttr('disabled'); //////////////////////////     삭제하기 테스트용
+        $('#require').hide();
         
         // 필수 입력사항 보일 때 전화번호와 아이디 체크
         $('#require').on('showEvent', function() {
@@ -329,9 +328,9 @@ $(function() {
 						
 						// 중복된 전화번호 없음
 						if(result.member.userTel == null || result.member.userTel == ""){
-							$('#TelCheckDup').text('아이디와 비밀번호를 입력해 주세요');
+							$('#TelCheckDup').text('아이디를 입력해 주세요');
 							$('#id').removeAttr('readonly');
-
+							$('#PassCheck').text('비밀번호를 입력해 주세요');
 						}else{
 							// 중복전화번호
 							$('#TelCheckDup').text('아이디와 연결합니다');
