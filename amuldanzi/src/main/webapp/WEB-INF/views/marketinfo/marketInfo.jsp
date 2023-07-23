@@ -7,18 +7,110 @@
     <meta charset="UTF-8">
     <title>Kakao Map Example</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cfe8de01569b97e3def8a80bd57abb6&libraries=services"></script>
-	
-	
-	<jsp:include page="../main/header.jsp"></jsp:include> 
-	<link rel="stylesheet" href="/css/marketinfo/market.css" />
-	<link rel="stylesheet" href="/css/marketinfo/pet.css" /> 
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
+    		<link rel="stylesheet" href="/css/marketinfo/pet.css" />  
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet"> 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" defer>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cfe8de01569b97e3def8a80bd57abb6&libraries=services"></script>
+
 	
+	<jsp:include page="../main/header.jsp"></jsp:include>  
+ 
+	<style type="text/css">
+	    #btnAll {
+        background-color: #fd2c58;
+        color: white;
+    }
+	
+    .kboard-branch-button {
+        border-radius: 50px; /* Making the buttons more round */
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #ffffff; /* Setting the background color to white */
+        border: 2px solid #fd2c58; /* Setting the border color to pink */
+        color: black; /* Setting the text color to pink */
+        margin: 5px;
+    }
+	
+	.first-row-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 185px; /* Adjust the top position according to your preference */
+    width: 1000px;
+    left: 57%;
+    transform: translateX(-50%);
+    margin-right: 5px;
+}
+
+/* CSS for the buttons in the second row */
+.second-row-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    top: 245px; /* Adjust the top position according to your preference */
+    width: 1000px;
+    left: 57%;
+    transform: translateX(-50%);
+     margin-right: 5px; 
+}
+	
+	
+	#map-container {
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1400px; /* 원하는 지도의 가로 크기를 조절하세요. */
+    height: 750px;
+}
+
+/* Style for the table container */
+#table-container {
+    position: absolute;
+    top: 1050px; /* 원하는 테이블의 상단 위치를 조절하세요. */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1400px; /* 원하는 테이블의 가로 크기를 조절하세요. */
+    height: 550px;
+    overflow: auto;
+}
+	
+	.table {
+    width: 100%; 
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Style for table header cells */
+.table th {
+    background-color: #f2f2f2;
+    padding: 5px;
+    text-align: center;
+}
+
+/* Style for table data cells */
+.table td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style for the table rows on hover */
+.table tr:hover {
+    background-color: #f5f5f5;
+}
+	
+    .table td:nth-child(4) {
+        width: 300px; /* Adjust the width as needed */
+    }	
+	
+	</style> 
     <script>  
 
     var dataTableInitialized = false;
@@ -26,6 +118,7 @@
     var map;
     var markers = []; 
     var infowindows = [];
+    var initialTableHeight;
         // 카카오 지도 API 초기화
         $(document).ready(function() {
             // 카카오 지도 API 초기화
@@ -109,6 +202,8 @@
                         
                     });
 
+                    setTableContainerHeight();
+                    
                     if (dataTableInitialized) {
                         dataTable.clear().rows.add(resultTable.find('tr')).draw();
                     } else {
@@ -133,16 +228,22 @@
                         map.setCenter(new kakao.maps.LatLng(35.5384, 129.3114));
                     } else if (location === '세종') {
                         map.setCenter(new kakao.maps.LatLng(36.4808, 127.2892));
-                    } else if (location === '충청도') {
-                        map.setCenter(new kakao.maps.LatLng(36.815102, 127.113937));
-                    } else if (location === '전라도') {
-                        map.setCenter(new kakao.maps.LatLng(35.816769, 127.136406));
-                    } else if (location === '경상도') {
-                        map.setCenter(new kakao.maps.LatLng(35.227773, 128.679392));
-                    } else if (location === '울릉도') {
+                    } else if (location === '충북') {
+                        map.setCenter(new kakao.maps.LatLng(36.635316, 127.491640));
+                    } else if (location === '충남') {
+                        map.setCenter(new kakao.maps.LatLng(36.814390, 127.114532));
+                    } else if (location === '전북') {
+                        map.setCenter(new kakao.maps.LatLng(35.820040, 127.108634));
+                    } else if (location === '전남') {
+                        map.setCenter(new kakao.maps.LatLng(34.817635, 126.463367));
+                    } else if (location === '경북') {
+                        map.setCenter(new kakao.maps.LatLng(36.578295, 128.504694));
+                    } else if (location === '경남') {
+                        map.setCenter(new kakao.maps.LatLng(35.237629, 128.692224));
+                    } else if (location === '울릉') {
                         map.setCenter(new kakao.maps.LatLng(37.5040, 130.8923));
-                    } else if (location === '강원도') {
-                        map.setCenter(new kakao.maps.LatLng(37.868202, 127.739341));
+                    } else if (location === '강원') {
+                        map.setCenter(new kakao.maps.LatLng(37.868202, 127.730236));
                     }
 
                     map.setLevel(6);
@@ -203,6 +304,19 @@
             });
             dataTableInitialized = true;
         }
+
+        // 테이블 컨테이너 높이 설정 함수
+        function setTableContainerHeight() {
+            if (!initialTableHeight) {
+                // 초기 테이블 높이 계산 (최초 한 번만 실행)
+                initialTableHeight = $('#table-container').height();
+            }
+
+            // 초기 테이블 높이 값으로 테이블 컨테이너 높이 설정
+            $('#table-container').height(initialTableHeight);
+        }
+
+        
 
         $('#btnAll').click(function() {
             var location = "전체";
@@ -293,7 +407,7 @@
         });
 
         $('#btnUlleung').click(function() {
-            var location = "울릉도";
+            var location = "울릉";
             showMarkets(location);
         });
 
@@ -307,67 +421,56 @@
 </script> 
 </head>
 <body>
-	<div style="position:relative;top:100px;left:715px;">
-    <h1 class='font' style='color:#fd2c58'>가까운 반려동물 용품 찾기</h1>
+	<div style="position:relative;top:100px;margin-left:750px;">
+        <h1 class='font' style='color:#fd2c58'>가까운 반려동물 용품 찾기</h1>
     </div>
-    <div style="height:1000px;">
-    <div id="map" style="position:relative;top:120px;left:280px;width: 600px; height: 750px;"></div>
-    <div class="result">
-    <table id="paging" class= "table"> 
-  		<thead>
-    	<tr>
-	      <th>병원명</th>
-	      <th>주 소</th>
-	      <th>전화번호</th> 
-	      <th>병원시간</th>
-    	</tr>
-  		</thead>
-  	<div>
-    <tbody id="result">
-    </tbody>
+    
+    
+    <div class="button-container">
+     
+  <a href="/clinic/clinicInfo"><button class="kboard-branch-button" style="position:relative;margin-left:400px;margin-top:150px;">병원정보 확인하기</a></button>
+     
+        <div class="first-row-buttons">
+            <button onclick="showAllMakkets('전체')" id="btnAll" class="kboard-branch-button all">전체</button>
+            <button onclick="showMarkets('서울')" id="btnSeoul" class="kboard-branch-button">서울</button>
+            <button onclick="showMarkets('제주')" id="btnJeju" class="kboard-branch-button">제주</button>
+            <button onclick="showMarkets('부산')" id="btnBusan" class="kboard-branch-button">부산</button>
+            <button onclick="showMarkets('대구')" id="btnDaegu" class="kboard-branch-button">대구</button>
+            <button onclick="showMarkets('인천')" id="btnIncheon" class="kboard-branch-button">인천</button>
+            <button onclick="showMarkets('광주')" id="btnGwangju" class="kboard-branch-button">광주</button>
+            <button onclick="showMarkets('대전')" id="btnDaejeon" class="kboard-branch-button">대전</button>
+            <button onclick="showMarkets('울산')" id="btnUlsan" class="kboard-branch-button">울산</button>
+        </div>
+        <div class="second-row-buttons">
+            <button onclick="showMarkets('세종')" id="btnSejong" class="kboard-branch-button">세종</button>
+            <button onclick="showMarkets('충북')" id="btnChungbuk" class="kboard-branch-button">충북</button><br/>
+		    <button onclick="showMarkets('충남')" id="btnChungnam" class="kboard-branch-button">충남</button>
+		    <button onclick="showMarkets('전북')" id="btnJeonbuk" class="kboard-branch-button">전북</button>
+		    <button onclick="showMarkets('전남')" id="btnJeonnam" class="kboard-branch-button">전남</button>
+		    <button onclick="showMarkets('경북')" id="btnGyeongbuk" class="kboard-branch-button">경북</button><br/>
+		    <button onclick="showMarkets('경남')" id="btnGyeongnam" class="kboard-branch-button">경남</button>
+		    <button onclick="showMarkets('울릉')" id="btnUlleung" class="kboard-branch-button">울릉</button>
+		    <button onclick="showMarkets('강원')" id="btnGangwon" class="kboard-branch-button">강원</button>
+            <!-- Add more buttons here if needed -->
+        </div>
     </div>
+    
+    <div id="map-container">
+        <div id="map" style="width: 100%; height: 90%;"></div>
     </div>
-  	</div>
-  	
-<div style="position:relative;bottom:90px;left:740px;">
-    <span style="margin: 7px;"></span>
-    <button onclick="showAllMakkets('전체')" id="btnAll" class="kboard-branch-button all">전체</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('서울')" id="btnSeoul" class="kboard-branch-button">서울</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('제주')" id="btnJeju" class="kboard-branch-button">제주</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('부산')" id="btnBusan" class="kboard-branch-button">부산</button><br/>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('대구')" id="btnDaegu" class="kboard-branch-button">대구</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('인천')" id="btnIncheon" class="kboard-branch-button">인천</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('광주')" id="btnGwangju" class="kboard-branch-button">광주</button><br/>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('대전')" id="btnDaejeon" class="kboard-branch-button">대전</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('울산')" id="btnUlsan" class="kboard-branch-button">울산</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('세종')" id="btnSejong" class="kboard-branch-button">세종</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('충북')" id="btnChungbuk" class="kboard-branch-button">충북</button><br/>
-    <span style="margin: 7px;"></span>
-     <button onclick="showMarkets('충남')" id="btnChungnam" class="kboard-branch-button">충남</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('전북')" id="btnJeonbuk" class="kboard-branch-button">전북</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('전남')" id="btnJeonnam" class="kboard-branch-button">전남</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('경북')" id="btnGyeongbuk" class="kboard-branch-button">경북</button><br/>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('경남')" id="btnGyeongnam" class="kboard-branch-button">경남</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('울릉')" id="btnUlleung" class="kboard-branch-button">울릉</button>
-    <span style="margin: 7px;"></span>
-    <button onclick="showMarkets('강원')" id="btnGangwon" class="kboard-branch-button">강원</button>
-</div> 
-</table>
-
+    <div id="table-container">
+        <table id="paging" class="table"> 
+            <thead>
+                <tr>
+                    <th>병원명</th>
+                    <th>주 소</th>
+                    <th>전화번호</th> 
+                    <th>병원시간</th>
+                </tr>
+            </thead>
+            <tbody id="result">
+            </tbody>
+        </table>
+    </div> 
 </body> 
 </html>

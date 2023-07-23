@@ -71,9 +71,16 @@ public class CommunityController {
 		    
 		    int startIndex = (currentPage - 1) * itemsPerPage;
 	        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-	        List<HashMap<String, Object>> communityList = result.subList(startIndex, endIndex);
-		    
-		    
+	        
+	        startIndex = Math.max(0, startIndex);  
+	        endIndex = Math.max(startIndex, endIndex);
+	        
+	        List<HashMap<String, Object>> communityList = new ArrayList<>();
+	        
+	        if (startIndex < result.size() && startIndex <= endIndex) {
+	            communityList = result.subList(startIndex, endIndex);
+	        }
+ 
 		    
 			// 뷰에서 데이터를 사용하기위해 모델에 담음
 			m.addAttribute("communityList",communityList); 

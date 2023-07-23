@@ -37,7 +37,7 @@ public class MainController {
 	public void index(Model m) {
 		
       List<HashMap<String, Object>> communityLikeList = communityService.selectLikeCommunityList();
-      List<NoticeDTO> noticeList = service.getNoticeList();
+      List<NoticeDTO> noticeList = service.getNoticeListRecent();
 	      
 	      
       m.addAttribute("noticeList", noticeList);
