@@ -115,7 +115,7 @@ $(function(){
 											<a rel="noopener noreferrer" href="/clinic/clinicInfo"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">병원정보</div></a> 
+												<div class="popper_popperMenu__8QpIV">병원/마켓정보</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a class="popper_popperTab__LvzGS" href="/education/education"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png" >
@@ -127,11 +127,7 @@ $(function(){
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 
-											<a rel="noopener noreferrer" href="/marketinfo/marketInfo"
-												class="popper_popperTab__LvzGS"><img
-												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">마켓정보</div>
-											</a>
+
 										</div>
 									</div>
 								</div></li>

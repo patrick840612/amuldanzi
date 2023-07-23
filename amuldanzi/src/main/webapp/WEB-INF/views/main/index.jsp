@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="./header.jsp"></jsp:include>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -108,9 +110,84 @@
             from { background-color: rgba(255, 255, 255, 0); box-shadow: none; }
             to { background-color: #ff1493; box-shadow: 0 0 5px #rgba(255, 255, 255, 0); }
         }
+         
+    /* 공지사항 테이블 스타일 */
+    .notice-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+    }
+
+    /* 테이블 헤더 스타일 */
+    .notice-table th {
+        background-color: #f2f2f2;
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        font-weight: bold;
+    }
+
+    /* 테이블 셀 스타일 */
+    .notice-table td {
+        border: 1px solid #dddddd;
+        text-align: center; 
+    }
+
+    /* 카테고리 셀 스타일 */
+    .notice-category-cell {
+        position: relative; /* 구분선 위치 조정을 위해 상대적 위치로 지정 */
+        width: 200px;
+        padding: 0; /* 셀 안의 패딩 제거 */
+        text-align: center; /* 가운데 정렬 */
+    }
+
+    /* 카테고리 원형 스타일 */
+    .notice-category {
+        width: 67px;
+        height: 46px;
+        left: 58px;
+        border-radius: 50%;
+        display: flex; /* Flexbox로 변경 */
+        justify-content: center; /* 가로 중앙 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        border: 2px solid red;
+        background-color: white;
+        text-align: center;
+        color: black;
+        font-size: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        position: relative; /* 원형 스타일에 포함된 내용을 위해 상대적 위치로 지정 */
+        z-index: 1; /* 원형 스타일을 위로 올리기 위해 z-index 지정 */
+    }
+
+    /* 카테고리 마우스 호버 스타일 */
+    .notice-category:hover {
+        background-color: #ffdddd; /* 마우스 호버 시 배경색 변경 */
+    }
+
+    /* 번호 폭 조정 */
+    .notice-number {
+        width: 50px; /* 번호의 폭을 줄임 */
+   		text-align: center;
+    }
+    
+    
+    /* 구분선 스타일 */
+    .notice-divider {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        border-right: 1px solid #dddddd; /* 우측에 구분선 추가 */
+        z-index: 0; /* 구분선을 원형 스타일 아래로 숨기기 위해 z-index 지정 */
+    }
     </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+</head> 
+
 <script type="text/javascript">
 var currentSlideIndex = 0;
 var slideInterval;
@@ -118,12 +195,12 @@ var slideInterval;
 //팝업창을 로드되자마자 보이도록 실행
 $(document).ready(function() {
     showPopup();
+    startSlideshow(); // 이미지 슬라이드 쇼 시작 
 
 $("#popCloseBtn").click(function(event) {
     hidePopup();
+    stopSlideshow(); // 이미지 슬라이드 쇼 정지
 });
-
-
 
 function showPopup() {
     $("#popupDiv").css({
@@ -148,6 +225,8 @@ function hidePopup() {
     stopSlideshow();
 }
 
+
+
 	// 이미지 슬라이드 쇼 시작 함수
 	function startSlideshow() {
 		
@@ -171,22 +250,44 @@ function hidePopup() {
           slides.eq(nextSlideIndex).css("opacity", "1");
 
           currentSlideIndex = nextSlideIndex;
-	}
-
+	} 
 
 
 });
-</script>
-</head> 
-<jsp:include page="./header.jsp"></jsp:include>
 
+    
+</script>
 
 <body>
  
 	<div class="main_mainContents__GXYBn2">
-	<c:forEach items="${noticeList}" var="notice">
-    <a href="/notice/noticeDetail?title=${notice.title}"><div>${notice.title},${notice.regdate}</a></div>
- </c:forEach>
+		 <!-- 공지사항 테이블 -->
+        <table class="notice-table">
+            <tr>
+                <th>번호</th>
+                <th>카테고리</th>
+                <th>제목</th>
+                <th>날짜</th>
+            </tr>
+            <c:forEach items="${noticeList}" var="notice">
+                <tr>
+                    <td class="notice-number" >${notice.id}</td>
+                    <td class="notice-category-cell" >
+                        <div class="notice-category" >
+			            ${notice.category}
+			        </div>
+                    <div class="notice-divider"></div>
+                    </td>
+                    
+                    <td>
+                        <a href="/notice/noticeDetail?title=${notice.title}">${notice.title}</a>
+                    </td>
+                    <td>
+                        ${notice.regdate}
+                    </td>
+                </tr>
+            </c:forEach>
+        </table> 
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>
 		<p class="main_mainTitle__nxOQS">라이브 커머스</p>

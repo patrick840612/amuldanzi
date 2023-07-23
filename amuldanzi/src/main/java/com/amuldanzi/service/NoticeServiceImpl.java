@@ -32,6 +32,12 @@ public class NoticeServiceImpl implements NoticeService {
 		
 	}
 
+	@Override
+	public List<NoticeDTO> getNoticeListRecent() { 
+		
+		return noticeRepo.findNoticeListRecent();
+	}
+
 
 
 	
