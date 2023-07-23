@@ -190,7 +190,7 @@ public class LoginController {
         m.addAttribute("id", member.getId());
         m.addAttribute("memberRole", member.getMemberRole());
 
-        return "/main/index";
+        return "redirect:/main/index";
 	} // 일반 회원 로그인 완료
 	
 	// 토큰생성 함수
@@ -249,7 +249,7 @@ public class LoginController {
 		creatJwtToken(member);
 		m.addAttribute("memberRole", member.getMemberRole());
 	
-		return "/main/index";
+		return "redirect:/main/index";
 	} // 회원가입 완료
 	
 	// MemberPetDTO pets 에 값이 있는지 확인 하는 함수

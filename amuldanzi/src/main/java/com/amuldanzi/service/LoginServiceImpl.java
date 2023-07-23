@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.dao.LoginDAO;
+import com.amuldanzi.dao.LoginJwtDAO;
 import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.dao.LoginSocialDAO;
 import com.amuldanzi.domain.JwtDTO;
@@ -61,6 +62,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private LoginPetDAO loginPetDAO;
+	
+	@Autowired
+	private LoginJwtDAO loginJwtDAO;
 	
 	// 구글 로그인
 	public String googleLogin(String code) {
@@ -261,10 +265,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		return Jwts.builder()
                 .claim("id", member.getId())
-                .claim("name", member.getUserName())
-                .claim("address", member.getUserAddr())
                 .claim("tel", member.getUserTel())
-                .claim("email", member.getUserEmail())
                 .claim("memberRole", member.getMemberRole())
                 .setExpiration(expireDate)
                 .signWith(key)
@@ -289,7 +290,7 @@ public class LoginServiceImpl implements LoginService {
 		Date access_token_valid = getExpireDateAccessToken();
 		Date refresh_token_valid = getExpireDateRefreshToken();
         String accessToken = createToken(member, access_token_valid);
-        String refreshToken = createToken(new MemberInfoDTO(), refresh_token_valid);
+        String refreshToken = createToken(member, refresh_token_valid);
         
         JwtDTO jwt = new JwtDTO();
         jwt.setAccess_token(accessToken);
@@ -297,18 +298,22 @@ public class LoginServiceImpl implements LoginService {
         jwt.setAccess_token_valid(access_token_valid);
         jwt.setRefresh_token_valid(refresh_token_valid);
         
+        loginJwtDAO.save(jwt);
+        
         return jwt;
     }
 	
 	// 엑세스토큰 유효기한 설정
 	public Date getExpireDateAccessToken() {
-	    long expireTimeMils = 1000 * 60 * 60;
+	    //long expireTimeMils = 1000 * 60 * 60;
+	    long expireTimeMils = 1000 * 5;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	 }
 	
 	// 리프레쉬토큰 유효기한 설정
 	public Date getExpireDateRefreshToken() {
-	    long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
+	    //long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
+	    long expireTimeMils = 1000L * 20;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	}
 	
@@ -354,8 +359,6 @@ public class LoginServiceImpl implements LoginService {
 		if(select.isPresent()) {
 		    mem = select.get();
 		}
-		//System.out.println("***********************1234564165");
-		//System.out.println(mem);
 		return mem;
 	}
 	
@@ -363,4 +366,28 @@ public class LoginServiceImpl implements LoginService {
 	public void socialRegist(MemberSocialDTO memberSocial) {
 		loginSocialDAO.save(memberSocial);
 	}
+	
+	@Override
+	public void setJwtStateDiscard(String access_token) {
+		loginJwtDAO.setJwtStateDiscard(access_token);
+		
+	}
+
+	@Override
+	public String selectRefreshByAccess(String access_token) {
+		return loginJwtDAO.selectRefreshByAccess(access_token);
+	}
+	
+	@Override
+	public JwtDTO selectExpiration(String refresh_token) {
+		return loginJwtDAO.selectExpiration(refresh_token);
+	}
+	
+	@Override
+	public void saveJWT(JwtDTO jwt) {
+		loginJwtDAO.save(jwt);
+	}
+	
+	
+	
 }
