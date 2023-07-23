@@ -1,5 +1,6 @@
 package com.amuldanzi.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.lang.Nullable;
@@ -26,5 +27,12 @@ public interface LoginService {
 	public boolean telCheck(MemberInfoDTO member);
 	public MemberInfoDTO socialCheck(@Nullable MemberInfoDTO member);
 	public void socialRegist(MemberSocialDTO memberSocial);
+	
+	public void setJwtStateDiscard(String access_token);
+	public String selectRefreshByAccess(String access_token);
+	public JwtDTO selectExpiration(String refresh_token);
+	public void saveJWT(JwtDTO jwt);
+	public Date getExpireDateAccessToken();
+	public String createToken(MemberInfoDTO member, Date expireDate);
 	
 }
