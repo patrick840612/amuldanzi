@@ -2,10 +2,15 @@ package com.amuldanzi.controller;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
@@ -22,7 +27,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-
+@Controller
 @ControllerAdvice // 예외 발생 감지
 public class ExceptionController {
 	
@@ -37,6 +42,13 @@ public class ExceptionController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	
+	@RequestMapping("/error_page/wrong_contect")
+	public String wrong_contect() {
+		
+		return "/error_page/wrong_contect";
+	}
 	
 	
 	@ExceptionHandler(WrongContectException.class)
@@ -90,6 +102,7 @@ public class ExceptionController {
 			// 유효할 경우
 			// 엑세스토큰으로 db에 매칭되어있는 리프레쉬토큰을 찾아서 사용자에게 받아온 리프레쉬토큰과 비교
 			String dbtoken = loginService.selectRefreshByAccess(access_token);
+			System.out.println("에세스토큰 : "+ access_token);
 			System.out.println("db리프레쉬토큰 : "+ dbtoken);
 			if(!refresh_token.equals(dbtoken)) {
 				System.out.println("db와 다를 경우");
@@ -121,7 +134,7 @@ public class ExceptionController {
 			JwtDTO refresh_token_expiration = loginService.selectExpiration(refresh_token);
 			
 			// db에서 기존의 엑세스토큰 사용정지
-			loginService.setJwtStateDiscard(access_token);
+			loginService.setJwtStateDiscard(refresh_token_expiration.getAccess_token());
 			
 			// 리프레쉬토큰에서 사용자id 받아옴
 			Claims claims = loginService.getClaims(refresh_token);
@@ -148,13 +161,13 @@ public class ExceptionController {
 	        
 	        // db에 토큰 넣기
 	        JwtDTO jwt = new JwtDTO();
-	        jwt.setAccess_token(access_token);
+	        jwt.setAccess_token(accessToken);
 	        jwt.setAccess_token_valid(access_token_valid);
 	        jwt.setRefresh_token(refresh_token);
 	        jwt.setRefresh_token_valid(refresh_token_expiration.getRefresh_token_valid());
-	        
+
 	        loginService.saveJWT(jwt);
-	        
+
 	        return "redirect:"+fullPath;
 		}else {
 			// 리프레쉬토큰이 유효하지 않을 경우 로그아웃처리

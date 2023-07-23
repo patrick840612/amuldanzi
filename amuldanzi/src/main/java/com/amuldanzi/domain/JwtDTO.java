@@ -15,14 +15,10 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "jwt")
-@DynamicInsert
 public class JwtDTO {
 	
 	@Id // pk 지정
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	@Column(nullable = false, updatable = false, insertable = false)
-	private Long jwtno;
-	
 	private String access_token;
 	private String refresh_token;
 	private Date access_token_valid; 

@@ -312,8 +312,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	// 리프레쉬토큰 유효기한 설정
 	public Date getExpireDateRefreshToken() {
-	    //long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
-	    long expireTimeMils = 1000L * 20;
+	    long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	}
 	
@@ -385,7 +384,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public void saveJWT(JwtDTO jwt) {
-		loginJwtDAO.save(jwt);
+		loginJwtDAO.recreatjwt(jwt);
 	}
 	
 	
