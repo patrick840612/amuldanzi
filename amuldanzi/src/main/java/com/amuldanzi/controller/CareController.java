@@ -29,23 +29,23 @@ public class CareController {
 	}
 	
 	@RequestMapping("/careDetail")
-	public void careDetail(@RequestParam("id") Integer careId, Model m) {
-		CareDTO care = service.getCareByCareId(careId);
-		m.addAttribute("care", care);
-		
-		List<CareDTO> careList = service.getCareList();  // Assuming you have a method to get the care list
-		List<Map<String, String>> items = new ArrayList<>();
-
-		for (CareDTO item : careList) {
-			Map<String, String> map = new HashMap<>();
-			map.put("image"	, item.getImg());
-			map.put("title", item.getTitle());
-			items.add(map);
+	public void careDetail(@RequestParam(value = "id", required = false) Integer careId, Model m) {
+		if (careId != null) {
+			CareDTO care = service.getCareByCareId(careId);
+			m.addAttribute("care", care);
+			
+			List<CareDTO> careList = service.getCareList();
+			List<Map<String, String>> items = new ArrayList<>();
+	
+			for (CareDTO item : careList) {
+				Map<String, String> map = new HashMap<>();
+				map.put("image", item.getImg());
+				map.put("title", item.getTitle());
+				items.add(map);
+			}
+			m.addAttribute("items", items);
+		} else {
+			// 'id'가 없는 경우 처리할 내용을 추가하세요
 		}
-		m.addAttribute("items", items);
-		
-		
-		
 	}
-
 }

@@ -42,43 +42,40 @@
 }
 
 .video-list {
-    float: left;
-    overflow-y: auto;
-    height: 465px;
-    white-space: nowrap;
-    width: 525px;
-    display: flex;
-    border: 1px solid lightgray;
-    display: inline-block;
-    /*background-color: lightpink;  Light gray background */
+	float: left;
+	overflow-y: auto;
+	height: 465px;
+	white-space: nowrap;
+	width: 525px;
+	display: flex;
+	border: 1px solid lightgray;
+	display: inline-block;
+	/*background-color: lightpink;  Light gray background */
 }
-
 
 .video-list {
 	display: inline-block; /* 요소를 가로로 배치 */
 	flex: 0 0 160px;
 	display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-left: -11px;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin-left: -11px;
 }
 
 .video-container {
-    float: right;
-    margin-left: 20px; /* Move to the left by 20px */
+	float: right;
+	margin-left: 20px; /* Move to the left by 20px */
 }
 
 .large-video {
-    width: 130%;
-    height: auto;
-    margin-left: -200px;
+	width: 130%;
+	height: auto;
+	margin-left: -200px;
 }
 
 .col-md-4 {
-    display: inline-block;
+	display: inline-block;
 }
-
-
 </style>
 
 </head>
@@ -101,44 +98,44 @@
 	<br />
 
 	<div class="container">
-	<h1 style="display: inline-block; color: pink;">▶</h1>
+		<h1 style="display: inline-block; color: pink;">▶</h1>
 		<h3 style="display: inline-block; margin-left: 5px;">
-		${care.title}
-		</h3>
+			${care.title}</h3>
 		<br />
 		<div class="row">
 			<div class="col-md-8 offset-md-1">
-    <div class="video-container">
-        <video class="large-video" controls autoplay muted playsinline>
-            <source src="${care.video}" type="video/mp4">
-        </video>
-    </div>
-</div>
+				<div class="video-container">
+					<video class="large-video" controls autoplay muted playsinline>
+						<source src="${care.video}" type="video/mp4">
+					</video>
+				</div>
+			</div>
 
-			<br /><br />
+			<br />
+			<br />
 
 			<div class="col-md-4">
 				<div class="video-list">
-				
-				
-					<c:forEach var="item" items="${items}">  
-	<a href="/care/careDetail?id=${item.id}">
-		<img src="${item.image}" alt="#" width="200" height="125">
-		${item.title}
-	</a>
-</c:forEach>
 
 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+					<c:forEach var="item" items="${items}">
+						<a href="/care/careDetail?id=${item.id}"> <img
+							src="${item.image}" alt="#" width="200" height="125">
+							${item.title}
+						</a>
+					</c:forEach>
+
+
+
+
+
+
+
+
+
+
+
+
 
 					<!--<a href="http://localhost:8080/care/careDetail?id=99"><img
 						src="https://cdudsyowwnmx6388661.cdn.ntruss.com/aboutPet/images/vod/N2021071903372/10/36a5afed-e2fc-45c9-bfce-2e289281e107.jpg?type=f&w=288&h=167&quality=100&align=4"
@@ -176,7 +173,7 @@
 					<a href="http://localhost:8080/care/careDetail?id=110"><img
 						src="https://cdudsyowwnmx6388661.cdn.ntruss.com/aboutPet/images/vod/N2021043003116/10/9264df5b-47bc-493c-8e2b-a6a2a231f6d5.png?type=m&w=1440&h=810&quality=95&bgcolor=FFFFFF&extopt=3"
 						alt="#" width="230" height="145"> 우리 강아지 발톱을 꼭 잘라줘야 하는 이유!</a> -->
-				<br/>
+					<br />
 				</div>
 			</div>
 
@@ -198,22 +195,20 @@
 		<div class="row">
 			<div class="col-md-9 offset-md-3">
 				<h3 style="display: inline-block; color: pink;">▶</h3>
-<h4 style="display: inline-block; margin-left: 5px;">영상정보</h4>
+				<h4 style="display: inline-block; margin-left: 5px;">영상정보</h4>
 				<h4
 					style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${care.content}</h4>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-3 offset-md-3">
-			<br/>
-				<a href="/care/care" class="btn btn-pink">목록가기</a><br/>
-	<br/>
-	<br/>
+				<br /> <a href="/care/care" class="btn btn-pink">목록가기</a><br /> <br />
+				<br />
 
 			</div>
 		</div>
 	</div>
-	
+
 
 
 
