@@ -107,39 +107,41 @@ function updateBlameCount(commNo) {
 			</br>
 			<hr class="popper_popperMenuDivider__j1QQj">
 			</br>
-			<div class="community_loungeList__HbstN">
-				<div class="qaList_qaListContainer__73To2"> 
-					<div class="qaList_qaListWrapper___YnhH">
-						<div> 
-						<c:forEach items="${communityList}" var="community">
-							<div id="communityBoard${community['comm_no']}">
-								<div class="qaList_qaListTitle__Z1Ssh">
-									<a href="/community/communityDetail?comm_no=${community['comm_no']}">${community['title']}</a></div>
+			<c:forEach items="${communityList}" var = "community">
+				<div class="community_loungeList__HbstN">
+					<div class="qaList_qaListContainer__73To2">
+						<div class="qaList_qaListWrapper___YnhH">
+							<div>
+							<a href="/community/communityDetail?comm_no=${community['commNo']}">
+								<div class="qaList_qaListTitle__Z1Ssh">${community['title']}</a></div>
 								<div class="qaList_qaListText__2Cm8R">${community['content']}</div>
-								<div class="qaList_qaListImg__DiWnU">
-									<span
-										style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-										<img alt="community_image" src="/images/community/${community['path']}"
-										decoding="async" data-nimg="fill" sizes="100vw"
-										style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
-										<noscript></noscript>
-									</span>
-								</div>
-								<div class="qaList_qaListAbout__qL7GR">
-									<div></div>
-									<div>${community['id']}</div>
-									<div>${community['date']}</div>
-								</div><hr/> 
-							<div class="qaList_labelWrapper__vsqC0">
-							
-						<div class="qaList_desktopLabelContainer__EEK_6"></div>
-					</div>
-					</div>
+							</div>
+							<div class="qaList_qaListImg__DiWnU">
+								<span
+									style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
+									alt="community_image"
+									src="/images/community/${community['path']}"
+									decoding="async" data-nimg="fill" sizes="100vw" 
+									style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
+								<noscript></noscript></span>
+							</div>
+						</div>
+						<div class="qaList_qaListAbout__qL7GR">
+							<div class="qaList_communityType__p7p5C">좋아요 : ${community['likeCount'] }</div>
+							<div>${community['id']}</div>
+							<div>${community['date']}</div>
+						</div>
+						<div class="qaList_labelWrapper__vsqC0">
+							<div class="qaList_desktopLabelContainer__EEK_6"></div>
+						</div>
+						<hr class="qaList_qaListDivider__blo7m">
+					</div>	
 					  <script>
 					    // commNo 값을 전달하여 게시글 숨김 처리
 					    updateBlameCount(${community['comm_no']});
-					  </script>
-					</c:forEach> 
+					  </script>	
+				</div>  
+				</c:forEach> 
 				</div>
 			</div>
 			</div>
