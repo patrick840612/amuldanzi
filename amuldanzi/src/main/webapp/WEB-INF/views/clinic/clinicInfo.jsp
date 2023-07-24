@@ -10,6 +10,7 @@
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cfe8de01569b97e3def8a80bd57abb6&libraries=services"></script>
 	 
     <link rel="stylesheet" href="/css/clinic/pet.css" /> 
+     <link rel="stylesheet" href="/css/clinic/clinic.css" /> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet"> 
@@ -18,98 +19,7 @@
 	
 	
 	<jsp:include page="../main/header.jsp"></jsp:include>
-		<style type="text/css">
-	    #btnAll {
-        background-color: #fd2c58;
-        color: white;
-    }
-	
-    .kboard-branch-button {
-        border-radius: 50px; /* Making the buttons more round */
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #ffffff; /* Setting the background color to white */
-        border: 2px solid #fd2c58; /* Setting the border color to pink */
-        color: black; /* Setting the text color to pink */
-        margin: 5px;
-    }
-	
-	.first-row-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 10px;
-    position: absolute;
-    top: 185px; /* Adjust the top position according to your preference */
-    width: 1000px;
-    left: 57%;
-    transform: translateX(-50%);
-    margin-right: 5px;
-}
-
-/* CSS for the buttons in the second row */
-.second-row-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: absolute;
-    top: 245px; /* Adjust the top position according to your preference */
-    width: 1000px;
-    left: 57%;
-    transform: translateX(-50%);
-     margin-right: 5px; 
-}
-	
-	
-	#map-container {
-    position: absolute;
-    top: 350px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1400px; /* 원하는 지도의 가로 크기를 조절하세요. */
-    height: 750px;
-}
-
-/* Style for the table container */
-#table-container {
-    position: absolute;
-    top: 1050px; /* 원하는 테이블의 상단 위치를 조절하세요. */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1400px; /* 원하는 테이블의 가로 크기를 조절하세요. */
-    height: 550px;
-    overflow: auto;
-}
-	
-	.table {
-    width: 100%; 
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-/* Style for table header cells */
-.table th {
-    background-color: #f2f2f2;
-    padding: 5px;
-    text-align: center;
-}
-
-/* Style for table data cells */
-.table td {
-    padding: 5px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Style for the table rows on hover */
-.table tr:hover {
-    background-color: #f5f5f5;
-}
-	
-    .table td:nth-child(4) {
-        width: 300px; /* Adjust the width as needed */
-    }	
-	
+		<style type="text/css"> 
 	</style> 
 	
 </head>
@@ -150,7 +60,7 @@
                             markers.push(marker);
 
                             var infowindow = new kakao.maps.InfoWindow({
-                                content: '<div class="infowindow">' +
+                                content: '<div class="infowindow" style="height:180px;">' +
                                              '<h3 class = "font">' + clinicData[i]['title'] + '</h3>' +
                                              '<p class = "font">주소: ' + clinicData[i]['addr'] + '</p>' +
                                              '<p class = "font">전화번호: ' + clinicData[i]['tel'] + '</p>' +
@@ -408,7 +318,7 @@
 
 <body>
 	<div style="position:relative;top:100px;left:750px;">
-    <h1 class='font' style='color:#fd2c58'>가까운 동물 병원 찾기</h1>
+    <h1 class='font' style='color:black'>가까운 동물 병원 찾기</h1>
     </div>
         <div class="button-container">
      
