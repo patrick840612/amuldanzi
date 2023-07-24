@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.service.CareService;
 import com.amuldanzi.service.CommuityService;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.NoticeService;
@@ -33,16 +35,23 @@ public class MainController {
 	@Autowired
 	private NoticeService service;
 	
+	@Autowired
+	CareService careservice;
+	
 	@RequestMapping("/index")
 	public void index(Model m) {
 		
       List<HashMap<String, Object>> communityLikeList = communityService.selectLikeCommunityList();
       List<NoticeDTO> noticeList = service.getNoticeListRecent();
-	      
-	      
+      List<CareDTO> careList = careservice.getCareListRecent(); 
+      
+      
+	  m.addAttribute("careList", careList);
       m.addAttribute("noticeList", noticeList);
       m.addAttribute("communityLikeList", communityLikeList);  		
-		
+	  System.out.println(careList);
+	  System.out.println(((CareDTO)careList.get(0)));
+	  System.out.println(((CareDTO)careList.get(0)).getImg());
 		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));

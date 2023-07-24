@@ -26,6 +26,12 @@ public class CareServiceImpl implements CareService {
 		return careRepo.findById(careId).orElse(null);
 	}
 
+	@Override
+	public List<CareDTO> getCareListRecent() { 
+		
+		return careRepo.selectByRecent();
+	}
+
 
 
 	

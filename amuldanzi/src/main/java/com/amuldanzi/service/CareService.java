@@ -10,6 +10,8 @@ public interface CareService {
 
 	CareDTO getCareByCareId(Integer careId);
 
+	List<CareDTO> getCareListRecent();
+
 	
 
 }
