@@ -262,7 +262,7 @@ $(document).ready(function() {
 						
 						<div class="ajaxImage">
 					        <span>
-					            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="Community Image" style="width: 200px; height: 200px;">
+					            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="ad Image" style="width: 200px; height: 200px;">
 					        </span>
 					        <button class="deleteAjax" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
 					    </div>

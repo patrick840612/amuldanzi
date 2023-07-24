@@ -165,8 +165,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteImage(String imageName) {
+	public void deleteImage(Integer cateId, String imageName) {
 		// TODO Auto-generated method stub
+		if(cateId==2) {
+			eduRepo.deleteImage(imageName);
+		}else if(cateId == 3) {
+			careRepo.deleteImage(imageName);
+		}else if(cateId == null){
+			adRepo.deleteImage(imageName);
+		}
 		
 	}
 
@@ -176,10 +183,23 @@ public class AdminServiceImpl implements AdminService {
 		return adRepo.findById(dto.getId()).get();
 	}
 
+	@Override
+	public void deleteVideo(String vidoeName) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	
-	
-	
+	@Override
+	public EducationDTO getEduById(EducationDTO dto) {
+		// TODO Auto-generated method stub
+		return eduRepo.findById(dto.getId()).get();
+	}
+
+	@Override
+	public CareDTO getCareById(CareDTO dto) {
+		// TODO Auto-generated method stub
+		return careRepo.findById(dto.getId()).get();
+	}	
 	
 
 }

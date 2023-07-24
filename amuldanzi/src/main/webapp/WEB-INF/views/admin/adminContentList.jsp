@@ -68,11 +68,11 @@
 						list += '<tr role="row" class="odd">';
 						list += '<td class="sorting_1">'+result[i].id+'</td>';
 						if(result[i].boardCate.cateId == 0){
-						list += '<td class=""><a href="noticeDetail?id='+result[i].id+'">'+result[i].title+'</a></td>';
+						list += '<td class=""><a href="adminContentDetail?cateId=0&&id='+result[i].id+'">'+result[i].title+'</a></td>';
 						}else if(result[i].boardCate.cateId == 2){
-						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						list += '<td class=""><a href="adminContentDetail?cateId=2&&id='+result[i].id+'">'+result[i].title+'</a></td>';
 						}else if(result[i].boardCate.cateId == 3){
-						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
+						list += '<td class=""><a href="adminContentDetail?cateId=3&&id='+result[i].id+'">'+result[i].title+'</a></td>';
 						}else{
 						list += '<td class=""><a href="'+viewAddr+'">'+result[i].title+'</a></td>';
 						}		
@@ -280,7 +280,7 @@
 																	<c:forEach items="${list}" var="list">
 																		<tr role="row" class="odd">
 																			<td class="sorting_1">${list.id }</td>
-																			<td><a href="/admin/adminNoticeDetail?id=${list.id}">${list.title }</a></td>
+																			<td><a href="/admin/adminContentDetail?cateId=0&&id=${list.id}">${list.title }</a></td>
 																			<td>${list.regdate }</td>
 																			<td>${list.count }</td>
 																			<td><a href="noticeDelete?id=${list.id }">삭제</a></td>
