@@ -33,14 +33,6 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 
-	@RequestMapping("/adminContentList")
-	public void adminCateList(Model m) {
-
-		List<NoticeDTO> list = adminService.getNoticeList();
-		m.addAttribute("list", list);
-
-	}
-
 	@RequestMapping("/adminContentCate")
 	@ResponseBody
 	public List adminContentCate(@RequestParam("cateId") Integer cateId) {
@@ -50,10 +42,36 @@ public class AdminController {
 
 		return list;
 	}
+	
+	@RequestMapping("/adminContentList")
+	public void adminCateList(Model m) {
+
+		List<NoticeDTO> list = adminService.getNoticeList();
+		m.addAttribute("list", list);
+
+	}
+	
 
 	@RequestMapping("/adminContentInsert")
 	public void adminContentInsert() {
 
+	}
+	
+	@RequestMapping("/adminContentDetail")
+	public void adminContentDetail(@RequestParam("cateId") Integer cateId, EducationDTO edto, CareDTO cdto, NoticeDTO ndto, Model m) {
+		
+		if(cateId == 0) {
+			NoticeDTO noticeDetail = adminService.getNoticeById(ndto);
+			m.addAttribute("noticeDetail", noticeDetail);			
+		}else if(cateId == 2) {
+			EducationDTO eduDetail = adminService.getEduById(edto);
+			m.addAttribute("eduDetail", eduDetail);			
+		}else if(cateId == 3) {
+			CareDTO careDetail = adminService.getCareById(cdto);
+			m.addAttribute("careDetail", careDetail);
+		}
+		
+		
 	}
 
 	@RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
@@ -62,6 +80,21 @@ public class AdminController {
 		dto.setBoardCate(category);
 		dto.setCount(0);
 		adminService.noticeSave(dto);
+		return "redirect:/admin/adminContentList";
+	}
+
+	
+	@RequestMapping("/adminNoticeDetail")
+	private void adminNoticeDetail(NoticeDTO dto, Model m) {
+		// TODO Auto-generated method stub
+		NoticeDTO notice = adminService.getNoticeById(dto);
+		m.addAttribute("notice", notice);
+	}
+	
+	@RequestMapping("/noticeDelete")
+	public String noticeDelete(NoticeDTO dto) {
+
+		adminService.noticeDelete(dto);
 		return "redirect:/admin/adminContentList";
 	}
 
@@ -116,48 +149,14 @@ public class AdminController {
 
 	    return "redirect:/admin/adminContentList";
 	}
+	
+	@RequestMapping("/eduDelete")
+	public String eduDelete(EducationDTO dto) {
 
-//	@RequestMapping("/eduSave")
-//	public String eduSave(@RequestParam("file") MultipartFile files, EducationDTO dto) {
-//		
-//		try {
-//			
-//			String oriFilename = files.getOriginalFilename();
-//		
-//			if(oriFilename !=null && !oriFilename.equals("")) {
-//				
-//				String filename =  new MD5Generator(oriFilename).toString();
-//				
-//				String savePath = System.clearProperty("user.dir")+"\\src\\main\\resources\\static\\files\\images";
-//				if(!new File(savePath).exists()) {
-//					new File(savePath).mkdir();
-//				}
-//				String filepath = savePath + "\\" + filename;
-//				
-//				files.transferTo(new File(filepath));
-//				
-//				
-//				
-//			
-//				
-//				
-//				
-//			}
-//		
-//		
-//		
-//		BoardCategoryDTO category = new BoardCategoryDTO(2,"교육정보");
-//		dto.setBoardCate(category);
-//		dto.setCount(0);
-//		adminService.eduSave(dto);
-//		
-//		
-//		}
-//		
-//		
-//		
-//		return "redirect:/admin/adminContentList";
-//	}
+		adminService.eduDelete(dto);
+		return "redirect:/admin/adminContentList";
+	}
+
 
 	@RequestMapping(value = "/careSave", method = RequestMethod.POST)
 	public String careSave(@RequestParam("file") MultipartFile file, @RequestParam("videoFile") MultipartFile videoFile, CareDTO dto) {
@@ -210,20 +209,6 @@ public class AdminController {
 	    return "redirect:/admin/adminContentList";
 	}
 
-	@RequestMapping("/noticeDelete")
-	public String noticeDelete(NoticeDTO dto) {
-
-		adminService.noticeDelete(dto);
-		return "redirect:/admin/adminContentList";
-	}
-
-	@RequestMapping("/eduDelete")
-	public String eduDelete(EducationDTO dto) {
-
-		adminService.eduDelete(dto);
-		return "redirect:/admin/adminContentList";
-	}
-
 	@RequestMapping("/careDelete")
 	public String careDelete(CareDTO dto) {
 
@@ -249,14 +234,7 @@ public class AdminController {
 		// TODO Auto-generated method stub
 
 	}
-
-	@RequestMapping("/adDelete")
-	private String adDelete(AdvertisementDTO dto) {
-		// TODO Auto-generated method stub
-		adminService.adDelete(dto);
-		return "redirect:/admin/adList";
-	}
-
+	
 	@RequestMapping(value = "/adSave", method = RequestMethod.POST)
 	public String adSave(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {		
 		
@@ -300,43 +278,15 @@ public class AdminController {
 	    
 	    return "redirect:/admin/adList";
 	}
+	
+	@RequestMapping("/adDetail")
+	private void adDetail(AdvertisementDTO dto, Model m) {
+		// TODO Auto-generated method stub
+		AdvertisementDTO adDetail = adminService.getAdById(dto);
+		m.addAttribute("adDetail", adDetail);
 
-	// 광고 수정하기 -> 현재 업로드된 이미지 삭제하기 
-	@DeleteMapping("/deleteImage")
-	@ResponseBody
-	public void deleteImage(String imageName) {		
-		  
-		try {
-			
-			System.out.println("*****************delete 호출*************");
-			System.out.println(imageName);  
-			
-			// 현재 실행중인 사용자 디렉토리 
-			String userDir = System.getProperty("user.dir");
-			
-			// 이미지 파일 전체 경로 생성
-			String imagePath = userDir + "/src/main/resources/static/images/ad/" + imageName;
-			File file = new File(imagePath);
-		
-			// 이미지 파일이 존재하고, 삭제가 성공적으로 수행되면 
-			if (file.exists() && file.delete()) {
-			    System.out.println("이미지 삭제 성공: " + imageName);
-			    // 이미지 정보를 이미지 테이블에서도 삭제
-			    adminService.deleteImage(imageName);
-			} else {
-				
-			    System.out.println("이미지 삭제 실패: " + imageName); 
-			    
-			} 
-		}catch (Exception e) {
-	        System.out.println("이미지 삭제 중 오류 발생: " + imageName);
-	        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
-	        // 오류 처리 로직 추가
-	    }
-		
-		System.out.println("삭제작업끝");
 	}
-
+	
 	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
 	public String adUpdate(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
 		
@@ -381,22 +331,97 @@ public class AdminController {
 	    
 	    return "redirect:/admin/adList";
 	}
-	
-	@RequestMapping("/adDetail")
-	private void adDetail(AdvertisementDTO dto, Model m) {
-		// TODO Auto-generated method stub
-		AdvertisementDTO adDetail = adminService.getAdById(dto);
-		m.addAttribute("adDetail", adDetail);
 
+	@RequestMapping("/adDelete")
+	private String adDelete(AdvertisementDTO dto) {
+		// TODO Auto-generated method stub
+		adminService.adDelete(dto);		
+		
+		return "redirect:/admin/adList";
+	}
+
+
+
+	//현재 업로드된 이미지 삭제하기 
+	@DeleteMapping("/deleteImage")
+	@ResponseBody
+	public void deleteImage(String imageName, String videoName, Integer cateId) {		
+	    try {
+	        System.out.println("*****************delete 호출*************");
+	        System.out.println(imageName);  
+
+	        // 이미지와 동영상 파일을 삭제하기 위한 경로 설정
+	        String imagePath = null;
+	        String videoPath = null;
+	        
+	        if (cateId == null) {
+	        	cateId = 9; // 기본 값으로 "ad"
+	        }        
+
+	        switch (cateId) {
+	            case 2 :
+	                // 카테고리 1에 해당하는 이미지 경로 설정
+	                imagePath = System.getProperty("user.dir") + "/src/main/resources/static/images/edu/" + imageName;
+	                // 카테고리 1에 해당하는 동영상 경로 설정
+	                videoPath = System.getProperty("user.dir") + "/src/main/resources/static/videos/edu/" + videoName;
+	                break;
+	            case 3 :
+	                // 카테고리 2에 해당하는 이미지 경로 설정
+	                imagePath = System.getProperty("user.dir") + "/src/main/resources/static/images/care/" + imageName;
+	                // 카테고리 2에 해당하는 동영상 경로 설정
+	                videoPath = System.getProperty("user.dir") + "/src/main/resources/static/videos/care/" + videoName;
+	                break;
+	            // 필요에 따라 다른 카테고리에 대한 case를 추가할 수 있습니다.
+	            case 9:
+	                // ad 이미지 경로 설정
+	                imagePath = System.getProperty("user.dir") + "/src/main/resources/static/images/ad/" + imageName;            
+	                videoPath = System.getProperty("user.dir") + "/src/main/resources/static/videos/ad/" + videoName;
+	                break;
+	        }
+
+	        // 이미지 삭제 처리
+	        File imageFile = new File(imagePath);
+	        if (imageFile.exists()) {
+	            if (imageFile.delete()) {
+	                System.out.println("이미지 삭제 성공: " + imageName);
+	                // 이미지 정보를 이미지 테이블에서도 삭제
+	                adminService.deleteImage(cateId, imageName);
+	            } else {
+	                System.out.println("이미지 삭제 실패: " + imageName); 
+	            } 
+	        } else {
+	            System.out.println("이미지 파일이 존재하지 않습니다: " + imageName); 
+	        }
+
+	        // 동영상 삭제 처리
+	        File videoFile = new File(videoPath);
+	        if (videoFile.exists()) {
+	            if (videoFile.delete()) {
+	                System.out.println("동영상 삭제 성공: " + videoName);
+	                // 동영상 정보를 동영상 테이블에서도 삭제 (동영상 정보를 저장하는 테이블이 있다면 해당 로직 추가)
+	            } else {
+	                System.out.println("동영상 삭제 실패: " + videoName); 
+	            }
+	        } else {
+	            System.out.println("동영상 파일이 존재하지 않습니다: " + videoName); 
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("이미지 및 동영상 삭제 중 오류 발생: " + imageName);
+	        e.printStackTrace(); // 또는 로깅 프레임워크를 사용하여 예외 정보 기록
+	        // 오류 처리 로직 추가
+	    }
+	    System.out.println("삭제작업끝");
 	}
 	
 
-	@RequestMapping("/adminNoticeDetail")
-	private void adminNoticeDetail(NoticeDTO dto, Model m) {
-		// TODO Auto-generated method stub
-		NoticeDTO notice = adminService.getNoticeById(dto);
-		m.addAttribute("notice", notice);
-	}
+	
+	
+	
+
+	
+
+
 
 	@RequestMapping("/blamedList")
 	public void blamedList() {

@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -37,26 +36,32 @@
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-
+<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+<link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
+<link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
+<link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
-
-
-<link href="/admin/summernote/summernote-lite.css" rel="stylesheet">
-
-
-
 </head>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script>
   $(document).ready(function() {
-    
-	$('#noticeForm').show();
-    $('#eduForm').hide();
-    $('#careForm').hide();
-
+	  
+	  // 현재 URL의 쿼리 파라미터를 읽어옴
+	  let queryParams = new URLSearchParams(window.location.search);
+	  
+	  var selectedCateId = queryParams.get('cateId');
+	  
+      $('#noticeForm').show(); 
+      $('#eduForm').hide();
+      $('#careForm').hide();
+	  
+	  let postForm = function() {
+		  let content = $('#editor-one').summernote('code');
+		  $('#content').val(content);
+		}  
+  
     // 라디오 버튼 클릭 이벤트 핸들러
     function handleRadioChange() {
       var selectedValue = $('input[name="cate"]:checked').val();
@@ -64,10 +69,10 @@
       var eduForm = $('#eduForm');
       var careForm = $('#careForm');
       var noticeCategory = $('#noticeCategory');
-      var insertButton = $('#insertButton');
+	  var insertButton = $('#insertButton');
 
-     if (selectedValue === '0') {
-       // 선택한 라디오 버튼에 따라 form 영역 변경  
+	  if (selectedValue === '0') {
+    	// 선택한 라디오 버튼에 따라 form 영역 변경  
         $('#noticeForm').show(); 
         $('#eduForm').hide();
         $('#careForm').hide();
@@ -80,28 +85,34 @@
       }else if(selectedValue === '3'){        
           $('#noticeForm').hide(); 
           $('#eduForm').hide();
-          $('#careForm').show();     
-      
+          $('#careForm').show();	  
+ 	  
       }
 
       // 기타 필요한 작업 수행
     }
 
-    
     // 모든 라디오 버튼을 선택 가능하도록 초기화
     $('input[name="cate"]').prop('disabled', false);
-    
 
-    // 라디오 버튼 클릭 이벤트 리스너 등록
-    $('input[name="cate"]').on('change', handleRadioChange);
-    
-    // 폼 제출 시 postForm 함수 호출
-    $('form').submit(function() {
-        postForm();
+    // 선택된 카테고리 라디오 버튼을 찾아서 선택하고, 나머지 버튼들을 비활성화
+    $('input[name="cate"]').each(function() {
+      if ($(this).val() === selectedCateId) {
+        $(this).prop('checked', true);
+      } else {
+        $(this).prop('disabled', true);
+      }
     });
 
-
-    // 교육 이미지 업로드 미리보기
+    handleRadioChange(); // 선택된 카테고리에 따라 폼을 보이거나 숨깁니다.
+    
+    
+ 	// 폼 제출 시 postForm 함수 호출
+    $('form').submit(function() {
+        postForm();
+      });
+    
+ 	// 교육 이미지 업로드 미리보기
     $('#eduUploadFile').on('change', function(event) {
       var previewContainer = $('#eduImagePreviewContainer');
       previewContainer.html('');
@@ -213,7 +224,8 @@
         reader.readAsDataURL(file);
       }
     });
-
+    
+    
   });
 </script>
 
@@ -378,14 +390,14 @@
 			        <span class="question_questionCategory__1QDx6">글 작성</span>
 			        <span class="question_questionMark__AykT_">*</span>
 			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" value="${noticeDetail.title }"/>
 			      <div class="question_alertText__WnxqW"></div>
 			    </div>
 			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			      <textarea class="question_questionInput___Mb57" name="content">${noticeDetail.content }</textarea>
 			    </div>
 			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">공지등록</button>
+			      <button class="question_submitBtn__vDrt_" type="submit">공지 수정</button>
 			    </div>
 			    <br />
 			  </form>
@@ -412,7 +424,7 @@
 			        <span class="question_questionCategory__1QDx6">교육 단계</span>
 			        <span class="question_questionMark__AykT_">*</span>
 			      </div>
-			      <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step">
+			      <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step" value="${eduDetail.step }">
 			      <div class="question_alertText__WnxqW"></div>
 			    </div>
 			    <div>
@@ -420,7 +432,7 @@
 			        <span class="question_questionCategory__1QDx6">교육 난이도</span>
 			        <span class="question_questionMark__AykT_">*</span>
 			      </div>
-			      <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level">
+			      <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level" value="${eduDetail.level }">
 			      <div class="question_alertText__WnxqW"></div>
 			    </div>
 			    <div>
@@ -428,11 +440,11 @@
 			        <span class="question_questionCategory__1QDx6">글 작성</span>
 			        <span class="question_questionMark__AykT_">*</span>
 			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"  value="${eduDetail.title }"/>
 			      <div class="question_alertText__WnxqW"></div>
 			    </div>
 			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content">${eduDetail.content }</textarea>
 			    </div>
 			    <div class="eduFileForm">
 				    <div class="question_fileInputWrapper__d9gmU">
@@ -457,7 +469,7 @@
 				    </div>
 			    </div>
 			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">교육정보 등록</button>
+			      <button class="question_submitBtn__vDrt_" type="submit">교육정보 수정</button>
 			    </div>
 			    <br />
 			  </form>
@@ -483,11 +495,11 @@
 			        <span class="question_questionCategory__1QDx6">글 작성</span>
 			        <span class="question_questionMark__AykT_">*</span>
 			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" />
+			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" value="${careDetail.title }"/>
 			      <div class="question_alertText__WnxqW"></div>
 			    </div>
 			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content"></textarea>
+			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content">${careDetail.content }</textarea>
 			    </div>
 			    <div class="question_fileInputWrapper__d9gmU">
 			      <span class="question_questionCategory__1QDx6">사진 업로드</span>
@@ -510,7 +522,7 @@
 			      <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
 			    </div>
 			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">케어정보 등록</button>
+			      <button class="question_submitBtn__vDrt_" type="submit">케어정보 수정</button>
 			    </div>
 			    <br />
 			  </form>

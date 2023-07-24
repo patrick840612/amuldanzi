@@ -175,7 +175,7 @@ $(document).ready(function() {
 			            <img class="image-preview" src="/images/community/${image}" alt="Community Image" style="width: 200px; height: 200px;">
 			        </span>
 			        <button class="deleteAjax" onclick="deleteImage('${image}')" style="position:relative; left:93px" >&times;</button>
-			    </div>
+			</div>
 			</c:forEach><br/>
 </body>
 </html>
