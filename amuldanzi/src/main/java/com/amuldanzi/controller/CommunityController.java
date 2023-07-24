@@ -90,6 +90,7 @@ public class CommunityController {
 			
 			Map<String,Object> map = headerChange();
 	        m.addAttribute("id", map.get("id"));
+	        m.addAttribute("memberRole", map.get("memberRole"));
 			// 파일 업로드를 위해 2.5초동안 지연 시킴
 			Thread.sleep(2500); 
 			
