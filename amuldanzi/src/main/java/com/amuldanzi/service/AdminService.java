@@ -43,10 +43,16 @@ public interface AdminService {
 
 	void adDelete(AdvertisementDTO dto);
 
-	void adUpdate(AdvertisementDTO dto);
-
-	void deleteImage(String imageName);
+	void adUpdate(AdvertisementDTO dto);	
 
 	AdvertisementDTO getAdById(AdvertisementDTO dto);
+
+	void deleteVideo(String vidoeName);
+
+	void deleteImage(Integer cateId, String imageName);
+
+	EducationDTO getEduById(EducationDTO dto);
+
+	CareDTO getCareById(CareDTO dto);
 
 }
