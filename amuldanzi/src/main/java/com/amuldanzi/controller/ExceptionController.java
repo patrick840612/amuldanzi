@@ -49,7 +49,6 @@ public class ExceptionController {
 	@RequestMapping("/errorpage/wrongcontect")
 	public void wrongcontect() {
 		
-
 	}
 	
 	@ExceptionHandler(WrongContectException.class)

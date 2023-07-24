@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amuldanzi.exception.WrongContectException;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MapService;
 
@@ -33,15 +34,19 @@ public class MapController {
 	    
 	
 	@RequestMapping("/blood")
-    public void hospital(Model m) {
+    public void hospital(Model m) throws WrongContectException{
 		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
 		
-		System.out.println("clinicDetail호출");
-		
-        System.out.println("blood 요청");  
+        // 비회원 페이지 이동 제한
+        if(map.get("memberRole") == "") {
+        	System.out.println("멤버역할: "+map.get("memberRole"));
+        	throw new  WrongContectException();
+        	// 함수 뒤에 throws WrongContectException로 예외 던지는 것 추가해줄것 
+        } // 비회원 페이지 이동제한 끝
+
     }
 	
 	
