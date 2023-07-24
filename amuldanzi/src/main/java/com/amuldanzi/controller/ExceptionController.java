@@ -1,6 +1,7 @@
 package com.amuldanzi.controller;
 
 import java.security.Key;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.amuldanzi.config.ConfigUtils;
 import com.amuldanzi.domain.JwtDTO;
@@ -44,17 +46,34 @@ public class ExceptionController {
 	private LoginService loginService;
 	
 	
-	@RequestMapping("/error_page/wrong_contect")
-	public String wrong_contect() {
+	@RequestMapping("/errorpage/wrongcontect")
+	public void wrongcontect() {
 		
-		return "/error_page/wrong_contect";
+
 	}
-	
 	
 	@ExceptionHandler(WrongContectException.class)
 	public String handleWrongContectException(WrongContectException ex) {
 		
-		return "redirect:/error_page/wrong_contect";
+		return "redirect:/errorpage/wrongcontect";
+	}
+	
+	@ExceptionHandler(SQLException.class)
+	public String SqlException(SQLException ex) {
+		
+		return "redirect:/errorpage/wrongcontect";
+	}
+	
+	@ExceptionHandler(io.jsonwebtoken.security.SignatureException.class)
+	public String SignatureException(io.jsonwebtoken.security.SignatureException ex) {
+		
+		return "redirect:https://www.police.go.kr/index.do";
+	}
+	
+	@ExceptionHandler(io.jsonwebtoken.MalformedJwtException.class)
+	public String MalformedJwtException(io.jsonwebtoken.MalformedJwtException ex) {
+		
+		return "redirect:https://www.police.go.kr/index.do";
 	}
 	
 	@ExceptionHandler(ExpiredJwtException.class)
@@ -93,7 +112,7 @@ public class ExceptionController {
 	        res.addCookie(cookie);
 	        System.out.println("리프레쉬토큰이 없을 경우");
 			
-			return "redirect:/error_page/wrong_contect";
+	        return "redirect:https://www.police.go.kr/index.do";
 		}
 		
 		// 리프레쉬토큰이 유효한지 확인
@@ -126,8 +145,8 @@ public class ExceptionController {
 
 		        // 쿠키를 응답에 추가
 		        res.addCookie(cookie2);
-				
-				return "redirect:/error_page/wrong_contect";
+
+		        return "redirect:https://www.police.go.kr/index.do";
 			}
 			System.out.println("재발급 시작");
 			// 리프레쉬토큰 유효기한 얻어와서 쿠키에 엑세스토큰 넣기
