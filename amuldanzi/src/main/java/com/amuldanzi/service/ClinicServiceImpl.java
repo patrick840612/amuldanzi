@@ -30,7 +30,17 @@ public class ClinicServiceImpl implements ClinicService {
 	            // 필요한 다른 필드들도 추가할 수 있습니다. 
 	            map.put("addr", objArray[1]);
 	            map.put("tel", objArray[2]);
-	            map.put("time", objArray[3]);
+	            
+	            if(objArray[3] == null) {
+	            	
+	            	 map.put("time", "정보없음");
+	            }else {
+	            	map.put("time", objArray[3]);
+	            	
+	            }
+	           
+	            
+	            
 	            map.put("lat", objArray[4]);
 	            map.put("lng", objArray[5]);
 	            result.add(map);
@@ -61,7 +71,14 @@ public class ClinicServiceImpl implements ClinicService {
 	            // 필요한 다른 필드들도 추가할 수 있습니다. 
 	            map.put("addr", objArray[1]);
 	            map.put("tel", objArray[2]);
-	            map.put("time", objArray[3]);
+	            if(objArray[3] == null) {
+	            	
+	            	 map.put("time", "정보없음");
+	            }else {
+	            	map.put("time", objArray[3]);
+	            	
+	            }
+	            
 	            result.add(map);
 	        
 	    }

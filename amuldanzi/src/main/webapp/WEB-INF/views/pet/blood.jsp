@@ -103,7 +103,7 @@
                     // 데이터를 순회하며 결과 추가
 					$.each(data, function(index, item) {
 						  var resultRow = "<tr class='result-item'>";
-						  resultRow += "<td class='tel-info' data-tel='" + item.userTel + "'>***-****-****</td>";
+						  resultRow += "<td class='tel-info' data-tel='" + item.blood_tel + "'>***-****-****</td>";
 						  resultRow += "<td>" + item.sido + "</td>";
 						  resultRow += "<td>" + item.petBlood + "</td>";
 						  resultRow += "<td>" + item.whichPet + "</td>";
