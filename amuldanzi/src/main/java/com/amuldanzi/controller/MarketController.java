@@ -36,6 +36,7 @@ public class MarketController {
 	
 	@Autowired
 	private MarketService marketservice;
+	
 
 	// 페이지 이동
 	@RequestMapping("/{step}")
@@ -87,10 +88,10 @@ public class MarketController {
 	    m.addAttribute("memberRole", map.get("memberRole"));
 
 	    // Pageable 객체를 생성하여 페이징 정보 설정
-	    Pageable paging = PageRequest.of(pageNo, 1, Sort.by("goodsId").descending());
+	    Pageable paging = PageRequest.of(pageNo, 12, Sort.by("goodsId").descending());
 
 	    // marketservice를 사용하여 물품 목록을 페이징하여 가져옴
-	    Page<MarketGoodsDTO> resultPage = marketservice.findAllWithPaging(paging);
+	    Page<MarketGoodsDTO> resultPage = marketservice.findMarketCate(paging);
 	    List<MarketGoodsDTO> marketList = resultPage.getContent();
 
 	    // 전체 페이지 수와 현재 페이지 번호를 가져옴
@@ -113,7 +114,43 @@ public class MarketController {
 
 	    return "market/carrot"; // 여기에 JSP 페이지의 이름을 입력해주세요
 	}
+	
+	@RequestMapping("dolbomiShop")
+	public String dolbomiShop(@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model m) {
+	    // headerChange() 메서드를 통해 헤더 정보를 가져옴
+	    Map<String, Object> map = headerChange();
+	    // 헤더 정보를 모델에 추가
+	    m.addAttribute("id", map.get("id"));
+	    m.addAttribute("memberRole", map.get("memberRole"));
 
+	    // Pageable 객체를 생성하여 페이징 정보 설정
+	    Pageable paging = PageRequest.of(pageNo, 12, Sort.by("goodsId").descending());
+
+	    // marketservice를 사용하여 물품 목록을 페이징하여 가져옴
+	    Page<MarketGoodsDTO> resultPage = marketservice.findDolbomiCate(paging);
+	    List<MarketGoodsDTO> marketList = resultPage.getContent();
+
+	    // 전체 페이지 수와 현재 페이지 번호를 가져옴
+	    int totalPages = resultPage.getTotalPages();
+	    int currentPage = resultPage.getNumber();
+
+	    // 페이지 그룹 크기를 10으로 설정
+	    int pageSize = 10;
+
+	    // 현재 페이지가 속한 페이지 그룹의 첫 페이지와 마지막 페이지를 계산
+	    int startPage = (currentPage / pageSize) * pageSize;
+	    int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
+
+	    // 모델에 물품 목록, 페이징 정보, 페이지 그룹 정보를 추가하여 JSP로 전달
+	    m.addAttribute("marketList", marketList);
+	    m.addAttribute("totalPages", totalPages);
+	    m.addAttribute("currentPage", currentPage);
+	    m.addAttribute("startPage", startPage);
+	    m.addAttribute("endPage", endPage);
+
+	    return "market/dolbomiShop"; // 여기에 JSP 페이지의 이름을 입력해주세요
+	}
+	
 
 
 

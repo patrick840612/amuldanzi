@@ -15,8 +15,13 @@ public class MarketServiceImpl implements MarketService {
 	MarketRepository marketRepo;
 
 	@Override
-	public Page<MarketGoodsDTO> findAllWithPaging(Pageable paging) {
-		return marketRepo.findAll(paging);
+	public Page<MarketGoodsDTO> findMarketCate(Pageable paging) {
+		return marketRepo.findMarketCate(paging);
+	}
+
+	@Override
+	public Page<MarketGoodsDTO> findDolbomiCate(Pageable paging) {
+		return marketRepo.findDolbomiCate(paging);
 	}
 	
 	

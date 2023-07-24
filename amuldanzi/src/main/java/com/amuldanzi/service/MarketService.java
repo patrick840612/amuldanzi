@@ -7,5 +7,7 @@ import com.amuldanzi.domain.MarketGoodsDTO;
 
 public interface MarketService {
 
-	Page<MarketGoodsDTO> findAllWithPaging(Pageable paging);
+	Page<MarketGoodsDTO> findMarketCate(Pageable paging);
+	Page<MarketGoodsDTO> findDolbomiCate(Pageable paging);
+	
 }
