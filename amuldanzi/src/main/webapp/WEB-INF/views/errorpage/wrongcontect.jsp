@@ -18,6 +18,6 @@ setTimeout(() => {
 </head>
 <body>
 <h1>로그인이 필요합니다.</h1>
-<img  class="img_verticalImage__P4gbA" src="/images/error/park.jpg" alt="Community Image" style="width: 600px; height: 500px;" />
+<img  class="img_verticalImage__P4gbA" src="/images/error/xlogin.jpg" alt="Community Image" style="width: 600px; height: 500px;" />
 </body>
 </html>
