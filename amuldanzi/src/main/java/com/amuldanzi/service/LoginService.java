@@ -36,5 +36,6 @@ public interface LoginService {
 	public String createToken(MemberInfoDTO member, Date expireDate);
 	
 	public List<JwtDTO> findAll();
+	public void changePassword(MemberInfoDTO member);
 	
 }

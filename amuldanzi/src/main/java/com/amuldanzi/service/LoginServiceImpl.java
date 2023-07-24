@@ -430,6 +430,12 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
+	// 비밀번호 변경하기
+	public void changePassword(MemberInfoDTO member) {
+		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());
+		member.setUserPassword(pw);
+		loginDAO.changePassword(member);
+	}
 	
 	
 }

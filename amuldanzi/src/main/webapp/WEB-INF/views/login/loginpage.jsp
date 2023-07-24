@@ -37,15 +37,18 @@ dialog{
 	padding: 30px 20px 30px 20px;
 	background-color : navy;
 }
+
+
+.login_loginfunction__KPcAe{
+	padding: 0px !important;
+}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	
-	// Model에 id가 있으면(구글 또는 카카오 로그인확인하여 db에 데이터가 있을 경우) /main/login 으로 이동
-	//if(${not empty id}) location.href="/main/login?id=${id}";
-	
+
 	// 구글 로그인 uri 가져오기
 	const getGoogleLoginUri = ()=>{
 		$.ajax({
@@ -110,7 +113,10 @@ $(function(){
 	$("#regist").click(linkToRegist);
 	// 로그인 버튼 클릭 시
 	$("#loginform_submit").click(loginCheck);
-	
+	// 비밀번호 찾기 클릭 시
+	$('#findPassword').click(function(){
+		location.href="/login/findPassword";
+	});
 	
 	// 관리자 회원가입 입장
 	$("#mregist").click(function(){
@@ -184,9 +190,10 @@ $(function(){
 		<div class="login_loginBar__546og"></div>
 	
 			<div class="login_loginfunction__KPcAe">
-				<div class="login_loginTab__9nBLa">비밀번호 찾기</div>
+				<div class="login_loginTab__9nBLa" id="findPassword">비밀번호 찾기</div>
 				<div class="login_loginfunctionBar__RYXDN"></div>
 				<div class="login_loginTab__9nBLa" id="regist">회원가입</div>
+				<div class="login_loginfunctionBar__RYXDN"></div>
 				<div class="login_loginTab__9nBLa" id="mregist">관리자 회원가입</div>
 			</div>
 		</div>

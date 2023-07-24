@@ -229,6 +229,15 @@ public class LoginController {
         return "redirect:/main/index";
 	} // 일반 회원 로그인 완료
 	
+	// 비밀번호 변경
+	@RequestMapping("/changePassword")
+	public String changePassword(MemberInfoDTO member) {
+		
+		loginService.changePassword(member);
+		
+		return "redirect:/login/login?id="+member.getId();
+	}
+	
 	// 토큰생성 함수
 	private MemberInfoDTO creatJwtToken(MemberInfoDTO id) {
 		MemberInfoDTO member = loginService.selectById(id);
