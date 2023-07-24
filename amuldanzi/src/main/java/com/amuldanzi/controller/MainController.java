@@ -49,9 +49,9 @@ public class MainController {
 	  m.addAttribute("careList", careList);
       m.addAttribute("noticeList", noticeList);
       m.addAttribute("communityLikeList", communityLikeList);  		
-	  System.out.println(careList);
-	  System.out.println(((CareDTO)careList.get(0)));
-	  System.out.println(((CareDTO)careList.get(0)).getImg());
+	  
+	  
+
 		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
