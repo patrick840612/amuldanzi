@@ -13,15 +13,16 @@ import com.amuldanzi.domain.CommunityDTO;
 public interface CommunityRepository  extends CrudRepository<CommunityDTO, Integer>{
 
 	//모든 커뮤니티 글 목록을 조회하는 쿼리
-	@Query(value = "SELECT c.id, c.comm_title, c.comm_date, c.comm_content, c.answer_count, c.comm_no, i.comm_img_file_name\r\n"
-			+ "FROM community c\r\n"
-			+ "LEFT JOIN (\r\n"
-			+ "  SELECT comm_no, MIN(emi_id) AS min_emi_id\r\n"
-			+ "  FROM comm_img\r\n"
-			+ "  GROUP BY comm_no\r\n"
-			+ ") min_img ON c.comm_no = min_img.comm_no\r\n"
-			+ "LEFT JOIN comm_img i ON c.comm_no = i.comm_no AND i.emi_id = min_img.min_emi_id",
-	        nativeQuery = true)
+	@Query(value = "SELECT  c.id AS id, c.comm_title AS title, c.comm_date AS date , l.like_count AS likeCount, i.comm_img_file_name AS path, c.comm_no AS commNo, c.comm_content AS content  "
+            + "FROM community c "
+            + "LEFT JOIN ( "
+            + "    SELECT comm_no, COUNT(*) AS like_count "
+            + "    FROM cm_like "
+            + "    GROUP BY comm_no "
+            + ") l ON c.comm_no = l.comm_no "
+            + "LEFT JOIN comm_img i ON c.comm_no = i.comm_no "
+            + "GROUP BY c.comm_no "
+            + "ORDER BY c.comm_no DESC ", nativeQuery = true)
 	List<Object[]>selectCommunityList();
 
 	// 커뮤니티 글 번호로 커뮤니티 글을 조회하는 쿼리

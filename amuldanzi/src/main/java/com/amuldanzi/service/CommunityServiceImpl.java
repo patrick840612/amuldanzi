@@ -58,10 +58,10 @@ public class CommunityServiceImpl implements CommuityService {
             // 필요한 다른 필드들도 추가할 수 있습니다. 
             map.put("title", objArray[1]);
             map.put("date", objArray[2]);
-            map.put("content", objArray[3]);
-            map.put("count", objArray[4]); 
+            map.put("likeCount", objArray[3]);
+            map.put("path", objArray[4]); 
             map.put("comm_no", objArray[5]);
-            map.put("path", objArray[6]);
+            map.put("content", objArray[6]);
             result.add(map);
         	
         }
