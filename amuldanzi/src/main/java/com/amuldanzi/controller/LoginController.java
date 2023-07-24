@@ -86,6 +86,42 @@ public class LoginController {
 		
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
 	
+	@RequestMapping("/logout")
+	public String logout() {
+		String access_token = null;
+		
+		Cookie[] cookies = request.getCookies();
+		// 이용자 request에서 쿠키 얻어옴
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if (cookie.getName().equals("access_token")) {
+					access_token = cookie.getValue();
+                }
+			}
+		}
+		
+		// db에서 해당 엑세스토큰 사용정지
+		loginService.setJwtStateDiscard(access_token);
+		
+		// 쿠키에서 엑세스토큰 삭제
+        Cookie cookie1 = new Cookie("access_token", null);
+        cookie1.setPath("/");
+        cookie1.setMaxAge(0);
+
+        // 쿠키를 응답에 추가
+        res.addCookie(cookie1);
+        
+        // 쿠키에서 리프레쉬토큰 삭제
+        Cookie cookie2 = new Cookie("refresh_token", null);
+        cookie2.setPath("/");
+        cookie2.setMaxAge(0);
+
+        // 쿠키를 응답에 추가
+        res.addCookie(cookie2);
+		
+		return "redirect:/main/index";
+	}
+	
 	// 소셜 회원가입 성공 
 	@Transactional
 	@RequestMapping("/socialRegist")
