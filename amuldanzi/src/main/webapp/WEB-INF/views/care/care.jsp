@@ -104,7 +104,7 @@
     <div class="custom-thumbnails">
       <c:forEach items="${careList}" var="care" varStatus="status">
         <div class="thumbnail">
-          <img src="${care.img}" alt="ALT NAME" class="img-responsive" width="350" height="270">
+          <img src="/images/care/${care.img}" alt="ALT NAME" class="img-responsive" width="350" height="270">
           <div class="caption">
             <h3>${care.title}</h3>
           </div>

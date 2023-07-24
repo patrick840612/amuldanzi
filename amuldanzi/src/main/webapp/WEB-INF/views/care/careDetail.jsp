@@ -106,34 +106,22 @@
 			<div class="col-md-8 offset-md-1">
 				<div class="video-container">
 					<video class="large-video" controls autoplay muted playsinline>
-						<source src="${care.video}" type="video/mp4">
+						<source src="/videos/care/${care.video}" type="video/mp4">
 					</video>
 				</div>
 			</div>
 
-			<br />
-			<br />
+			<br /> <br />
 
 			<div class="col-md-4">
 				<div class="video-list">
-
-
 					<c:forEach var="item" items="${items}">
 						<a href="/care/careDetail?id=${item.id}"> <img
-							src="${item.image}" alt="#" width="200" height="125">
+							src="/images/care/${item.image}" alt="#" width="200" height="125">
 							${item.title}
 						</a>
 					</c:forEach>
-
-
-
-
-
-
-
-
-
-
+					<br />
 
 
 

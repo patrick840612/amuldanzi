@@ -41,11 +41,14 @@ public class CareController {
 				Map<String, String> map = new HashMap<>();
 				map.put("image", item.getImg());
 				map.put("title", item.getTitle());
+				map.put("id", String.valueOf(item.getId()));
 				items.add(map);
 			}
 			m.addAttribute("items", items);
 		} else {
-			// 'id'가 없는 경우 처리할 내용을 추가하세요
+			 return;
 		}
 	}
+	
+	
 }
