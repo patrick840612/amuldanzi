@@ -22,6 +22,7 @@ import com.amuldanzi.domain.CommImageDTO;
 import com.amuldanzi.domain.CommLikeDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.exception.WrongContectException;
 import com.amuldanzi.service.CommImageService;
 import com.amuldanzi.service.CommuityService;
 import com.amuldanzi.service.LoginService;
@@ -130,11 +131,18 @@ public class CommunityController {
 		
 		// 인서트 페이지 매핑 
 		@RequestMapping("/communityInsert")
-		public void communityInsert(Model m) {
+		public void communityInsert(Model m) throws WrongContectException{
 			
 			Map<String,Object> map = headerChange();
 	        m.addAttribute("id", map.get("id"));
+	        m.addAttribute("memberRole", map.get("memberRole"));
 			
+	        // 비회원 페이지 이동 제한
+	        if(map.get("memberRole") == "") {
+	        	System.out.println("멤버역할: "+map.get("memberRole"));
+	        	throw new  WrongContectException();
+	        	// 함수 뒤에 throws WrongContectException로 예외 던지는 것 추가해줄것 
+	        } // 비회원 페이지 이동제한 끝
 			
 		} 
 		
@@ -223,6 +231,7 @@ public class CommunityController {
 	        //System.out.println(commImages);
 	        Map<String,Object> map = headerChange();
 	        model.addAttribute("id", map.get("id"));
+	        model.addAttribute("memberRole", map.get("memberRole"));
 	        
 	        return "/community/communityDetail";
 			 
@@ -241,6 +250,10 @@ public class CommunityController {
 		    // 두개의 정보 모델에 담기 
 		    model.addAttribute("community", community);
 		    model.addAttribute("commImages", commImages);
+		    
+	        Map<String,Object> map = headerChange();
+	        model.addAttribute("id", map.get("id"));
+	        model.addAttribute("memberRole", map.get("memberRole"));
 		    
 		    return "/community/communityModify"; // 수정 페이지의 JSP 이름을 적절히 변경해야 합니다.
 		}
@@ -301,8 +314,10 @@ public class CommunityController {
 		    	
 		    	System.out.println("****************** modify 호출 *************");
 		        // memberId를 사용하여 MemberInfoDTO를 데이터베이스에서 조회
+		    	
 		        MemberInfoDTO memberDto = memberService.findById(dto.getMemberId().getId());
-
+		        System.out.println(memberDto);
+		        
 		        if (memberDto == null) {
 		            System.out.println("Invalid memberId: " + memberDto);
 		            return "redirect:/error"; // 에러 페이지로 리다이렉트

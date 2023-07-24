@@ -23,7 +23,7 @@ public class MapServiceImpl implements MapService{
         for (Object[] objArray : regionData) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("sido", objArray[0]);
-            map.put("userTel", objArray[1]);
+            map.put("blood_tel", objArray[1]);
             map.put("whichPet", objArray[2]);
             map.put("petBlood", objArray[3]);
             result.add(map);

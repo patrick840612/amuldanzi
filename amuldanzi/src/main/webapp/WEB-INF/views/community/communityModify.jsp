@@ -135,7 +135,7 @@ $(document).ready(function() {
                 <div>
                     <div>
                         <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value="${community.memberId.id}">
+                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="memberId.id" value="${community.memberId.id}" readonly>
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <div>

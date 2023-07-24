@@ -20,7 +20,12 @@
 	<jsp:include page="../main/header.jsp"></jsp:include>  
  
 	<style type="text/css">
-	
+	.infowindow-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 	
 	</style> 
     <script>  
@@ -61,7 +66,7 @@
                             markers.push(marker);
 
                             var infowindow = new kakao.maps.InfoWindow({
-                                content: '<div class="infowindow" style="height:180px;>' +
+                                content: '<div class="infowindow" style="height:180px;color:black;>' +
                                              '<h3 class = "font">' + marketData[i]['title'] + '</h3>' +
                                              '<p class = "font">주소: ' + marketData[i]['addr'] + '</p>' +
                                              '<p class = "font">전화번호: ' + marketData[i]['tel'] + '</p>' +
