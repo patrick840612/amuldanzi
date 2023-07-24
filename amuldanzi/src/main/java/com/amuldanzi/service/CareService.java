@@ -10,7 +10,6 @@ public interface CareService {
 
 	CareDTO getCareByCareId(Integer careId);
 
-
 	
 
 }
