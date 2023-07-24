@@ -265,7 +265,6 @@ public class LoginServiceImpl implements LoginService {
 		
 		return Jwts.builder()
                 .claim("id", member.getId())
-                .claim("tel", member.getUserTel())
                 .claim("memberRole", member.getMemberRole())
                 .setExpiration(expireDate)
                 .signWith(key)
@@ -305,15 +304,13 @@ public class LoginServiceImpl implements LoginService {
 	
 	// 엑세스토큰 유효기한 설정
 	public Date getExpireDateAccessToken() {
-	    //long expireTimeMils = 1000 * 60 * 60;
-	    long expireTimeMils = 1000 * 20;
+	    long expireTimeMils = 1000 * 60 * 30;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	 }
 	
 	// 리프레쉬토큰 유효기한 설정
 	public Date getExpireDateRefreshToken() {
-	    //long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
-	    long expireTimeMils = 1000L * 40;
+	    long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	}
 	
