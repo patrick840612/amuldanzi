@@ -306,13 +306,14 @@ public class LoginServiceImpl implements LoginService {
 	// 엑세스토큰 유효기한 설정
 	public Date getExpireDateAccessToken() {
 	    //long expireTimeMils = 1000 * 60 * 60;
-	    long expireTimeMils = 1000 * 5;
+	    long expireTimeMils = 1000 * 20;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	 }
 	
 	// 리프레쉬토큰 유효기한 설정
 	public Date getExpireDateRefreshToken() {
-	    long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
+	    //long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
+	    long expireTimeMils = 1000L * 40;
 	    return new Date(System.currentTimeMillis() + expireTimeMils);
 	}
 	
