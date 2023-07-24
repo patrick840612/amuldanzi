@@ -35,4 +35,6 @@ public interface LoginService {
 	public Date getExpireDateAccessToken();
 	public String createToken(MemberInfoDTO member, Date expireDate);
 	
+	public List<JwtDTO> findAll();
+	
 }

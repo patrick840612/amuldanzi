@@ -42,6 +42,7 @@
 				runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>
 				org.mariadb.jdbc</groupId>
@@ -78,7 +79,8 @@
 			<groupId>
 				jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-			<version>3.0.0</version>
+			<version>
+				3.0.0</version>
 
 		</dependency>
 
@@ -86,7 +88,8 @@
 		https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
-			<artifactId>jakarta.servlet-api</artifactId>
+			<artifactId>
+				jakarta.servlet-api</artifactId>
 			<version>6.0.0</version>
 			<scope>provided</scope>
 		</dependency>
@@ -97,7 +100,8 @@
 			<groupId>
 				org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
-			<version>3.0.1</version>
+			<version>
+				3.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -126,7 +130,8 @@
 
 		<!-- JWT -->
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
+			<groupId>
+				io.jsonwebtoken</groupId>
 			<artifactId>
 				jjwt-api</artifactId>
 			<version>0.11.5</version>
@@ -155,7 +160,30 @@
 			<version>0.4</version>
 		</dependency>
 
+		<!-- 스케쥴러 (하루 한번 특정 데이터 삭제 - 불필요한 토큰 레코드)
+		<dependency>
+			<groupId>
+				org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>
+						org.quartz-scheduler</groupId>
+					<artifactId>quartz</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
 
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.2</version> <!-- Or the version you intend to use -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.3.11</version> <!-- Use the appropriate version matching your Spring Boot version -->
+		</dependency>
 
 		<!-- swagger 설정 -->
 

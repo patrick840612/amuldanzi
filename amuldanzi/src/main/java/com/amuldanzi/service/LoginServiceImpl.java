@@ -41,6 +41,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -385,6 +386,50 @@ public class LoginServiceImpl implements LoginService {
 		loginJwtDAO.recreatjwt(jwt);
 	}
 	
+	// 스케쥴링 유효기간 지난 리프레쉬 토큰 지우기
+	public List<JwtDTO> findAll() {
+		List<JwtDTO> jwtlist = loginJwtDAO.findAll();		
+		
+		for(JwtDTO jwt : jwtlist) {
+			if(!isTokenValid(jwt.getRefresh_token())) {
+				loginJwtDAO.deleteById(jwt.getAccess_token());
+			}
+		}
+		
+		return jwtlist;
+	}
+	// 토큰의 유효성 검사
+	public boolean isTokenValid(String token) {
+        try {
+        	
+        	byte[] secret = util.getJwt_secret().getBytes();
+    		Key key = Keys.hmacShaKeyFor(secret);
+    		
+            Claims claims = Jwts.parserBuilder()
+ 	               .setSigningKey(key)
+ 	               .build()
+ 	               .parseClaimsJws(token)
+ 	               .getBody();
+            
+            // 토큰의 Claims 정보에서 유효기한 확인
+            Date expirationDate = claims.getExpiration();
+            Date now = new Date();
+            if (now.before(expirationDate)) {
+                // 토큰이 유효한 경우
+                return true;
+            } else {
+                // 토큰이 만료된 경우
+                return false;
+            }
+        } catch (ExpiredJwtException ex) {
+            // 토큰이 만료된 경우
+            return false;
+        } catch (Exception ex) {
+            // 토큰 파싱 오류 등의 예외 발생 시
+            return false;
+        }
+    }
+
 	
 	
 }

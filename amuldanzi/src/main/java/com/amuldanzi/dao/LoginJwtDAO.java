@@ -1,5 +1,7 @@
 package com.amuldanzi.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -20,4 +22,6 @@ public interface LoginJwtDAO extends CrudRepository<JwtDTO, String>
 	@Query(value = "INSERT INTO jwt(access_token, refresh_token, access_token_valid, refresh_token_valid) VALUES (:#{#jwt.access_token}, :#{#jwt.refresh_token}, :#{#jwt.access_token_valid}, :#{#jwt.refresh_token_valid})", nativeQuery = true)	
 	void recreatjwt(JwtDTO jwt);
 
+	@Query(value = "SELECT * FROM jwt", nativeQuery = true)	
+	List<JwtDTO> findAll();
 }
