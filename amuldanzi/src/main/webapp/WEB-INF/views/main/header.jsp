@@ -25,8 +25,13 @@
 <link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/chunks/css/text.css" rel="stylesheet">
+<style type="text/css">
+.yoonmiyoonmi{
+ margin-left: 140px;
 
+}
 
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -138,15 +143,37 @@ $(function(){
 							
 							<!-- 비 로그인시 -->
 							<c:if test="${memberRole == '' || memberRole == null}">
-								<a class="Header_defaultMenu__cursor" href="/login/loginpage" id="login">로그인</a>
+								<a class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>
 							</c:if>
 							
 							<c:if test="${memberRole == '관리자'}">
-								<a class="Header_defaultMenu__cursor" href="/admin/adminMain" id="admin1234">관리자</a>
+								<a class="Header_defaultMenu__cursor" href="/admin/adminMain">관리자</a>
 							</c:if>
 							
 							<c:if test="${memberRole == '일반회원'}">
-								<a class="Header_defaultMenu__cursor" href="/" id="home">마이페이지</a>
+								<a class="Header_defaultMenu__cursorNone">마이페이지</a>
+								<div class="Header_headerCircle__x9lE1"></div>
+								<div class="Header_shopPopper__4_A07">
+									<div class="popper_popperContainer__OLokH">
+										<div class="popper_popperMenuList__Hk3b2">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">회원정보관리</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/"	class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a class="popper_popperTab__LvzGS" href="/">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">구매내역</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+										</div>
+									</div>
+								</div>
 							</c:if>
 
 
@@ -154,6 +181,9 @@ $(function(){
 					</nav>
 							<div class="main_contents__NGg5K">
 								<div class="input_inputContainer__1ypW_">
+									<c:if test="${!(memberRole == '' || memberRole == null)}">
+										<a rel="noopener noreferrer" href="/login/logout" class="popper_popperTab__LvzGS yoonmiyoonmi">로그아웃</a>
+									</c:if>
 									<img src="/icons/ICON-24px-Search.svg"
 										class="input_searchInputImg__T1BVk"><input type="text"
 										placeholder="통합 검색" maxlength="130"
@@ -177,12 +207,45 @@ $(function(){
 							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>커뮤니티</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/login/loginpage"><div>로그인</div></a>
+							<c:if test="${memberRole == '' || memberRole == null}">
+								<a class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>
+							</c:if>
+							
+							<c:if test="${memberRole == '관리자'}">
+								<a class="Header_defaultMenu__cursor" href="/admin/adminMain">관리자</a>
+							</c:if>
+							
+							<c:if test="${memberRole == '일반회원'}">
+								<a class="Header_defaultMenu__cursorNone">마이페이지</a>
+								<div class="Header_headerCircle__x9lE1"></div>
+								<div class="Header_shopPopper__4_A07">
+									<div class="popper_popperContainer__OLokH">
+										<div class="popper_popperMenuList__Hk3b2">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">회원정보관리</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/"	class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a class="popper_popperTab__LvzGS" href="/">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">구매내역</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+										</div>
+									</div>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
 				<br/>
 			</header>
+			</div>
 		</div>
 </body>
 </html>
