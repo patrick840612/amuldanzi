@@ -88,6 +88,12 @@ public class LoginController {
 	
 	@RequestMapping("/logout")
 	public String logout() {
+
+		deleteToken();
+		return "redirect:/main/index";
+	}
+	
+	private void deleteToken() {
 		String access_token = null;
 		
 		Cookie[] cookies = request.getCookies();
@@ -118,8 +124,6 @@ public class LoginController {
 
         // 쿠키를 응답에 추가
         res.addCookie(cookie2);
-		
-		return "redirect:/main/index";
 	}
 	
 	// 소셜 회원가입 성공 
@@ -127,7 +131,9 @@ public class LoginController {
 	@RequestMapping("/socialRegist")
 	public String socialRegist(MemberInfoDTO member, MemberSocialDTO memberSocial, Model m) {
 
-		if(member.getUserPassword() == null) { // 일반회원 가입은 되어 있지만 소셜회원 가입은 안 되었을 때
+		deleteToken();
+		
+		if(member.getUserPassword() == null || member.getUserPassword().equals("")) { // 일반회원 가입은 되어 있지만 소셜회원 가입은 안 되었을 때
 			memberSocial.setMemberId(member);
 			loginService.socialRegist(memberSocial);
 			creatJwtToken(member);

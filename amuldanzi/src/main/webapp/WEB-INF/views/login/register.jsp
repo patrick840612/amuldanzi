@@ -122,7 +122,7 @@ $(function() {
 	// 위도 경도 불러올 api 연결
 	var geocoder = new kakao.maps.services.Geocoder();
 	
-	// 주소 텍스트 클릭 시 카카오api로 주소 검색
+	// 주소 찾기 클릭 시 카카오api로 주소 검색
 	$("#addrbutton").click(function(event){
 		event.preventDefault();
 	    new daum.Postcode({
@@ -352,7 +352,7 @@ $(function() {
           event.preventDefault();
 	      dialog.showModal();
 	  });
-
+	  // 반려동물 등록(추가) 버튼 클릭시 1열 추가
 	  $(document).on("click", "#add", function(event) {
 		  event.preventDefault();
 
@@ -364,12 +364,12 @@ $(function() {
 		  $('.addpetDiv').last().append($('<input type="button" class="addpet" name="deletePet" value="삭제"/><br/><br/>'));
 		  petCount += 1;
 		});
-	
+	  // 완료버튼 클릭시 모달 닫기	
 	  $('#confirm').on("click", (event) => {
 		  event.preventDefault();
 		  dialog.close();
 	  });
-	  
+      // 삭제 버튼 클릭시 해당 반려동물 정보 삭제
 	  $(document).on("click", "input[name='deletePet']", function(event) {
 		  event.preventDefault();
 		  $(this).closest('.addpetDiv').remove();

@@ -351,6 +351,8 @@ $(function() {
 				opener.$('#userTel').val(formatPhoneNumber(phoneNumber));
 				opener.$('#hiddenPhone').val(formatPhoneNumber(phoneNumber));
 				opener.$('#bloodTel').val(formatPhoneNumber(phoneNumber));
+				opener.$('#safeTel').prop('checked', false);
+				opener.$('#bloodTel').attr('readonly', true);
 
 				recaptchaResolved = false;
 				$('#confirmCode').attr('readonly', true);

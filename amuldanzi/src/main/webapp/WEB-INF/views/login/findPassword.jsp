@@ -142,7 +142,7 @@ $(function() {
 					<br/>
 					<form action="/login/changePassword" method="post" id="socialRegist">
 						<div class="account_signUpFormContainer__tTwFf" id="require">
-							<div class="account_signUpDesc__FZLyl">필수 입력 사항</div>	
+							<div class="account_signUpDesc__FZLyl">비밀 번호 변경</div>	
 							<div class="account_signUpInputWrapper__kzyF3">
 								<input placeholder="아이디" id="id" name="id" class="account_inputSignUp___sBwm" minlength="6" maxlength="16" required/>
 							</div>

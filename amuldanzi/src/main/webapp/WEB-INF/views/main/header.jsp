@@ -156,7 +156,7 @@ $(function(){
 								<div class="Header_shopPopper__4_A07">
 									<div class="popper_popperContainer__OLokH">
 										<div class="popper_popperMenuList__Hk3b2">
-											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<a rel="noopener noreferrer" href="/mypage/memberinfo" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">회원정보관리</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/"	class="popper_popperTab__LvzGS">
@@ -198,13 +198,13 @@ $(function(){
 							<a class="TopMenu_defaultMenu__gPZP3" href="/"><div>나의 반려 동물</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/content"><div>마켓</div></a>
+							<a class="TopMenu_defaultMenu__gPZP3" href="/"><div>마켓</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_activeMenu__Vm4sT" href="/shopping/situation"><div>게시판</div></a>
+							<a class="TopMenu_activeMenu__Vm4sT" href="/"><div>게시판</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
-							<a class="TopMenu_defaultMenu__gPZP3" href="/community"><div>커뮤니티</div></a>
+							<a class="TopMenu_defaultMenu__gPZP3" href="/"><div>커뮤니티</div></a>
 						</div>
 						<div class="TopMenu_headerLi__K58vU">
 							<c:if test="${memberRole == '' || memberRole == null}">

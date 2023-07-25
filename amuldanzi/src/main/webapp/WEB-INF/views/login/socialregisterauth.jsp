@@ -99,6 +99,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
+	
+	  // 뒤로가기 막기	
+	  history.pushState(null, null, location.href);
+	  window.onpopstate = function(event) {
+	    history.go(1);
+	  };
 
 	// 현재 URL의 쿼리 파라미터를 읽어옴
 	let queryParams = new URLSearchParams(window.location.search);
