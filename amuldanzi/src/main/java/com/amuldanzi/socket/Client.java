@@ -9,6 +9,7 @@ import java.nio.file.Paths;
  
 // 파이썬과 연결되는 클라이언트
 public class Client { 
+	
 	public static String check(String filePath) {
 	try {  
 
