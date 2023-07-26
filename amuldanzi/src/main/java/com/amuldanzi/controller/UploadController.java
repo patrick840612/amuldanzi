@@ -106,7 +106,7 @@ public class UploadController {
             Client c = new Client();
             // filepath 를 인자로 전달하여 클라이언트측의 check 함수 호출 해당 파일 분석결과 반환
             String result =  c.check(filepath);
-            
+             
             // 결과값 리턴
             System.out.println(result); 
             System.out.println(fileName); 
