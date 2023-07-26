@@ -1,19 +1,28 @@
 package com.amuldanzi.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.MemberUpdateDTO;
+import com.amuldanzi.entity.MemberPetEntity;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MypageService;
 
@@ -115,4 +124,75 @@ public class MypageController {
 		mypageService.deleteSocial(memberSocial);		
 	}
 	
+	// 회원정보 수정
+	@RequestMapping(value = "/updateMemberInfo", method = RequestMethod.POST)
+	public String updateMemberInfo(@ModelAttribute MemberInfoDTO member, @ModelAttribute MemberPetEntity pets) {
+
+		List<MemberPetDTO> petList = new ArrayList<>();
+		if (pets != null && hasPetData(pets)) {		
+
+			// 반려동물 목록이 있으면 있는 수만큼 memberPetDTO 객체 생성하여 setter, 반려동물 없으면 없는 걸로 처리(삼항연산자)
+			String[] memberPetId = (pets.getPetName() != null) ? pets.getMemberPetId().split(",") : new String[0];
+	        String[] petNames = (pets.getPetName() != null) ? pets.getPetName().split(",") : new String[0];
+	        String[] whichPets = (pets.getWhichPet() != null) ? pets.getWhichPet().split(",") : new String[0];
+	        String[] petBloods = (pets.getPetBlood() != null) ? pets.getPetBlood().split(",") : new String[0];
+	        String[] gpss = (pets.getGps() != null) ? pets.getGps().split(",") : new String[0];
+			
+	        if (memberPetId.length > 0) {
+
+	            for (int i = 0; i < petNames.length; i++) {
+
+	                MemberPetDTO memberPetDTO = new MemberPetDTO();
+	                if (memberPetId[i] != null && !memberPetId[i].isEmpty()) {
+	                    memberPetDTO.setMemberPetId(Integer.parseInt(memberPetId[i]));
+	                }
+	                memberPetDTO.setPetName(petNames[i]);
+	                memberPetDTO.setWhichPet(whichPets[i]);
+	                memberPetDTO.setPetBlood(petBloods[i]);
+	                memberPetDTO.setGps(gpss[i]);
+	                memberPetDTO.setMemberId(member);
+
+	                petList.add(memberPetDTO);
+	            }
+	        }
+		 }
+		mypageService.updateInfo(member, petList);
+		return "redirect:/main/index";
+	}
+	
+	// MemberPetDTO pets 에 값이 있는지 확인 하는 함수
+	private boolean hasPetData(MemberPetEntity pets) {
+	    return pets != null &&
+	        ((pets.getPetName() != null && !pets.getPetName().isEmpty()) ||
+	        (pets.getWhichPet() != null && !pets.getWhichPet().isEmpty()) ||
+	        (pets.getPetBlood() != null && !pets.getPetBlood().isEmpty()) ||
+	        (pets.getGps() != null && !pets.getGps().isEmpty()));
+	}
+
+	@RequestMapping("/deletePet")
+	@ResponseBody
+	public void deletePet(MemberPetDTO pet) {
+		
+		if(pet.getMemberPetId() != 0) mypageService.deletePet(pet);
+	}
+
+	@RequestMapping("/petDel")
+	@ResponseBody
+	public void petDel(MemberInfoDTO member) {
+		
+		mypageService.petDel(member);
+	}
+
+	
+	
+	
+	
+	
+	// 맵형식으로 데이터 받기
+//	@RequestMapping(value = "/updateMemberInfo", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String updateMemberInfo(@RequestBody Map<String, Object> map) { 
+//		System.out.println(map.entrySet());
+//		return "good";
+//	}
 }

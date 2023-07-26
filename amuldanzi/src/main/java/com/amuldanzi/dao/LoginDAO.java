@@ -24,4 +24,14 @@ public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
 	@Query(value = "UPDATE member_info SET user_password = :#{#member.userPassword} WHERE id = :#{#member.id}", nativeQuery = true)
 	void changePassword(MemberInfoDTO member);
 	
+	@Query(value = "UPDATE member_info SET user_email = :#{#member.userEmail}, user_name = :#{#member.userName}, user_tel = :#{#member.userTel}, "
+			+ "user_addr = :#{#member.userAddr}, marketing_ok = :#{#member.marketingOk}, member_role = :#{#member.memberRole}, "
+			+ "sido = :#{#member.sido}, sigungu = :#{#member.sigungu}, blood_give = :#{#member.bloodGive}, blood_message = :#{#member.bloodMessage}, "
+			+ "blood_tel = :#{#member.bloodTel} WHERE id = :#{#member.id}", nativeQuery = true)
+	void updateById(MemberInfoDTO member);
+	
+	@Query(value = "UPDATE member_info SET blood_give = :#{#member.bloodGive} WHERE id = :#{#member.id}", nativeQuery = true)
+	void changBloodGive(MemberInfoDTO member);
+	
+	
 }

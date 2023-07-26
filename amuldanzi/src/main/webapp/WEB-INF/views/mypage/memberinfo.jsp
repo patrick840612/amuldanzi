@@ -186,11 +186,12 @@ $(function(){
 	  $(document).on("click", "#add", function(event) {
 		  event.preventDefault();
 
-		  $('#addpet').append($('<div class="addpetDiv"></div>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petName[]" placeholder="반려동물 이름(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="whichPet[]" placeholder="반려동물 종류(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petBlood[]" placeholder="반려동물 혈액형(필수)" required/>'));
-		  $('.addpetDiv').last().append($('<input type="text" class="addpet petgps" name="gps[]" placeholder="GPS 시리얼"/>'));
+		  $('#addpet').last().append($('<div class="addpetDiv"></div>'));
+		  $('.addpetDiv').last().append($('<input type="hidden" class="addpet" name="MemberPetId[]" value="0"/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petName[]" placeholder="반려동물 이름(필수)" required style="margin-right: 9px;"/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="whichPet[]" placeholder="반려동물 종류(필수)" required style="margin-left: 5px; margin-right: 9px;"/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet" name="petBlood[]" placeholder="반려동물 혈액형(필수)" required style=" margin-left: 5px; margin-right: 9px;"/>'));
+		  $('.addpetDiv').last().append($('<input type="text" class="addpet petgps" name="gps[]" placeholder="GPS 시리얼"  style=" margin-left: 5px; margin-right: 15px;"/>'));
 		  $('.addpetDiv').last().append($('<input type="button" class="addpet" name="deletePet" value="삭제"/><br/><br/>'));
 		  petCount += 1;
 	  });
@@ -199,11 +200,26 @@ $(function(){
 		  event.preventDefault();
 		  dialog.close();
 	  });
-	  // 삭제 버튼 클릭시 해당 반려동물 정보 삭제
+	  // 삭제 버튼 클릭시 해당 반려동물 정보 삭제(db연동)
 	  $(document).on("click", "input[name='deletePet']", function(event) {
 		  event.preventDefault();
 		  $(this).closest('.addpetDiv').remove();
 		  petCount -= 1;
+		  
+		  let paramPetdelete = { memberPetId : $(this).prev().prev().prev().prev().prev().val() };
+		  
+	        $.ajax({
+				type : 'post',
+				url : '/mypage/deletePet',
+				data : paramPetdelete,
+	    	    success: function() {
+
+		        },
+		        error:function(e){
+		            console.log("error : ", e);
+		            alert('error');
+		        }
+			});
 	  });
 	  // 반려동물 등록 끝
 	  
@@ -215,6 +231,9 @@ $(function(){
 			if ($('#bloodGive').is(':checked')) {
 			    // 체크되었을 때 실행할 코드
 				$('#bloodhidden').show();
+			    if($('#bloodTel')==""){
+			    	$('#bloodTel').val($('#userTel').val());
+			    }
 			} else {
 				const bloodisChecked = $('#bloodGive').checked;
 			    // 체크되지 않았을 때 실행할 코드
@@ -224,6 +243,22 @@ $(function(){
 				$('#addpet').empty();
 				petCount = 0;		
 				$('#safeTel').trigger('change');
+				
+			    let paramPetDel = { id : $('#id').val(), bloodGive : $("#bloodGive").prop("checked")};
+			  
+		        $.ajax({
+					type : 'post',
+					url : '/mypage/petDel',
+					data : paramPetDel,
+		    	    success: function() {
+
+			        },
+			        error:function(e){
+			            console.log("error : ", e);
+			            alert('error');
+			        }
+				});
+
 			}
 			
 		});
@@ -357,29 +392,36 @@ $(function(){
 	  
 		  // 회원정보수정 클릭
 		  $('#regist').submit(function(eve){
-			  
+			  	eve.preventDefault();
 			    const userEmailInput = document.getElementById('userEmail');
 			    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			  
-			    if (!emailPattern.test(userEmailInput.value)) {
-			    	eve.preventDefault();
-			        alert('올바른 이메일 주소를 입력해주세요');
-			        
-			    }else if(petCount>0){
+			    //if (!emailPattern.test(userEmailInput.value)) {
+			    //    alert('올바른 이메일 주소를 입력해주세요');
+			    //}else 
+			    if($("#bloodGive").prop("checked") == true && petCount == 0){
+			    	alert('혈액 나눔 동의시 반려동물을 등록해주세요');
+			    }else if($('.addpetDiv input[required]').filter(function() {
+			        return $(this).val().trim() === '';
+			    }).length > 0){
+			    	alert('반려동물 필수 정보를 입력해주세요');
+			    }else if(petCount>0 || $("#bloodGive").prop("checked") == false){
 					  $('.petgps').each(function() {
 						    if ($(this).val() === '') {
 						      $(this).val('없음');
 						    }
 					 });
+					 //$(this).submit(); 
+					 $(this).unbind('submit').submit();
 			  }
-		  }); // 회원정보 수정 완료
+		  });
+		  
 		  
 		  // 변경사항 미저장 경고창
-		  window.addEventListener('beforeunload', function (e) {
+		/* window.addEventListener('beforeunload', function (e) {
 			  e.preventDefault();
 			  e.returnValue = '';  // Chrome, Firefox에는 이 속성이 필요합니다.
-			  
-		});
+		});*/
 });
 
 </script>
@@ -467,13 +509,18 @@ $(function(){
 
 							<input type="hidden" id="lat" name="lat"> <input
 								type="hidden" id="lng" name="lng"> <input type="hidden"
-								id="sido" name="sido"> <input type="hidden" id="sigungu"
-								name="sigungu"> <input type="hidden" id="memberRole"
+								id="sido" name="sido" value="${member.sido}"> <input type="hidden" id="sigungu"
+								name="sigungu" value="${member.sigungu}"> <input type="hidden" id="memberRole"
 								name="memberRole" value="일반회원">
 						</div>
 						<input type="hidden" name="userAddr" id="userAddr"
 							value="${member.userAddr}">
 
+							<div class="account_alertText__bGPQB"></div>
+							<div class="account_signUpInputWrapper__kzyF3">
+								<button type="button" class="account_checkButton__wezDS"
+									id="findPassword">비밀번호 변경</button>
+							</div><br/>
 
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_loginCheckbox__FAhai">
@@ -501,7 +548,6 @@ $(function(){
 							<div id="bloodhidden">
 								<div class="account_alertText__bGPQB"></div>
 								<div style="color: red;">반려동물 혈액 나눔 동의 체크 해제시 반려동물 정보가 삭제됩니다</div>
-								<div style="color: red;">(회원정보 수정 버튼을 클릭시 최종 삭제 됩니다)</div><br/>
 								<div style="color: red;">혈액나눔에 동의하시면 동의한 회원들에게 노출번호가 공개됩니다</div>
 								<div>혈액 나눔 노출번호 (*안심번호로 수정가능)</div>
 								<div class="account_checkboxwrap__SLQoe">
@@ -543,6 +589,7 @@ $(function(){
 							<div id="addpet">
 								<c:forEach items="${pets}" var="pet">
 									<div class="addpetDiv">
+										<input type="hidden" class="addpet" name="MemberPetId[]" value="${pet.memberPetId}"/>	 
 										<input type="text" class="addpet" name="petName[]"
 											placeholder="반려동물 이름(필수)" required value="${pet.petName}" />
 										<input type="text" class="addpet" name="whichPet[]"
@@ -550,9 +597,10 @@ $(function(){
 										<input type="text" class="addpet" name="petBlood[]"
 											placeholder="반려동물 혈액형(필수)" required value="${pet.petBlood}" />
 										<input type="text" class="addpet petgps" name="gps[]"
-											placeholder="GPS 시리얼" value="${pet.gps}" /> <input
-											type="button" class="addpet" name="deletePet" value="삭제" /><br />
-										<br />
+											placeholder="GPS 시리얼" value="${pet.gps}" />
+										<input
+											type="button" class="addpet" name="deletePet" value="삭제" /><br/>
+										<br/>
 									</div>
 								</c:forEach>
 							</div>
@@ -584,14 +632,9 @@ $(function(){
 											for="google" class="account_checkLabel__7ESRF">카카오</label><br />
 									</div>
 								</div>
-								<div class="login_loginBar__546og"></div>
+							</div>
 
-
-								<div class="login_loginfunction__KPcAe">
-									<div class="login_loginTab__9nBLa" id="findPassword">비밀번호
-										변경</div>
-								</div>
-
+							<div class="login_loginBar__546og"></div>
 								<button type="submit" class="account_signUpButton__6SW9R"
 									id="registConfirm">회원정보 수정</button>
 							</div>
