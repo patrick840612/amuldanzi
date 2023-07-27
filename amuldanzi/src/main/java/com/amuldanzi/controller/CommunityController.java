@@ -28,6 +28,7 @@ import com.amuldanzi.service.CommuityService;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MemberService;
 import com.amuldanzi.util.MD5Generator;
+import com.amuldanzi.util.MariaDBToElasticSearch;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,7 +52,9 @@ public class CommunityController {
 		@Autowired
 		private MemberService memberService;
 		
-	
+		@Autowired
+		private MariaDBToElasticSearch dbToElasticsearch;
+		
 		// 커뮤니티 리스트 불러오기 
 		@RequestMapping("/communityList")
 		public String communityList(@RequestParam(name = "page", defaultValue = "1") int currentPage, Model m) throws InterruptedException {
@@ -205,6 +208,9 @@ public class CommunityController {
 		    }
 			
 			communityService.saveCommunity(dto, fileDtos);
+			
+			dbToElasticsearch.indexDataFromMariaDB();
+			
 			System.out.println(dto);
 			System.out.println(fileDtos);
 		}catch(Exception ex){ 

@@ -29,40 +29,161 @@
 .yoonmiyoonmi{
  margin-left: 140px;
 
-}
+} 
 
+  .searchResultsContainer {
+    position: fixed;
+    top: 30%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 80%; /* Adjust the width as needed */
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+  }
+
+  .searchResultsHeader {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .searchResultsContent {
+    max-height: 300px; /* Set the maximum height for the search results container */
+    overflow-y: auto;
+  }
+
+  .communityResults,
+  .noticeResults {
+    list-style: none;
+    padding: 0;
+  }
+
+  .communityResults li,
+  .noticeResults li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #f5f5f5;
+  }
+
+  .communityResults li a,
+  .noticeResults li a {
+    color: #333;
+    text-decoration: none;
+  }
+
+  .communityResults li a:hover,
+  .noticeResults li a:hover {
+    color: #007bff;
+  }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#searchForm").submit(function(event) {
-        event.preventDefault();
-        var query = $("input[name='query']").val();
-        searchAndDisplayResults(query);
+
+    var searchResultsContainer = $("#searchResults");
+    searchResultsContainer.hide();
+    var searchInput = $("#searchForm input[type='text']");
+    var isResultsVisible = false; // 검색 결과 컨테이너가 보이는지 여부를 저장할 변수
+
+    // 검색 입력 상자에 마우스가 올라갔을 때 이벤트 리스너를 추가합니다
+    searchInput.click(function() { 
+		
+        if (isResultsVisible) {
+            searchResultsContainer.hide(); // 검색 결과를 숨깁니다
+            isResultsVisible = false;
+        } else {
+            // ElasticSearch에 커뮤니티 검색 결과를 요청하는 AJAX 요청을 보냅니다
+            $.ajax({
+                url: "http://localhost:9200/community/_search", // 커뮤니티 인덱스에 대한 ElasticSearch 엔드포인트
+                method: "GET",
+                data: {
+                    match_all: {}
+                },
+                success: function(response) {
+                    // ElasticSearch 응답을 처리하고 커뮤니티 검색 결과를 동적으로 표시합니다
+                    var results = response.hits.hits; 
+                    displayCommunityResults(results);
+                    
+                },
+                error: function(error) {
+                    console.error("커뮤니티 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+                }
+            });
+
+            // ElasticSearch에 공지글 검색 결과를 요청하는 AJAX 요청을 보냅니다
+            $.ajax({
+                url: "http://localhost:9200/notice/_search", // 공지글 인덱스에 대한 ElasticSearch 엔드포인트
+                method: "GET",
+                data: {
+                    match_all: {}
+                },
+                success: function(response) {
+                    // ElasticSearch 응답을 처리하고 공지글 검색 결과를 동적으로 표시합니다
+                    var results = response.hits.hits; 
+                    displayNoticeResults(results);
+                },
+                error: function(error) {
+                    console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+                }
+            }); 
+            searchResultsContainer.show();
+            isResultsVisible = true;
+        }
     });
 
-    $("#searchForm").mouseenter(function() {
-        // 마우스를 검색 창 위에 올렸을 때 Elasticsearch로 커뮤니티 카테고리 전체 검색 결과를 요청합니다.
-        // 필요에 따라 AJAX 요청을 사용하거나, Spring Boot에서 REST API를 호출하여 데이터를 가져올 수 있습니다.
+    // 커뮤니티 검색 결과를 화면에 표시하는 함수
+    function displayCommunityResults(results) {
+        var communityResultsContainer = $("<ul></ul>");
 
-        // 가져온 결과를 가지고 결과를 동적으로 표시합니다.
-        // 예를 들어, 커뮤니티 카테고리 전체 검색 결과를 리스트로 표시할 수 있습니다.
-        // 실제로는 적절한 방법으로 결과를 동적으로 추가합니다.
-        var communitySearchResults = ["결과1", "결과2", "결과3"]; // 가상의 결과
+        results.sort(function(a, b) {
+            return b._source.comm_no - a._source.comm_no;
+        }); 
+        
+        for (var i = 0; i < Math.min(results.length, 3); i++) {
+            var source = results[i]._source;
+            var commNo = source.comm_no;
+            var commTitle = source.comm_title;
+            var resultItem = "<li>◎<a href='/community/communityDetail?comm_no=" + commNo + "' style='font-size: 25px;'>" + commTitle + "</a></li>";
+            communityResultsContainer.append(resultItem);
+        }
+        // 검색 결과 컨테이너를 비우고 커뮤니티 검색 결과 추가
+        searchResultsContainer.find(".communityResults").empty().append(communityResultsContainer);
+        // 검색 결과를 보이도록 설정
+        searchResultsContainer.show();
+    }
 
-        var searchResultsDiv = $("<div></div>");
-        searchResultsDiv.text("커뮤니티 카테고리 전체 검색 결과: " + communitySearchResults.join(", "));
-        $("#searchResults").empty().append(searchResultsDiv);
-    });
-
-    function searchAndDisplayResults(query) {
-        // 검색 요청과 결과 표시는 이전 답변에서 설명한 방법을 따릅니다.
-        // Elasticsearch로 검색 요청을 보내고 결과를 동적으로 표시하는 로직을 구현합니다.
-        // 필요에 따라 HTML 템플릿을 사용하여 결과를 표시하거나, DOM 조작을 통해 결과를 동적으로 생성하는 방법을 사용할 수 있습니다.
+    // 공지글 검색 결과를 화면에 표시하는 함수
+    function displayNoticeResults(results) {
+        var noticeResultsContainer = $("<ul></ul>");
+        
+        results.sort(function(a, b) {
+            return b._source.id - a._source.id;
+        });
+        
+        for (var i = 0; i < Math.min(results.length, 3); i++) {
+            var source = results[i]._source;
+            var noticeId = source.id;
+            var noticeTitle = source.title;
+            var resultItem = "<li>◎<a href='/notice/noticeDetail?title=" + noticeTitle + "' style='font-size: 25px;'>" + noticeTitle + "</a></li>";
+            noticeResultsContainer.append(resultItem);
+        }
+ 
+        // 검색 결과 컨테이너에 공지글 검색 결과 추가
+        searchResultsContainer.find(".noticeResults").empty().append(noticeResultsContainer);
+        // 검색 결과를 보이도록 설정
+        searchResultsContainer.show();
+        
     }
 });
-
-
 </script>
 </head>
 <body>
@@ -211,19 +332,17 @@ $(document).ready(function() {
 									<form id = "searchForm" action="/main/search" method="get">
 									  <img src="/icons/ICON-24px-Search.svg" class="input_searchInputImg__T1BVk">
 									  <input type="text" name="query" placeholder="통합 검색" maxlength="130" class="input_searchInput__SF1GC" enterkeyhint="search">
-									</form>
-									
-									
-									<div id = "searchResults">  
-									
-									
-									</div>
+									</form> 
+								</div>  
 							</div>
-					
-					
-					
-					
-				</div>
+							  <div id="searchResults" class="searchResultsContainer">
+						    <div class="searchResultsHeader">최신 글</div>
+						    <div class="searchResultsContent">
+						      <ul class="communityResults"></ul>
+						      <ul class="noticeResults"></ul>
+						    </div>
+						  </div>
+									
 				<div class="TopMenu_menuList__AMnXb">
 					<div class="TopMenu_menuWrapper__L1uFn">
 						<div class="TopMenu_headerLi__K58vU">

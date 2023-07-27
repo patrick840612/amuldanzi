@@ -36,7 +36,8 @@ public class MainController {
 	private NoticeService service;
 	
 	@Autowired
-	CareService careservice;
+	private CareService careservice;
+	 
 	
 	@RequestMapping("/index")
 	public void index(Model m) {
