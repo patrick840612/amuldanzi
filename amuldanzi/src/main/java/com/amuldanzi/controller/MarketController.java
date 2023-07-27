@@ -79,7 +79,7 @@ public class MarketController {
 
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
 	
-	@RequestMapping("carrot")
+	@RequestMapping("/carrot")
 	public String carrot(@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model m) {
 	    // headerChange() 메서드를 통해 헤더 정보를 가져옴
 	    Map<String, Object> map = headerChange();
@@ -115,7 +115,7 @@ public class MarketController {
 	    return "market/carrot"; // 여기에 JSP 페이지의 이름을 입력해주세요
 	}
 	
-	@RequestMapping("dolbomiShop")
+	@RequestMapping("/dolbomiShop")
 	public String dolbomiShop(@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model m) {
 	    // headerChange() 메서드를 통해 헤더 정보를 가져옴
 	    Map<String, Object> map = headerChange();
@@ -151,7 +151,19 @@ public class MarketController {
 	    return "market/dolbomiShop"; // 여기에 JSP 페이지의 이름을 입력해주세요
 	}
 	
-
+	@RequestMapping("/jungoDetail")
+	public void jungoDetail(MarketGoodsDTO dto, Model m) {
+		
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+	    Map<String, Object> map = headerChange();
+	    // 헤더 정보를 모델에 추가
+	    m.addAttribute("id", map.get("id"));
+	    m.addAttribute("memberRole", map.get("memberRole"));
+	    
+	    MarketGoodsDTO result = marketservice.findById(dto.getGoodsId());
+		m.addAttribute("marketList",result);
+		
+	}
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 
 public interface MarketInfoRepository extends CrudRepository<MarketInfoDTO, Integer>{
@@ -19,5 +20,5 @@ public interface MarketInfoRepository extends CrudRepository<MarketInfoDTO, Inte
 
 	@Query(value = "SELECT m.title AS title, m.addr AS addr, m.tel AS tel, m.time AS time, m.lat AS lat, m.lng AS lng FROM market m WHERE SUBSTRING(m.addr, 1, 2) = SUBSTRING(:addr, 1, 2)", nativeQuery = true)
 	List<Object[]> getAllAddresses(@Param("addr") String location);
-
+	
 }

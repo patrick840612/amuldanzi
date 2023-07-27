@@ -23,6 +23,11 @@ public class MarketServiceImpl implements MarketService {
 	public Page<MarketGoodsDTO> findDolbomiCate(Pageable paging) {
 		return marketRepo.findDolbomiCate(paging);
 	}
+
+	@Override
+	public MarketGoodsDTO findById(Integer goodsId) {
+		return marketRepo.findById(goodsId).get();
+	}
 	
 	
 	
