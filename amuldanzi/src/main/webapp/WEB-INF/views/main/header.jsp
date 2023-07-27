@@ -85,7 +85,12 @@
     color: #007bff;
   }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- 섬머노트 추가--> 
+<link rel="stylesheet" href="/mypage/css/summernote/summernote-lite.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/mypage/js/summernote/summernote-lite.js"></script>
+<script src="/mypage/js/summernote/lang/summernote-ko-KR.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -310,10 +315,10 @@ $(document).ready(function() {
 											<a class="popper_popperTab__LvzGS" href="/mypage/business">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<a rel="noopener noreferrer" href="/mypage/qnalist" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<a rel="noopener noreferrer" href="/mypage/orderlist" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">구매내역</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 										</div>

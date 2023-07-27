@@ -197,7 +197,7 @@ $(document).ready(function() {
 });
 </script>
 </head>
-<jsp:include page="../main/header2.jsp"></jsp:include>
+<jsp:include page="../main/header.jsp"></jsp:include>
 
 
 <body class="nav-md">
