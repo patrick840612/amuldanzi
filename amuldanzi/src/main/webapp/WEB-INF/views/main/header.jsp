@@ -183,10 +183,10 @@ $(document).ready(function() {
 											<a rel="noopener noreferrer" href="/mypage/memberinfo" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">회원정보관리</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a rel="noopener noreferrer" href="/"	class="popper_popperTab__LvzGS">
+											<a rel="noopener noreferrer" href="/mypage/sitter"	class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a class="popper_popperTab__LvzGS" href="/">
+											<a class="popper_popperTab__LvzGS" href="/mypage/business">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
@@ -211,13 +211,10 @@ $(document).ready(function() {
 									<form id = "searchForm" action="/main/search" method="get">
 									  <img src="/icons/ICON-24px-Search.svg" class="input_searchInputImg__T1BVk">
 									  <input type="text" name="query" placeholder="통합 검색" maxlength="130" class="input_searchInput__SF1GC" enterkeyhint="search">
-									  <button type="submit">검색</button>
 									</form>
 									
 									
-									<div id = "searchResults"> 
-									
-									
+									<div id = "searchResults">  
 									
 									
 									</div>
