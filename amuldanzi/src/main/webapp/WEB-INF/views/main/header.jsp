@@ -34,11 +34,35 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-$(function(){
+$(document).ready(function() {
+    $("#searchForm").submit(function(event) {
+        event.preventDefault();
+        var query = $("input[name='query']").val();
+        searchAndDisplayResults(query);
+    });
 
+    $("#searchForm").mouseenter(function() {
+        // 마우스를 검색 창 위에 올렸을 때 Elasticsearch로 커뮤니티 카테고리 전체 검색 결과를 요청합니다.
+        // 필요에 따라 AJAX 요청을 사용하거나, Spring Boot에서 REST API를 호출하여 데이터를 가져올 수 있습니다.
 
-		
+        // 가져온 결과를 가지고 결과를 동적으로 표시합니다.
+        // 예를 들어, 커뮤니티 카테고리 전체 검색 결과를 리스트로 표시할 수 있습니다.
+        // 실제로는 적절한 방법으로 결과를 동적으로 추가합니다.
+        var communitySearchResults = ["결과1", "결과2", "결과3"]; // 가상의 결과
+
+        var searchResultsDiv = $("<div></div>");
+        searchResultsDiv.text("커뮤니티 카테고리 전체 검색 결과: " + communitySearchResults.join(", "));
+        $("#searchResults").empty().append(searchResultsDiv);
+    });
+
+    function searchAndDisplayResults(query) {
+        // 검색 요청과 결과 표시는 이전 답변에서 설명한 방법을 따릅니다.
+        // Elasticsearch로 검색 요청을 보내고 결과를 동적으로 표시하는 로직을 구현합니다.
+        // 필요에 따라 HTML 템플릿을 사용하여 결과를 표시하거나, DOM 조작을 통해 결과를 동적으로 생성하는 방법을 사용할 수 있습니다.
+    }
 });
+
+
 </script>
 </head>
 <body>
@@ -184,12 +208,23 @@ $(function(){
 									<c:if test="${!(memberRole == '' || memberRole == null)}">
 										<a rel="noopener noreferrer" href="/login/logout" class="popper_popperTab__LvzGS yoonmiyoonmi">로그아웃</a>
 									</c:if>
-									<img src="/icons/ICON-24px-Search.svg"
-										class="input_searchInputImg__T1BVk"><input type="text"
-										placeholder="통합 검색" maxlength="130"
-										class="input_searchInput__SF1GC" enterkeyhint="search" value="">
-								</div>
+									<form id = "searchForm" action="/main/search" method="get">
+									  <img src="/icons/ICON-24px-Search.svg" class="input_searchInputImg__T1BVk">
+									  <input type="text" name="query" placeholder="통합 검색" maxlength="130" class="input_searchInput__SF1GC" enterkeyhint="search">
+									  <button type="submit">검색</button>
+									</form>
+									
+									
+									<div id = "searchResults"> 
+									
+									
+									
+									
+									</div>
 							</div>
+					
+					
+					
 					
 				</div>
 				<div class="TopMenu_menuList__AMnXb">
