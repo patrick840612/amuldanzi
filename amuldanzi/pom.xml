@@ -187,6 +187,26 @@
 
 		<!-- swagger 설정 -->
 
+
+		<!-- 엘라스틱 서치 설정-->
+	 <!-- Elasticsearch High Level REST Client -->
+	 <!--
+	    <dependency>
+	        <groupId>org.elasticsearch.client</groupId>
+	        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+	        <version>7.15.0</version>
+	    </dependency> 
+	   -->
+	
+	
+	    <!-- Spring Boot Starter Data Elasticsearch -->
+	    <!--
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+	    </dependency>
+	   -->
+
 	</dependencies>
 
 	<build>
