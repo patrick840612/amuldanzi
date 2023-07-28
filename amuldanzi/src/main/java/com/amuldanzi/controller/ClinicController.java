@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/clinic")
 public class ClinicController {
-	
+
 	
 	@Autowired
 	ClinicService service; 
@@ -32,6 +32,7 @@ public class ClinicController {
 	@Autowired
 	private HttpServletRequest request;
 	
+	//케어정보 상세보기 요청
 	@RequestMapping("/clinicInfo")
 	public void clinicPage(Model m) {
 		System.out.println("clinicDetail호출");

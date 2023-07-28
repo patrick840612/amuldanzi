@@ -51,10 +51,10 @@
 }
 
 .table-bordred td {
-    /*width: 150px;  각 셀의 가로 크기를 150픽셀로 설정 */
-    height: 50px; /* 각 셀의 세로 크기를 50픽셀로 설정 */
-    padding: 10px; /* 각 셀의 내용과 테두리 사이의 여백(padding)을 설정 */
-    text-align: center; /* 각 셀의 텍스트를 가운데 정렬 */
+	/*width: 150px;  각 셀의 가로 크기를 150픽셀로 설정 */
+	height: 50px; /* 각 셀의 세로 크기를 50픽셀로 설정 */
+	padding: 10px; /* 각 셀의 내용과 테두리 사이의 여백(padding)을 설정 */
+	text-align: center; /* 각 셀의 텍스트를 가운데 정렬 */
 }
 
 .notice-lable {
@@ -86,7 +86,7 @@
 		<hr class="popper_popperMenuDivider__j1QQj">
 
 		<br /> <br /> <br />
-
+<!-- 공지사항 목록 테이블 -->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -102,8 +102,10 @@
 
 							</thead>
 							<tbody>
+							<!-- 공지사항 목록 반복문 -->
 								<c:forEach items="${noticeList}" var="notice" varStatus="loop">
 									<tr>
+									<!-- 두 개의 최신 공지사항은 "공지" 레이블 표시 -->
 										<c:if test="${loop.index < 2 && currentPage == 1}">
 											<td>
 												<center>
@@ -111,18 +113,22 @@
 												</center>
 											</td>
 										</c:if>
+										<!-- 이외의 공지사항은 번호 표시 -->
 										<c:if test="${loop.index >= 2 || currentPage > 1}">
 											<td>
 												<center>${notice.id}</center>
 											</td>
 										</c:if>
+										<!-- 공지사항 제목과 경로 -->
 										<td align="left"><a
 											href="/notice/noticeDetail?title=${notice.title}">
 												<center>${notice.title}</center>
 										</a></td>
+										<!-- 공지사항 게시일 -->
 										<td>
 											<center>${notice.regdate}</center>
 										</td>
+										<!-- 공지사항 조회수 표시 -->
 										<td>
 											<center>${notice.count}</center>
 										</td>
@@ -136,31 +142,31 @@
 						<div class="clearfix"></div>
 
 						<ul class="pagination justify-content-center">
-
+						<!-- 맨 처음 페이지로 가기 -->
 							<li class="${currentPage == 1 ? 'disabled' : '' }"><a
 								href="/notice/notice?page=1" aria-lable="처음 페이지로 이동"> <span
 									class="glyphicon glyphicon-chevron-left"></span>
 							</a></li>
-
+							<!-- 이전 페이지로 가기 -->
 							<li class="${currentPage == 1 ? 'disabled' : ''}"><a
 								href="/notice/notice?page=${currentPage - 1}"
 								aria-label="이전 페이지로 이동"> <span
 									class="glyphicon glyphicon-chevron-left"></span>
 							</a></li>
-
+							<!-- 페이지 번호 반복문 -->
 							<c:forEach begin="1" end="${totalPages}" var="pageNumber">
 								<li class="${pageNumber == currentPage ? 'active' : ''}"><a
 									href="/notice/notice?page=${pageNumber}"
 									aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
 							</c:forEach>
-
+							<!-- 다음 페이지로 가기 -->
 							<li class="${currentPage == totalPages ? 'disabled' : ''}">
 								<a href="/notice/notice?page=${currentPage + 1}"
 								aria-label="다음 페이지로 이동"> <span
 									class="glyphicon glyphicon-chevron-right"></span>
 							</a>
 							</li>
-
+							<!-- 맨 마지막 페이지로 가기 -->
 							<li class="${currentPage == totalPages ? 'disabled' : ''}">
 								<a href="/notice/notice?page=${totalPages}"
 								aria-label="마지막 페이지로 이동"> <span
@@ -168,26 +174,10 @@
 							</a>
 							</li>
 						</ul>
-
-
-						<!--  
-						<li class="disabled"><a href="#"><span
-								class="glyphicon glyphicon-chevron-left"></span></a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#"><span
-								class="glyphicon glyphicon-chevron-right"></span></a></li>-->
-
-
 					</div>
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="modal fade" id="edit" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
@@ -212,8 +202,6 @@
 						<div class="form-group">
 							<textarea rows="2" class="form-control"
 								placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
-
-
 						</div>
 					</div>
 					<div class="modal-footer ">
@@ -227,8 +215,6 @@
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
-
-
 
 		<div class="modal fade" id="delete" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
@@ -248,7 +234,6 @@
 							<span class="glyphicon glyphicon-warning-sign"></span> Are you
 							sure you want to delete this Record?
 						</div>
-
 					</div>
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-success">

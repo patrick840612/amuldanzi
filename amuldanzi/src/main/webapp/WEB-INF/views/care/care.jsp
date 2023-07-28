@@ -42,40 +42,40 @@
 	color: white;
 }
 
+/*썸네일 목록*/
 .custom-thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
-
+/*썸네일*/
 .custom-thumbnails .thumbnail {
-  width: 370px;
-  height: 350px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+	width: 370px; /*너비*/
+	height: 350px; /*높이*/
+	margin-right: 20px; /*여백*/
+	margin-bottom: 20px; /*여백*/
 }
-
+/*썸네일 가운데 정렬*/
 .custom-thumbnails .caption {
-  text-align: center;
+	text-align: center;
 }
-
+/*썸네일 너비에 맞게 버튼 폭 조정*/
 .custom-thumbnails .btn-pink {
-  width: 100%;
+	width: 100%;
 }
 
 .custom-thumbnails .thumbnail {
-  position: relative;
+	position: relative;
 }
-
+/*썸네일 버튼*/
 .custom-thumbnails .button-container {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  width: 100%;
-  text-align: center;
+	position: absolute;
+	bottom: 10px;/*여백*/
+	left: 0;/*여백*/
+	width: 100%;
+	text-align: center;
 }
-
 </style>
 
 
@@ -99,29 +99,33 @@
 	<br />
 	<br />
 	<br />
-<div class="container">
-  <div class="row">
-    <div class="custom-thumbnails">
-      <c:forEach items="${careList}" var="care" varStatus="status">
-        <div class="thumbnail">
-          <img src="/images/care/${care.img}" alt="ALT NAME" class="img-responsive" width="350" height="270">
-          <div class="caption">
-            <h3>${care.title}</h3>
-          </div>
-          <div class="button-container">
-            <a href="/care/careDetail?id=${care.id}" class="btn btn-pink">더보기</a>
-          </div>
-        </div>
-      </c:forEach>
-    </div>
-  </div>
-</div>
+	<div class="container">
+		<div class="row">
+			<!-- careList 순회하며 케어정보를 썸네일 형식으로 보여줌 -->
+			<div class="custom-thumbnails">
+				<c:forEach items="${careList}" var="care" varStatus="status">
+					<div class="thumbnail">
+						<img src="/images/care/${care.img}" alt="ALT NAME"
+							class="img-responsive" width="350" height="270">
+						<div class="caption">
+							<h3>${care.title}</h3>
+						</div>
+						<!-- 케어정보 상세 페이지로 이동 -->
+						<div class="button-container">
+							<!-- care.id를 파라미터로 전달하여 해당 ID를 식별 -->
+							<a href="/care/careDetail?id=${care.id}" class="btn btn-pink">더보기</a>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
 
 	</div>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
 </body>
 </html>

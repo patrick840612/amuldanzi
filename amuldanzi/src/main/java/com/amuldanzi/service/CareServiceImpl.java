@@ -14,21 +14,21 @@ public class CareServiceImpl implements CareService {
 	@Autowired
 	CareRepository careRepo;
 
+	// 케어정보 전체 목록
 	@Override
 	public List<CareDTO> getCareList() {
-		// TODO Auto-generated method stub
 		return (List<CareDTO>)careRepo.findAll();
 	}
 
+	// Id에 따른 특정 케어 정보
 	@Override
 	public CareDTO getCareByCareId(Integer careId) {
-		// TODO Auto-generated method stub
 		return careRepo.findById(careId).orElse(null);
 	}
 
+	// 최신 케어 정보 2개
 	@Override
 	public List<CareDTO> getCareListRecent() { 
-		
 		return careRepo.selectByRecent();
 	}
 

@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
-// 공지사항
+// 정보게시판 - 공지사항
 	
 	@Autowired
 	NoticeService service;
@@ -71,7 +71,7 @@ public class NoticeController {
 		m.addAttribute("totalPages", totalPages);
         m.addAttribute("currentPage", currentPage);
 		
-		// 회원 역할에 따른 헤더 정보를 뷰에 추가
+
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
@@ -83,10 +83,11 @@ public class NoticeController {
 	@RequestMapping("/noticeDetail")
 	public void noticeDetail(@RequestParam("title") String noticeTitle, Model model) {
 
+		// noticeTitle로 특정 공지사항을 데이터베이스에 가져오기
 		NoticeDTO notice = service.getNoticeByNoticeTitle(noticeTitle);
 
+		// 공지사항 조회수 증가
 		if (notice != null) {
-			//조회수 증가 후 데이터베이스 업데이트
 			notice.setCount(notice.getCount() + 1);
 			service.noticeUpdate(notice);
 			model.addAttribute("notice", notice);
