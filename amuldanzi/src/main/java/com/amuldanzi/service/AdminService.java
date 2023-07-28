@@ -5,6 +5,7 @@ import java.util.List;
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
+import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
@@ -47,12 +48,28 @@ public interface AdminService {
 
 	AdvertisementDTO getAdById(AdvertisementDTO dto);
 
-	void deleteVideo(String vidoeName);
-
-	void deleteImage(Integer cateId, String imageName);
-
 	EducationDTO getEduById(EducationDTO dto);
 
 	CareDTO getCareById(CareDTO dto);
+
+	void careUpdate(CareDTO dto);
+
+	void eduUpdate(EducationDTO dto);
+
+	void noticeUpdate(NoticeDTO dto);
+
+	void deleteImage(Integer cateId, String imageName);
+
+	void deleteVideo(Integer cateId, String videoPath);
+
+	void commerceSave(CommerceDTO dto);
+
+	List<CommerceDTO> getCommerceList();
+
+	void commerceDelete(CommerceDTO dto);
+
+	void commerceUpdate(CommerceDTO dto);
+
+	
 
 }

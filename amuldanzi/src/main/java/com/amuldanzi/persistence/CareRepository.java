@@ -13,7 +13,10 @@ public interface CareRepository extends CrudRepository<CareDTO, Integer> {
 
 	Optional<CareDTO> findById(Integer careId);
 	
-	@Query(value = "DELETE FROM care WHERE img = :imageName", nativeQuery = true)
+	@Query(value = "UPDATE care SET img = NULL WHERE img = :imageName", nativeQuery = true)
 	void deleteImage(@Param("imageName") String imageName);
+
+	@Query(value = "UPDATE care SET video = NULL WHERE video = :vidoeName", nativeQuery = true)
+	void deleteVideo(@Param("vidoeName") String vidoeName);
 
 }

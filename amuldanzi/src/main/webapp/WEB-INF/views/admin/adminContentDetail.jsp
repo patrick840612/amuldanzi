@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -47,85 +47,118 @@
 
 <script>
   $(document).ready(function() {
-	  
 	  // 현재 URL의 쿼리 파라미터를 읽어옴
 	  let queryParams = new URLSearchParams(window.location.search);
-	  
+
 	  var selectedCateId = queryParams.get('cateId');
-	  
-      $('#noticeForm').show(); 
-      $('#eduForm').hide();
-      $('#careForm').hide();
-	  
-	  let postForm = function() {
-		  let content = $('#editor-one').summernote('code');
-		  $('#content').val(content);
-		}  
-  
-    // 라디오 버튼 클릭 이벤트 핸들러
-    function handleRadioChange() {
-      var selectedValue = $('input[name="cate"]:checked').val();
-      var noticeForm = $('#noticeForm');
-      var eduForm = $('#eduForm');
-      var careForm = $('#careForm');
-      var noticeCategory = $('#noticeCategory');
-	  var insertButton = $('#insertButton');
+	  var selectedAnimalId = queryParams.get('animal');
+	  selectedAnimalId = decodeURIComponent(selectedAnimalId);
+	  	  
+	  console.log("selectedCateId:", selectedCateId);
+	  console.log("selectedAnimalId:", selectedAnimalId);
 
-	  if (selectedValue === '0') {
-    	// 선택한 라디오 버튼에 따라 form 영역 변경  
-        $('#noticeForm').show(); 
-        $('#eduForm').hide();
-        $('#careForm').hide();
+	  $('#noticeForm').show(); 
+	  $('#eduForm').hide();
+	  $('#careForm').hide();
+
+	  // 라디오 버튼 클릭 이벤트 핸들러
+	  function handleRadioChange() {
+	    var selectedValue = $('input[name="cate"]:checked').val();
+	    var noticeForm = $('#noticeForm');
+	    var eduForm = $('#eduForm');
+	    var careForm = $('#careForm');
+	    var noticeCategory = $('#noticeCategory');
+	    var insertButton = $('#insertButton');
+
+	    if (selectedValue === '0') {
+	      // 선택한 라디오 버튼에 따라 form 영역 변경  
+	      $('#noticeForm').show(); 
+	      $('#eduForm').hide();
+	      $('#careForm').hide();
+	    } else if (selectedValue === '2') {
+	      $('#noticeForm').hide(); 
+	      $('#eduForm').show();
+	      $('#careForm').hide();
+	    } else if(selectedValue === '3'){        
+	      $('#noticeForm').hide(); 
+	      $('#eduForm').hide();
+	      $('#careForm').show();
+	    }
+
+	    // 기타 필요한 작업 수행
+	  }
+
+	  // 모든 라디오 버튼을 선택 가능하도록 초기화
+	  $('input[name="cate"]').prop('disabled', false);
+
+	  // 선택된 카테고리 라디오 버튼을 찾아서 선택하고, 나머지 버튼들을 비활성화
+	  $('input[name="cate"]').each(function() {
+	    if ($(this).val() === selectedCateId) {
+	      $(this).prop('checked', true);
+	    } else {
+	      $(this).prop('disabled', true);
+	    }
+	  });
+
+	  handleRadioChange(); // 초기 로드 시점에 선택된 카테고리와 동물에 따라 폼을 보이거나 숨깁니다.
+
+	  // 라디오 버튼 변경 시 handleRadioChange 함수 호출
+	  $('input[name="cate"]').on('change', function() {
+	    handleRadioChange();
+	  });
+
+	  //cateId에 따라 라디오 버튼 체크
+	  $('input[name="animalEdu"]').each(function() {
+	    if ($(this).val() === selectedAnimalId) {
+	      $(this).prop('checked', true);
+	    } else {
+	      $(this).prop('checked', false);
+	    }
+	  });
+
+	  $('input[name="animalCare"]').each(function() {
+	    if ($(this).val() === selectedAnimalId) {
+	      $(this).prop('checked', true);
+	    } else {
+	      $(this).prop('checked', false);
+	    }
+	  });
     
-      }else if (selectedValue === '2') {
-          $('#noticeForm').hide(); 
-          $('#eduForm').show();
-          $('#careForm').hide();
-        
-      }else if(selectedValue === '3'){        
-          $('#noticeForm').hide(); 
-          $('#eduForm').hide();
-          $('#careForm').show();	  
- 	  
-      }
 
-      // 기타 필요한 작업 수행
-    }
-
-    // 모든 라디오 버튼을 선택 가능하도록 초기화
-    $('input[name="cate"]').prop('disabled', false);
-
-    // 선택된 카테고리 라디오 버튼을 찾아서 선택하고, 나머지 버튼들을 비활성화
-    $('input[name="cate"]').each(function() {
-      if ($(this).val() === selectedCateId) {
-        $(this).prop('checked', true);
-      } else {
-        $(this).prop('disabled', true);
-      }
-    });
-
-    handleRadioChange(); // 선택된 카테고리에 따라 폼을 보이거나 숨깁니다.
+    
     
     
  	// 폼 제출 시 postForm 함수 호출
     $('form').submit(function() {
+    	// 선택한 라디오 버튼의 값을 hidden field에 설정
+        var selectedValue = $('input[name="cate"]:checked').val();
+        $('input[name="cateId"]').val(selectedValue);
+     	// 폼 제출
         postForm();
       });
     
- 	// 교육 이미지 업로드 미리보기
-    $('#eduUploadFile').on('change', function(event) {
-      var previewContainer = $('#eduImagePreviewContainer');
+    // 이미지 및 비디오 업로드 미리보기 함수
+    function handlePreview(event, imageContainer, videoContainer) {
+      var previewContainer = $(imageContainer);
       previewContainer.html('');
 
       var files = event.target.files;
       if (files && files.length > 0) {
         var file = files[0];
         var reader = new FileReader();
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
 
+        reader.onload = function(e) {
+          if (file.type.startsWith('image')) {
+            var image = $('<img>').attr('src', e.target.result);
+            var preview = $('<div class="image-preview"></div>').append(image);
+          } else if (file.type.startsWith('video')) {
+            var video = document.createElement('video');
+            video.setAttribute('controls', 'controls');
+            video.setAttribute('src', e.target.result);
+            var preview = $('<div class="video-preview"></div>').append(video);
+          }
+
+          var deleteButton = $('<span class="delete-button">&times;</span>');
           deleteButton.on('click', function() {
             preview.remove();
           });
@@ -136,96 +169,27 @@
 
         reader.readAsDataURL(file);
       }
+    }
+
+    // 교육 이미지 업로드 미리보기
+    $('#eduUploadFile').on('change', function(event) {
+      handlePreview(event, '#eduImagePreviewContainer', '#eduVideoPreviewContainer');
     });
 
     // 교육 비디오 업로드 미리보기
     $('#eduUploadVideoFile').on('change', function(event) {
-      var previewContainer = $('#eduVideoPreviewContainer');
-      previewContainer.html('');
-
-      var files = event.target.files;
-      if (files && files.length > 0) {
-        var file = files[0];
-        var video = document.createElement('video');
-        video.setAttribute('controls', 'controls');
-
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var videoSrc = e.target.result;
-          video.setAttribute('src', videoSrc);
-          var preview = $('<div class="video-preview"></div>').append(video);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
-
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
-
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
-
-        reader.readAsDataURL(file);
-      }
+      handlePreview(event, '#eduVideoPreviewContainer', '#eduImagePreviewContainer');
     });
-    
-    
+
     // 케어 이미지 업로드 미리보기
     $('#careUploadFile').on('change', function(event) {
-      var previewContainer = $('#careImagePreviewContainer');
-      previewContainer.html('');
-
-      var files = event.target.files;
-      if (files && files.length > 0) {
-        var file = files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
-
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
-
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
-
-        reader.readAsDataURL(file);
-      }
+      handlePreview(event, '#careImagePreviewContainer', '#careVideoPreviewContainer');
     });
 
     // 케어 비디오 업로드 미리보기
     $('#careUploadVideoFile').on('change', function(event) {
-      var previewContainer = $('#careVideoPreviewContainer');
-      previewContainer.html('');
-
-      var files = event.target.files;
-      if (files && files.length > 0) {
-        var file = files[0];
-        var video = document.createElement('video');
-        video.setAttribute('controls', 'controls');
-
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          var videoSrc = e.target.result;
-          video.setAttribute('src', videoSrc);
-          var preview = $('<div class="video-preview"></div>').append(video);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
-
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
-
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
-
-        reader.readAsDataURL(file);
-      }
+      handlePreview(event, '#careVideoPreviewContainer', '#careImagePreviewContainer');
     });
-    
-    
   });
 </script>
 
@@ -366,183 +330,208 @@
                 <label for="케어정보">케어정보</label>
               </div>
             </div>
-            
-			<div id="noticeForm">
-			  <form action="noticeSave" method="POST" enctype="multipart/form-data">
-			    <div>
-			      <input name="cateId" type="hidden" value="0" />
-			      <span class="question_questionCategory__1QDx6">공지 카테고리</span>
-			      <span class="question_questionMark__AykT_">*</span>
-			
-			      <div class="question_radioWrap__WZ6ME" id="cateList">
-			        <div>
-			          <input type="radio" name="category" id="중요공지" value="중요공지" checked>
-			          <label for="중요공지">중요 공지</label>
-			        </div>
-			        <div>
-			          <input type="radio" name="category" id="일반공지" value="일반공지">
-			          <label for="일반공지">일반 공지</label>
-			        </div>
-			      </div>
-			    </div>			
-			    <div>
-			      <div>
-			        <span class="question_questionCategory__1QDx6">글 작성</span>
-			        <span class="question_questionMark__AykT_">*</span>
-			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" value="${noticeDetail.title }"/>
-			      <div class="question_alertText__WnxqW"></div>
-			    </div>
-			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea class="question_questionInput___Mb57" name="content">${noticeDetail.content }</textarea>
-			    </div>
-			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">공지 수정</button>
-			    </div>
-			    <br />
-			  </form>
-			</div>
-			<div id="eduForm">
-			  <form action="eduSave" method="POST" enctype="multipart/form-data">
-			    <div>
-			      <span class="question_questionCategory__1QDx6">교육 카테고리</span>
-			      <span class="question_questionMark__AykT_">*</span>
-			
-			      <div class="question_radioWrap__WZ6ME" id="cateList">
-			        <div>
-			          <input type="radio" name="animal" id="eduDog" value="강아지" checked>
-			          <label for="eduDog">강아지</label>
-			        </div>
-			        <div>
-			          <input type="radio" name="animal" id="eduCat" value="고양이">
-			          <label for="eduCat">고양이</label>
-			        </div>
-			      </div>
-			    </div>
-			    <div>
-			      <div>
-			        <span class="question_questionCategory__1QDx6">교육 단계</span>
-			        <span class="question_questionMark__AykT_">*</span>
-			      </div>
-			      <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step" value="${eduDetail.step }">
-			      <div class="question_alertText__WnxqW"></div>
-			    </div>
-			    <div>
-			      <div>
-			        <span class="question_questionCategory__1QDx6">교육 난이도</span>
-			        <span class="question_questionMark__AykT_">*</span>
-			      </div>
-			      <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level" value="${eduDetail.level }">
-			      <div class="question_alertText__WnxqW"></div>
-			    </div>
-			    <div>
-			      <div>
-			        <span class="question_questionCategory__1QDx6">글 작성</span>
-			        <span class="question_questionMark__AykT_">*</span>
-			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"  value="${eduDetail.title }"/>
-			      <div class="question_alertText__WnxqW"></div>
-			    </div>
-			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content">${eduDetail.content }</textarea>
-			    </div>
-			    <div class="eduFileForm">
-				    <div class="question_fileInputWrapper__d9gmU">
-				      <span class="question_questionCategory__1QDx6">사진 업로드</span>
-				      <div class="question_questionImgContainer__tNqZy" id="eduImagePreviewContainer"></div>
-				      <input id="eduUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
-				      <label for="eduUploadFile" class="question_inputFileBtn__zg7jN">
-				        <div class="question_inputFileText__Cgamr">사진 첨부</div>
-				        <img src="/icons/ICON_PHOTO_CAMERA.svg">
-				      </label>
-				      <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
-				    </div>
-				    <div class="question_fileInputWrapper__d9gmU">
-				      <span class="question_questionCategory__1QDx6">비디오 업로드</span>
-				      <div class="question_questionImgContainer__tNqZy" id="eduVideoPreviewContainer"></div>
-				      <input id="eduUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
-				      <label for="eduUploadVideoFile" class="question_inputFileBtn__zg7jN">
-				        <div class="question_inputFileText__Cgamr">동영상 첨부</div>
-				        <img src="/icons/ICON_VIDEO_CAMERA.svg">
-				      </label>
-				      <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
-				    </div>
-			    </div>
-			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">교육정보 수정</button>
-			    </div>
-			    <br />
-			  </form>
-			</div>
-			<div id="careForm">
-			  <form action="careSave" method="POST" enctype="multipart/form-data">
-			    <div>
-			      <span class="question_questionCategory__1QDx6">케어 카테고리</span><span class="question_questionMark__AykT_">*</span>
-			
-			      <div class="question_radioWrap__WZ6ME" id="cateList">
-			        <div>
-			          <input type="radio" name="animal" id="careDog" value="강아지" checked>
-			          <label for="careDog">강아지</label>
-			        </div>
-			        <div>
-			          <input type="radio" name="animal" id="careCat" value="고양이">
-			          <label for="careCat">고양이</label>
-			        </div>
-			      </div>
-			    </div>
-			    <div>
-			      <div>
-			        <span class="question_questionCategory__1QDx6">글 작성</span>
-			        <span class="question_questionMark__AykT_">*</span>
-			      </div>
-			      <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title" value="${careDetail.title }"/>
-			      <div class="question_alertText__WnxqW"></div>
-			    </div>
-			    <div class="question_questionInputWrapper__fGaar">
-			      <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="content">${careDetail.content }</textarea>
-			    </div>
-			    <div class="question_fileInputWrapper__d9gmU">
-			      <span class="question_questionCategory__1QDx6">사진 업로드</span>
-			      <div class="question_questionImgContainer__tNqZy" id="careImagePreviewContainer"></div>
-			      <input id="careUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
-			      <label for="careUploadFile" class="question_inputFileBtn__zg7jN">
-			        <div class="question_inputFileText__Cgamr">사진 첨부</div>
-			        <img src="/icons/ICON_PHOTO_CAMERA.svg">
-			      </label>
-			      <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
-			    </div>
-			    <div class="question_fileInputWrapper__d9gmU">
-			      <span class="question_questionCategory__1QDx6">사진 업로드</span>
-			      <div class="question_questionImgContainer__tNqZy" id="careVideoPreviewContainer"></div>
-			      <input id="careUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
-			      <label for="careUploadVideoFile" class="question_inputFileBtn__zg7jN">
-			        <div class="question_inputFileText__Cgamr">동영상 첨부</div>
-			        <img src="/icons/ICON_PHOTO_CAMERA.svg">
-			      </label>
-			      <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
-			    </div>
-			    <div>
-			      <button class="question_submitBtn__vDrt_" type="submit">케어정보 수정</button>
-			    </div>
-			    <br />
-			  </form>
-			</div>
-					</div>
-				</div>
-			</div>
-			<!-- /page content -->
 
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-					Gentelella - Bootstrap Admin Template by <a
-						href="https://colorlib.com">Colorlib</a>
-				</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
-		</div>
-	</div>
+            <div id="noticeForm">
+              <form action="noticeUpdate" method="POST" enctype="multipart/form-data">
+                <div>
+                  <input name="cateId" type="hidden" value="0" />
+                  <span class="question_questionCategory__1QDx6">공지 카테고리</span>
+                  <span class="question_questionMark__AykT_">*</span>
+
+                  <div class="question_radioWrap__WZ6ME" id="cateList">
+                    <div>
+                      <input type="radio" name="category" id="중요공지" value="중요공지" checked>
+                      <label for="중요공지">중요 공지</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="category" id="일반공지" value="일반공지">
+                      <label for="일반공지">일반 공지</label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <span class="question_questionCategory__1QDx6">글 작성</span>
+                    <span class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input type="hidden" name="id" value="${noticeDetail.id }">
+                  <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"
+                    value="${noticeDetail.title }" />
+                  <div class="question_alertText__WnxqW"></div>
+                </div>
+                <div class="question_questionInputWrapper__fGaar">
+                  <textarea class="question_questionInput___Mb57" name="content">${noticeDetail.content }</textarea>
+                </div>
+                <div>
+                  <button class="question_submitBtn__vDrt_" type="submit">공지 수정</button>
+                </div>
+                <br />
+              </form>
+            </div>
+            <div id="eduForm">
+              <form action="eduUpdate" method="POST" enctype="multipart/form-data">
+                <div>
+                  <span class="question_questionCategory__1QDx6">교육 카테고리</span>
+                  <span class="question_questionMark__AykT_">*</span>
+
+                  <div class="question_radioWrap__WZ6ME" id="cateList">
+                  	<input type="hidden" name="animal" value="${eduDetail.animal }">
+                    <div>
+                      <input type="radio" name="animalEdu" id="dog" value="강아지" checked>
+                      <label for="eduDog">강아지</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="animalEdu" id="cat" value="고양이">
+                      <label for="eduCat">고양이</label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <span class="question_questionCategory__1QDx6">교육 단계</span>
+                    <span class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input placeholder="교육 단계를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="step"
+                    value="${eduDetail.step }">
+                  <div class="question_alertText__WnxqW"></div>
+                </div>
+                <div>
+                  <div>
+                    <span class="question_questionCategory__1QDx6">교육 난이도</span>
+                    <span class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input placeholder="교육 난이도를 입력해주세요" class="question_titleInput__S7Isd" type="text" name="level"
+                    value="${eduDetail.level }">
+                  <div class="question_alertText__WnxqW"></div>
+                </div>
+                <div>
+                  <div>
+                    <span class="question_questionCategory__1QDx6">글 작성</span>
+                    <span class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input type="hidden" name="id" value="${eduDetail.id }">
+                  <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"
+                    value="${eduDetail.title }" />
+                  <div class="question_alertText__WnxqW"></div>
+                </div>
+                <div class="question_questionInputWrapper__fGaar">
+                  <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57"
+                    name="content">${eduDetail.content }</textarea>
+                </div>
+                <div class="eduFileForm">
+                  <div class="question_fileInputWrapper__d9gmU">
+                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
+                    <div class="question_questionImgContainer__tNqZy" id="eduImagePreviewContainer">
+                          <img class="image-preview" src="/images/edu/${eduDetail.img}" alt="ad Image">
+                    </div>
+                    <input id="eduUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif"
+                      style="display: none;">
+                    <label for="eduUploadFile" class="question_inputFileBtn__zg7jN">
+                      <div class="question_inputFileText__Cgamr">사진 첨부</div>
+                      <img src="/icons/ICON_PHOTO_CAMERA.svg">
+                    </label>
+                    <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
+                  </div>
+                  <div class="question_fileInputWrapper__d9gmU">
+                    <span class="question_questionCategory__1QDx6">비디오 업로드</span>
+                    <div class="question_questionImgContainer__tNqZy" id="eduVideoPreviewContainer">
+                       <video class="video-preview" src="/videos/edu/${eduDetail.video}" alt="edu Video" controls>
+                    </div>
+                    <input id="eduUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;" >
+                    <label for="eduUploadVideoFile" class="question_inputFileBtn__zg7jN">
+                      <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+                      <img src="/icons/ICON_VIDEO.svg">
+                    </label>
+                    <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
+                  </div>
+                </div>
+                <div>
+                  <button class="question_submitBtn__vDrt_" type="submit">교육정보 수정</button>
+                </div>
+                <br />
+              </form>
+            </div>
+            <div id="careForm">
+              <form action="careUpdate" method="POST" enctype="multipart/form-data">
+                <div>
+                  <span class="question_questionCategory__1QDx6">케어 카테고리</span><span class="question_questionMark__AykT_">*</span>
+
+                  <div class="question_radioWrap__WZ6ME" id="cateList">
+                    <input type="hidden" name="animal" value="${careDetail.animal }">
+                    <div>
+                      <input type="radio" name="animalCare" id="dog" value="강아지" checked>
+                      <label for="careDog">강아지</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="animalCare" id="cat" value="고양이">
+                      <label for="careCat">고양이</label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <span class="question_questionCategory__1QDx6">글 작성</span>
+                    <span class="question_questionMark__AykT_">*</span>
+                  </div>
+                  <input type="hidden" name="id" value="${careDetail.id }">
+                  <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" type="text" name="title"
+                    value="${careDetail.title }" />
+                  <div class="question_alertText__WnxqW"></div>
+                </div>
+                <div class="question_questionInputWrapper__fGaar">
+                  <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57"
+                    name="content">${careDetail.content }</textarea>
+                </div>
+                <div class="careFileForm">
+			      <div class="question_fileInputWrapper__d9gmU">
+			        <span class="question_questionCategory__1QDx6">사진 업로드</span>
+			        <div class="question_questionImgContainer__tNqZy" id="careImagePreviewContainer">
+			          <!-- 이미지 미리보기를 위한 태그 추가 -->
+			              <img class="image-preview" src="/images/care/${careDetail.img}" alt="care Image">
+			        </div>
+			        <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
+			        <label for="uploadFile" class="question_inputFileBtn__zg7jN">
+			          <div class="question_inputFileText__Cgamr">사진 첨부</div>
+			          <img src="/icons/ICON_PHOTO_CAMERA.svg">
+			        </label>
+			        <span class="question_imgDesc__SQFui">이미지 파일 첨부는 1개만 가능합니다.</span>
+			      </div>
+			      <div class="question_fileInputWrapper__d9gmU">
+			        <span class="question_questionCategory__1QDx6">동영상 업로드</span>
+			        <div class="question_questionImgContainer__tNqZy" id="careVideoPreviewContainer">
+			          <!-- 동영상 미리보기를 위한 태그 추가 -->
+			              <video class="video-preview" src="/videos/care/${careDetail.video}" controls>
+			        </div>
+			        <input id="uploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
+			        <label for="uploadVideoFile" class="question_inputFileBtn__zg7jN">
+			          <div class="question_inputFileText__Cgamr">동영상 첨부</div>
+			          <img src="/icons/ICON_VIDEO.svg">
+			        </label>
+			        <span class="question_imgDesc__SQFui">동영상 첨부 파일 첨부는 1개만 가능합니다.</span>
+			      </div>
+			    </div>
+                <div>
+                  <button class="question_submitBtn__vDrt_" type="submit">케어정보 수정</button>
+                </div>
+                <br />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /page content -->
+
+      <!-- footer content -->
+      <footer>
+        <div class="pull-right">
+          Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        </div>
+        <div class="clearfix"></div>
+      </footer>
+      <!-- /footer content -->
+    </div>
+  </div>
+</div>
 
 	<!-- jQuery -->
 	<script src="/admin/vendors/jquery/dist/jquery.min.js"></script>

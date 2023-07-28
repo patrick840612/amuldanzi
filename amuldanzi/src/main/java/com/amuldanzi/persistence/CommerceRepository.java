@@ -4,11 +4,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.amuldanzi.domain.AdvertisementDTO;
+import com.amuldanzi.domain.CommerceDTO;
 
-public interface AdvertisementRepository extends CrudRepository<AdvertisementDTO, Integer> {
+public interface CommerceRepository extends CrudRepository<CommerceDTO, Integer>{
 	
-	@Query(value = "UPDATE advertisement SET img = NULL WHERE img = :imageName", nativeQuery = true)
+	@Query(value = "UPDATE commerce SET img = NULL WHERE img = :imageName", nativeQuery = true)
 	void deleteImage(@Param("imageName") String imageName);
 
 }
