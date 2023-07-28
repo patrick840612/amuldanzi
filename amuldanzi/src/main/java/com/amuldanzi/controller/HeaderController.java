@@ -37,12 +37,14 @@ public class HeaderController {
             SearchRequest communitySearchRequest = new SearchRequest(COMMUNITY_INDEX_NAME);
             SearchSourceBuilder communitySearchSourceBuilder = new SearchSourceBuilder();
             communitySearchSourceBuilder.query(QueryBuilders.matchAllQuery());
+            communitySearchSourceBuilder.query(QueryBuilders.matchQuery("comm_title", query)); // 제목에서 검색
             communitySearchRequest.source(communitySearchSourceBuilder);
 
             // 검색어를 기반으로 ElasticSearch에 공지 검색 요청
             SearchRequest noticeSearchRequest = new SearchRequest(NOTICE_INDEX_NAME);
             SearchSourceBuilder noticeSearchSourceBuilder = new SearchSourceBuilder();
             communitySearchSourceBuilder.query(QueryBuilders.matchAllQuery());
+            noticeSearchSourceBuilder.query(QueryBuilders.matchQuery("title", query)); // 제목에서 검색
             noticeSearchRequest.source(noticeSearchSourceBuilder);
 
             // 커뮤니티 검색 결과를 받아옴

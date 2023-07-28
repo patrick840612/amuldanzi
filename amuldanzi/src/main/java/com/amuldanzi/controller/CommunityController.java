@@ -253,6 +253,7 @@ public class CommunityController {
 		    // 커뮤니티 번호에 해당하는 이미지 파일 경로들 가져오기 
 		    List<String> commImages = commImageService.getCommImagesByNo(comm_no);
 		    
+		    
 		    // 두개의 정보 모델에 담기 
 		    model.addAttribute("community", community);
 		    model.addAttribute("commImages", commImages);
@@ -365,6 +366,9 @@ public class CommunityController {
 		        // 커뮤니티 글과 이미지 정보를 저장
 		        communityService.saveCommunityWithImages(dto, fileDtos, comm_no);
 
+
+			    dbToElasticsearch.indexDataFromMariaDB();
+		        
 		    } catch (Exception ex) {
 		        System.out.println("오류로 들어감");
 		        ex.printStackTrace();
@@ -408,6 +412,8 @@ public class CommunityController {
 		    commImageService.deleteImagesByCommunityNo(comm_no);
 		    // 게시글 삭제 로직 구현
 		    communityService.deleteCommunity(comm_no); 
+		    
+		    dbToElasticsearch.deleteDataFromElasticsearch(comm_no);
 		    		    		    
 		    return "redirect:/community/communityList"; // 삭제 후 게시글 목록 페이지로 리다이렉트
 		}
