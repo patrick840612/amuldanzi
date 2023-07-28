@@ -33,7 +33,7 @@
 
   .searchResultsContainer {
     position: fixed;
-    top: 30%;
+    top: 27%;
     left: 80%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -55,7 +55,7 @@
   }
 
   .searchResultsContent {
-    max-height: 300px; /* Set the maximum height for the search results container */
+    max-height: 250px; /* Set the maximum height for the search results container */
     overflow-y: auto;
   }
 
@@ -95,55 +95,129 @@
 $(document).ready(function() {
 
     var searchResultsContainer = $("#searchResults");
+    var searchKeyWordResultsContainer = $(".searchKeyWordResultsContainer");
+    
     searchResultsContainer.hide();
+    searchKeyWordResultsContainer.hide();
+    
     var searchInput = $("#searchForm input[type='text']");
     var isResultsVisible = false; // 검색 결과 컨테이너가 보이는지 여부를 저장할 변수
 
-    // 검색 입력 상자에 마우스가 올라갔을 때 이벤트 리스너를 추가합니다
-    searchInput.click(function() { 
-		
+    searchInput.keypress(function(event) {
+        if (event.key === "Enter") { // Enter 키를 눌렀을 때
+            event.preventDefault(); // 기본 동작을 막음
+
+            
+            var keyword = searchInput.val().trim(); // 검색 키워드 가져오기
+            alert(keyword);
+            
+            if (keyword === "") {
+                // 키워드가 비어있을 경우 최신 글을 검색합니다
+                searchLatest();
+            } else {
+                // 키워드가 있을 경우 해당 키워드를 포함하는 검색 결과를 반환합니다
+                searchKeyword(keyword);
+            }
+        }
+    });
+
+    searchInput.click(function() {
         if (isResultsVisible) {
             searchResultsContainer.hide(); // 검색 결과를 숨깁니다
             isResultsVisible = false;
         } else {
-            // ElasticSearch에 커뮤니티 검색 결과를 요청하는 AJAX 요청을 보냅니다
-            $.ajax({
-                url: "http://localhost:9200/community/_search", // 커뮤니티 인덱스에 대한 ElasticSearch 엔드포인트
-                method: "GET",
-                data: {
-                    match_all: {}
-                },
-                success: function(response) {
-                    // ElasticSearch 응답을 처리하고 커뮤니티 검색 결과를 동적으로 표시합니다
-                    var results = response.hits.hits; 
-                    displayCommunityResults(results);
-                    
-                },
-                error: function(error) {
-                    console.error("커뮤니티 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
-                }
-            });
-
-            // ElasticSearch에 공지글 검색 결과를 요청하는 AJAX 요청을 보냅니다
-            $.ajax({
-                url: "http://localhost:9200/notice/_search", // 공지글 인덱스에 대한 ElasticSearch 엔드포인트
-                method: "GET",
-                data: {
-                    match_all: {}
-                },
-                success: function(response) {
-                    // ElasticSearch 응답을 처리하고 공지글 검색 결과를 동적으로 표시합니다
-                    var results = response.hits.hits; 
-                    displayNoticeResults(results);
-                },
-                error: function(error) {
-                    console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
-                }
-            }); 
+            // 검색 입력 상자에 포커스를 맞춥니다
+            searchInput.focus();
+            // 최신 글을 검색합니다
+            searchLatest();
+            // 검색 결과를 보이도록 설정
             searchResultsContainer.show();
             isResultsVisible = true;
         }
     });
+
+    // 최신 글을 검색하는 함수
+    function searchLatest() {
+        $.ajax({
+            url: "http://localhost:9200/community/_search",
+            method: "GET",
+            data: {
+                match_all: {}
+            },
+            success: function(response) {
+                var results = response.hits.hits;
+                displayCommunityResults(results);
+            },
+            error: function(error) {
+                console.error("커뮤니티 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+
+        $.ajax({
+            url: "http://localhost:9200/notice/_search",
+            method: "GET",
+            data: {
+                match_all: {}
+            },
+            success: function(response) {
+                var results = response.hits.hits;
+                displayNoticeResults(results);
+            },
+            error: function(error) {
+                console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+    }
+
+    // 키워드를 포함하는 검색 결과를 반환하는 함수
+    function searchKeyword(keyword) {
+
+    	var encodedKeyword = encodeURIComponent(keyword); // 검색어 인코딩
+        
+        $.ajax({
+            url: "http://localhost:9200/community/_search",
+            method: "POST",
+            contentType: "application/json",
+            data:JSON.stringify({
+                query: {
+                	query_string: {
+                        default_field: "comm_title",
+                        query: "*" + keyword + "*"
+                    }
+                }
+            }),
+            success: function(response) {
+                var results = response.hits.hits; 
+                displayCommunityResults(results);
+                
+            },
+            error: function(error) {
+                console.error("커뮤니티 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+
+        $.ajax({
+            url: "http://localhost:9200/notice/_search",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                query: {
+                	query_string: {
+                        default_field: "title",
+                        query:  "*" + keyword + "*"
+                    }
+                }
+            }),
+            success: function(response) {
+                var results = response.hits.hits;
+                console.log(results);
+                displayNoticeResults(results);
+            },
+            error: function(error) {
+                console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+    }
 
     // 커뮤니티 검색 결과를 화면에 표시하는 함수
     function displayCommunityResults(results) {
@@ -340,13 +414,6 @@ $(document).ready(function() {
 									</form> 
 								</div>  
 							</div>
-							  <div id="searchResults" class="searchResultsContainer">
-						    <div class="searchResultsHeader">최신 글</div>
-						    <div class="searchResultsContent">
-						      <ul class="communityResults"></ul>
-						      <ul class="noticeResults"></ul>
-						    </div>
-						  </div>
 									
 				<div class="TopMenu_menuList__AMnXb">
 					<div class="TopMenu_menuWrapper__L1uFn">
@@ -403,5 +470,22 @@ $(document).ready(function() {
 			</header>
 			</div>
 		</div>
+		
+		
+							<div id="searchResults" class="searchResultsContainer">
+						    <div class="searchResultsHeader">최신 글</div>
+						    <div class="searchResultsContent">
+						      <ul class="communityResults"></ul>
+						      <ul class="noticeResults"></ul>
+						    </div>
+						  </div>
+						  
+						  <div id="searchKeyWordResults" class="searchKeyWordResultsContainer">
+						    <div class="searchResultsHeader">검색결과</div>
+						    <div class="searchResultsContent">
+						      <ul class="communityResults"></ul>
+						      <ul class="noticeResults"></ul>
+						    </div>
+						  </div>
 </body>
 </html>
