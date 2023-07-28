@@ -55,6 +55,8 @@
 .note-editor .note-editable {
     font-family: '굴림체', sans-serif !important;
 }
+/*  */
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -209,13 +211,46 @@ $(document).ready(function() {
     });
     
 
+ 	// 승인등급 조건    
+	if(${not empty sitter}){
+
+		if('${sitter.sitter}'=="승인대기"){
+			$('#신청하기').prop('disabled', true);
+			$('#승인대기').prop('disabled', false);
+			$('#승인대기').prop('checked', true);
+			$('#level').hide();
+			$('#levelChange').before($('<div style="text-align: center; margin-top: 200px;"><p style="font-size: 36px;">돌보미 심사 중입니다... 기다려주세요...</p><br/>'+
+					'<p style="font-size: 24px; color: red; font-weight: bold;">재신청시 기존 신청내역이 삭제됩니다</p></div>'));
+			$('#levelChange').empty();
+			$('#levelChange').append($('<button class="question_submitBtn__vDrt_" type="button" id="sitterRe">돌보미 재신청</button>'));
+			
+		    $('#sitterRe').click(function(){
+		    	location.href='/mypage/deleteSitter?id=${id}'; 
+	    	});
+		    
+		}else{
+			$('#신청하기').prop('disabled', true);
+			$('#승인완료').prop('disabled', false);
+			$('#승인완료').prop('checked', true);
+			$('#level').hide();
+			$('#levelChange').before($('<div style="text-align: center; margin-top: 200px;"><p style="font-size: 36px;">돌보미 승인이 완료 되었습니다</p><br/>'+
+			'<p style="font-size: 24px; color: green; font-weight: bold;">돌보미샵에 등록할 수 있습니다</p></div>'));
+			$('#levelChange').empty();
+			$('#levelChange').append($('<button class="question_submitBtn__vDrt_" type="button" id="dolbomiShop">돌보미샵 가기</button>'));
+		}
+		    $('#dolbomiShop').click(function(){
+		    	location.href='/market/dolbomiShop'; 
+	    	});
+	} // 승인등급 조건
+	
+
 });
 </script>
 </head>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
-
 <body class="nav-md">
+  
 	<div class="container body">
 		<div class="main_container">
 
@@ -226,23 +261,23 @@ $(document).ready(function() {
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
 						<form id="sitterRegist" action="/mypage/sitterRegist" method="post" enctype="multipart/form-data">
-							<span class="question_questionCategory__1QDx6">돌보미 신청</span><span
-								class="question_questionMark__AykT_">*</span>
+							<span class="question_questionCategory__1QDx6">돌보미 신청
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="sitter" id="신청하기" value="신청하기" checked="신청하기"><label
+									<input type="radio" name="sitter" id="신청하기" value="승인대기" checked="신청하기"><label
 										for="신청하기">신청하기</label>
 								</div>
 								<div>
-									<input type="radio" name="sitter" id="승인대기" value="승인대기"><label
+									<input type="radio" name="sitter" id="승인대기" value="승인대기" disabled="disabled"><label
 										for="승인대기">승인대기</label>
 								</div>
 								<div>
-									<input type="radio" name="sitter" id="승인완료" value="승인완료" ><label
+									<input type="radio" name="sitter" id="승인완료" value="승인완료" disabled="disabled"><label
 										for="승인완료">승인완료</label>
 								</div>
 							</div>
-
+							
+							<div id="level">
 								<div>
 								<input type='hidden' name='id' value='${id}'/>
 								<input type='hidden' name='sitterTitle' value='돌보미 역할신청'/>
@@ -252,33 +287,27 @@ $(document).ready(function() {
 										<span class="question_questionCategory__1QDx6">돌보미 경력</span><span
 											class="question_questionMark__AykT_">*</span>
 										<select name="sitterCareer" class="question_selectTag__abcdef spaceSelect">
-											<option value="0">경력없음</option>
-											<option value="6">6개월이하</option>
-											<option value="12">12개월</option>
-											<option value="18">18개월</option>
-											<option value="24">24개월</option>
-											<option value="30">30개월</option>
-											<option value="36">36개월</option>
-											<option value="42">42개월</option>
-											<option value="48">48개월</option>
-											<option value="54">54개월</option>
-											<option value="60">60개월이상</option>
+											<option value="경력없음">경력없음</option>
+											<option value="6개월미만">6개월미만</option>
+											<option value="6개월이상~1년이하">6개월이상~1년이하</option>
+											<option value="1년이상~2년미만">1년이상~2년미만</option>
+											<option value="2년이상~3년미만">2년이상~3년미만</option>
+											<option value="3년이상~4년미만">3년이상~4년미만</option>
+											<option value="4년이상~5년미만">4년이상~5년미만</option>
+											<option value="5년이상">5년이상</option>
 										</select>
 										
 										<span class="question_questionCategory__1QDx6">반려동물 양육 경력</span><span
 											class="question_questionMark__AykT_">*</span>
 										<select name="sitterPetCareer" class="question_selectTag__abcdef spaceSelect">
-											<option value="0">경력없음</option>
-											<option value="6">6개월이하</option>
-											<option value="12">12개월</option>
-											<option value="18">18개월</option>
-											<option value="24">24개월</option>
-											<option value="30">30개월</option>
-											<option value="36">36개월</option>
-											<option value="42">42개월</option>
-											<option value="48">48개월</option>
-											<option value="54">54개월</option>
-											<option value="60">60개월이상</option>
+											<option value="경력없음">경력없음</option>
+											<option value="6개월미만">6개월미만</option>
+											<option value="6개월이상~1년이하">6개월이상~1년이하</option>
+											<option value="1년이상~2년미만">1년이상~2년미만</option>
+											<option value="2년이상~3년미만">2년이상~3년미만</option>
+											<option value="3년이상~4년미만">3년이상~4년미만</option>
+											<option value="4년이상~5년미만">4년이상~5년미만</option>
+											<option value="5년이상">5년이상</option>
 										</select>
 									</div>
 									<div class="question_alertText__WnxqW"></div>
@@ -304,7 +333,8 @@ $(document).ready(function() {
 
  								<textarea id="summernote" name="editordata"></textarea>  
  								<input type="hidden" name="sitterImg" id="sitterImg"/>
-								<div>
+ 							</div>
+								<div id="levelChange">
 									<button class="question_submitBtn__vDrt_" type="submit">돌보미 신청하기</button>
 								</div>
 								<br />

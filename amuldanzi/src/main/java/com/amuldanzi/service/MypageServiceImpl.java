@@ -2,6 +2,7 @@ package com.amuldanzi.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.dao.LoginSocialDAO;
+import com.amuldanzi.dao.SitterDAO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.SitterDTO;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService {
@@ -25,6 +28,9 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	LoginDAO loginDAO;
+	
+	@Autowired
+	SitterDAO sitterDAO;
 	
 	// pet 정보 가져오기(회원정보관리 입장시)
 	@Override
@@ -88,6 +94,21 @@ public class MypageServiceImpl implements MypageService {
 	public void petDel(MemberInfoDTO member) {
 		loginPetDAO.petDel(member);
 		loginDAO.changBloodGive(member);
+	}
+	
+	// 돌보미 검색
+	public Optional<SitterDTO> sitterFindById(String id) {
+		return sitterDAO.findById(id);
+	}
+	
+	// 돌보미 신청
+	public void saveSitter(SitterDTO sitter) {
+		sitterDAO.save(sitter);
+	}
+	
+	// 돌보미 재신청을 위한 삭제
+	public void sitterDeleteById(String id) {
+		sitterDAO.deleteById(id);
 	}
 	
 }
