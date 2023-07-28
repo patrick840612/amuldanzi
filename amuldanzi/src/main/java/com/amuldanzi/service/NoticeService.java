@@ -13,7 +13,7 @@ public interface NoticeService {
 	void noticeUpdate(NoticeDTO notice);
 
 	List<NoticeDTO> getNoticeListRecent();
-
 	
+	List<NoticeDTO> getAllByOrderById();
 
 }

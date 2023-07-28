@@ -5,16 +5,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="C:\Users\kosmo\Downloads\공지사항 _ 마이펫플러스_files\all.css">
-<link rel="stylesheet"
-	href="C:\Users\kosmo\Desktop\파이널\공지사항 css\style.css">
 
 <title>애물단지</title>
 
@@ -51,6 +49,17 @@
 .col-md-12 {
 	margin-left: -90px;
 }
+
+.table-bordred td {
+    /*width: 150px;  각 셀의 가로 크기를 150픽셀로 설정 */
+    height: 50px; /* 각 셀의 세로 크기를 50픽셀로 설정 */
+    padding: 10px; /* 각 셀의 내용과 테두리 사이의 여백(padding)을 설정 */
+    text-align: center; /* 각 셀의 텍스트를 가운데 정렬 */
+}
+
+.notice-lable {
+	color: red;
+}
 </style>
 
 
@@ -70,9 +79,9 @@
 		</h1>
 		</p>
 		<br />
-		<h5>
+		<h4>
 			<center>애물단지에서 알려드리는 공지사항입니다.</center>
-		</h5>
+		</h4>
 		<br />
 		<hr class="popper_popperMenuDivider__j1QQj">
 
@@ -82,7 +91,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table">
-						<table id="mytable" class="table table-bordred table-striped"
+						<table id="mytable" class="table table-bordred table-striped "
 							style="margin: auto;">
 
 							<thead>
@@ -93,32 +102,85 @@
 
 							</thead>
 							<tbody>
-
-								<tr>
-									<c:forEach items="${noticeList}" var="notice">
-										<td><center>${notice.id}</center></td>
+								<c:forEach items="${noticeList}" var="notice" varStatus="loop">
+									<tr>
+										<c:if test="${loop.index < 2 && currentPage == 1}">
+											<td>
+												<center>
+													<span class="notice-lable">[공지]</span>
+												</center>
+											</td>
+										</c:if>
+										<c:if test="${loop.index >= 2 || currentPage > 1}">
+											<td>
+												<center>${notice.id}</center>
+											</td>
+										</c:if>
 										<td align="left"><a
-											href="/notice/noticeDetail?title=${notice.title}"><center>
-													${notice.title}</center></a></td>
-										<td><center>${notice.regdate}</center></td>
-										<td><center>${notice.count}</center></td>
-								</tr>
+											href="/notice/noticeDetail?title=${notice.title}">
+												<center>${notice.title}</center>
+										</a></td>
+										<td>
+											<center>${notice.regdate}</center>
+										</td>
+										<td>
+											<center>${notice.count}</center>
+										</td>
+									</tr>
 								</c:forEach>
 							</tbody>
+
+
 						</table>
 
 						<div class="clearfix"></div>
+
 						<ul class="pagination justify-content-center">
-							<li class="disabled"><a href="#"><span
-									class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#"><span
-									class="glyphicon glyphicon-chevron-right"></span></a></li>
+
+							<li class="${currentPage == 1 ? 'disabled' : '' }"><a
+								href="/notice/notice?page=1" aria-lable="처음 페이지로 이동"> <span
+									class="glyphicon glyphicon-chevron-left"></span>
+							</a></li>
+
+							<li class="${currentPage == 1 ? 'disabled' : ''}"><a
+								href="/notice/notice?page=${currentPage - 1}"
+								aria-label="이전 페이지로 이동"> <span
+									class="glyphicon glyphicon-chevron-left"></span>
+							</a></li>
+
+							<c:forEach begin="1" end="${totalPages}" var="pageNumber">
+								<li class="${pageNumber == currentPage ? 'active' : ''}"><a
+									href="/notice/notice?page=${pageNumber}"
+									aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
+							</c:forEach>
+
+							<li class="${currentPage == totalPages ? 'disabled' : ''}">
+								<a href="/notice/notice?page=${currentPage + 1}"
+								aria-label="다음 페이지로 이동"> <span
+									class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+							</li>
+
+							<li class="${currentPage == totalPages ? 'disabled' : ''}">
+								<a href="/notice/notice?page=${totalPages}"
+								aria-label="마지막 페이지로 이동"> <span
+									class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+							</li>
 						</ul>
+
+
+						<!--  
+						<li class="disabled"><a href="#"><span
+								class="glyphicon glyphicon-chevron-left"></span></a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-chevron-right"></span></a></li>-->
+
 
 					</div>
 				</div>
