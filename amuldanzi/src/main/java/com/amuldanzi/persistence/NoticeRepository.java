@@ -16,5 +16,8 @@ public interface NoticeRepository extends JpaRepository<NoticeDTO, Integer> {
 
     @Query(value = "SELECT * FROM notice ORDER BY id DESC LIMIT 2", nativeQuery = true)
 	List<NoticeDTO> findNoticeListRecent();
+    
+    @Query("SELECT n FROM NoticeDTO n ORDER BY n.id DESC")
+    List<NoticeDTO> findAllByOrderById();
 
 }
