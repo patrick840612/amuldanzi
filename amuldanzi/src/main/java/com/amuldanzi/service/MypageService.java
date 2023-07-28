@@ -1,10 +1,12 @@
 package com.amuldanzi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.SitterDTO;
 
 public interface MypageService {
 	public List<MemberPetDTO> selectById(MemberInfoDTO member);
@@ -13,5 +15,7 @@ public interface MypageService {
 	public void updateInfo(MemberInfoDTO member, List<MemberPetDTO> petList);
 	public void deletePet(MemberPetDTO pet);
 	public void petDel(MemberInfoDTO member);
-	
+	public void saveSitter(SitterDTO sitter);
+	public Optional<SitterDTO> sitterFindById(String id);
+	public void sitterDeleteById(String id);
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -60,7 +61,7 @@ public class MypageController {
 	
 	@Autowired
     // RestTemplate 인스턴스 생성
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate;
 	
 	
 	// 페이지 이동
@@ -70,7 +71,7 @@ public class MypageController {
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
-
+        
 		return "/mypage/"+step;
 	}
 	
@@ -258,6 +259,25 @@ public class MypageController {
 	    }
 	}
 	
+	@RequestMapping("/sitter")
+	public void sitter(Model m) {
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        Optional<SitterDTO> sitter = mypageService.sitterFindById(String.valueOf(map.get("id")));
+        sitter.ifPresent(sitterDTO -> {
+            m.addAttribute("sitter", sitterDTO);
+        });
+        
+        // sitter가 값이 있을 때는 해당 객체를 Model에 추가하고, 값이 없는 경우 기본 값을 Model에 추가
+       /* sitter.ifPresentOrElse(
+            sitterDTO -> m.addAttribute("sitter", sitterDTO),
+            () -> m.addAttribute("sitter", new SitterDTO()) // 또는 null 등의 기본 값을 추가
+        );*/
+	}
+	
 	// 돌보미 신청시 DB 저장(이미지 저장 안하기 beforeunload로 파일처리 끝냄)
 	@RequestMapping(value = "/sitterRegist", method = RequestMethod.POST)
 	public String sitterRegist(SitterDTO sitter, @RequestParam("editordata") String editordata) {
@@ -272,13 +292,17 @@ public class MypageController {
 		}
 		sitter.setSitterEtc(cleanText);
 
-		System.out.println("***************************");
-		System.out.println(sitter);
-
-
+		mypageService.saveSitter(sitter);
         return "redirect:/mypage/sitter";
     }
 	
+	// 돌보미 재신청시 신청 삭제
+	@RequestMapping("/deleteSitter")
+	public String deleteSitter(SitterDTO sitter, @RequestParam String id) {
+
+		mypageService.sitterDeleteById(id);
+		return "redirect:/mypage/sitter";
+	}
 	
 	
 } // end of class MypageController
