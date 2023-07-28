@@ -11738,8 +11738,8 @@ to {
  
 
     .image-preview {
-        width: 350px;
-        height: 240px;
+        width: 350px !important;
+        height: 240px !important;
     }
 
     .delete-button {
@@ -11755,9 +11755,8 @@ to {
 	
 	    
     .video-preview {
-      width: 350px;
-      height: 240px;
-      margin-bottom: 0px;
+      width: 350px !important;
+      height: 240px !important;      
     }
 
     .video-preview video {

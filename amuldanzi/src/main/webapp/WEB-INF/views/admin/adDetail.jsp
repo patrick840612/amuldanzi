@@ -46,63 +46,94 @@
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    // 사진 업로드 미리보기
-    $('#uploadFile').on('change', function(event) {
-      var previewContainer = $('#imagePreviewContainer');
-      previewContainer.html('');
+<script>
+  $(document).ready(function() {
+   
+	 	// 폼 제출 시 postForm 함수 호출
+	    $('form').submit(function() {
+	    	// 선택한 라디오 버튼의 값을 hidden field에 설정
+	        var selectedValue = $('input[name="cate"]:checked').val();
+	        $('input[name="cateId"]').val(selectedValue);
+	     	// 폼 제출
+	        postForm();
+	      });
+	    
+	 	//이미지 업로드 미리보기
+	    $('#uploadFile').on('change', function(event) {
+	      var previewContainer = $('#imagePreviewContainer');
+	      previewContainer.empty();
+	
+	      var files = event.target.files;
+	      if (files && files.length > 0) {
+	        var file = files[0];
+	        var reader = new FileReader();
+	
+	        reader.onload = function(e) {
+	          var image = $('<img>').attr('src', e.target.result);
+	          var preview = $('<div class="image-preview"></div>').append(image);
+	          previewContainer.append(preview);
+	        };
+	
+	        reader.readAsDataURL(file);
+	      }
+	    });
+	    
+	    // 이미지 미리보기 삭제 구현 
+	    // 삭제 버튼 이벤트 위임
+	    $('#imagePreviewContainer').on('click', '.delete-button', function() {
+	        
+	        var id = $(this).parent('.image-preview').data('id');
+	        $(this).parent('.image-preview').remove();
+	        // 해당 이미지의 hidden input도 제거
+	        $(`#hiddenInput_${id}`).remove();
+	        // 이미지 목록에서 삭제
+	        imageFiles = imageFiles.filter(function(item) {
+	            return item.id !== id;
+	        });
 
-      var files = event.target.files;
+	        // files 변수에서도 이미지를 제거
+	        var files = $('#uploadFile')[0].files;
+	        var newFiles = [];
+	        for (var i = 0; i < files.length; i++) {
+	            if (i !== id) {
+	                newFiles.push(files[i]);
+	            }
+	        }
+	        // 새로운 FileList 객체 생성
+	        var dataTransfer = new DataTransfer();
+	        for (var i = 0; i < newFiles.length; i++) {
+	            dataTransfer.items.add(newFiles[i]);
+	        }
+	        $('#uploadFile')[0].files = dataTransfer.files;
+	    });
+		
+	    // 이미지 삭제버튼 클릭시
+	    $(document).on('click', '.deleteAjax', function(event) {
+	    	event.preventDefault;
+	        var imagePreview = $(this).closest('.ajaxImage');
+	        var imagePath = imagePreview.find('img').attr('src');
+	        var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+	        var cateId = $('input[name="cate"]:checked').val(); // 선택된 라디오 버튼의 값을 가져옴
+	        alert(cateId);
+	        deleteImage(imageName, imagePreview, cateId); // deleteImage 함수 호출 시 selectedValue도 전달
+	    });
 
-      for (var i = 0; i < files.length && i < 3; i++) {
-        var file = files[i];
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          var image = $('<img>').attr('src', e.target.result);
-          var preview = $('<div class="image-preview"></div>').append(image);
-          var deleteButton = $('<span class="delete-button">&times;</span>');
-
-          deleteButton.on('click', function() {
-            preview.remove();
-          });
-
-          preview.append(deleteButton);
-          previewContainer.append(preview);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // 이미지 삭제 버튼 클릭 시
-    $(document).on('click', '.deleteAjax', function() { 
-      var imagePreview = $(this).closest('.ajaxImage');
-      var imagePath = imagePreview.find('img').attr('src');
-      var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-      console.log(imageName);
-      deleteImage(imageName, imagePreview);
-    });
-  });
-
-  function deleteImage(imageName, imagePreview) {
-    $.ajax({
-      url: '/admin/deleteImage',
-      data: {"imageName": imageName},
-      type: 'DELETE',
-      success: function() {
-        // 이미지가 성공적으로 삭제되었을 때, UI를 업데이트하거나 추가 작업을 수행할 수 있습니다.
-        imagePreview.remove();
-        console.log("성공");
-      },
-      error: function(error) {
-        // 에러가 발생한 경우 처리할 수 있습니다.
-        console.log('에러')
-        console.error(error);
-      }
-    });
-  }
+	    function deleteImage(imageName, imagePreview, cateId) {
+	        $.ajax({
+	            url: '/admin/deleteImage',
+	            data: { "imageName": imageName, "cateId": cateId }, // cateId를 서버로 전송
+	            type: 'DELETE',
+	            success: function() {
+	                imagePreview.remove();
+	                console.log("이미지 삭제 성공");
+	            },
+	            error: function(error) {
+	                console.log('이미지 삭제 에러');
+	                console.error(error);
+	            }
+	        });
+	    }
+ });
 </script>
 
 <body class="nav-md">
@@ -220,7 +251,7 @@ $(document).ready(function() {
 							class="question_questionMark__AykT_">*</span>
 						<div class="question_radioWrap__WZ6ME">
 							<div>
-								<input type="radio" name="question" id="광고" value="광고" checked="광고"><label
+								<input type="radio" name="cate" id="광고" value="8" checked><label
 									for="광고">광고</label>
 							</div>
 						</div>
@@ -238,7 +269,7 @@ $(document).ready(function() {
 									<div>
 										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
 											class="question_questionMark__AykT_">*</span>
-									</div>
+									</div>									
 									<input type="hidden" name="id" value="${adDetail.id }">
 									<input placeholder="예) https://www.naver.com"
 										class="question_titleInput__S7Isd" type="text" name="url" value="${adDetail.url }" />
@@ -246,7 +277,14 @@ $(document).ready(function() {
 								</div>
 				                <div class="question_fileInputWrapper__d9gmU">
 				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
-				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
+				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer">
+								        <div class="ajaxImage">
+								        	<!-- deleteImage 사용하기 위해서 임의의 cateId 지정 -->								        	
+									        <span>
+									            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="ad Image" style="width: 200px; height: 200px;">
+									        </span>									        
+									    </div>				                    
+				                    </div>
 				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
 				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
 				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
@@ -260,12 +298,7 @@ $(document).ready(function() {
 								<br />
 						</form>
 						
-						<div class="ajaxImage">
-					        <span>
-					            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="ad Image" style="width: 200px; height: 200px;">
-					        </span>
-					        <button class="deleteAjax" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
-					    </div>
+
 						
 
 					</div>
@@ -284,6 +317,7 @@ $(document).ready(function() {
 			<!-- /footer content -->
 		</div>
 	</div>
+
 
 	<!-- jQuery -->
 	<script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
@@ -319,7 +353,7 @@ $(document).ready(function() {
 	<!-- starrr -->
 	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
-	<script src="/admin/build/js/custom.min.js"></script>
+	
 	
 
     	

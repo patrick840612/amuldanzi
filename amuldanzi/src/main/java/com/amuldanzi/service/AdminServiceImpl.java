@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
+import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
+import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.EducationRepository;
 import com.amuldanzi.persistence.MarketInfoRepository;
 import com.amuldanzi.persistence.NoticeRepository;
@@ -38,6 +40,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	AdvertisementRepository adRepo;
+	
+	@Autowired
+	CommerceRepository commerceRepo;
 
 	@Override
 	public List<MarketInfoDTO> getMarketList() {
@@ -184,8 +189,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteVideo(String vidoeName) {
+	public void deleteVideo(Integer cateId, String vidoeName) {
 		// TODO Auto-generated method stub
+		if(cateId==2) {
+			eduRepo.deleteVideo(vidoeName);
+		}else if(cateId == 3) {
+			careRepo.deleteVideo(vidoeName);
+		}
 		
 	}
 
@@ -199,7 +209,88 @@ public class AdminServiceImpl implements AdminService {
 	public CareDTO getCareById(CareDTO dto) {
 		// TODO Auto-generated method stub
 		return careRepo.findById(dto.getId()).get();
-	}	
+	}
+
+	@Override
+	public void careUpdate(CareDTO dto) {
+		// TODO Auto-generated method stub
+		CareDTO result = careRepo.findById(dto.getId()).get();
+		
+		result.setAnimal(dto.getAnimal());
+		result.setTitle(dto.getTitle());
+		result.setContent(dto.getContent());
+		result.setImg(dto.getImg());
+		result.setImgPath(dto.getImgPath());
+		result.setVideo(dto.getVideo());
+		result.setVideoPath(dto.getVideoPath());
+		
+		careRepo.save(result);
+		
+	}
+
+	@Override
+	public void eduUpdate(EducationDTO dto) {
+		// TODO Auto-generated method stub
+		EducationDTO result = eduRepo.findById(dto.getId()).get();
+		
+		result.setAnimal(dto.getAnimal());
+		result.setTitle(dto.getTitle());
+		result.setStep(dto.getStep());
+		result.setLevel(dto.getLevel());
+		result.setContent(dto.getContent());
+		result.setImg(dto.getImg());
+		result.setImgPath(dto.getAnimal());
+		result.setVideo(dto.getVideo());
+		result.setVideoPath(dto.getVideoPath());
+		
+		eduRepo.save(result);
+	}
+
+	@Override
+	public void noticeUpdate(NoticeDTO dto) {
+		// TODO Auto-generated method stub
+		NoticeDTO result = noticeRepo.findById(dto.getId()).get();
+		
+		result.setTitle(dto.getTitle());
+		result.setContent(dto.getContent());
+		
+		noticeRepo.save(result);
+		
+	}
+
+	@Override
+	public void commerceSave(CommerceDTO dto) {
+		// TODO Auto-generated method stub
+		commerceRepo.save(dto);
+	}
+
+	@Override
+	public List<CommerceDTO> getCommerceList() {
+		// TODO Auto-generated method stub
+		return (List<CommerceDTO>)commerceRepo.findAll();
+	}
+
+	@Override
+	public void commerceDelete(CommerceDTO dto) {
+		// TODO Auto-generated method stub
+		commerceRepo.deleteById(dto.getCommerceId());
+	}
+
+	@Override
+	public void commerceUpdate(CommerceDTO dto) {
+		// TODO Auto-generated method stub
+		CommerceDTO result = commerceRepo.findById(dto.getCommerceId()).get();
+		
+		result.setCommerceName(dto.getCommerceName());
+		result.setCommercePrice(dto.getCommercePrice());
+		result.setCommerceStock(dto.getCommerceStock());
+		result.setImg(dto.getImg());
+		result.setImgPath(dto.getImgPath());
+		
+		commerceRepo.save(result);
+		
+	}
+	
 	
 
 }

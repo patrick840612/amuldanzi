@@ -50,24 +50,75 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  // 사진 업로드 미리보기
-  $('#uploadFile').on('change', function(event) {
-    var previewContainer = $('#imagePreviewContainer');
-    previewContainer.html('');
+	  // 사진 업로드 미리보기
+	  $('#uploadFile').on('change', function(event) {
+	    var previewContainer = $('#imagePreviewContainer');
+	    previewContainer.html('');
 
-    var files = event.target.files;
-    if (files && files.length > 0) {
-      var file = files[0];
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var image = $('<img>').attr('src', e.target.result);
-        var preview = $('<div class="image-preview"></div>').append(image);
-        previewContainer.append(preview);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-});
+	    var files = event.target.files;
+	    if (files && files.length > 0) {
+	      var file = files[0];
+	      var reader = new FileReader();
+	      reader.onload = function(e) {
+	        var image = $('<img>').attr('src', e.target.result);
+	        var preview = $('<div class="image-preview"></div>').append(image);
+	        var deleteButton = $('<span class="delete-button">&times;</span>');
+
+	        deleteButton.on('click', function() {
+	          preview.remove();
+	        });
+
+	        preview.append(deleteButton);
+	        previewContainer.append(preview);
+	      };
+
+	      reader.readAsDataURL(file);
+	    }
+	  });
+	  
+      // 이미지 미리보기 삭제 구현 
+      // 삭제 버튼 이벤트 위임
+      $('#imagePreviewContainer').on('click', '.delete-button', function() {
+          
+          var id = $(this).parent('.image-preview').data('id');
+          $(this).parent('.image-preview').remove();
+          // 해당 이미지의 hidden input도 제거
+          $(`#hiddenInput_${id}`).remove();
+          // 이미지 목록에서 삭제
+          imageFiles = imageFiles.filter(function(item) {
+              return item.id !== id;
+          });
+
+          // files 변수에서도 이미지를 제거
+          var files = $('#uploadFile')[0].files;
+          var newFiles = [];
+          for (var i = 0; i < files.length; i++) {
+              if (i !== id) {
+                  newFiles.push(files[i]);
+              }
+          }
+          // 새로운 FileList 객체 생성
+          var dataTransfer = new DataTransfer();
+          for (var i = 0; i < newFiles.length; i++) {
+              dataTransfer.items.add(newFiles[i]);
+          }
+          $('#uploadFile')[0].files = dataTransfer.files;
+      });
+      
+      
+
+      // 입력 필드에 음수값 방지
+      $('input[name="commercePrice"], input[name="commerceStock"]').on('input', function(event) {
+          var input = event.target;
+          var value = input.value;
+          var regex = /^[0-9]+$/;
+
+          if (!regex.test(value)) {
+              input.value = value.replace(/[^0-9]/g, '');
+          }
+
+      });
+	});
 </script>
 
 <body class="nav-md">
@@ -185,44 +236,50 @@ $(document).ready(function() {
 							class="question_questionMark__AykT_">*</span>
 						<div class="question_radioWrap__WZ6ME">
 							<div>
-								<input type="radio" name="question" id="광고" value="광고" checked="광고"><label
-									for="광고">광고</label>
+								<input type="radio" name="cate" id="상품" value="9" checked="상품"><label
+									for="상품">상품</label>
 							</div>
 						</div>
-						<form id="adSave" action="adSave" method="post" enctype="multipart/form-data">
+						<form id="commerceSave" action="commerceSave" method="post" enctype="multipart/form-data">
 								<div>
 									<div>
 										<span class="question_questionCategory__1QDx6">글 작성</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
-									<input placeholder="제목을 입력해주세요"
-										class="question_titleInput__S7Isd" type="text" name="title" />
+									<input placeholder="상품명을 입력해주세요"
+										class="question_titleInput__S7Isd" type="text" name="commerceName" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 								<div>
 									<div>
-										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
+										<span class="question_questionCategory__1QDx6">상품 가격</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
-									<input placeholder="예) https://www.naver.com"
-										class="question_titleInput__S7Isd" type="text" name="url" />
+									<input placeholder="상품 가격을 입력하세요" class="question_titleInput__S7Isd" type="number" name="commercePrice" />
+									<div class="question_alertText__WnxqW"></div>
+								</div>
+								<div>
+									<div>
+										<span class="question_questionCategory__1QDx6">상품 재고</span><span
+											class="question_questionMark__AykT_">*</span>
+									</div>
+									<input placeholder="상품 재고를 입력하세요" class="question_titleInput__S7Isd" type="number" name="commerceStock" />
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 				                <div class="question_fileInputWrapper__d9gmU">
-				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
+				                    <span class="question_questionCategory__1QDx6">상품 사진 업로드</span>
 				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
 				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
 				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
 				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
 				                    <img src="/icons/ICON_PHOTO_CAMERA.svg">
 				                    </label>
-				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
+				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 상품 첨부 파일은 1개만 가능합니다.</span>
 				                </div>
 								<div>
-									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
+									<button class="question_submitBtn__vDrt_" type="submit">상품 등록</button>
 								</div>
-								<br />
-								
+								<br />								
 						</form>
 					</div>
 				</div>				
@@ -241,7 +298,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-	
 	<!-- jQuery -->
 	<script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -277,7 +333,6 @@ $(document).ready(function() {
 	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
-
     	
 </body>
 </html>
