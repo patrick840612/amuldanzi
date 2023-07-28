@@ -74,7 +74,7 @@ $(document).ready(function() {
         $('.note-editable').css('font-family', '굴림체, sans-serif');
     });
 
-    let imgNameWhenupdate='1';
+    let imgNameWhenupdate='';
     
     // 썸머노트 에디터 로딩
     $('#summernote').summernote({
@@ -117,7 +117,7 @@ $(document).ready(function() {
           	//여기 부분이 이미지를 첨부하는 부분
 			onImageUpload : function(files) {
 
-				if(imgNameWhenupdate != '1'){
+				if(imgNameWhenupdate != ''){
 					deleteSummernoteImageFile(imgNameWhenupdate);
 					$('.note-editable>p img').remove();
 				}
@@ -139,7 +139,8 @@ $(document).ready(function() {
                         .attr('src')
                         .split('/')
                         .pop()
-                    imgNameWhenupdate = '1';
+                    imgNameWhenupdate = '';
+                    $('#sitterImg').val('');
 
                     // ajax 함수 호출
                     deleteSummernoteImageFile(deletedImageUrl)
@@ -165,6 +166,7 @@ $(document).ready(function() {
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
             	imgNameWhenupdate = data.url.split('/').pop();
+            	$('#sitterImg').val(imgNameWhenupdate);
 			      if (data && data.url) {
 			        // 업로드된 이미지 URL을 에디터에 삽입
 			        $(editor).summernote("insertImage", data.url);
@@ -193,6 +195,19 @@ $(document).ready(function() {
         })
     }
     
+    // 페이지가 이동하거나 브라우저가 닫힐 때 발생하는 이벤트 처리
+    $(window).on('beforeunload', function(event) {
+		if(imgNameWhenupdate != ''){
+			deleteSummernoteImageFile(imgNameWhenupdate);
+		}
+        //return '이 페이지를 벗어나시겠습니까?';
+    });
+    
+    // 돌보미 신청할 때 파일지워지지 않게하기
+    $('#sitterRegist').submit(function(){
+    	imgNameWhenupdate = '';
+    });
+    
 
 });
 </script>
@@ -215,21 +230,22 @@ $(document).ready(function() {
 								class="question_questionMark__AykT_">*</span>
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="question" id="신청하기" value="신청하기" checked="신청하기"><label
+									<input type="radio" name="sitter" id="신청하기" value="신청하기" checked="신청하기"><label
 										for="신청하기">신청하기</label>
 								</div>
 								<div>
-									<input type="radio" name="question" id="승인대기" value="승인대기"><label
+									<input type="radio" name="sitter" id="승인대기" value="승인대기"><label
 										for="승인대기">승인대기</label>
 								</div>
 								<div>
-									<input type="radio" name="question" id="승인완료" value="승인완료" ><label
+									<input type="radio" name="sitter" id="승인완료" value="승인완료" ><label
 										for="승인완료">승인완료</label>
 								</div>
 							</div>
 
 								<div>
-								<input type='hidden' name='id' value='${id }'/>
+								<input type='hidden' name='id' value='${id}'/>
+								<input type='hidden' name='sitterTitle' value='돌보미 역할신청'/>
 								<!-- Select tag for 돌보미 경력 -->
 								<div>				
 									<div>
@@ -273,7 +289,7 @@ $(document).ready(function() {
 											class="question_questionMark__AykT_">*</span>
 									</div>
 									<input placeholder="대표 자격증명 입력해주세요"
-										class="question_titleInput__S7Isd" type="text" name="sitterLicense" value="${sit.sitterLicense}"/>
+										class="question_titleInput__S7Isd" type="text" name="sitterLicense"/>
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 								<div>
@@ -282,34 +298,17 @@ $(document).ready(function() {
 											class="question_questionMark__AykT_">*</span>
 									</div>
 									<input placeholder="어디서 취득하셨쎄요?"
-										class="question_titleInput__S7Isd" type="text" name="sitterAuthority" value="${sit.sitterAuthority}" />
+										class="question_titleInput__S7Isd" type="text" name="sitterAuthority"/>
 									<div class="question_alertText__WnxqW"></div>
 								</div>
-				                <!-- <div class="question_fileInputWrapper__d9gmU">
-				                    <span class="question_questionCategory__1QDx6">자격증 파일 업로드</span>
-				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
-				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
-				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
-				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
-				                    <img src="/icons/ICON_PHOTO_CAMERA.svg">
-				                    </label>
-				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
-				                </div> -->
 
  								<textarea id="summernote" name="editordata"></textarea>  
+ 								<input type="hidden" name="sitterImg" id="sitterImg"/>
 								<div>
 									<button class="question_submitBtn__vDrt_" type="submit">돌보미 신청하기</button>
 								</div>
 								<br />
 						</form>
-						
-						<!-- <div class="ajaxImage">
-					        <span>
-					            <img class="image-preview" src="/images/ad/${adDetail.img}" alt="ad Image" style="width: 200px; height: 200px;">
-					        </span>
-					        <button class="deleteAjax" onclick="deleteImage('${adDetail.img}')" style="position:relative; left:93px" >&times;</button>
-					    </div> -->
-						
 
 					</div>
 				</div>				

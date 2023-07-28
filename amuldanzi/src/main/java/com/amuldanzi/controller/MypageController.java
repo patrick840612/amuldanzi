@@ -1,6 +1,7 @@
 package com.amuldanzi.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,6 +14,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amuldanzi.domain.CareDTO;
@@ -54,7 +58,10 @@ public class MypageController {
 	@Autowired
 	private HttpServletRequest request;
 	
-	private String sitterImg;
+	@Autowired
+    // RestTemplate 인스턴스 생성
+    RestTemplate restTemplate = new RestTemplate();
+	
 	
 	// 페이지 이동
 	@RequestMapping("/{step}")
@@ -201,15 +208,15 @@ public class MypageController {
 	@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-		
+
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "D:\\summernote_image\\";	//저장될 외부 파일 경로
+		String fileRoot = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\mypage\\";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-		sitterImg = savedFileName;
+        
 		File targetFile = new File(fileRoot + savedFileName);	
 		
 		try {
@@ -234,7 +241,7 @@ public class MypageController {
 	@ResponseBody
 	public void deleteSummernoteImageFile(@RequestParam("file") String fileName) {
 	    // 폴더 위치
-		String fileRoot = "D:\\summernote_image\\";
+		String fileRoot = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\mypage\\";
 	    
 	    // 해당 파일 삭제
 	    deleteFile(fileRoot, fileName);
@@ -242,7 +249,7 @@ public class MypageController {
 
 	// 파일 하나 삭제
 	private void deleteFile(String fileRoot, String fileName) {
-		sitterImg=null;
+
 	    Path path = Paths.get(fileRoot, fileName);
 	    try {
 	        Files.delete(path);
@@ -251,14 +258,30 @@ public class MypageController {
 	    }
 	}
 	
+	// 돌보미 신청시 DB 저장(이미지 저장 안하기 beforeunload로 파일처리 끝냄)
 	@RequestMapping(value = "/sitterRegist", method = RequestMethod.POST)
-	public String sitterRegist(SitterDTO sitter) {
+	public String sitterRegist(SitterDTO sitter, @RequestParam("editordata") String editordata) {
+	    // 썸머노트 에어리어에 입력한 값에서 <p> 태그 제거
+	    Document doc = Jsoup.parse(editordata);
+	    String cleanText = doc.text();
+	    
+		if(!sitter.getSitterImg().equals("")) {
+			// 이미지 파일을 저장할 경로 설정 
+			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\mypage\\";
+			sitter.setSitterImgPath(savePath);			
+		}
+		sitter.setSitterEtc(cleanText);
+
 		System.out.println("***************************");
 		System.out.println(sitter);
-		System.out.println(sitterImg);
-		
-		return "mypage/sitter";
-	}
+
+
+        return "redirect:/mypage/sitter";
+    }
+	
+	
+	
+} // end of class MypageController
 	
 	
 
@@ -298,4 +321,43 @@ public class MypageController {
 
 	    return ResponseEntity.ok(response);
 	}*/
-}
+
+	/*// 돌보미 신청시 DB 저장(이미지 저장 같이 하기)
+	@RequestMapping(value = "/sitterRegist", method = RequestMethod.POST)
+	public String sitterRegist(SitterDTO sitter) {
+		System.out.println("***************************");
+		System.out.println(sitter);
+		
+	    // 이미지 URL
+	    String imageUrl = "http://localhost:8080/summernoteImage/"+sitter.getSitterImg();
+	
+	    // 이미지를 byte[]로 가져오기 위해 RestTemplate를 사용하여 GET 요청 보내기
+	    ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(imageUrl, byte[].class);
+	    
+	    // 가져온 이미지 데이터
+	    byte[] imageBytes = responseEntity.getBody();
+	
+	    // 이미지를 저장할 경로와 파일명 설정
+	    String savePath = "D:\\summernote_image\\";
+	    String fileName = "image.jpg";
+	
+	    try {
+	        // 파일 경로와 파일명을 합친 File 객체 생성
+	        FileOutputStream fileOutputStream = new FileOutputStream(savePath + fileName);
+	
+	        // 이미지 데이터를 파일로 저장
+	        fileOutputStream.write(imageBytes);
+	
+	        // 파일 출력 스트림 닫기
+	        fileOutputStream.close();
+	
+	        // 이미지 저장이 완료되면 마이페이지로 이동
+	        return "mypage/sitter";
+	    } catch (IOException e) {
+	        // 예외 처리 (파일 저장 실패 등)
+	        e.printStackTrace();
+	        return "error"; // 에러 페이지로 리다이렉트 또는 에러 처리 방법에 따라 적절히 대응
+	    }
+	}*/
+
+
