@@ -117,9 +117,7 @@ a[href^='tel'] {
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
 
-											<button class="link-new-tab">
-												<i class="sprite-new-tab"></i>새창 열기
-											</button>
+											
 
 										</div>
 
@@ -159,11 +157,83 @@ a[href^='tel'] {
 
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
+												
+										</div>
 
-											<button class="link-new-tab">
-												<i class="sprite-new-tab"></i>새창 열기
-											</button>
+										<dl class="prd-info">
+											<dt class="prd-name">
 
+												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+											</dt>
+
+											<dd class="price-info" data-exposPrcTypCd="4"
+												data-exposPrdTypCd="P" data-consultProduct="false"
+												data-rentPrc="0">
+
+												<!-- 가격 -->
+												<span class="price"> <span class="set-price">
+														<strong>10000</strong>원
+												</span>
+
+												</span>
+												<!-- //price -->
+											</dd>
+
+											<dd class="user-side"></dd>
+
+											<dd class="advantage">
+												<div>
+													<span>#태그</span>
+												</div>
+											</dd>
+										</dl>
+								</a></li>
+								<!-- 상품반복 끝 -->
+								<!-- 상품 반복 ( 3개까지 ) -->
+								<li><a href="" class="prd-item" data-prdid="1034842032">
+										<div class="prd-img">
+
+											<img src="" onerror="" alt="상품이미지"> <span
+												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
+												
+										</div>
+
+										<dl class="prd-info">
+											<dt class="prd-name">
+
+												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+											</dt>
+
+											<dd class="price-info" data-exposPrcTypCd="4"
+												data-exposPrdTypCd="P" data-consultProduct="false"
+												data-rentPrc="0">
+
+												<!-- 가격 -->
+												<span class="price"> <span class="set-price">
+														<strong>10000</strong>원
+												</span>
+
+												</span>
+												<!-- //price -->
+											</dd>
+
+											<dd class="user-side"></dd>
+
+											<dd class="advantage">
+												<div>
+													<span>#태그</span>
+												</div>
+											</dd>
+										</dl>
+								</a></li>
+								<!-- 상품반복 끝 -->
+								<!-- 상품 반복 ( 3개까지 ) -->
+								<li><a href="" class="prd-item" data-prdid="1034842032">
+										<div class="prd-img">
+
+											<img src="" onerror="" alt="상품이미지"> <span
+												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
+												
 										</div>
 
 										<dl class="prd-info">
@@ -296,135 +366,7 @@ a[href^='tel'] {
 <script type="text/javascript"
 	src="//image.gsshop.com/ui/gsshop/pc/shop/player/videojs/scripts/videojs-7.14.1.min.js?20230705140638"></script>
 <!-- 배포해야함 2022-01-04 -->
-<script type="text/javascript">
-	jQuery(function($) {
 
-		var url = '//gstv-myshop.gsshop.com/myshop_hd/_definst_/myshop_hd.stream/playlist.m3u8';
-		/* var rtmpUrl = 'rtmp://livem.gsshop.com/gsmyshop_hd/_definst_/gsmyshop_hd.stream'; */
-
-		url = '//gstv-gsshop.gsshop.com/gsshop_hd/_definst_/gsshop_hd.stream/playlist.m3u8';
-		/* rtmpUrl = 'rtmp://livem.gsshop.com/gsshop_hd/_definst_/gsshop_hd.stream'; */
-
-		// 옵션 정리 2022-01-04
-		var type = 'application/x-mpegurl';
-		var videoSrc = url;
-
-		var $playerController = $('#player-control');
-		var $player = $('#videojs-player');
-		var pauseTieme;
-
-		var playerOption = {
-			preload : 'auto',
-			autoplay : true,
-			muted : false,
-			playsinline : true,
-			fullscreenToggle : false,
-			sources : [ {
-				'type' : type,
-				'src' : videoSrc
-			} ]
-		}
-		//    playerOption.techOrder = ['html5','flash'];
-
-		var player = videojs('videojs-player', playerOption);
-
-		player.on('play', function() {
-
-			$player = $('#videojs-player');
-
-			if (GsBase.os == 'android') {
-				$('.video-js').append($playerController);
-			}
-
-			setTimeout(function() {
-				if ($player.hasClass('vjs-playing')) {
-					$playerController.removeClass('ready');
-				}
-			}, 1000);
-		})
-		player.on('fullscreenchange', function() {
-			if (this.isFullscreen()) {
-				if (!$player.hasClass('vjs-playing'))
-					$playerController.find('.play').click();
-			} else {
-				$playerController.find('.stop').click();
-			}
-		});
-
-		$playerController.find('.play').on('click', function() {
-			$playerController.removeAttr('class').addClass('play');
-			player.play();
-		});
-
-		$playerController.find('.stop').on('click', function() {
-			$playerController.addClass('on').addClass('pause');
-			player.pause();
-		});
-
-		$playerController.find('.volume').on('click', function() {
-			if ($(this).hasClass('off')) {
-				$(this).removeClass('off');
-				player.muted(false);
-			} else {
-				$(this).addClass('off');
-				player.muted(true);
-			}
-		});
-
-		$playerController.find('.fullscreen').on('click', function() {
-			$('.vjs-fullscreen-control').click();
-			if (GsBase.mobileBrowser)
-				$('.vjs-play-control').click();
-		});
-
-		$playerController.find('button').on('click', function(e) {
-			e.stopPropagation();
-			clearTimeout(pauseTieme);
-			pauseTieme = null;
-		});
-
-		$playerController.find('.go').on('click', function() {
-			var linkUrl = $('#currentBroadLink').attr('href');
-			document.location.href = linkUrl;
-		});
-
-		if (GsBase.mobileBrowser) {
-			$('#player-control-inner').on(
-					'click',
-					function(e) {
-						e.stopPropagation();
-
-						clearTimeout(pauseTieme);
-						pauseTieme = null;
-
-						if ($playerController.hasClass('on')) {
-							if ($player.hasClass('vjs-playing')) {
-								$playerController.removeClass('on');
-							}
-						} else {
-							$playerController.addClass('on');
-
-							if ($player.hasClass('vjs-playing')) {
-								pauseTieme = setTimeout(function() {
-									$playerController.removeClass('on')
-											.removeClass('over');
-								}, 3000);
-							}
-						}
-
-						if ($player.hasClass('vjs-paused')) {
-							$playerController.removeClass('play').addClass(
-									'pause');
-						} else {
-							$playerController.addClass('over');
-						}
-					});
-		}
-
-		amplitudeCall()
-
-	});
-</script>
 </html>
 
 
