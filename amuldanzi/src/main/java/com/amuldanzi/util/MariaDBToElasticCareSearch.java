@@ -2,6 +2,7 @@ package com.amuldanzi.util;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MariaDBToElasticNoticeSearch {
+public class MariaDBToElasticCareSearch {
 
 	
 	// ElasticSearch 클러스터 호스트 및 포트 설정 (주소는 적절하게 변경)
@@ -32,26 +33,28 @@ public class MariaDBToElasticNoticeSearch {
     private static final String DB_PASSWORD = "danzi";
 
     // 데이터를 색인할 인덱스 이름
-    private static final String INDEX_NAME = "notice";
+    private static final String INDEX_NAME = "care";
 
     public void indexDataFromMariaDB() {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              Statement statement = connection.createStatement();
              RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(ES_HOST, ES_PORT, "http")))) {
 
-            String sql = "SELECT id, category, content, title FROM notice";
+            String sql = "SELECT id, animal, content, title FROM care";
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String category = resultSet.getString("category"); 
-                String noticeTitle  = resultSet.getString("title");  
+                String animal = resultSet.getString("animal");  
+                String content = resultSet.getString("content");  
+                String careTitle  = resultSet.getString("title");  
 
                 // JSON 형식으로 데이터 변환
                 String jsonBody = "{" +
                         "\"id\":\"" + id + "\"," +
-                        "\"category\":\"" + category + "\"," + 
-                        "\"title\":\"" + noticeTitle + "\"" +  
+                        "\"animal\":\"" + animal + "\"," + 
+                        "\"content\":\"" + content + "\"," + 
+                        "\"title\":\"" + careTitle + "\"" +  
                         "}";
 
                 // ElasticSearch에 데이터 색인
@@ -74,13 +77,11 @@ public class MariaDBToElasticNoticeSearch {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } 
-    
+    }
 
     public static void main(String[] args) {
-        MariaDBToElasticNoticeSearch indexer = new MariaDBToElasticNoticeSearch();
+        MariaDBToElasticCareSearch indexer = new MariaDBToElasticCareSearch();
         indexer.indexDataFromMariaDB();
-        
         
      // Elasticsearch에서 데이터를 삭제하려면 해당 데이터의 comm_no를 인자로 전달합니다.
         int commNoToDelete = 39; // 삭제하려는 데이터의 comm_no를 설정하세요.
