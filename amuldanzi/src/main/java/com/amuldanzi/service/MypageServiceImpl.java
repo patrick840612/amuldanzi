@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amuldanzi.dao.BusinessDAO;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.dao.LoginSocialDAO;
 import com.amuldanzi.dao.SitterDAO;
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
@@ -31,6 +33,9 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	SitterDAO sitterDAO;
+	
+	@Autowired
+	BusinessDAO businessDAO;
 	
 	// pet 정보 가져오기(회원정보관리 입장시)
 	@Override
@@ -109,6 +114,32 @@ public class MypageServiceImpl implements MypageService {
 	// 돌보미 재신청을 위한 삭제
 	public void sitterDeleteById(String id) {
 		sitterDAO.deleteById(id);
+	}
+	
+	// 쇼핑몰 검색
+	public List<BusinessDTO> businessFindByMemberId(String id) {
+		return businessDAO.findByMemberId(id);
+	}
+	
+	// 쇼핑몰 신청
+	public void saveBusiness(BusinessDTO business) {
+		businessDAO.save(business);
+	}
+	
+	// 쇼핑몰 검색(상세페이지용)
+	public BusinessDTO businessFindByMemberRearId(String businessNumber) {
+		   Optional<BusinessDTO> businessOptional = businessDAO.findById(businessNumber);
+		    return businessOptional.orElse(null); // 객체가 있으면 해당 BusinessDTO를 반환하고, 없으면 null을 반환
+	}
+	
+	// 쇼핑몰 수정
+	public void businessUpdate(BusinessDTO business) {
+		businessDAO.businessUpdate(business);
+	}
+	
+	// 쇼핑몰 삭제
+	public void businessDelete(BusinessDTO business) {
+		businessDAO.delete(business);
 	}
 	
 }

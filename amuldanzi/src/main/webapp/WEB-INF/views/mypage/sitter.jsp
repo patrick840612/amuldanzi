@@ -55,7 +55,10 @@
 .note-editor .note-editable {
     font-family: '굴림체', sans-serif !important;
 }
-/*  */
+
+.dolButton{
+	margin : 40px auto 0px !important;
+}
 
 </style>
 
@@ -236,10 +239,15 @@ $(document).ready(function() {
 			$('#levelChange').before($('<div style="text-align: center; margin-top: 200px;"><p style="font-size: 36px;">돌보미 승인이 완료 되었습니다</p><br/>'+
 			'<p style="font-size: 24px; color: green; font-weight: bold;">돌보미샵에 등록할 수 있습니다</p></div>'));
 			$('#levelChange').empty();
-			$('#levelChange').append($('<button class="question_submitBtn__vDrt_" type="button" id="dolbomiShop">돌보미샵 가기</button>'));
+			$('#levelChange').append($('<button class="question_submitBtn__vDrt_ dolButton" type="button" id="dolbomiShop">돌보미샵 가기</button>'));
+			$('#levelChange').append($('<button class="question_submitBtn__vDrt_ dolButton" type="button" id="dolbomidelete">돌보미 삭제</button>'));
 		}
 		    $('#dolbomiShop').click(function(){
 		    	location.href='/market/dolbomiShop'; 
+	    	});
+		    
+		    $('#dolbomidelete').click(function(){
+		    	location.href='/mypage/deleteSitter?id=${id}';  
 	    	});
 	} // 승인등급 조건
 	
@@ -261,10 +269,10 @@ $(document).ready(function() {
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
 						<form id="sitterRegist" action="/mypage/sitterRegist" method="post" enctype="multipart/form-data">
-							<span class="question_questionCategory__1QDx6">돌보미 신청
+							<span class="question_questionCategory__1QDx6">돌보미 신청</span>
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="sitter" id="신청하기" value="승인대기" checked="신청하기"><label
+									<input type="radio" name="sitter" id="신청하기" value="승인대기" checked><label
 										for="신청하기">신청하기</label>
 								</div>
 								<div>
