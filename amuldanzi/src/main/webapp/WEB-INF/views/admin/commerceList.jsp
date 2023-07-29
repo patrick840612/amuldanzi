@@ -45,8 +45,8 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="/admin/adminMain" class="site_title"><i
-							class="fa fa-paw"></i> <span>애물단지</span></a>
+						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
+							<span>애물단지</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -83,13 +83,13 @@
 									<ul class="nav child_menu">
 										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
-										<li><a href="form_validation.html">신고 글 관리</a></li>
+										<li><a href="/admin/blamedList">신고 글 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">방송 일정</a></li>
-										<li><a href="media_gallery.html">상품 관리</a></li>
+										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
@@ -131,10 +131,11 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false">관리자 </a>
+								aria-expanded="false">관리자
+							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -155,28 +156,33 @@
         <hr>
         <!-- 재고 테이블 -->
         <table class="table table-striped">
+        	<colgroup>
+		        <col style="width: 20%;">
+		        <col style="width: 15%;">
+		        <col style="width: 15%;">
+		        <col style="width: 40%;">
+		        <col style="width: 10;">
+		    </colgroup>
             <thead>
                 <tr>
                     <th>상품명</th>
                     <th>재고량</th>
                     <th>가격</th>
                     <th>상품이미지</th>
-                    <th>수정</th>
                     <th>삭제</th>
                 </tr>
             </thead>
-<tbody>
-    <c:forEach items="${commerceList}" var="commerceList">        
-        <tr>        	
-            <td class="align-middle">${commerceList.commerceName}</td>
-            <td class="align-middle">${commerceList.commerceStock}</td>
-            <td class="align-middle">${commerceList.commercePrice}</td>
-            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width="80"></td>
-            <td class="align-middle"><button class="btn btn-info btn-sm edit-button">수정</button></td>
-            <td class="align-middle"><a class="btn btn-danger btn-sm" href="commerceDelete?commerceId=${commerceList.commerceId }">삭제</a></td>
-        </tr>
-    </c:forEach> 
-</tbody>
+				<tbody>
+				    <c:forEach items="${commerceList}" var="commerceList">        
+				        <tr>        	
+				            <td class="align-middle"><a href="commerceDetail?commerceId=${commerceList.commerceId }">${commerceList.commerceName}</a></td>
+				            <td class="align-middle">${commerceList.commerceStock}</td>
+				            <td class="align-middle">${commerceList.commercePrice}</td>
+				            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width= 200></td>
+				            <td class="align-middle"><a class="btn btn-danger btn-sm" href="commerceDelete?commerceId=${commerceList.commerceId }">삭제</a></td>
+				        </tr>
+				    </c:forEach> 
+				</tbody>
         	</table>
         <!-- 상품 추가 버튼 -->
         <hr>
@@ -209,9 +215,13 @@
                             <input type="number" class="form-control" id="commercePrice" name="commercePrice" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">상품이미지</label>
+                            <label for="image">상품 이미지</label>
                             <input type="file" class="form-control-file" name="file" id="uploadFile" accept="image/*" onchange="previewImage(event)">
-                            <img id="imagePreview" src="#" alt="미리보기 이미지" width="100" style="display:none;">
+                            <img id="imagePreview" src="#" alt="미리보기 이미지" width="200" style="display:none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="detailImage">상품 상세 이미지</label>
+                            <input type="file" class="form-control-file" name="detailFile" id="uploadDetailFile" accept="image/*">
                         </div>
                         <button type="submit" class="btn btn-primary">추가</button>
                     </form>
@@ -268,89 +278,15 @@
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
 	
+
 <script>
-$(document).ready(function () {
-	
-    // 파일 업로드시 미리보기 기능을 처리하는 함수
-    function previewImage(event) {
-        var imagePreview = document.getElementById('imagePreview');
-        imagePreview.style.display = 'block';
-        imagePreview.src = URL.createObjectURL(event.target.files[0]);
-    }
-    // "수정" 버튼 클릭을 처리하는 함수
-    function editRow(button) {
-        var row = button.closest("tr");
-        var cells = row.getElementsByTagName("td");
-
-        // 이미 수정 중인 경우에는 아무 작업도 하지 않음
-        if (row.querySelector("form")) {
-            return;
-        }
-
-        // 수정 버튼을 "저장" 버튼으로 변경
-        button.innerHTML = "저장";
-        button.onclick = function () {
-            saveRow(this);
-        };
-
-        // "상품 추가" 버튼 숨김
-        document.querySelector(".mb-3").style.display = "none";
-
-        // 각 셀마다 폼을 생성하여 input 요소 삽입
-        for (var i = 0; i < cells.length - 3; i++) {
-            var cell = cells[i];
-            var originalValue = cell.innerText;
-            var inputField;
-
-            // 숫자인 경우 숫자 입력 필드로 변경
-            if (i === 1) {
-                inputField = '<input type="number" name="commerceStock" value="' + originalValue + '">';
-            } else if (i === 2) {
-                inputField = '<input type="number" name="commercePrice" value="' + originalValue + '">';
-            } else {
-                inputField = '<input type="text" name="commerceName" value="' + originalValue + '">';
-            }
-
-            // 폼 태그 생성
-            var formHTML = '<form id="commerceUpdate" action="commerceUpdate" enctype="multipart/form-data">' + inputField + '</form>';
-
-            // 셀 내부의 HTML을 폼으로 교체
-            cell.innerHTML = formHTML;
-        }
-
-        // 이미지 셀을 파일 업로드로 변경
-        var imgCell = cells[cells.length - 3];
-        var imgUrl = imgCell.querySelector("img").src;
-        var imgField = '<input type="file" id="uploadFile" name="file" accept="image/*" onchange="previewImage(event)"><img id="imagePreview" src="' + imgUrl + '" alt="미리보기 이미지" width="80" style="display:block;">';
-
-        // 폼 태그 생성
-        var formHTML = '<form id="commerceUpdate" action="commerceUpdate" enctype="multipart/form-data" method="post">' + imgField + '</form>';
-
-        // 셀 내부의 HTML을 폼으로 교체
-        imgCell.innerHTML = formHTML;
-       }
-
-
-
-
-        // 파일 업로드시 미리보기 기능을 처리하는 함수
-		function previewImage(event) {
-		    var imagePreview = document.getElementById('imagePreview');
-		    imagePreview.style.display = 'block';
-		    imagePreview.src = URL.createObjectURL(event.target.files[0]);
-		}
-
-        // "수정" 버튼 클릭 이벤트 처리
-        $(document).on('click', '.edit-button', function () {
-            editRow(this);
-        });
-        
-        // "저장" 버튼 클릭 이벤트 처리
-        $(document).on('click', '.save-button', function () {
-            saveRow(this);
-        });
-    });
+function previewImage(event) {
+    var imagePreview = document.getElementById('imagePreview');
+    imagePreview.style.display = 'block';
+    imagePreview.src = URL.createObjectURL(event.target.files[0]);
+}
 </script>
+
 
 </body>
 </html>

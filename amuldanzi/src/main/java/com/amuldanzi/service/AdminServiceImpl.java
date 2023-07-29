@@ -9,6 +9,7 @@ import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
@@ -16,6 +17,7 @@ import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
 import com.amuldanzi.persistence.CommerceRepository;
+import com.amuldanzi.persistence.CommunityRepository;
 import com.amuldanzi.persistence.EducationRepository;
 import com.amuldanzi.persistence.MarketInfoRepository;
 import com.amuldanzi.persistence.NoticeRepository;
@@ -43,6 +45,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	CommerceRepository commerceRepo;
+	
+	@Autowired
+	CommunityRepository communityRepo;
 
 	@Override
 	public List<MarketInfoDTO> getMarketList() {
@@ -157,13 +162,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void adUpdate(AdvertisementDTO dto) {
-		// TODO Auto-generated method stub
+
+		
 		AdvertisementDTO result = adRepo.findById(dto.getId()).get();
 		
-		result.setTitle(dto.getTitle());
+		result.setTitle(dto.getTitle());		
 		result.setUrl(dto.getUrl());
+		
+		if(dto.getImgPath() != null) {
+			
 		result.setImg(dto.getImg());
 		result.setImgPath(dto.getImgPath());
+		
+		}		
 		
 		adRepo.save(result);
 		
@@ -176,8 +187,10 @@ public class AdminServiceImpl implements AdminService {
 			eduRepo.deleteImage(imageName);
 		}else if(cateId == 3) {
 			careRepo.deleteImage(imageName);
-		}else if(cateId == null){
+		}else if(cateId == 8){
 			adRepo.deleteImage(imageName);
+		}else if(cateId == 9) {
+			commerceRepo.deleteImage(imageName);
 		}
 		
 	}
@@ -219,11 +232,20 @@ public class AdminServiceImpl implements AdminService {
 		result.setAnimal(dto.getAnimal());
 		result.setTitle(dto.getTitle());
 		result.setContent(dto.getContent());
+		
+		if(dto.getImgPath() != null) {
+		
 		result.setImg(dto.getImg());
 		result.setImgPath(dto.getImgPath());
+		
+		}
+		
+		if(dto.getVideoPath() != null) {
+		
 		result.setVideo(dto.getVideo());
 		result.setVideoPath(dto.getVideoPath());
 		
+		}
 		careRepo.save(result);
 		
 	}
@@ -238,10 +260,20 @@ public class AdminServiceImpl implements AdminService {
 		result.setStep(dto.getStep());
 		result.setLevel(dto.getLevel());
 		result.setContent(dto.getContent());
+		
+		if(dto.getImgPath() != null) {
+		
 		result.setImg(dto.getImg());
-		result.setImgPath(dto.getAnimal());
+		result.setImgPath(dto.getImgPath());
+		
+		}
+		
+		if(dto.getVideoPath() != null) {
+			
 		result.setVideo(dto.getVideo());
 		result.setVideoPath(dto.getVideoPath());
+		
+		}
 		
 		eduRepo.save(result);
 	}
@@ -284,11 +316,36 @@ public class AdminServiceImpl implements AdminService {
 		result.setCommerceName(dto.getCommerceName());
 		result.setCommercePrice(dto.getCommercePrice());
 		result.setCommerceStock(dto.getCommerceStock());
-		result.setImg(dto.getImg());
-		result.setImgPath(dto.getImgPath());
+		
+		
+		//상품 이미지 패스가 null 값이라면 이미지와 이미지 패스는 기존 값 유지
+		//null 값이 아니라면 새로운 상품 이미지와 이미지 패스로 변경
+		if(dto.getImgPath() != null) {
+			result.setImg(dto.getImg());
+			result.setImgPath(dto.getImgPath());
+		}
+		
+		//상품 상세 이미지 패스가 null 값이라면 이미지와 이미지 패스는 기존 값 유지
+		//null 값이 아니라면 새로운 상품 상세 이미지와 이미지 패스로 변경
+		if(dto.getDetaiImgPath() != null) {
+			result.setDetailImg(dto.getDetailImg());
+			result.setDetaiImgPath(dto.getDetaiImgPath());			
+		}
 		
 		commerceRepo.save(result);
 		
+	}
+
+	@Override
+	public CommerceDTO getCommerceById(CommerceDTO dto) {
+		// TODO Auto-generated method stub
+		return commerceRepo.findById(dto.getCommerceId()).get();
+	}
+
+	@Override
+	public List<CommunityDTO> getCommunityList() {
+		// TODO Auto-generated method stub
+		return communityRepo.getCommunityListByBlame;
 	}
 	
 	

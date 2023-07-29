@@ -22,8 +22,10 @@ import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.service.AdminService;
 import com.amuldanzi.util.MD5Generator;
 
@@ -278,59 +280,59 @@ public class AdminController {
 	    return "redirect:/admin/adminContentList";
 	}
 	
-	@RequestMapping(value = "/careUpdate", method = RequestMethod.POST)
-	public String careUpdate(@RequestParam("file") MultipartFile file, @RequestParam("videoFile") MultipartFile videoFile, CareDTO dto) {
-		
-		 try {
-		        String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\care";
-		        String saveVideoPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\videos\\care";
+    @RequestMapping(value ="/careUpdate", method = RequestMethod.POST)
+    public String careUpdate(@RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(name = "videoFile", required = false) MultipartFile videoFile, CareDTO dto) {
+        try {
+            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\care";
+            String saveVideoPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\videos\\care";
 
-		        if (!new File(savePath).exists()) {
-		            new File(savePath).mkdir(); // 이미지 폴더 생성
-		        }
+            if (file != null && !file.isEmpty()) {
+                // 이미지 파일이 업로드된 경우
+                String oriFilename = file.getOriginalFilename();
+                String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
+                String filename = new MD5Generator(oriFilename).toString() + currentTimeSeconds;
+                String filepath = savePath + "\\" + filename;
+                file.transferTo(new File(filepath));
 
-		        if (!new File(saveVideoPath).exists()) {
-		            new File(saveVideoPath).mkdir(); // 비디오 폴더 생성
-		        }
+                dto.setImg(filename);
+                dto.setImgPath(filepath);
+            } else {
+                // 이미지 파일이 첨부되지 않은 경우, 기존 경로를 그대로 사용
+                CareDTO existingCareDetail = adminService.getCareById(dto);
+                dto.setImg(existingCareDetail.getImg());
+                dto.setImgPath(existingCareDetail.getImgPath());
+            }
 
-		        String oriFilename = file.getOriginalFilename();
-		        String oriVideoFilename = videoFile.getOriginalFilename();
+            if (videoFile != null && !videoFile.isEmpty()) {
+                // 동영상 파일이 업로드된 경우
+                String oriVideoFilename = videoFile.getOriginalFilename();
+                String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
+                String videofilename = new MD5Generator(oriVideoFilename).toString() + currentTimeSeconds;
+                String videofilepath = saveVideoPath + "\\" + videofilename;
+                videoFile.transferTo(new File(videofilepath));
 
-		        if (oriFilename != null && !oriFilename.equals("")) {
-					//현재시간을 밀리초단위로 받아와서 currentTimeSeconds에 저장
-					String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
-					
-					//받아온 시간을 파일 이름에 추가하여 중복 방지
-					String filename = new MD5Generator(oriFilename).toString()+ currentTimeSeconds;
-		            String filepath = savePath + "\\" + filename;
-		            file.transferTo(new File(filepath));
+                dto.setVideo(videofilename);
+                dto.setVideoPath(videofilepath);
+            } else {
+                // 동영상 파일이 첨부되지 않은 경우, 기존 경로를 그대로 사용
+                CareDTO existingCareDetail = adminService.getCareById(dto);
+                dto.setVideo(existingCareDetail.getVideo());
+                dto.setVideoPath(existingCareDetail.getVideoPath());
+            }
 
-		            dto.setImg(filename);
-		            dto.setImgPath(filepath);
-		        }
+            // 데이터베이스에 저장
+            adminService.careUpdate(dto);
 
-		        if (oriVideoFilename != null && !oriVideoFilename.equals("")) {
-		        	String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
-		            String videofilename = new MD5Generator(oriVideoFilename).toString()+currentTimeSeconds;
-		            String videofilepath = saveVideoPath + "\\" + videofilename;
-		            videoFile.transferTo(new File(videofilepath)); // 수정: 동영상 파일 저장
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // 업로드 실패 처리
+            System.out.println("예외 메시지: " + ex.getMessage());
+            return "redirect:/admin/adminContentInsert?error";
+        }
 
-		            dto.setVideo(videofilename); // 수정: 동영상 파일명을 설정
-		            dto.setVideoPath(videofilepath); // 수정: 동영상 파일 경로를 설정
-		        }
+        return "redirect:/admin/adminContentList";
+    }
 
-		        // 데이터베이스에 저장
-		        adminService.careUpdate(dto);
-		        
-		    } catch (Exception ex) {
-		        ex.printStackTrace();
-		        // 업로드 실패 처리
-		        System.out.println("예외 메시지: " + ex.getMessage());
-		        return "redirect:/admin/adminContentInsert?error";
-		    }
-	    
-	    return "redirect:/admin/adminContentList";
-	}
 
 
 	@RequestMapping("/careDelete")
@@ -418,6 +420,8 @@ public class AdminController {
 	@RequestMapping(value = "/adModify", method = RequestMethod.POST)
 	public String adUpdate(@RequestParam("file") MultipartFile file, AdvertisementDTO dto) {
 		
+		
+		
 		try {
 	    	
 			String savePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\ad";
@@ -431,7 +435,7 @@ public class AdminController {
 	    
 	    	String oriFilename = file.getOriginalFilename();
 	    	
-			
+	    	
 			if(oriFilename !=null && !oriFilename.equals("")) {
 				
 				//현재시간을 밀리초단위로 받아와서 currentTimeSeconds에 저장
@@ -448,10 +452,11 @@ public class AdminController {
 				dto.setImg(filename);
 				dto.setImgPath(filepath);
 				
-				adminService.adUpdate(dto);	
-				           
-	        }
-	        
+				
+
+			}
+			
+			adminService.adUpdate(dto);	
 	        
 	    } catch (Exception ex) {
 	    	
@@ -528,7 +533,12 @@ public class AdminController {
 	            case 3:
 	                videoPath = System.getProperty("user.dir") + "/src/main/resources/static/videos/care/" + videoName;
 	                break;
-
+	            case 8:
+	            	videoPath = System.getProperty("user.dir") + "/src/main/resources/static/images/ad/" + videoName;
+	                break;
+	            case 9:
+	            	videoPath = System.getProperty("user.dir") + "/src/main/resources/static/images/commerce/" + videoName;
+	                break;    
 	            default:
 	                System.out.println("잘못된 카테고리 ID입니다");
 	                return; // 잘못된 카테고리 ID를 제공하면 메서드를 종료합니다.
@@ -553,21 +563,23 @@ public class AdminController {
 	}
 
 	
-	@RequestMapping("/commerceInsert")
-	public void commerceInsert() {
-		
-	}
-	
 	@RequestMapping(value = "/commerceSave", method = RequestMethod.POST)
-	public String commerceSave(@RequestParam("file") MultipartFile file, CommerceDTO dto) {		
+	public String commerceSave(@RequestParam("file") MultipartFile file, @RequestParam("detailFile") MultipartFile detailFile, CommerceDTO dto) {		
 		
 	    try {
 	    	
 			String savePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\commerce";
-
+			String saveDetailPath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\commerceDetail";
+			
 			if(!new File(savePath).exists()) {
 
 				new File(savePath).mkdir(); //카테고리별로 파일을 만들어 관리
+
+			}
+			
+			if(!new File(saveDetailPath).exists()) {
+
+				new File(saveDetailPath).mkdir(); //카테고리별로 파일을 만들어 관리
 
 			}
 			
@@ -592,6 +604,26 @@ public class AdminController {
 				dto.setImgPath(filepath);			
 	            
 	        }
+			
+			String oriDetailFilename = detailFile.getOriginalFilename();			
+			
+			if(oriDetailFilename !=null && !oriDetailFilename.equals("")) {
+				
+				//현재시간을 밀리초단위로 받아와서 currentTimeSeconds에 저장
+				String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
+				
+				//받아온 시간을 파일 이름에 추가하여 중복 방지
+				String detailfilename = new MD5Generator(oriDetailFilename).toString()+ currentTimeSeconds;
+				String detailfilepath =  saveDetailPath + "\\" + detailfilename;
+
+				//filepath = "기본폴더\files\zxxxxxxxxxx12233xxxxxx"
+
+				detailFile.transferTo(new File(detailfilepath));				
+			
+				dto.setDetailImg(detailfilename);
+				dto.setDetaiImgPath(detailfilepath);			
+	            
+	        }
 	        
 			adminService.commerceSave(dto);
 			
@@ -605,16 +637,31 @@ public class AdminController {
 	    return "redirect:/admin/commerceList";
 	}
 	
+	@RequestMapping("/commerceDetail")
+	public void commerceDetail(CommerceDTO dto, Model m) {
+		
+		CommerceDTO commerceDetail = adminService.getCommerceById(dto);
+		m.addAttribute("commerceDetail", commerceDetail);
+		
+	}
+	
 	@RequestMapping(value = "/commerceUpdate", method = RequestMethod.POST)
-	public String commerceUpdate(@RequestParam("file") MultipartFile file, CommerceDTO dto) {		
+	public String commerceUpdate(@RequestParam("file") MultipartFile file, @RequestParam("detailFile") MultipartFile detailFile, CommerceDTO dto) {		
 		
 	    try {
 	    	
 			String savePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\commerce";
-
+			String saveDetailPath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\commerceDetail";
+			
 			if(!new File(savePath).exists()) {
 
 				new File(savePath).mkdir(); //카테고리별로 파일을 만들어 관리
+
+			}
+			
+			if(!new File(saveDetailPath).exists()) {
+
+				new File(saveDetailPath).mkdir(); //카테고리별로 파일을 만들어 관리
 
 			}
 			
@@ -637,6 +684,26 @@ public class AdminController {
 			
 				dto.setImg(filename);
 				dto.setImgPath(filepath);			
+	            
+	        }
+			
+			String oriDetailFilename = detailFile.getOriginalFilename();			
+						
+			if(oriDetailFilename !=null && !oriDetailFilename.equals("")) {
+				
+				//현재시간을 밀리초단위로 받아와서 currentTimeSeconds에 저장
+				String currentTimeSeconds = String.valueOf(System.currentTimeMillis());
+				
+				//받아온 시간을 파일 이름에 추가하여 중복 방지
+				String detailfilename = new MD5Generator(oriDetailFilename).toString()+ currentTimeSeconds;
+				String detailfilepath =  saveDetailPath + "\\" + detailfilename;
+
+				//filepath = "기본폴더\files\zxxxxxxxxxx12233xxxxxx"
+
+				detailFile.transferTo(new File(detailfilepath));				
+			
+				dto.setDetailImg(detailfilename);
+				dto.setDetaiImgPath(detailfilepath);			
 	            
 	        }
 	        
@@ -669,8 +736,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/blamedList")
-	public void blamedList() {
-
+	public void blamedList(Model m) {
+		List<CommunityDTO> blamedList = adminService.getCommunityList();
+		m.addAttribute("blamedList", blamedList);
 	}
 
 }

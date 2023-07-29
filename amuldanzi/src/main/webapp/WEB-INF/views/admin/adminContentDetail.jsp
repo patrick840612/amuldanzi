@@ -50,12 +50,8 @@
 	  // 현재 URL의 쿼리 파라미터를 읽어옴
 	  let queryParams = new URLSearchParams(window.location.search);
 
-	  var selectedCateId = queryParams.get('cateId');
-	  var selectedAnimalId = queryParams.get('animal');
-	  selectedAnimalId = decodeURIComponent(selectedAnimalId);
-	  	  
-	  console.log("selectedCateId:", selectedCateId);
-	  console.log("selectedAnimalId:", selectedAnimalId);
+	  var selectedCateId = queryParams.get('cateId');  
+	  
 
 	  $('#noticeForm').show(); 
 	  $('#eduForm').hide();
@@ -105,27 +101,7 @@
 	  // 라디오 버튼 변경 시 handleRadioChange 함수 호출
 	  $('input[name="cate"]').on('change', function() {
 	    handleRadioChange();
-	  });
-
-	  //cateId에 따라 라디오 버튼 체크
-	  $('input[name="animalEdu"]').each(function() {
-	    if ($(this).val() === selectedAnimalId) {
-	      $(this).prop('checked', true);
-	    } else {
-	      $(this).prop('checked', false);
-	    }
-	  });
-
-	  $('input[name="animalCare"]').each(function() {
-	    if ($(this).val() === selectedAnimalId) {
-	      $(this).prop('checked', true);
-	    } else {
-	      $(this).prop('checked', false);
-	    }
-	  });
-    
-
-    
+	  }); 
     
     
  	// 폼 제출 시 postForm 함수 호출
@@ -194,120 +170,110 @@
 </script>
 
 <body class="nav-md">
-  <div class="container body">
-    <div class="main_container">
-      <div class="col-md-3 left_col">
-        <div class="left_col scroll-view">
-          <div class="navbar nav_title" style="border: 0;">
-            <a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i> <span>애물단지</span></a>
-          </div>
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
+							<span>애물단지</span></a>
+					</div>
 
-          <div class="clearfix"></div>
+					<div class="clearfix"></div>
 
-          <!-- menu profile quick info -->
-          <div class="profile clearfix">
-            <div class="profile_pic">
-              <img src="/admin/production/images/img.jpg" alt="..." class="img-circle profile_img">
-            </div>
-            <div class="profile_info">
-              <span>환영합니다</span>
-              <h2>관리자님</h2>
-            </div>
-          </div>
-          <!-- /menu profile quick info -->
+					<!-- menu profile quick info -->
+					<div class="profile clearfix">
+						<div class="profile_pic">
+							<img src="/admin/production/images/img.jpg" alt="..."
+								class="img-circle profile_img">
+						</div>
+						<div class="profile_info">
+							<span>환영합니다</span>
+							<h2>관리자님</h2>
+						</div>
+					</div>
+					<!-- /menu profile quick info -->
 
-          <br />
+					<br />
 
-          <!-- sidebar menu -->
-          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-              <h3>General</h3>
-              <ul class="nav side-menu">
-                <li>
-                  <a>
-                    <i class="fa fa-user"></i> 회원관리<span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
-                    <li><a href="form.html">역할관리</a></li>
-                    <li><a href="form_advanced.html">문의관리</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>
-                    <i class="fa fa-edit"></i> 게시판<span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
-                    <li><a href="/admin/adminContentInsert">글 추가</a></li>
-                    <li><a href="/admin/adminContentList">기존 글 관리</a></li>
-                    <li><a href="form_validation.html">신고 글 관리</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>
-                    <i class="fa fa-video-camera"></i> 라이브 커머스<span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
-                    <li><a href="general_elements.html">방송 일정</a></li>
-                    <li><a href="media_gallery.html">상품 관리</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a>
-                    <i class="fa fa-tags"></i> 광고<span class="fa fa-chevron-down"></span>
-                  </a>
-                  <ul class="nav child_menu">
-                    <li><a href="/admin/adInsert">광고 등록</a></li>
-                    <li><a href="/admin/adList">광고 관리</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- /sidebar menu -->
+					<!-- sidebar menu -->
+					<div id="sidebar-menu"
+						class="main_menu_side hidden-print main_menu">
+						<div class="menu_section">
+							<h3>General</h3>
+							<ul class="nav side-menu">
+								<li><a><i class="fa fa-user"></i> 회원관리<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="form.html">역할관리</a></li>
+										<li><a href="form_advanced.html">문의관리</a></li>
+									</ul></li>
+								<li><a><i class="fa fa-edit"></i> 게시판<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="/admin/adminContentInsert">글 추가</a></li>
+										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
+										<li><a href="/admin/blamedList">신고 글 관리</a></li>
+									</ul></li>
+								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceList">상품 관리</a></li>
+									</ul></li>
+								<li><a><i class="fa fa-tags"></i> 광고 <span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="/admin/adInsert">광고 등록</a></li>
+										<li><a href="/admin/adList">광고 관리</a></li>
+									</ul></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /sidebar menu -->
 
-          <!-- /menu footer buttons -->
-          <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Settings">
-              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-              <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Lock">
-              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
-          </div>
-          <!-- /menu footer buttons -->
-        </div>
-      </div>
+					<!-- /menu footer buttons -->
+					<div class="sidebar-footer hidden-small">
+						<a data-toggle="tooltip" data-placement="top" title="Settings">
+							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
+							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
+							href="login.html"> <span class="glyphicon glyphicon-off"
+							aria-hidden="true"></span>
+						</a>
+					</div>
+					<!-- /menu footer buttons -->
+				</div>
+			</div>
 
-      <!-- top navigation -->
-      <div class="top_nav">
-        <div class="nav_menu">
-          <div class="nav toggle">
-            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-          </div>
-          <nav class="nav navbar-nav">
-            <ul class="navbar-right">
-              <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                  data-toggle="dropdown" aria-expanded="false">
-                  <img src="/images/img.jpg" alt="">관리자
-                </a>
-                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="login.html">
-                    <i class="fa fa-sign-out pull-right"></i> Log Out
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <!-- /top navigation -->
+
+			<!-- top navigation -->
+			<div class="top_nav">
+				<div class="nav_menu">
+					<div class="nav toggle">
+						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+					</div>
+					<nav class="nav navbar-nav">
+						<ul class=" navbar-right">
+							<li class="nav-item dropdown open" style="padding-left: 15px;">
+								<a href="javascript:;" class="user-profile dropdown-toggle"
+								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
+								aria-expanded="false">관리자
+							</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a	class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i> Log Out</a>
+								</div>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<!-- /top navigation -->
 
       <!-- page content -->
       <div class="right_col" role="main">
@@ -339,7 +305,7 @@
                   <span class="question_questionMark__AykT_">*</span>
 
                   <div class="question_radioWrap__WZ6ME" id="cateList">
-                    <div>
+                  	<div>
                       <input type="radio" name="category" id="중요공지" value="중요공지" checked>
                       <label for="중요공지">중요 공지</label>
                     </div>
@@ -375,13 +341,13 @@
                   <span class="question_questionMark__AykT_">*</span>
 
                   <div class="question_radioWrap__WZ6ME" id="cateList">
-                  	<input type="hidden" name="animal" value="${eduDetail.animal }">
+                  	
                     <div>
-                      <input type="radio" name="animalEdu" id="dog" value="강아지" checked>
+                      <input type="radio" name="animal" id="eduDog" value="강아지" checked>
                       <label for="eduDog">강아지</label>
                     </div>
                     <div>
-                      <input type="radio" name="animalEdu" id="cat" value="고양이">
+                      <input type="radio" name="animal" id="eduCat" value="고양이">
                       <label for="eduCat">고양이</label>
                     </div>
                   </div>
@@ -424,6 +390,7 @@
                     <div class="question_questionImgContainer__tNqZy" id="eduImagePreviewContainer">
                           <img class="image-preview" src="/images/edu/${eduDetail.img}" alt="ad Image">
                     </div>
+                    <input type="hidden" name="img" value="${eduDetail.img}">
                     <input id="eduUploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif"
                       style="display: none;">
                     <label for="eduUploadFile" class="question_inputFileBtn__zg7jN">
@@ -437,6 +404,7 @@
                     <div class="question_questionImgContainer__tNqZy" id="eduVideoPreviewContainer">
                        <video class="video-preview" src="/videos/edu/${eduDetail.video}" alt="edu Video" controls>
                     </div>
+                    <input type="hidden" name="video" value="${eduDetail.video}">
                     <input id="eduUploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;" >
                     <label for="eduUploadVideoFile" class="question_inputFileBtn__zg7jN">
                       <div class="question_inputFileText__Cgamr">동영상 첨부</div>
@@ -456,14 +424,13 @@
                 <div>
                   <span class="question_questionCategory__1QDx6">케어 카테고리</span><span class="question_questionMark__AykT_">*</span>
 
-                  <div class="question_radioWrap__WZ6ME" id="cateList">
-                    <input type="hidden" name="animal" value="${careDetail.animal }">
+                  <div class="question_radioWrap__WZ6ME" id="cateList">                    
                     <div>
-                      <input type="radio" name="animalCare" id="dog" value="강아지" checked>
+                      <input type="radio" name="animalCare" id="careDog" value="강아지" checked>
                       <label for="careDog">강아지</label>
                     </div>
                     <div>
-                      <input type="radio" name="animalCare" id="cat" value="고양이">
+                      <input type="radio" name="animalCare" id="careCat" value="고양이">
                       <label for="careCat">고양이</label>
                     </div>
                   </div>
@@ -489,6 +456,7 @@
 			          <!-- 이미지 미리보기를 위한 태그 추가 -->
 			              <img class="image-preview" src="/images/care/${careDetail.img}" alt="care Image">
 			        </div>
+			        
 			        <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
 			        <label for="uploadFile" class="question_inputFileBtn__zg7jN">
 			          <div class="question_inputFileText__Cgamr">사진 첨부</div>
@@ -502,6 +470,7 @@
 			          <!-- 동영상 미리보기를 위한 태그 추가 -->
 			              <video class="video-preview" src="/videos/care/${careDetail.video}" controls>
 			        </div>
+			        
 			        <input id="uploadVideoFile" name="videoFile" type="file" accept="video/*" style="display: none;">
 			        <label for="uploadVideoFile" class="question_inputFileBtn__zg7jN">
 			          <div class="question_inputFileText__Cgamr">동영상 첨부</div>
