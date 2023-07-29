@@ -43,7 +43,8 @@
 					<!-- -->
 				</h1>
 				<span class="_3nqg3y3">저희 사이트에서 인증받은<!-- --> <br />돌보미 분들이
-					글을 보고 연락 드립니다.<!-- --></span>
+					글을 보고 연락 드립니다.<!-- --></span><br /> <a href="/market/dolbomiInsert"><button
+						class="btn btn-primary">글쓰기</button></a>
 				<div class="_3nqg3y4">
 					<span
 						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img

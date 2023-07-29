@@ -10,4 +10,5 @@ public interface MarketService {
 	Page<MarketGoodsDTO> findMarketCate(Pageable paging);
 	Page<MarketGoodsDTO> findDolbomiCate(Pageable paging);
 	MarketGoodsDTO findById(Integer goodsId);
+	void jungoSave(MarketGoodsDTO dto);
 }

@@ -69,22 +69,30 @@ a[href^='tel'] {
 						<!--// snb -->
 
 						<nav class="lnb">
-							<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span><!-- on air --></span></a>
+							<a class="on" href="/shop/tv/tvShopMain.gs?lseq=409695"><span>
+									<!-- on air -->
+							</span></a>
 							<!-- 활성화 클래스 on -->
-							<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span >방송편성표</span></a>
+							<a href="/shop/tv/tvScheduleMain.gs?lseq=409696"><span>방송편성표</span></a>
 
-							<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span><!-- 방송알림 --></span></a>
+							<a href="/shop/tv/phoneAlarm/phoneAlarmMain.gs?lseq=409697"><span>
+									<!-- 방송알림 -->
+							</span></a>
 						</nav>
 
 					</section>
 				</header>
 
-
-
 				<!-- 메인 컨텐츠 -->
 				<section id="tv-index">
 					<div id="on-air">
-						 <iframe src="http://192.168.0.69:5000/viewer.html" width="100%" height="425px" frameborder="0" ></iframe>
+						<% if ((Boolean) request.getAttribute("iframeAccessible")) { %>
+   						 <!-- iframe이 접근 가능한 경우 iframe을 표시 -->
+   						 <iframe src="http://192.168.0.69:5000/viewer.html" width="100%" height="425px" frameborder="0"></iframe>
+						<% } else { %>
+    						<!-- iframe이 접근 불가능한 경우 대체 이미지를 표시 -->
+    						<img src="/images/error/park.jpg" width="100%" height="425px">
+						<% } %>
 					</div>
 					<!-- 현재 방송중인 상품 : 메인 페이지  on air와 같은 구조 -->
 					<article id="on-air-prd"></article>
@@ -101,15 +109,13 @@ a[href^='tel'] {
 					<div class="outline-wrap">
 						<section class="mod-stage">
 							<ul>
-								
+
 								<!-- 상품 반복 ( 3개까지 ) -->
 								<li><a href="" class="prd-item" data-prdid="1034842032">
 										<div class="prd-img">
 
-											<img src=""
-												onerror=""
-												alt="상품이미지"> <span class="badge-abs"> </span> <span
-												class="toggle-zzim" id=""></span>
+											<img src="" onerror="" alt="상품이미지"> <span
+												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
 
 											<button class="link-new-tab">
 												<i class="sprite-new-tab"></i>새창 열기
@@ -146,15 +152,13 @@ a[href^='tel'] {
 										</dl>
 								</a></li>
 								<!-- 상품반복 끝 -->
-								
+
 								<!-- 상품 반복 ( 3개까지 ) -->
 								<li><a href="" class="prd-item" data-prdid="1034842032">
 										<div class="prd-img">
 
-											<img src=""
-												onerror=""
-												alt="상품이미지"> <span class="badge-abs"> </span> <span
-												class="toggle-zzim" id=""></span>
+											<img src="" onerror="" alt="상품이미지"> <span
+												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
 
 											<button class="link-new-tab">
 												<i class="sprite-new-tab"></i>새창 열기

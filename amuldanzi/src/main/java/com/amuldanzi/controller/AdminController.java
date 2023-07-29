@@ -106,7 +106,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/eduSave", method = RequestMethod.POST)
 	public String eduSave(@RequestParam("file") MultipartFile file, @RequestParam("videoFile") MultipartFile videoFile, EducationDTO dto) {
-
+		
 		BoardCategoryDTO category = new BoardCategoryDTO(2, "교육정보");
 		dto.setBoardCate(category);
 		dto.setCount(0);
@@ -148,6 +148,7 @@ public class AdminController {
 	        }
 
 	        // 데이터베이스에 저장
+	        System.out.println(dto.toString());
 	        adminService.eduSave(dto);
 	    } catch (Exception ex) {
 	        ex.printStackTrace();

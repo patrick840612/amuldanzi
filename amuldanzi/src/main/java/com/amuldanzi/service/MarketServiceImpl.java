@@ -28,6 +28,11 @@ public class MarketServiceImpl implements MarketService {
 	public MarketGoodsDTO findById(Integer goodsId) {
 		return marketRepo.findById(goodsId).get();
 	}
+
+	@Override
+	public void jungoSave(MarketGoodsDTO dto) {
+		marketRepo.save(dto);
+	}
 	
 	
 	
