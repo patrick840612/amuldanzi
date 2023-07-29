@@ -114,13 +114,13 @@ $(document).ready(function() {
 									<ul class="nav child_menu">
 										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
-										<li><a href="form_validation.html">신고 글 관리</a></li>
+										<li><a href="/admin/blamedList">신고 글 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">방송 일정</a></li>
-										<li><a href="media_gallery.html">상품 관리</a></li>
+										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
@@ -162,7 +162,7 @@ $(document).ready(function() {
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">

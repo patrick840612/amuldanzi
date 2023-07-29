@@ -73,7 +73,7 @@
 					<br />
 
 					<!-- sidebar menu -->
-										<div id="sidebar-menu"
+					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<h3>General</h3>
@@ -89,13 +89,13 @@
 									<ul class="nav child_menu">
 										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
-										<li><a href="form_validation.html">신고 글 관리</a></li>
+										<li><a href="/admin/blamedList">신고 글 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">방송 일정</a></li>
-										<li><a href="media_gallery.html">상품 관리</a></li>
+										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
@@ -137,7 +137,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -198,21 +198,25 @@
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;"></th>
+																			style="width: 50px;">신고수</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Start date: activate to sort column ascending"
+																			style="width: 50px;"></th>	
 																	</tr>
 																</thead>
 
 
-																<tbody id="adminBoardList">
+																<tbody id="blamedList">
 																
 																	<!-- 첫 접속시 공지 내용 불러오기 -->
-																	<c:forEach items="${list}" var="list">
+																	<c:forEach items="${blamedList}" var="blamedList">
 																		<tr role="row" class="odd">
 																			<td class="sorting_1">${list.id }</td>
-																			<td><a href="/admin/adminNoticeDetail?id=${list.id}">${list.title }</a></td>
-																			<td>${list.regdate }</td>
-																			<td>${list.count }</td>
-																			<td><a href="noticeDelete?id=${list.id }">삭제</a></td>
+																			<td><a href="/admin/blamedDetail?id=${blamedList.id}">${blamedList.title }</a></td>
+																			<td>${blamedList.regdate }</td>
+																			<td>${blamedList.count }</td>
+																			<td><a href="blamedDelete?id=${blamedList.id }">삭제</a></td>
 																		</tr>
 																	</c:forEach>
 

@@ -6,6 +6,7 @@ import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
@@ -69,6 +70,10 @@ public interface AdminService {
 	void commerceDelete(CommerceDTO dto);
 
 	void commerceUpdate(CommerceDTO dto);
+
+	CommerceDTO getCommerceById(CommerceDTO dto);
+
+	List<CommunityDTO> getCommunityList();
 
 	
 

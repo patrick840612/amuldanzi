@@ -78,61 +78,7 @@
 	      }
 	    });
 	    
-	    // 이미지 미리보기 삭제 구현 
-	    // 삭제 버튼 이벤트 위임
-	    $('#imagePreviewContainer').on('click', '.delete-button', function() {
-	        
-	        var id = $(this).parent('.image-preview').data('id');
-	        $(this).parent('.image-preview').remove();
-	        // 해당 이미지의 hidden input도 제거
-	        $(`#hiddenInput_${id}`).remove();
-	        // 이미지 목록에서 삭제
-	        imageFiles = imageFiles.filter(function(item) {
-	            return item.id !== id;
-	        });
 
-	        // files 변수에서도 이미지를 제거
-	        var files = $('#uploadFile')[0].files;
-	        var newFiles = [];
-	        for (var i = 0; i < files.length; i++) {
-	            if (i !== id) {
-	                newFiles.push(files[i]);
-	            }
-	        }
-	        // 새로운 FileList 객체 생성
-	        var dataTransfer = new DataTransfer();
-	        for (var i = 0; i < newFiles.length; i++) {
-	            dataTransfer.items.add(newFiles[i]);
-	        }
-	        $('#uploadFile')[0].files = dataTransfer.files;
-	    });
-		
-	    // 이미지 삭제버튼 클릭시
-	    $(document).on('click', '.deleteAjax', function(event) {
-	    	event.preventDefault;
-	        var imagePreview = $(this).closest('.ajaxImage');
-	        var imagePath = imagePreview.find('img').attr('src');
-	        var imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-	        var cateId = $('input[name="cate"]:checked').val(); // 선택된 라디오 버튼의 값을 가져옴
-	        alert(cateId);
-	        deleteImage(imageName, imagePreview, cateId); // deleteImage 함수 호출 시 selectedValue도 전달
-	    });
-
-	    function deleteImage(imageName, imagePreview, cateId) {
-	        $.ajax({
-	            url: '/admin/deleteImage',
-	            data: { "imageName": imageName, "cateId": cateId }, // cateId를 서버로 전송
-	            type: 'DELETE',
-	            success: function() {
-	                imagePreview.remove();
-	                console.log("이미지 삭제 성공");
-	            },
-	            error: function(error) {
-	                console.log('이미지 삭제 에러');
-	                console.error(error);
-	            }
-	        });
-	    }
  });
 </script>
 
@@ -180,13 +126,13 @@
 									<ul class="nav child_menu">
 										<li><a href="/admin/adminContentInsert">글 추가</a></li>
 										<li><a href="/admin/adminContentList">기존 글 관리</a></li>
-										<li><a href="form_validation.html">신고 글 관리</a></li>
+										<li><a href="/admin/blamedList">신고 글 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="general_elements.html">방송 일정</a></li>
-										<li><a href="media_gallery.html">상품 관리</a></li>
+										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
 										class="fa fa-chevron-down"></span></a>
@@ -228,7 +174,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="/admin/images/img.jpg" alt="">관리자
+								aria-expanded="false">관리자
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -285,6 +231,7 @@
 									        </span>									        
 									    </div>				                    
 				                    </div>
+				                    <input type="hidden" name="img" value="${adDetail.img}">
 				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
 				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
 				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>

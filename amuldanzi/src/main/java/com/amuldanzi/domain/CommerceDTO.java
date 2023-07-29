@@ -31,6 +31,8 @@ public class CommerceDTO {
 	private 	Integer 	commerceStock;	// 상품 재고
 	private 	String		img;
 	private 	String		imgPath;
+	private 	String		detailImg;
+	private		String		detaiImgPath;
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
