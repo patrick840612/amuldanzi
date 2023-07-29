@@ -1,12 +1,12 @@
 package com.amuldanzi.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +18,6 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
@@ -41,7 +40,6 @@ import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MypageService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -237,7 +235,7 @@ public class MypageController {
 	}
 	
 
-	
+	// 썸머노트 이미지 삭제(백스페이스로 에디터에서 이미지 삭제시 이벤트 추적 불가 - DB값과 비교하여 스케줄링으로 구현 가능)
 	@PostMapping(value = "/deleteSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public void deleteSummernoteImageFile(@RequestParam("file") String fileName) {
@@ -259,6 +257,7 @@ public class MypageController {
 	    }
 	}
 	
+	// 돌보미신청 페이지 이동
 	@RequestMapping("/sitter")
 	public void sitter(Model m) {
 		
@@ -271,11 +270,6 @@ public class MypageController {
             m.addAttribute("sitter", sitterDTO);
         });
         
-        // sitter가 값이 있을 때는 해당 객체를 Model에 추가하고, 값이 없는 경우 기본 값을 Model에 추가
-       /* sitter.ifPresentOrElse(
-            sitterDTO -> m.addAttribute("sitter", sitterDTO),
-            () -> m.addAttribute("sitter", new SitterDTO()) // 또는 null 등의 기본 값을 추가
-        );*/
 	}
 	
 	// 돌보미 신청시 DB 저장(이미지 저장 안하기 beforeunload로 파일처리 끝냄)
@@ -304,8 +298,98 @@ public class MypageController {
 		return "redirect:/mypage/sitter";
 	}
 	
+	// 쇼핑몰신청 페이지 이동
+	@RequestMapping("/business")
+	public void business(Model m, MemberInfoDTO member) throws ParseException, InterruptedException{
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        boolean hasApprovalPending = false;
+        boolean hasApprovalComplete = false;
+        List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id")));
+
+        // 승인대기와 승인완료가 있는지 검사
+        for (BusinessDTO business : businessList) {
+            if ("승인대기".equals(business.getBusinessOk())) {
+                hasApprovalPending = true;
+            } else if ("승인완료".equals(business.getBusinessOk())) {
+                hasApprovalComplete = true;
+            }
+           
+            if(hasApprovalPending == true && hasApprovalComplete == true) {
+            	m.addAttribute("business", "승인대기완료");
+            	
+            }else if(hasApprovalPending == true && hasApprovalComplete == false) {
+            	m.addAttribute("business", "승인대기");
+            	
+            }else if(hasApprovalPending == false && hasApprovalComplete == true){
+            	m.addAttribute("business", "승인완료");
+            }
+        }
+
+        if (businessList.isEmpty()) {
+            // 1. 리스트가 비어있는 경우
+        } else {
+            m.addAttribute("businessList", businessList);
+        }
+        
+        Thread.sleep(2500); 
+	}
+	
+	// 쇼핑몰 신청
+	@RequestMapping(value = "/businessRegist", method = RequestMethod.POST)
+	public String businessRegist(BusinessDTO business, MemberInfoDTO member) {
+
+		if(!business.getBusinessImg().equals("")) {
+			// 이미지 파일을 저장할 경로 설정 
+			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\mypage\\";
+			business.setBusinessImgPath(savePath);			
+		}
+		business.setMemberId(member);
+
+		mypageService.saveBusiness(business);
+
+		return "redirect:/mypage/business";
+	}
+	
+	// 쇼핑몰 상세페이지 이동
+	@RequestMapping("/businessDetail")
+	public void businessDetail(Model m, MemberInfoDTO member, @RequestParam("businessNumber") String businessNumber){
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        BusinessDTO business = mypageService.businessFindByMemberRearId(businessNumber);
+
+        
+    	m.addAttribute("businessOk", business.getBusinessOk());
+    	m.addAttribute("business", business);
+
+	}
+	
+	// 쇼핑몰 수정
+	@RequestMapping("/businessUpdate")
+	public String businessUpdate(BusinessDTO business) {
+		mypageService.businessUpdate(business);
+		
+		return "redirect:/mypage/business";		
+	}
+	
+	// 쇼핑몰 삭제
+	@RequestMapping("/businessDelete")
+	public String businessDelete(BusinessDTO business) {
+		mypageService.businessDelete(business);
+		
+		return "redirect:/mypage/business";		
+	}
+	
 	
 } // end of class MypageController
+
+
 	
 	
 

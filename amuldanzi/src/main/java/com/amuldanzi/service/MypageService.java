@@ -3,6 +3,7 @@ package com.amuldanzi.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
@@ -18,4 +19,10 @@ public interface MypageService {
 	public void saveSitter(SitterDTO sitter);
 	public Optional<SitterDTO> sitterFindById(String id);
 	public void sitterDeleteById(String id);
+	public List<BusinessDTO> businessFindByMemberId(String id);
+	public void saveBusiness(BusinessDTO business);
+	public BusinessDTO businessFindByMemberRearId(String businessNumber);
+	public void businessUpdate(BusinessDTO business);
+	public void businessDelete(BusinessDTO business);
+
 }
