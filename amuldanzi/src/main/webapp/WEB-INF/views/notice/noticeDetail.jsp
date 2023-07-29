@@ -89,6 +89,7 @@
 			<div class="cotainer">
 				<div class="row justify-content-center">
 					<div class="col-md-8">
+					<!-- 공지사항 디테일 -->
 						<div class="card">
 							<div class="card-header">제목 : ${notice.title}</div>
 							<div class="card">
@@ -99,11 +100,13 @@
 								</div>
 								<div class="card-body">
 								<br />
+								<!-- 공지사항 내용 -->
 									<div>${notice.content}</div>
 									<br />
 									<br />
 									<br />
 									<center>
+									<!-- 목록으로 돌아가기 버튼 -->
 									<a href="/notice/notice" class="btn btn-pink">목록가기</a>
 								</center>
 								</div>
