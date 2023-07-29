@@ -36,7 +36,10 @@ public class MarketGoodsDTO {
 			,updatable = false)
 	private 	Date 		goodsDate;		// 생성 일자
 	
-	//private 	String 		id;				// 회원(판매자) ID ( FK )
+	private		String		img;		//광고 이미지
+	private		String		imgPath;	//광고 이미지 패스
+	
+	private 	String 		id;				// 회원(판매자) ID ( FK )
 	
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="cateId")

@@ -309,11 +309,8 @@
 																		class="business-review-card-profile-name-wrapper ho2kx43">
 																		<span
 																			class="business-review-card-profile-name ho2kx45">헤라</span><span
-																			class="business-review-card-profile-following-badge-wrapper ho2kx44"><span
-																			class="badge _1o4zxn90 _1o4zxn92 _1o4zxn9d _1o4zxn9a _1o4zxn97 _1o4zxn9k">단골</span></span>
+																			class="business-review-card-profile-following-badge-wrapper ho2kx44"></span>
 																	</div>
-																	<span class="business-review-card-profile-info ho2kx46">마전동
-																		인증 30회 ∙ 8일</span>
 																</div>
 															</div>
 															<div class="_1arjc5a1">
@@ -341,9 +338,6 @@
 																				<img class="upaz222 upaz221"
 																					src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/58436598/1688541486027/YzVkNTUzY2RiYTNlYzkyZTgzYjRiNGU3ZDY1MmViMjJhMDhmZmVhYjU3NzU4NTJiYjljMTE3ZDQ1OGRiYjkzMV8yLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
 																					alt="" />
-																				<div class="upaz227 upaz221">
-																					<span class="upaz228">+<!-- -->1<!-- --></span>
-																				</div>
 																			</div>
 																		</div>
 																	</div>
@@ -364,179 +358,7 @@
 																		</noscript></span><span class="_1arjc5ac">3<!-- --></span>
 																</div>
 															</div>
-															<div class="_1arjc5a4">
-																<span class="_1arjc5a8"><span
-																	class="badge _1o4zxn90 _1o4zxn91 _1o4zxn9d _1o4zxn99 _1o4zxn98 _1o4zxn9f">아쉬워요</span></span>
-															</div>
-															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->15<!-- --></span>
-															</div>
-														</div></li>
-													<li class="xsorfq1" role="listitem"><div
-															class="_1arjc5a0 xsorfq2">
-															<div class="business-review-card-profile-wrapper ho2kx40">
-																<div
-																	class="business-review-card-profile-image-wrapper ho2kx41">
-																	<svg width="100%" height="100%" viewBox="0 0 32 32"
-																		fill="none" xmlns="http://www.w3.org/2000/svg"
-																		xmlns:xlink="http://www.w3.org/1999/xlink">
-																		<path fill-rule="evenodd" clip-rule="evenodd"
-																			d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
-																			fill="url(#pattern0)"></path>
-																		<path
-																			d="M31.5 16C31.5 24.5604 24.5604 31.5 16 31.5C7.43959 31.5 0.5 24.5604 0.5 16C0.5 7.43959 7.43959 0.5 16 0.5C24.5604 0.5 31.5 7.43959 31.5 16Z"
-																			stroke="black" stroke-opacity="0.05"
-																			stroke-linecap="round" stroke-linejoin="round"></path>
-																		<defs>
-																		<pattern id="pattern0"
-																			patternContentUnits="objectBoundingBox" width="1"
-																			height="1">
-																		<use xlink:href="#image0_1605_2111"
-																			transform="scale(0.00390625)"></use></pattern>
-																		<image id="image0_1605_2111" width="256" height="256"
-																			xlink:href="data:image/png;base64,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"></image></defs></svg>
-																</div>
-																<div
-																	class="business-review-card-profile-info-wrapper ho2kx42">
-																	<div
-																		class="business-review-card-profile-name-wrapper ho2kx43">
-																		<span
-																			class="business-review-card-profile-name ho2kx45">빛나는인생</span><span
-																			class="business-review-card-profile-following-badge-wrapper ho2kx44"><span
-																			class="badge _1o4zxn90 _1o4zxn92 _1o4zxn9d _1o4zxn9a _1o4zxn97 _1o4zxn9k">단골</span></span>
-																	</div>
-																	<span class="business-review-card-profile-info ho2kx46">논현2동
-																		인증 30회 ∙ 9일</span>
-																</div>
-															</div>
-															<div class="_1arjc5a1">
-																<p class="_1arjc5a2">
-																	오늘 옥수수 받고 너무 실망스러워서 후기 잘 안쓰는데 올립니다! 이 곳에 구매자분들 후기평이
-																	안좋아서 구매를 고민하다가 구매했는데요! 아니나다를까 걱정이 현실이네요~ㅠ 옥수수 특대로 주문했는데
-																	14-15cm가 대부분이고 아직 덜 자랐는지 수확시기가 이른건지 작아도 너무 작네요! 여름마다
-																	찰옥수수 시켜 먹는데 항상 만족스러웠는데 이곳이 처음으로 실망스럽네요~~ 다른 상품들 올라올때마다
-																	눈여겨 보고 있었는데 다시는 어떤 제품도 구매 못할거 같네요~~ 날 더운데 고생하시는거 같아서 그냥
-																	넘어 가려다가 너무 심한거 같아서 후기 올립니다!!
-																	<!-- -->
-																</p>
-																<div class="_1arjc5a6">
-																	<div class="upaz220">
-																		<div class="upaz224 upaz223">
-																			<img
-																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8273033/1688470860244/OTc2M2JmZWI1YTg0YWZmMzk5NmQyYTgyZWE1MTlkOTA1YWQ1MDM2MWQyYTc1ZGVlM2FiNjJlYjA2MGFkNmE0ZV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																				alt="" class="upaz222 upaz221" />
-																		</div>
-																		<div class="upaz225 upaz223">
-																			<div class="upaz226 upaz223">
-																				<img class="upaz222 upaz221"
-																					src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8273033/1688470860297/OTc2M2JmZWI1YTg0YWZmMzk5NmQyYTgyZWE1MTlkOTA1YWQ1MDM2MWQyYTc1ZGVlM2FiNjJlYjA2MGFkNmE0ZV8xLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																					alt="" />
-																			</div>
-																			<div class="upaz226 upaz223">
-																				<img class="upaz222 upaz221"
-																					src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8273033/1688470860184/OTc2M2JmZWI1YTg0YWZmMzk5NmQyYTgyZWE1MTlkOTA1YWQ1MDM2MWQyYTc1ZGVlM2FiNjJlYjA2MGFkNmE0ZV8yLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																					alt="" />
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="_1arjc5a7">
-																	<span
-																		style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-																		src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-																		decoding="async" data-nimg="fill"
-																		class="_19qbbiq0 undefined"
-																		style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-																		<noscript>
-																			<img
-																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8273033/1688470860244/OTc2M2JmZWI1YTg0YWZmMzk5NmQyYTgyZWE1MTlkOTA1YWQ1MDM2MWQyYTc1ZGVlM2FiNjJlYjA2MGFkNmE0ZV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																				decoding="async" data-nimg="fill"
-																				style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-																				class="_19qbbiq0 undefined" loading="lazy" />
-																		</noscript></span><span class="_1arjc5ac">2<!-- --></span>
-																</div>
-															</div>
-															<div class="_1arjc5a4">
-																<span class="_1arjc5a8"><span
-																	class="badge _1o4zxn90 _1o4zxn91 _1o4zxn9d _1o4zxn99 _1o4zxn98 _1o4zxn9f">아쉬워요</span></span>
-															</div>
-															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->21<!-- --></span>
-															</div>
-														</div></li>
-													<li class="xsorfq1" role="listitem"><div
-															class="_1arjc5a0 xsorfq2">
-															<div class="business-review-card-profile-wrapper ho2kx40">
-																<div
-																	class="business-review-card-profile-image-wrapper ho2kx41">
-																	<div class="thumbnail-base qudd1g0 qudd1g4 ho2kx41">
-																		<img
-																			src="https://dnvefa72aowie.cloudfront.net/origin/profile/202211/cf9d79799958c4fe9f78ef6ef22b611dec0d977379f582d6fd895116b2d035f1.webp?q=82&amp;s=640x640&amp;t=crop"
-																			alt="진심이중요해요 프로필 이미지" class="thumbnail-image qudd1g9" />
-																	</div>
-																</div>
-																<div
-																	class="business-review-card-profile-info-wrapper ho2kx42">
-																	<div
-																		class="business-review-card-profile-name-wrapper ho2kx43">
-																		<span
-																			class="business-review-card-profile-name ho2kx45">진심이중요해요</span>
-																	</div>
-																	<span class="business-review-card-profile-info ho2kx46">송림동
-																		인증 29회 ∙ 9일</span>
-																</div>
-															</div>
-															<div class="_1arjc5a1">
-																<p class="_1arjc5a2">
-																	옥수수 자체가 작고 늙었어요 10개 삶아서 하나 먹었더니 달지도 않고 찰옥수수도 아니고 완전 너무
-																	실망 입니다 구매하기전에 확실이 물어보고 달고 찰옥수수라고 해서 특급 40송를 주문했는데 이게
-																	뭐냐구요 딱딱해서 한입만 먹고 손으로 쉽게 깠어요 절때 사지마세요 사기꾼들 더 많은분 속이지말고
-																	당근에 탈퇴 하세요
-																	<!-- -->
-																</p>
-																<div class="_1arjc5a6">
-																	<div class="upaz220">
-																		<div class="upaz224 upaz223">
-																			<img
-																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8825275/1688466722911/ZDM0N2FmNTBkNmEyZDVmNzZjNWMzYzc4OWZlNzRjMWVmM2JlNjAxMzBkMmU3OGE2MWZkZDkwZWQ1NWY3NmY3MV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																				alt="" class="upaz222 upaz221" />
-																		</div>
-																		<div class="upaz225 upaz223">
-																			<div class="upaz226 upaz223">
-																				<img class="upaz222 upaz221"
-																					src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8825275/1688466722950/ZDM0N2FmNTBkNmEyZDVmNzZjNWMzYzc4OWZlNzRjMWVmM2JlNjAxMzBkMmU3OGE2MWZkZDkwZWQ1NWY3NmY3MV8xLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																					alt="" />
-																			</div>
-																			<div class="upaz226 upaz223">
-																				<img class="upaz222 upaz221"
-																					src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8825275/1688466723027/ZDM0N2FmNTBkNmEyZDVmNzZjNWMzYzc4OWZlNzRjMWVmM2JlNjAxMzBkMmU3OGE2MWZkZDkwZWQ1NWY3NmY3MV8yLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																					alt="" />
-																				<div class="upaz227 upaz221">
-																					<span class="upaz228">+<!-- -->3<!-- --></span>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="_1arjc5a7">
-																	<span
-																		style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-																		src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-																		decoding="async" data-nimg="fill"
-																		class="_19qbbiq0 undefined"
-																		style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover" />
-																		<noscript>
-																			<img
-																				src="https://dnvefa72aowie.cloudfront.net/business-profile/bizPlatform/profile/8825275/1688466722911/ZDM0N2FmNTBkNmEyZDVmNzZjNWMzYzc4OWZlNzRjMWVmM2JlNjAxMzBkMmU3OGE2MWZkZDkwZWQ1NWY3NmY3MV8wLmpwZWc=.jpeg?q=95&amp;s=1440x1440&amp;t=inside"
-																				decoding="async" data-nimg="fill"
-																				style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover"
-																				class="_19qbbiq0 undefined" loading="lazy" />
-																		</noscript></span><span class="_1arjc5ac">5<!-- --></span>
-																</div>
-															</div>
-															<div class="_1arjc5a4">
-																<span class="_1arjc5a5">도움돼요 <!-- -->29<!-- --></span>
-															</div>
+															
 														</div></li>
 												</ul>
 												<div class="xsorfq3">

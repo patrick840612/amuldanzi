@@ -108,9 +108,9 @@
 												value="6375d2f63029e437ecd0a8fa" /></label></li>
 									</ul>
 								</div>
-								<!--$-->
 								<div class="_4a1tzy0">
 									<ul class="_4a1tzy1 korcsc5">
+										<!--$ 상품 반복 최대 8개-->
 										<li class="_4a1tzy2"><a
 											class="smb-list-item _1o1a6ke0 korcsc4"
 											href="/market/shopDetail">
@@ -130,39 +130,12 @@
 													</div>
 													<span class="smb-list-item-description _1o1a6ke7">내용</span><span
 														class="smb-list-item-infos _1o1a6ke8">후기 0 ∙ 카테1 ∙ 카테2</span>
-												</div></a></li>
-										
+												</div></a>
+										</li>
+										<!--/$-->
 									</ul>
 								</div>
-								<!--/$-->
-								
-								<!--$-->
-								<div class="_4a1tzy0">
-									<ul class="_4a1tzy1 korcsc5">
-										<li class="_4a1tzy2"><a
-											class="smb-list-item _1o1a6ke0 korcsc4"
-											href="/market/shopDetail2">
-											
-												<div class="smb-list-item-thumbnail-wrapper _1o1a6ke2 _1o1a6ke1">
-													<div class="thumbnail-base qudd1g0 qudd1g4 _1o1a6ke1">
-														<img
-															src=""
-															class="thumbnail-image qudd1g9" />
-													</div>
-												</div>
-												
-												<div class="smb-list-item-content _1o1a6ke3">
-													<div class="smb-list-item-name-wrapper _1o1a6ke4">
-														<span class="smb-list-item-name _1o1a6ke5">가게이름</span>
-														<span class="smb-list-item-region _1o1a6ke6">주소</span>
-													</div>
-													<span class="smb-list-item-description _1o1a6ke7">내용</span><span
-														class="smb-list-item-infos _1o1a6ke8">후기 0 ∙ 카테1 ∙ 카테2</span>
-												</div></a></li>
-										
-									</ul>
-								</div>
-								<!--/$-->
+
 							</section>
 							
 							<div class="_1irmkvy0">
