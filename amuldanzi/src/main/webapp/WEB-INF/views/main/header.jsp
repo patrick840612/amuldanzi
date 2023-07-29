@@ -452,7 +452,7 @@ $(document).ready(function() {
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a class="popper_popperTab__LvzGS" href="/mypage/business">
-											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자 마켓신청</div></a>
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">쇼핑몰신청</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/mypage/qnalist" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
@@ -516,7 +516,7 @@ $(document).ready(function() {
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a class="popper_popperTab__LvzGS" href="/">
-											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">쇼핑몰신청</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
