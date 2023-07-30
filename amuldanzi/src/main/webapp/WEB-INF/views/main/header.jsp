@@ -27,11 +27,11 @@
 <link href="/chunks/css/text.css" rel="stylesheet">
 <style type="text/css">
 .yoonmiyoonmi{
- padding-left: 22px;
- margin-left : 30px;
+ padding-left: 12px;
+ margin-left : 40px;
  margin-bottom : 2px;
  background-color: pink;
- width: 140px;
+ width: 120px;
  height: 30px;
 } 
 
