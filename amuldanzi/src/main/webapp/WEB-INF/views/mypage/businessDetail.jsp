@@ -98,6 +98,7 @@ $(document).ready(function() {
 		$('#summernote').remove();		
 		$('#businessUpdate').hide();
 		$('#businessDelete').hide();
+		$('#사업자').text('*');
 	}
 
 
@@ -180,8 +181,8 @@ $(document).ready(function() {
                         .attr('src')
                         .split('/')
                         .pop()
-                    imgNameWhenupdate = '';
-                    $('#businessImg').val('');
+                    imgNameWhenupdate = '${business.businessImg}';
+                    $('#businessImg').val('${business.businessImg}');
 
                     // ajax 함수 호출
                     deleteSummernoteImageFile(deletedImageUrl)
@@ -244,7 +245,7 @@ $(document).ready(function() {
         //return '이 페이지를 벗어나시겠습니까?';
     });
     
-    // 돌보미 신청할 때 파일지워지지 않게하기	
+    // 쇼핑몰 신청할 때 파일지워지지 않게하기	
 	$('#businessRegist').submit(function(event){
 		if($('#businessImg').val()==''){
 			event.preventDefault();
@@ -299,7 +300,7 @@ $(document).ready(function() {
 											type='hidden' name='businessTitle' value='사업자 역할신청' />
 										<div>
 											<span class="question_questionCategory__1QDx6">사업자등록번호(주민번호)</span><span
-												class="question_questionMark__AykT_">*수정불가</span>
+												class="question_questionMark__AykT_" id="사업자">*수정불가</span>
 										</div>
 										<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
 											class="question_titleInput__S7Isd" type="text"

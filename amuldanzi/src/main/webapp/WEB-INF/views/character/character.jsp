@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캐릭터</title>
+<title>나의 캐릭터</title>
 </head>
 <body>
 

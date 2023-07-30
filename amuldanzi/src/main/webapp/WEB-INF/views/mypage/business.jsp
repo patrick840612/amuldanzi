@@ -79,6 +79,11 @@
 .buttonMove{
 	margin-top: 0px !important;
 }
+
+li{
+	background-color : #ffeb994d !important;
+	margin-left: 10px;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -253,12 +258,18 @@ $(document).ready(function() {
 	    	});
 		// 승인완료와 대기가 같이 있을 때    
 		}else{
-			$('#승인대기').prop('disabled', false);
-			$('#승인대기').prop('checked', true);
-			$('#승인완료').prop('disabled', false);
 
+			$('#승인대기').prop('disabled', false);
+			$('#승인완료').prop('disabled', false);
 			$('#levelChange').hide();
-			$('#levelChange2').show();
+			if('${businessOk}'=="승인완료"){
+				$('#승인완료').prop('checked', true);
+				$('#levelChange3').show();
+				
+			}else{
+				$('#승인대기').prop('checked', true);
+				$('#levelChange2').show();
+			}
 		}
 
 	} // 승인등급 조건
@@ -274,19 +285,16 @@ $(document).ready(function() {
 	        $('#levelChange2').show();
 	        $('#levelChange').hide();
 	        $('#levelChange3').hide();
-	        console.log("승인대기 상태입니다.");
 	    } else if (selectedValue === "승인완료") {
 	        // 승인완료일 경우에 수행할 작업을 여기에 작성합니다.
 	        $('#levelChange3').show();
 	        $('#levelChange').hide();
 	        $('#levelChange2').hide();
-	        console.log("승인완료 상태입니다.");
 	    } else {
 	        // 신청하기일 경우에 수행할 작업을 여기에 작성합니다.
 	        $('#levelChange').show();
 	        $('#levelChange2').hide();
 	        $('#levelChange3').hide();	        
-	        console.log("신청하기 상태입니다.");
 	    }
 	});
 	
@@ -299,6 +307,16 @@ $(document).ready(function() {
 	    	imgNameWhenupdate = '';
 		}
 			
+	});
+    
+	$('.atag').click(function(event){
+		 event.preventDefault();
+		 
+		 var href = $(this).attr('href');
+		 href += "&businessOk=" + $('input[name="businessOk"]:checked').attr('id');
+		 $(this).attr('href', href);
+		 window.location.href = href;
+		 
 	});
 
 	
@@ -341,7 +359,7 @@ $(document).ready(function() {
 											type='hidden' name='businessTitle' value='사업자 역할신청' />
 										<div>
 											<span class="question_questionCategory__1QDx6">사업자등록번호(주민번호)</span><span
-												class="question_questionMark__AykT_">*</span>
+												class="question_questionMark__AykT_">*숫자만 입력</span>
 										</div>
 										<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
 											class="question_titleInput__S7Isd" type="number"
@@ -398,7 +416,7 @@ $(document).ready(function() {
 									<br />
 
 
-									<c:forEach var="businessItem" items="${businessList}">
+									<c:forEach var="businessItem" items="${business1}">
 										<c:choose>
 											<c:when test="${businessItem.businessOk eq '승인대기'}">
 
@@ -449,8 +467,42 @@ $(document).ready(function() {
 									</c:forEach>
 								</div>
 							</div>
-						</div>
-						<!-- 쇼핑몰 신청대기 끝 -->
+
+
+					<ul class="pagination">
+						<!-- 처음 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag" 
+							href="/mypage/business?page=1" aria-label="처음 페이지로 이동">«</a>
+						</li>
+
+						<!-- 이전 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag" 
+							href="/mypage/business?page=${currentPage - 1}"
+							aria-label="이전 페이지로 이동">‹</a></li>
+
+						<!-- 페이지 번호를 표시합니다 -->
+						<c:forEach begin="1" end="${totalPages1}" var="pageNumber">
+							<li class="${pageNumber == currentPage ? 'active' : ''}"><a class="atag"
+								href="/mypage/business?page=${pageNumber}"
+								aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
+						</c:forEach>
+
+						<!-- 다음 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == totalPages1 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=${currentPage + 1}"
+							aria-label="다음 페이지로 이동">›</a></li>
+
+						<!-- 마지막 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == totalPages1 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=${totalPages1}"
+							aria-label="마지막 페이지로 이동">»</a></li>
+					</ul>
+					
+				</div>
+					<div>
+						<hr class="popper_popperMenuDivider__j1QQj">
+					</div>
+					<!-- 쇼핑몰 신청대기 끝 -->
 
 						<!-- 쇼핑몰 신청완료 시작 -->
 						<div id="levelChange3" class="approval">
@@ -468,7 +520,7 @@ $(document).ready(function() {
 									<br />
 
 
-									<c:forEach var="businessItem" items="${businessList}">
+									<c:forEach var="businessItem" items="${business2}">
 										<c:choose>
 											<c:when test="${businessItem.businessOk eq '승인완료'}">
 
@@ -513,11 +565,48 @@ $(document).ready(function() {
 													</div>
 													<hr class="qaList_qaListDivider__blo7m">
 												</div>
-
+</div><!-- 잘못된 태그이지만 없으면 정상작동 안함 -->
 											</c:when>
 										</c:choose>
 									</c:forEach>
 								</div>
+								
+					<ul class="pagination">
+						<!-- 처음 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=1" aria-label="처음 페이지로 이동">«</a>
+						</li>
+
+						<!-- 이전 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=${currentPage - 1}"
+							aria-label="이전 페이지로 이동">‹</a></li>
+
+						<!-- 페이지 번호를 표시합니다 -->
+						<c:forEach begin="1" end="${totalPages2}" var="pageNumber">
+							<li class="${pageNumber == currentPage ? 'active' : ''}"><a class="atag"
+								href="/mypage/business?page=${pageNumber}"
+								aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
+						</c:forEach>
+
+						<!-- 다음 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == totalPages2 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=${currentPage + 1}"
+							aria-label="다음 페이지로 이동">›</a></li>
+
+						<!-- 마지막 페이지로 이동하는 링크를 추가합니다 -->
+						<li class="${currentPage == totalPages2 ? 'disabled' : ''}"><a class="atag"
+							href="/mypage/business?page=${totalPages2}"
+							aria-label="마지막 페이지로 이동">»</a></li>
+					</ul>								
+								
+								
+								
+								
+								
+								
+								
+								
 							</div>
 							<div>
 							<button class="question_submitBtn__vDrt_ buttonMove" type="button"

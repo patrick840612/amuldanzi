@@ -27,8 +27,12 @@
 <link href="/chunks/css/text.css" rel="stylesheet">
 <style type="text/css">
 .yoonmiyoonmi{
- margin-left: 140px;
-
+ padding-left: 22px;
+ margin-left : 30px;
+ margin-bottom : 2px;
+ background-color: pink;
+ width: 140px;
+ height: 30px;
 } 
 
   .searchResultsContainer {
@@ -460,6 +464,9 @@ $(document).ready(function() {
 											<a rel="noopener noreferrer" href="/mypage/orderlist" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">구매내역</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/character/character" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">나의 캐릭터</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
 										</div>
 									</div>
 								</div>
@@ -471,7 +478,9 @@ $(document).ready(function() {
 							<div class="main_contents__NGg5K">
 								<div class="input_inputContainer__1ypW_">
 									<c:if test="${!(memberRole == '' || memberRole == null)}">
-										<a rel="noopener noreferrer" href="/login/logout" class="popper_popperTab__LvzGS yoonmiyoonmi">로그아웃</a>
+										<a rel="noopener noreferrer" href="/login/logout" class="popper_popperTab__LvzGS yoonmiyoonmi">
+										<img src="/icons/shop/SHOP_CAT_BTN2.png" style="width: 20px; height: 20px;"><div class="popper_popperMenu__8QpIV">로그아웃</div></a>
+										<hr class="popper_popperMenuDivider__j1QQj">
 									</c:if>
 									<form id = "searchForm" action="/main/search" method="get">
 									  <img src="/icons/ICON-24px-Search.svg" class="input_searchInputImg__T1BVk">
@@ -523,6 +532,9 @@ $(document).ready(function() {
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">구매내역</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
+											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">나의 캐릭터</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 										</div>
 									</div>

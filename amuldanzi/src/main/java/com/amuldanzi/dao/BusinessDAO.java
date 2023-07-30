@@ -16,4 +16,5 @@ public interface BusinessDAO extends CrudRepository<BusinessDTO, String>
 	@Query(value = "UPDATE business SET business_name = :#{#business.businessName}, business_sector = :#{#business.businessSector}, business_img = :#{#business.businessImg} WHERE business_number = :#{#business.businessNumber}", nativeQuery = true)
 	void businessUpdate(BusinessDTO business);
 	
+	
 }

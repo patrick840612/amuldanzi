@@ -300,7 +300,7 @@ public class MypageController {
 	
 	// 쇼핑몰신청 페이지 이동
 	@RequestMapping("/business")
-	public void business(Model m, MemberInfoDTO member) throws ParseException, InterruptedException{
+	public void business(@RequestParam(name = "page", defaultValue = "1") int currentPage, Model m, MemberInfoDTO member,@RequestParam(name="businessOk", defaultValue = "1") String businessOk) throws ParseException, InterruptedException{
 		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
@@ -310,30 +310,132 @@ public class MypageController {
         boolean hasApprovalComplete = false;
         List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id")));
 
+        List<HashMap<String, Object>> result1 = new ArrayList<>();
+        List<HashMap<String, Object>> result2 = new ArrayList<>();
+        int itemsPerPage = 3;
+        
         // 승인대기와 승인완료가 있는지 검사
         for (BusinessDTO business : businessList) {
             if ("승인대기".equals(business.getBusinessOk())) {
+                HashMap<String, Object> hashmap = new HashMap<>();
+                hashmap.put("businessNumber", business.getBusinessNumber());
+                hashmap.put("businessOk", business.getBusinessOk());
+                hashmap.put("businessName", business.getBusinessName());
+                hashmap.put("businessSector", business.getBusinessSector());
+                hashmap.put("businessImg", business.getBusinessImg());
+                hashmap.put("businessRegdate", business.getBusinessRegdate());
+                hashmap.put("memberId", business.getMemberId());
+                result1.add(hashmap);
                 hasApprovalPending = true;
             } else if ("승인완료".equals(business.getBusinessOk())) {
+                HashMap<String, Object> hashmap = new HashMap<>();
+                hashmap.put("businessNumber", business.getBusinessNumber());
+                hashmap.put("businessOk", business.getBusinessOk());
+                hashmap.put("businessName", business.getBusinessName());
+                hashmap.put("businessSector", business.getBusinessSector());
+                hashmap.put("businessImg", business.getBusinessImg());
+                hashmap.put("businessRegdate", business.getBusinessRegdate());
+                hashmap.put("memberId", business.getMemberId());
+                result2.add(hashmap);
                 hasApprovalComplete = true;
             }
            
-            if(hasApprovalPending == true && hasApprovalComplete == true) {
-            	m.addAttribute("business", "승인대기완료");
-            	
-            }else if(hasApprovalPending == true && hasApprovalComplete == false) {
-            	m.addAttribute("business", "승인대기");
-            	
-            }else if(hasApprovalPending == false && hasApprovalComplete == true){
-            	m.addAttribute("business", "승인완료");
-            }
         }
+        
 
         if (businessList.isEmpty()) {
             // 1. 리스트가 비어있는 경우
-        } else {
+        } else if(hasApprovalPending == true && hasApprovalComplete == true){
+        	m.addAttribute("business", "승인대기완료");
+        	
+            int totalItems1 = result1.size();
+    	    int totalPages1 = (int) Math.ceil((double) totalItems1 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages1);
+    	    int startIndex1 = (currentPage - 1) * itemsPerPage;
+            int endIndex1 = Math.min(startIndex1 + itemsPerPage, totalItems1);
+            startIndex1 = Math.max(0, startIndex1);  
+            endIndex1 = Math.max(startIndex1, endIndex1);
+            List<HashMap<String, Object>> business1 = new ArrayList<>();
+            if (startIndex1 < result1.size() && startIndex1 <= endIndex1) {
+            	business1 = result1.subList(startIndex1, endIndex1);
+            }
+    		m.addAttribute("totalPages1", totalPages1);
+            m.addAttribute("business1", business1);
+            
+            
+            int totalItems2 = result2.size();
+    	    int totalPages2 = (int) Math.ceil((double) totalItems2 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages2);
+    	    int startIndex2 = (currentPage - 1) * itemsPerPage;
+            int endIndex2 = Math.min(startIndex2 + itemsPerPage, totalItems2);
+            startIndex2 = Math.max(0, startIndex2);  
+            endIndex2 = Math.max(startIndex2, endIndex2);
+            
+            List<HashMap<String, Object>> business2 = new ArrayList<>();
+            if (startIndex2 < result2.size() && startIndex2 <= endIndex2) {
+            	business2 = result2.subList(startIndex2, endIndex2);
+            }
+    		m.addAttribute("totalPages2", totalPages2);
+            m.addAttribute("business2", business2);
+            
+            m.addAttribute("currentPage", currentPage);
+
+        	
+            m.addAttribute("businessList", businessList);
+        }else if(hasApprovalPending == true && hasApprovalComplete == false) {
+        	m.addAttribute("business", "승인대기");
+
+            int totalItems1 = result1.size();
+    	    int totalPages1 = (int) Math.ceil((double) totalItems1 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages1);
+    	    int startIndex1 = (currentPage - 1) * itemsPerPage;
+            int endIndex1 = Math.min(startIndex1 + itemsPerPage, totalItems1);
+            startIndex1 = Math.max(0, startIndex1);  
+            endIndex1 = Math.max(startIndex1, endIndex1);
+            List<HashMap<String, Object>> business1 = new ArrayList<>();
+            if (startIndex1 < result1.size() && startIndex1 <= endIndex1) {
+            	business1 = result1.subList(startIndex1, endIndex1);
+            }
+    		m.addAttribute("totalPages1", totalPages1);
+            m.addAttribute("business1", business1);
+            m.addAttribute("currentPage", currentPage);
+        	
+            m.addAttribute("businessList", businessList);
+        }else {
+        	m.addAttribute("business", "승인완료");
+        	
+            int totalItems2 = result2.size();
+    	    int totalPages2 = (int) Math.ceil((double) totalItems2 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages2);
+    	    int startIndex2 = (currentPage - 1) * itemsPerPage;
+            int endIndex2 = Math.min(startIndex2 + itemsPerPage, totalItems2);
+            startIndex2 = Math.max(0, startIndex2);  
+            endIndex2 = Math.max(startIndex2, endIndex2);
+            
+            List<HashMap<String, Object>> business2 = new ArrayList<>();
+            if (startIndex2 < result2.size() && startIndex2 <= endIndex2) {
+            	business2 = result2.subList(startIndex2, endIndex2);
+            }
+    		m.addAttribute("totalPages2", totalPages2);
+            m.addAttribute("business2", business2);
+            m.addAttribute("currentPage", currentPage);
+        	
             m.addAttribute("businessList", businessList);
         }
+        
+        m.addAttribute("businessOk", businessOk);
         
         Thread.sleep(2500); 
 	}
