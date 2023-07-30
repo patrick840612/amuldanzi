@@ -2,13 +2,14 @@ package com.amuldanzi.util;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -63,10 +64,28 @@ public class MariaDBToElasticNoticeSearch {
             e.printStackTrace();
         }
     }
+    
+    public void deleteDataFromElasticsearch(int commNo) {
+        try (RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(ES_HOST, ES_PORT, "http")))) {
+            // ElasticSearch에서 데이터 삭제
+            DeleteRequest request = new DeleteRequest(INDEX_NAME, Integer.toString(commNo));
+            DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+            System.out.println("Deleted document with ID: " + response.getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } 
+    
 
     public static void main(String[] args) {
         MariaDBToElasticNoticeSearch indexer = new MariaDBToElasticNoticeSearch();
         indexer.indexDataFromMariaDB();
+        
+        
+     // Elasticsearch에서 데이터를 삭제하려면 해당 데이터의 comm_no를 인자로 전달합니다.
+        int commNoToDelete = 39; // 삭제하려는 데이터의 comm_no를 설정하세요.
+        indexer.deleteDataFromElasticsearch(commNoToDelete);
+        
     }
 	
 	

@@ -33,7 +33,7 @@
 
   .searchResultsContainer {
     position: fixed;
-    top: 27%;
+    top: 30%;
     left: 80%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -167,6 +167,25 @@ $(document).ready(function() {
                 console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
             }
         });
+
+        $.ajax({
+            url: "http://localhost:9200/care/_search",
+            method: "GET",
+            data: {
+                match_all: {}
+            },
+            success: function(response) {
+                var results = response.hits.hits;
+                displayCareResults(results);
+            },
+            error: function(error) {
+                console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+
+
+
+        
     }
 
     // 키워드를 포함하는 검색 결과를 반환하는 함수
@@ -217,6 +236,30 @@ $(document).ready(function() {
                 console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
             }
         });
+
+        $.ajax({
+            url: "http://localhost:9200/care/_search",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                query: {
+                	query_string: {
+                        default_field: "title",
+                        query:  "*" + keyword + "*"
+                    }
+                }
+            }),
+            success: function(response) {
+                var results = response.hits.hits;
+                console.log(results);
+                displayCareResults(results);
+            },
+            error: function(error) {
+                console.error("공지글 검색 결과를 가져오는 중 오류가 발생했습니다:", error);
+            }
+        });
+        
+        
     }
 
     // 커뮤니티 검색 결과를 화면에 표시하는 함수
@@ -258,6 +301,28 @@ $(document).ready(function() {
  
         // 검색 결과 컨테이너에 공지글 검색 결과 추가
         searchResultsContainer.find(".noticeResults").empty().append(noticeResultsContainer);
+        // 검색 결과를 보이도록 설정
+        searchResultsContainer.show();
+        
+    }
+
+    function displayCareResults(results) {
+        var careResultsContainer = $("<ul></ul>");
+        
+        results.sort(function(a, b) {
+            return b._source.id - a._source.id;
+        });
+        
+        for (var i = 0; i < Math.min(results.length, 3); i++) {
+            var source = results[i]._source;
+            var careId = source.id;
+            var careTitle = source.title;
+            var resultItem = "<li>◎<a href='/care/careDetail?id=" + careTitle + "' style='font-size: 25px;'>" + careTitle + "</a></li>";
+            noticeResultsContainer.append(resultItem);
+        }
+ 
+        // 검색 결과 컨테이너에 공지글 검색 결과 추가
+        searchResultsContainer.find(".careResults").empty().append(careResultsContainer);
         // 검색 결과를 보이도록 설정
         searchResultsContainer.show();
         
@@ -387,7 +452,7 @@ $(document).ready(function() {
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a class="popper_popperTab__LvzGS" href="/mypage/business">
-											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">쇼핑몰신청</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/mypage/qnalist" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
@@ -451,7 +516,7 @@ $(document).ready(function() {
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">돌보미신청</div></a> 
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a class="popper_popperTab__LvzGS" href="/">
-											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">사업자등록</div></a>
+											<img src="/icons/shop/SHOP_CAT_BTN2.png" ><div class="popper_popperMenu__8QpIV">쇼핑몰신청</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
 											<a rel="noopener noreferrer" href="/" class="popper_popperTab__LvzGS">
 											<img src="/icons/shop/SHOP_CAT_BTN2.png"><div class="popper_popperMenu__8QpIV">1:1문의</div></a>
@@ -477,6 +542,7 @@ $(document).ready(function() {
 						    <div class="searchResultsContent">
 						      <ul class="communityResults"></ul>
 						      <ul class="noticeResults"></ul>
+						      <ul class="careResults"></ul>
 						    </div>
 						  </div>
 						  
@@ -485,6 +551,7 @@ $(document).ready(function() {
 						    <div class="searchResultsContent">
 						      <ul class="communityResults"></ul>
 						      <ul class="noticeResults"></ul>
+						      <ul class="careResults"></ul>
 						    </div>
 						  </div>
 </body>

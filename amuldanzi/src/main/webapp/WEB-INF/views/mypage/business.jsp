@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,10 +12,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="production//production/images/favicon.ico" type="image/ico" />
-<title>사업자등록</title>
-
-<!-- Bootstrap <link href="/admin/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">  드랍다운 화살표 2개씩 나옴-->
+<link rel="icon" href="/admin/production/images/favicon.ico"
+	type="image/ico" />
+<title>쇼핑몰신청</title>
 
 <!-- Font Awesome -->
 <link href="/admin/vendors/font-awesome/css/font-awesome.min.css"
@@ -28,7 +31,8 @@
 <!-- JQVMap -->
 <link href="/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
-<link href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
+<link
+	href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -38,22 +42,37 @@
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 
+<!-- 커뮤니티 css 빌려오기(리스트용) -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/chunks/css/c552b37c371c331c.css" rel="stylesheet">
+<link href="/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
+<link href="/chunks/css/281067dbec461a13.css" rel="stylesheet">
+<link href="/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
+<link href="/chunks/css/communitytext.css" rel="stylesheet">
+<link href="/css/community/text.css" rel="stylesheet">
+
 <style type="text/css">
 .nav-md .container.body .right_col {
-     margin-left: 0px;
+	margin-left: 0px;
 }
 
 /* Summernote의 팝업창 위치 조정 */
-.note-modal{
-    top: 200px !important;
+.note-modal {
+	top: 200px !important;
 }
 
 /* Summernote의 기본 스타일 재정의 */
 .note-editor .note-editable {
-    font-family: '굴림체', sans-serif !important;
+	font-family: '굴림체', sans-serif !important;
 }
-/*  */
 
+.approval {
+	margin-top: -150px;
+}
+
+.buttonMove{
+	margin-top: 0px !important;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -77,7 +96,7 @@ $(document).ready(function() {
     
     // 썸머노트 에디터 로딩
     $('#summernote').summernote({
-        height: 600,                 // 에디터 높이
+        height: 400,                 // 에디터 높이
         minHeight: null,             // 최소 높이
         maxHeight: null,             // 최대 높이
         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
@@ -187,7 +206,7 @@ $(document).ready(function() {
         $.ajax({
             data: data,
             type: 'POST',
-            url: '/mypage/deleteSummernoteImageFileBusiness',
+            url: '/mypage/deleteSummernoteImageFile',
             contentType: false,
             enctype: 'multipart/form-data',
             processData: false,
@@ -202,120 +221,307 @@ $(document).ready(function() {
         //return '이 페이지를 벗어나시겠습니까?';
     });
     
-    // 돌보미 신청할 때 파일지워지지 않게하기
-    $('#businessRegist').submit(function(){
-    	imgNameWhenupdate = '';
-    });
     
-
+	$('#levelChange2').hide();
+	$('#levelChange3').hide();
+    
  	// 승인등급 조건    
-	if(${not empty sitter}){
+	if(${not empty business}){
+		// 승인대기만 있을때
+		if('${business}'=="승인대기"){
 
-		if('${sitter.sitter}'=="승인대기"){
-			$('#신청하기').prop('disabled', true);
 			$('#승인대기').prop('disabled', false);
 			$('#승인대기').prop('checked', true);
-			$('#level').hide();
-			$('#levelChange').before($('<div style="text-align: center; margin-top: 200px;"><p style="font-size: 36px;">돌보미 심사 중입니다... 기다려주세요...</p><br/>'+
-					'<p style="font-size: 24px; color: red; font-weight: bold;">재신청시 기존 신청내역이 삭제됩니다</p></div>'));
-			$('#levelChange').empty();
-			$('#levelChange').append($('<button class="question_submitBtn__vDrt_" type="button" id="sitterRe">돌보미 재신청</button>'));
+			$('#levelChange').hide();
+			$('#levelChange2').show();
 			
-		    $('#sitterRe').click(function(){
-		    	location.href='/mypage/deleteSitter?id=${id}'; 
-	    	});
-		    
-		}else{
-			$('#신청하기').prop('disabled', true);
+		// 승인완료만 있을 때    
+		}else if('${business}'=="승인완료"){
 			$('#승인완료').prop('disabled', false);
 			$('#승인완료').prop('checked', true);
-			$('#level').hide();
-			$('#levelChange').before($('<div style="text-align: center; margin-top: 200px;"><p style="font-size: 36px;">돌보미 승인이 완료 되었습니다</p><br/>'+
-			'<p style="font-size: 24px; color: green; font-weight: bold;">돌보미샵에 등록할 수 있습니다</p></div>'));
-			$('#levelChange').empty();
-			$('#levelChange').append($('<button class="question_submitBtn__vDrt_" type="button" id="dolbomiShop">돌보미샵 가기</button>'));
-		}
-		    $('#dolbomiShop').click(function(){
-		    	location.href='/market/dolbomiShop'; 
+			$('#levelChange').hide();
+			$('#levelChange3').show();
+
+		    $('#carrotShop').click(function(){		////////////////////////////////////////////// 쇼핑몰 이동경로 나중에 수정하기
+		    	location.href='/market/carrotShop'; 
 	    	});
+		// 승인완료와 대기가 같이 있을 때    
+		}else{
+			$('#승인대기').prop('disabled', false);
+			$('#승인대기').prop('checked', true);
+			$('#승인완료').prop('disabled', false);
+
+			$('#levelChange').hide();
+			$('#levelChange2').show();
+		}
+
 	} // 승인등급 조건
 	
+	// 라디오 버튼 변경 이벤트 감지
+	$("input[name='businessOk']").on('change', function() {
+	    // 선택된 라디오 버튼의 값을 가져옵니다.
+	    var selectedValue = $("input[name='businessOk']:checked").attr('id');
+	    
+	    // 조건에 따라 동작을 수행합니다.
+	    if (selectedValue === "승인대기") {
+	        // 승인대기일 경우에 수행할 작업을 여기에 작성합니다.
+	        $('#levelChange2').show();
+	        $('#levelChange').hide();
+	        $('#levelChange3').hide();
+	        console.log("승인대기 상태입니다.");
+	    } else if (selectedValue === "승인완료") {
+	        // 승인완료일 경우에 수행할 작업을 여기에 작성합니다.
+	        $('#levelChange3').show();
+	        $('#levelChange').hide();
+	        $('#levelChange2').hide();
+	        console.log("승인완료 상태입니다.");
+	    } else {
+	        // 신청하기일 경우에 수행할 작업을 여기에 작성합니다.
+	        $('#levelChange').show();
+	        $('#levelChange2').hide();
+	        $('#levelChange3').hide();	        
+	        console.log("신청하기 상태입니다.");
+	    }
+	});
+	
+    // 돌보미 신청할 때 파일지워지지 않게하기	
+	$('#businessRegist').submit(function(event){
+		if($('#businessImg').val()==''){
+			event.preventDefault();
+			alert('이미지를 첨부해 주세요');
+		}else{
+	    	imgNameWhenupdate = '';
+		}
+			
+	});
 
+	
 });
 </script>
 </head>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body class="nav-md">
-  
+
 	<div class="container body">
 		<div class="main_container">
 
-
 			<!-- page content -->
-			<div class="right_col" role="main">  
+			<div class="right_col" role="main">
 				<!-- top tiles -->
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
-						<form id="businessRegist" action="/mypage/sitterRegist" method="post" enctype="multipart/form-data">
-							<span class="question_questionCategory__1QDx6">사업자(마켓)등록</span>
+						<form id="businessRegist" action="/mypage/businessRegist"
+							method="post" enctype="multipart/form-data">
+							<span class="question_questionCategory__1QDx6">쇼핑몰 신청</span>
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="businessOk" id="신청하기" value="승인대기" checked="신청하기"><label
-										for="신청하기">신청하기</label>
+									<input type="radio" name="businessOk" id="신청하기" value="승인대기"
+										checked><label for="신청하기">신청하기</label>
 								</div>
 								<div>
-									<input type="radio" name="businessOk" id="승인대기" value="승인대기" disabled="disabled"><label
-										for="승인대기">승인대기</label>
+									<input type="radio" name="businessOk" id="승인대기" value="승인대기"
+										disabled="disabled"><label for="승인대기">승인대기</label>
 								</div>
 								<div>
-									<input type="radio" name="businessOk" id="승인완료" value="승인완료" disabled="disabled"><label
-										for="승인완료">승인완료</label>
+									<input type="radio" name="businessOk" id="승인완료" value="승인완료"
+										disabled="disabled"><label for="승인완료">승인완료</label>
 								</div>
 							</div>
-							
-							<div id="level">
-								<div>
-								<input type='hidden' name='id' value='${id}'/>
-								<input type='hidden' name='businessTitle' value='사업자 역할신청'/>
-									<div>
-										<span class="question_questionCategory__1QDx6">사업자등록번호</span><span
-											class="question_questionMark__AykT_">*</span>
-									</div>
-									<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
-										class="question_titleInput__S7Isd" type="text" name="businessNumber"/>
-									<div class="question_alertText__WnxqW"></div>
-								</div>
+							<div id="levelChange">
 								<div>
 									<div>
-										<span class="question_questionCategory__1QDx6">상호명</span><span
-											class="question_questionMark__AykT_">*</span>
+										<input type='hidden' name='id' value='${id}' /> <input
+											type='hidden' name='businessTitle' value='사업자 역할신청' />
+										<div>
+											<span class="question_questionCategory__1QDx6">사업자등록번호(주민번호)</span><span
+												class="question_questionMark__AykT_">*</span>
+										</div>
+										<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
+											class="question_titleInput__S7Isd" type="number"
+											name="businessNumber" required="required" />
+										<div class="question_alertText__WnxqW"></div>
 									</div>
-									<input placeholder="(상호명 미보유시 대표자명)"
-										class="question_titleInput__S7Isd" type="text" name="businessName"/>
-									<div class="question_alertText__WnxqW"></div>
-								</div>
-								<div>
 									<div>
-										<span class="question_questionCategory__1QDx6">업종</span><span
-											class="question_questionMark__AykT_">*</span>
+										<div>
+											<span class="question_questionCategory__1QDx6">상호명(대표자명)</span><span
+												class="question_questionMark__AykT_">*</span>
+										</div>
+										<input placeholder="(상호명 미보유시 대표자명)"
+											class="question_titleInput__S7Isd" type="text"
+											name="businessName" required="required" />
+										<div class="question_alertText__WnxqW"></div>
 									</div>
-									<input placeholder=""
-										class="question_titleInput__S7Isd" type="text" name="businessSector"/>
-									<div class="question_alertText__WnxqW"></div>
+									<div>
+										<div>
+											<span class="question_questionCategory__1QDx6">업종</span><span
+												class="question_questionMark__AykT_">*</span>
+										</div>
+										<input placeholder="" class="question_titleInput__S7Isd"
+											type="text" name="businessSector" required="required" />
+										<div class="question_alertText__WnxqW"></div>
+									</div>
+
+									<textarea id="summernote" name="editordata"></textarea>
+									<input type="hidden" name="businessImg" id="businessImg"
+										required="required" />
 								</div>
 
- 								<textarea id="summernote" name="editordata"></textarea>  
- 								<input type="hidden" name="sitterImg" id="businessImg"/>
- 							</div>
-								<div id="levelChange">
-									<button class="question_submitBtn__vDrt_" type="submit">사업자마켓 신청하기</button>
+								<div>
+									<button class="question_submitBtn__vDrt_" type="submit">쇼핑몰
+										신청하기</button>
 								</div>
 								<br />
+							</div>
 						</form>
 
+
+						<!-- 쇼핑몰 신청하기 끝 -->
+
+						<!-- 쇼핑몰 신청대기 시작 -->
+						<div id="levelChange2" class="approval">
+							<div style="text-align: center; margin-top: 200px;">
+								<p style="font-size: 36px;">쇼핑몰 심사 중입니다... 기다려주세요...</p>
+								<br />
+							</div>
+							<div class="main_mainContents__GXYBn">
+								<div class="community_loungeLeftContent__wnv1Z">
+
+									<br />
+									<hr class="popper_popperMenuDivider__j1QQj">
+									<br />
+
+
+									<c:forEach var="businessItem" items="${businessList}">
+										<c:choose>
+											<c:when test="${businessItem.businessOk eq '승인대기'}">
+
+												<!-- 추가적인 승인 완료 리스트 정보를 여기에 추가하세요 -->
+
+												<div class="community_loungeList__HbstN">
+													<div class="qaList_qaListContainer__73To2">
+														<div class="qaList_qaListWrapper___YnhH">
+															<div>
+																<a
+																	href="/mypage/businessDetail?businessNumber=${businessItem.businessNumber}">
+																	<div class="qaList_qaListTitle__Z1Ssh">${businessItem.businessName}
+																</a>
+															</div>
+															<div class="qaList_qaListText__2Cm8R">${businessItem.businessNumber}</div>
+														</div>
+														<div class="qaList_qaListImg__DiWnU">
+															<span
+																style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
+																alt="사업자등록증 이미지"
+																src="/images/mypage/${businessItem.businessImg}"
+																decoding="async" data-nimg="fill" sizes="100vw"
+																style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
+																<noscript></noscript></span>
+														</div>
+													</div>
+													<div class="qaList_qaListAbout__qL7GR">
+														<div class="qaList_communityType__p7p5C">
+															${businessItem.businessOk}</div>
+														<div>${businessItem.memberId.id}</div>
+														<div>
+															<c:set var="formattedDate">
+																<fmt:formatDate value="${businessItem.businessRegdate}"
+																	pattern="yyyy-MM-dd" />
+															</c:set>
+
+															<c:out value="${formattedDate}" />
+														</div>
+													</div>
+													<div class="qaList_labelWrapper__vsqC0">
+														<div class="qaList_desktopLabelContainer__EEK_6"></div>
+													</div>
+													<hr class="qaList_qaListDivider__blo7m">
+												</div>
+</div><!-- 잘못된 태그이지만 없으면 정상작동 안함 -->
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<!-- 쇼핑몰 신청대기 끝 -->
+
+						<!-- 쇼핑몰 신청완료 시작 -->
+						<div id="levelChange3" class="approval">
+							<div style="text-align: center; margin-top: 200px;">
+								<p style="font-size: 36px;">쇼핑몰 승인이 완료 되었습니다</p>
+								<br />
+								<p style="font-size: 24px; color: green; font-weight: bold;">쇼핑몰
+									운영이 가능합니다</p>
+							</div>
+							<div class="main_mainContents__GXYBn">
+								<div class="community_loungeLeftContent__wnv1Z">
+
+									<br />
+									<hr class="popper_popperMenuDivider__j1QQj">
+									<br />
+
+
+									<c:forEach var="businessItem" items="${businessList}">
+										<c:choose>
+											<c:when test="${businessItem.businessOk eq '승인완료'}">
+
+												<!-- 추가적인 승인 완료 리스트 정보를 여기에 추가하세요 -->
+
+												<div class="community_loungeList__HbstN">
+													<div class="qaList_qaListContainer__73To2">
+														<div class="qaList_qaListWrapper___YnhH">
+															<div>
+																<a
+																	href="/mypage/businessDetail?businessNumber=${businessItem.businessNumber}">
+																	<div class="qaList_qaListTitle__Z1Ssh">${businessItem.businessName}
+																</a>
+															</div>
+															<div class="qaList_qaListText__2Cm8R">${businessItem.businessNumber}</div>
+														</div>
+														<div class="qaList_qaListImg__DiWnU">
+															<span
+																style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
+																alt="사업자등록증 이미지"
+																src="/images/mypage/${businessItem.businessImg}"
+																decoding="async" data-nimg="fill" sizes="100vw"
+																style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
+																<noscript></noscript></span>
+														</div>
+													</div>
+													<div class="qaList_qaListAbout__qL7GR">
+														<div class="qaList_communityType__p7p5C">
+															${businessItem.businessOk}</div>
+														<div>${businessItem.memberId.id}</div>
+														<div>
+															<c:set var="formattedDate">
+																<fmt:formatDate value="${businessItem.businessRegdate}"
+																	pattern="yyyy-MM-dd" />
+															</c:set>
+
+															<c:out value="${formattedDate}" />
+														</div>
+													</div>
+													<div class="qaList_labelWrapper__vsqC0">
+														<div class="qaList_desktopLabelContainer__EEK_6"></div>
+													</div>
+													<hr class="qaList_qaListDivider__blo7m">
+												</div>
+
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+							<div>
+							<button class="question_submitBtn__vDrt_ buttonMove" type="button"
+								id="carrotShop">쇼핑몰 가기</button>
+							</div>
+						</div>
+						<!-- 쇼핑몰 신청완료 끝 -->
+
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 	</div>
@@ -328,14 +534,17 @@ $(document).ready(function() {
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
 	<!-- bootstrap-progressbar -->
-	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
 	<!-- bootstrap-daterangepicker -->
 	<script src="/admin/vendors/moment/min/moment.min.js"></script>
-	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<!-- bootstrap-wysiwyg -->
-	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script
+		src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
 	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
 	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
 	<!-- jQuery Tags Input -->
@@ -349,13 +558,10 @@ $(document).ready(function() {
 	<!-- Autosize -->
 	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
 	<!-- jQuery autocomplete -->
-	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<script
+		src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 	<!-- starrr -->
 	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
-	<!-- Custom Theme Scripts 	<script src="/admin/build/js/custom.min.js"></script> 에러로 삭제함-->
 
-	
-
-    	
 </body>
 </html>

@@ -25,6 +25,9 @@ public class HeaderController {
     private static final int ES_PORT = 9200;
     private static final String COMMUNITY_INDEX_NAME = "community"; // 데이터를 색인한 ElasticSearch의 인덱스 이름
     private static final String NOTICE_INDEX_NAME = "notice";
+    private static final String CARE_INDEX_NAME = "care";
+    
+    
     
 	
     @GetMapping("/search")
@@ -46,6 +49,13 @@ public class HeaderController {
             communitySearchSourceBuilder.query(QueryBuilders.matchAllQuery());
             noticeSearchSourceBuilder.query(QueryBuilders.matchQuery("title", query)); // 제목에서 검색
             noticeSearchRequest.source(noticeSearchSourceBuilder);
+            
+            SearchRequest careSearchRequest = new SearchRequest(NOTICE_INDEX_NAME);
+            SearchSourceBuilder careSearchSourceBuilder = new SearchSourceBuilder();
+            careSearchSourceBuilder.query(QueryBuilders.matchAllQuery());
+            careSearchSourceBuilder.query(QueryBuilders.matchQuery("title", query)); // 제목에서 검색
+            careSearchRequest.source(noticeSearchSourceBuilder);
+            
 
             // 커뮤니티 검색 결과를 받아옴
             SearchResponse communityResponse = client.search(communitySearchRequest, RequestOptions.DEFAULT);
@@ -55,9 +65,14 @@ public class HeaderController {
             SearchResponse noticeResponse = client.search(noticeSearchRequest, RequestOptions.DEFAULT);
             SearchHit[] noticeHits = noticeResponse.getHits().getHits();
 
+            SearchResponse careResponse = client.search(noticeSearchRequest, RequestOptions.DEFAULT);
+            SearchHit[] careHits = noticeResponse.getHits().getHits();
+            
+            
             // 검색 결과를 모델에 추가하여 View에 전달
             model.addAttribute("communityResults", communityHits);
             model.addAttribute("noticeResults", noticeHits);
+            model.addAttribute("careResults", careHits);
  
             
         } catch (Exception e) {
