@@ -78,6 +78,10 @@ li{
 	background-color : #ffeb994d !important;
 	margin-left: 10px;
 }
+
+label{
+	width: 90px !important;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -106,7 +110,7 @@ $(document).ready(function() {
         maxHeight: null,             // 최대 높이
         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
         lang: "ko-KR",                // 한글 설정
-        placeholder: '<h2 style="color: blue;">사업자 등록증 이미지를 첨부해주세요.</h2><br><h4 style="color: red;">이곳에 작성된 텍스트는 사용하지 않습니다.</h4>',    //placeholder 설정
+        placeholder: '<h2 style="color: blue;">문의 내용을 작성해주세요.</h2><br><h4 style="color: red;">필요시 이미지 1개만 첨부 가능합니다</h4>',    //placeholder 설정
         toolbar: [
 		    // [groupName, [list of button]]
 		    ['fontname', ['fontname']],
@@ -163,7 +167,7 @@ $(document).ready(function() {
                         .split('/')
                         .pop()
                     imgNameWhenupdate = '';
-                    $('#businessImg').val('');
+                    $('#qnaImg').val('');
 
                     // ajax 함수 호출
                     deleteSummernoteImageFile(deletedImageUrl)
@@ -189,7 +193,7 @@ $(document).ready(function() {
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
             	imgNameWhenupdate = data.url.split('/').pop();
-            	$('#businessImg').val(imgNameWhenupdate);
+            	$('#qnaImg').val(imgNameWhenupdate);
 			      if (data && data.url) {
 			        // 업로드된 이미지 URL을 에디터에 삽입
 			        $(editor).summernote("insertImage", data.url);
@@ -230,87 +234,78 @@ $(document).ready(function() {
 	$('#levelChange2').hide();
 	$('#levelChange3').hide();
     
- 	// 승인등급 조건    
-	if(${not empty business}){
-		// 승인대기만 있을때
-		if('${business}'=="승인대기"){
+ 	// 답변여부 조건    
+	if(${not empty qna}){
+		// 답변대기만 있을때
+		if('${qna}'=="답변대기"){
 
-			$('#승인대기').prop('disabled', false);
-			$('#승인대기').prop('checked', true);
+			$('#답변대기').prop('disabled', false);
+			$('#답변대기').prop('checked', true);
 			$('#levelChange').hide();
 			$('#levelChange2').show();
 			
-		// 승인완료만 있을 때    
-		}else if('${business}'=="승인완료"){
-			$('#승인완료').prop('disabled', false);
-			$('#승인완료').prop('checked', true);
+		// 답변완료만 있을 때    
+		}else if('${qna}'=="답변완료"){
+			$('#답변완료').prop('disabled', false);
+			$('#답변완료').prop('checked', true);
 			$('#levelChange').hide();
 			$('#levelChange3').show();
 
-		    $('#carrotShop').click(function(){		////////////////////////////////////////////// 쇼핑몰 이동경로 나중에 수정하기
-		    	location.href='/market/carrotShop'; 
-	    	});
-		// 승인완료와 대기가 같이 있을 때    
+		// 답변완료와 대기가 같이 있을 때    
 		}else{
 
-			$('#승인대기').prop('disabled', false);
-			$('#승인완료').prop('disabled', false);
+			$('#답변대기').prop('disabled', false);
+			$('#답변완료').prop('disabled', false);
 			$('#levelChange').hide();
-			if('${businessOk}'=="승인완료"){
-				$('#승인완료').prop('checked', true);
+			if('${qnaAnswerOk}'=="답변완료"){
+				$('#답변완료').prop('checked', true);
 				$('#levelChange3').show();
 				
 			}else{
-				$('#승인대기').prop('checked', true);
+				$('#답변대기').prop('checked', true);
 				$('#levelChange2').show();
 			}
 		}
 
-	} // 승인등급 조건
+	} // 답변여부 조건
 	
 	// 라디오 버튼 변경 이벤트 감지
-	$("input[name='businessOk']").on('change', function() {
+	$("input[name='qnaAnswerOk']").on('change', function() {
 	    // 선택된 라디오 버튼의 값을 가져옵니다.
-	    var selectedValue = $("input[name='businessOk']:checked").attr('id');
+	    var selectedValue = $("input[name='qnaAnswerOk']:checked").attr('id');
 	    
 	    // 조건에 따라 동작을 수행합니다.
-	    if (selectedValue === "승인대기") {
-	        // 승인대기일 경우에 수행할 작업을 여기에 작성합니다.
+	    if (selectedValue === "답변대기") {
+	        // 답변대기일 경우에 수행할 작업을 여기에 작성합니다.
 	        $('#levelChange2').show();
 	        $('#levelChange').hide();
 	        $('#levelChange3').hide();
-	    } else if (selectedValue === "승인완료") {
-	        // 승인완료일 경우에 수행할 작업을 여기에 작성합니다.
+	    } else if (selectedValue === "답변완료") {
+	        // 답변완료일 경우에 수행할 작업을 여기에 작성합니다.
 	        $('#levelChange3').show();
 	        $('#levelChange').hide();
 	        $('#levelChange2').hide();
 	    } else {
-	        // 신청하기일 경우에 수행할 작업을 여기에 작성합니다.
+	        // 문의하기일 경우에 수행할 작업을 여기에 작성합니다.
 	        $('#levelChange').show();
 	        $('#levelChange2').hide();
 	        $('#levelChange3').hide();	        
 	    }
 	});
 	
-    // 돌보미 신청할 때 파일지워지지 않게하기	
-	$('#businessRegist').submit(function(event){
-		if($('#businessImg').val()==''){
-			event.preventDefault();
-			alert('이미지를 첨부해 주세요');
-		}else{
+    // 문의할 때 파일지워지지 않게하기	
+	$('#qnaRegist').submit(function(event){
 	    	imgNameWhenupdate = '';
-		}
-			
 	});
     
+    // 페이징으로 리스트 변경시 답변여부에 따른 섹션 선택
 	$('.atag').click(function(event){
 		 event.preventDefault();
 		 
 		 var href = $(this).attr('href');
-		 href += "&businessOk=" + $('input[name="businessOk"]:checked').attr('id');
+		 href += "&qnaAnswerOk=" + $('input[name="qnaAnswerOk"]:checked').attr('id');
 		 $(this).attr('href', href);
 		 window.location.href = href;
-		 
 	});
 
 	
@@ -329,65 +324,67 @@ $(document).ready(function() {
 				<!-- top tiles -->
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
-						<form id="businessRegist" action="/mypage/businessRegist"
+						<form id="qnaRegist" action="/mypage/qnaRegist"
 							method="post" enctype="multipart/form-data">
-							<span class="question_questionCategory__1QDx6">쇼핑몰 신청</span>
+							<span class="question_questionCategory__1QDx6">1:1 문의</span>
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="businessOk" id="신청하기" value="승인대기"
-										checked><label for="신청하기">신청하기</label>
+									<input type="radio" name="qnaAnswerOk" id="문의하기" value="답변대기"
+										checked><label for="문의하기">문의하기</label>
 								</div>
 								<div>
-									<input type="radio" name="businessOk" id="승인대기" value="승인대기"
-										disabled="disabled"><label for="승인대기">승인대기</label>
+									<input type="radio" name="qnaAnswerOk" id="답변대기" value="답변대기"
+										disabled="disabled"><label for="답변대기">답변대기</label>
 								</div>
 								<div>
-									<input type="radio" name="businessOk" id="승인완료" value="승인완료"
-										disabled="disabled"><label for="승인완료">승인완료</label>
+									<input type="radio" name="qnaAnswerOk" id="답변완료" value="답변완료"
+										disabled="disabled"><label for="답변완료">답변완료</label>
 								</div>
 							</div>
 							<div id="levelChange">
+								<span class="question_questionCategory__1QDx6">문의유형</span>
+								<div class="question_radioWrap__WZ6ME">
+									<div>
+										<input type="radio" name="qnaCategory" id="나의반려동물" value="나의반려동물"
+											checked><label for="나의반려동물">나의 반려동물</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="마켓" value="마켓"
+											><label for="마켓">마켓</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="게시판" value="게시판"
+											><label for="게시판">게시판</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="커뮤니티" value="커뮤니티"
+											><label for="커뮤니티">커뮤니티</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="시스템" value="시스템"
+											><label for="시스템">시스템</label>
+									</div>
+								</div>
 								<div>
 									<div>
-										<input type='hidden' name='id' value='${id}' /> <input
-											type='hidden' name='businessTitle' value='사업자 역할신청' />
+										<input type='hidden' name='id' value='${id}' /> 
 										<div>
-											<span class="question_questionCategory__1QDx6">사업자등록번호(주민번호)</span><span
-												class="question_questionMark__AykT_">*숫자만 입력</span>
-										</div>
-										<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
-											class="question_titleInput__S7Isd" type="number"
-											name="businessNumber" required="required" />
-										<div class="question_alertText__WnxqW"></div>
-									</div>
-									<div>
-										<div>
-											<span class="question_questionCategory__1QDx6">상호명(대표자명)</span><span
+											<span class="question_questionCategory__1QDx6">문의제목</span><span
 												class="question_questionMark__AykT_">*</span>
 										</div>
-										<input placeholder="(상호명 미보유시 대표자명)"
+										<input placeholder="문의제목을 입력해주세요"
 											class="question_titleInput__S7Isd" type="text"
-											name="businessName" required="required" />
-										<div class="question_alertText__WnxqW"></div>
-									</div>
-									<div>
-										<div>
-											<span class="question_questionCategory__1QDx6">업종</span><span
-												class="question_questionMark__AykT_">*</span>
-										</div>
-										<input placeholder="" class="question_titleInput__S7Isd"
-											type="text" name="businessSector" required="required" />
+											name="qnaTitle" required="required" />
 										<div class="question_alertText__WnxqW"></div>
 									</div>
 
 									<textarea id="summernote" name="editordata"></textarea>
-									<input type="hidden" name="businessImg" id="businessImg"
+									<input type="hidden" name="qnaImg" id="qnaImg"
 										required="required" />
 								</div>
 
 								<div>
-									<button class="question_submitBtn__vDrt_" type="submit">쇼핑몰
-										신청하기</button>
+									<button class="question_submitBtn__vDrt_" type="submit">1:1 문의하기</button>
 								</div>
 								<br />
 							</div>
@@ -399,7 +396,7 @@ $(document).ready(function() {
 						<!-- 쇼핑몰 신청대기 시작 -->
 						<div id="levelChange2" class="approval">
 							<div style="text-align: center; margin-top: 200px;">
-								<p style="font-size: 36px;">쇼핑몰 심사 중입니다... 기다려주세요...</p>
+								<p style="font-size: 36px;">문의 내용 확인 중입니다... 기다려주세요...</p>
 								<br />
 							</div>
 							<div class="main_mainContents__GXYBn">
@@ -410,40 +407,42 @@ $(document).ready(function() {
 									<br />
 
 
-									<c:forEach var="businessItem" items="${business1}">
+									<c:forEach var="qnaItem" items="${qna1}">
 										<c:choose>
-											<c:when test="${businessItem.businessOk eq '승인대기'}">
+											<c:when test="${qnaItem.qnaAnswerOk eq '답변대기'}">
 
-												<!-- 추가적인 승인 완료 리스트 정보를 여기에 추가하세요 -->
+												<!-- 추가적인 답변 완료 리스트 정보를 여기에 추가하세요 -->
 
 												<div class="community_loungeList__HbstN">
 													<div class="qaList_qaListContainer__73To2">
 														<div class="qaList_qaListWrapper___YnhH">
 															<div>
 																<a
-																	href="/mypage/businessDetail?businessNumber=${businessItem.businessNumber}">
-																	<div class="qaList_qaListTitle__Z1Ssh">${businessItem.businessName}
+																	href="/mypage/qnaDetail?qnaNo=${qnaItem.qnaNo}">
+																	<div class="qaList_qaListTitle__Z1Ssh">${qnaItem.qnaTitle}
 																</a>
 															</div>
-															<div class="qaList_qaListText__2Cm8R">${businessItem.businessNumber}</div>
+															<div class="qaList_qaListText__2Cm8R">${qnaItem.qnaCategory}</div>
 														</div>
+													<c:if test="${not empty qnaItem.qnaImg}">
 														<div class="qaList_qaListImg__DiWnU">
 															<span
 																style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-																alt="사업자등록증 이미지"
-																src="/images/mypage/${businessItem.businessImg}"
+																alt="문의 이미지"
+																src="/images/mypage/${qnaItem.qnaImg}"
 																decoding="async" data-nimg="fill" sizes="100vw"
 																style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
 																<noscript></noscript></span>
 														</div>
+													</c:if>
 													</div>
 													<div class="qaList_qaListAbout__qL7GR">
 														<div class="qaList_communityType__p7p5C">
-															${businessItem.businessOk}</div>
-														<div>${businessItem.memberId.id}</div>
+															${qnaItem.qnaAnswerOk}</div>
+														<div>${qnaItem.memberId.id}</div>
 														<div>
 															<c:set var="formattedDate">
-																<fmt:formatDate value="${businessItem.businessRegdate}"
+																<fmt:formatDate value="${qnaItem.qnaDate}"
 																	pattern="yyyy-MM-dd" />
 															</c:set>
 
@@ -466,29 +465,29 @@ $(document).ready(function() {
 					<ul class="pagination">
 						<!-- 처음 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag" 
-							href="/mypage/business?page=1" aria-label="처음 페이지로 이동">«</a>
+							href="/mypage/qnalist?page=1" aria-label="처음 페이지로 이동">«</a>
 						</li>
 
 						<!-- 이전 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag" 
-							href="/mypage/business?page=${currentPage - 1}"
+							href="/mypage/qnalist?page=${currentPage - 1}"
 							aria-label="이전 페이지로 이동">‹</a></li>
 
 						<!-- 페이지 번호를 표시합니다 -->
 						<c:forEach begin="1" end="${totalPages1}" var="pageNumber">
 							<li class="${pageNumber == currentPage ? 'active' : ''}"><a class="atag"
-								href="/mypage/business?page=${pageNumber}"
+								href="/mypage/qnalist?page=${pageNumber}"
 								aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
 						</c:forEach>
 
 						<!-- 다음 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == totalPages1 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=${currentPage + 1}"
+							href="/mypage/qnalist?page=${currentPage + 1}"
 							aria-label="다음 페이지로 이동">›</a></li>
 
 						<!-- 마지막 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == totalPages1 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=${totalPages1}"
+							href="/mypage/qnalist?page=${totalPages1}"
 							aria-label="마지막 페이지로 이동">»</a></li>
 					</ul>
 					
@@ -501,10 +500,9 @@ $(document).ready(function() {
 						<!-- 쇼핑몰 신청완료 시작 -->
 						<div id="levelChange3" class="approval">
 							<div style="text-align: center; margin-top: 200px;">
-								<p style="font-size: 36px;">쇼핑몰 승인이 완료 되었습니다</p>
+								<p style="font-size: 36px;">문의사항에 대한 답변이 완료 되었습니다</p>
 								<br />
-								<p style="font-size: 24px; color: green; font-weight: bold;">쇼핑몰
-									운영이 가능합니다</p>
+								<p style="font-size: 24px; color: green; font-weight: bold;">답변내용 확인이 가능합니다</p>
 							</div>
 							<div class="main_mainContents__GXYBn">
 								<div class="community_loungeLeftContent__wnv1Z">
@@ -514,40 +512,42 @@ $(document).ready(function() {
 									<br />
 
 
-									<c:forEach var="businessItem" items="${business2}">
+									<c:forEach var="qnaItem" items="${qna2}">
 										<c:choose>
-											<c:when test="${businessItem.businessOk eq '승인완료'}">
+											<c:when test="${qnaItem.qnaAnswerOk eq '답변완료'}">
 
-												<!-- 추가적인 승인 완료 리스트 정보를 여기에 추가하세요 -->
+												<!-- 추가적인 답변 완료 리스트 정보를 여기에 추가하세요 -->
 
 												<div class="community_loungeList__HbstN">
 													<div class="qaList_qaListContainer__73To2">
 														<div class="qaList_qaListWrapper___YnhH">
 															<div>
 																<a
-																	href="/mypage/businessDetail?businessNumber=${businessItem.businessNumber}">
-																	<div class="qaList_qaListTitle__Z1Ssh">${businessItem.businessName}
+																	href="/mypage/qnaDetail?qnaNo=${qnaItem.qnaNo}">
+																	<div class="qaList_qaListTitle__Z1Ssh">${qnaItem.qnaTitle}
 																</a>
 															</div>
-															<div class="qaList_qaListText__2Cm8R">${businessItem.businessNumber}</div>
+															<div class="qaList_qaListText__2Cm8R">${qnaItem.qnaCategory}</div>
 														</div>
+													<c:if test="${not empty qnaItem.qnaImg}">
 														<div class="qaList_qaListImg__DiWnU">
 															<span
 																style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"><img
-																alt="사업자등록증 이미지"
-																src="/images/mypage/${businessItem.businessImg}"
+																alt="문의 이미지"
+																src="/images/mypage/${qnaItem.qnaImg}"
 																decoding="async" data-nimg="fill" sizes="100vw"
 																style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover; object-position: center center; filter: none; background-size: cover; background-image: none; background-position: center center;">
 																<noscript></noscript></span>
 														</div>
+													</c:if>
 													</div>
 													<div class="qaList_qaListAbout__qL7GR">
 														<div class="qaList_communityType__p7p5C">
-															${businessItem.businessOk}</div>
-														<div>${businessItem.memberId.id}</div>
+															${qnaItem.qnaAnswerOk}</div>
+														<div>${qnaItem.memberId.id}</div>
 														<div>
 															<c:set var="formattedDate">
-																<fmt:formatDate value="${businessItem.businessRegdate}"
+																<fmt:formatDate value="${qnaItem.qnaDate}"
 																	pattern="yyyy-MM-dd" />
 															</c:set>
 
@@ -568,44 +568,38 @@ $(document).ready(function() {
 					<ul class="pagination">
 						<!-- 처음 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=1" aria-label="처음 페이지로 이동">«</a>
+							href="/mypage/qnalist?page=1" aria-label="처음 페이지로 이동">«</a>
 						</li>
 
 						<!-- 이전 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == 1 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=${currentPage - 1}"
+							href="/mypage/qnalist?page=${currentPage - 1}"
 							aria-label="이전 페이지로 이동">‹</a></li>
 
 						<!-- 페이지 번호를 표시합니다 -->
 						<c:forEach begin="1" end="${totalPages2}" var="pageNumber">
 							<li class="${pageNumber == currentPage ? 'active' : ''}"><a class="atag"
-								href="/mypage/business?page=${pageNumber}"
+								href="/mypage/qnalist?page=${pageNumber}"
 								aria-label="페이지 ${pageNumber}로 이동">${pageNumber}</a></li>
 						</c:forEach>
 
 						<!-- 다음 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == totalPages2 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=${currentPage + 1}"
+							href="/mypage/qnalist?page=${currentPage + 1}"
 							aria-label="다음 페이지로 이동">›</a></li>
 
 						<!-- 마지막 페이지로 이동하는 링크를 추가합니다 -->
 						<li class="${currentPage == totalPages2 ? 'disabled' : ''}"><a class="atag"
-							href="/mypage/business?page=${totalPages2}"
+							href="/mypage/qnalist?page=${totalPages2}"
 							aria-label="마지막 페이지로 이동">»</a></li>
 					</ul>								
 								
-								
-								
-								
-								
-								
-								
-								
 							</div>
-							<div>
-							<button class="question_submitBtn__vDrt_ buttonMove" type="button"
-								id="carrotShop">쇼핑몰 가기</button>
-							</div>
+
+					<br/>		
+					<div>
+						<hr class="popper_popperMenuDivider__j1QQj">
+					</div>	
 						</div>
 						<!-- 쇼핑몰 신청완료 끝 -->
 
@@ -614,7 +608,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
+	
 
 	<!-- Bootstrap -->
 	<script src="/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

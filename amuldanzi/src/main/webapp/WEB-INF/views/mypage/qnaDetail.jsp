@@ -78,27 +78,49 @@
 .qaDetail_qaDetailImgBox__VzApc{
 	gap: 0px !important;
 }
+
+label{
+	width: 90px !important;
+}
+
+#replyC{
+	background-color: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	// 승인대기일 때
-	if('${businessOk}'=="승인대기"){
 
-		$('#승인대기').prop('disabled', false);
-		$('#승인대기').prop('checked', true);
-	// 승인완료일 때    
+	// 답변대기일 때
+	if('${qnaAnswerOk}'=="답변대기"){
+
+		$('#답변대기').prop('disabled', false);
+		$('#답변대기').prop('checked', true);
+		$('#reply').hide();
+	// 답변완료일 때
 	}else{
-		$('#승인완료').prop('disabled', false);
-		$('#승인완료').prop('checked', true);
-		$("input[name='businessName']").prop("readonly", true);
-		$("input[name='businessSector']").prop("readonly", true);
+		$('#답변완료').prop('disabled', false);
+		$('#답변완료').prop('checked', true);
 		$('#summernote').remove();		
-		$('#businessUpdate').hide();
-		$('#businessDelete').hide();
-		$('#사업자').text('*');
+		$('#qnaUpdate').hide();
+		$('#qnaDelete').hide();
+	}
+	
+	// 답변유형 체크하기
+	if('${qna.qnaCategory}'=='나의반려동물'){
+		$('#나의반려동물').prop('checked', true);
+	}else if('${qna.qnaCategory}'=='마켓'){
+		$('#마켓').prop('checked', true);
+	}else if('${qna.qnaCategory}'=='게시판'){
+		$('#게시판').prop('checked', true);
+	}else if('${qna.qnaCategory}'=='커뮤니티'){
+		$('#커뮤니티').prop('checked', true);
+	}else{
+		$('#시스템').prop('checked', true);
 	}
 
 
@@ -110,7 +132,7 @@ $(document).ready(function() {
         }
        e.preventDefault();
   	});
-    
+
     // 에디터 로딩 후 기본 글꼴 변경
     $('#summernote').on('summernote.init', function() {
         $('.note-editable').css('font-family', '굴림체, sans-serif');
@@ -118,14 +140,15 @@ $(document).ready(function() {
 
     let imgNameWhenupdate='';
     
+	$('#summernote').val("${qna.qnaContent}");
     // 썸머노트 에디터 로딩
     $('#summernote').summernote({
-        height: 400,                 // 에디터 높이
+    	height: 400,                 // 에디터 높이
         minHeight: null,             // 최소 높이
         maxHeight: null,             // 최대 높이
         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
         lang: "ko-KR",                // 한글 설정
-        placeholder: '<h2 style="color: blue;">수정할 사업자 등록증 이미지를 첨부해주세요.</h2><br><h4 style="color: red;">이곳에 작성된 텍스트는 사용하지 않습니다.</h4>',    //placeholder 설정
+        placeholder: '<h2 style="color: blue;">문의 내용을 작성해주세요.</h2><br><h4 style="color: red;">이미지를 업로드하면 변경됩니다</h4>',    //placeholder 설정
         toolbar: [
 		    // [groupName, [list of button]]
 		    ['fontname', ['fontname']],
@@ -181,8 +204,8 @@ $(document).ready(function() {
                         .attr('src')
                         .split('/')
                         .pop()
-                    imgNameWhenupdate = '${business.businessImg}';
-                    $('#businessImg').val('${business.businessImg}');
+                    imgNameWhenupdate = '${qna.qnaImg}';
+                    $('#qnaImg').val('${qna.qnaImg}');
 
                     // ajax 함수 호출
                     deleteSummernoteImageFile(deletedImageUrl)
@@ -208,7 +231,7 @@ $(document).ready(function() {
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
             	imgNameWhenupdate = data.url.split('/').pop();
-            	$('#businessImg').val(imgNameWhenupdate);
+            	$('#qnaImg').val(imgNameWhenupdate);
 			      if (data && data.url) {
 			        // 업로드된 이미지 URL을 에디터에 삽입
 			        $(editor).summernote("insertImage", data.url);
@@ -246,22 +269,16 @@ $(document).ready(function() {
     });
     
     // 쇼핑몰 신청할 때 파일지워지지 않게하기	
-	$('#businessRegist').submit(function(event){
-		if($('#businessImg').val()==''){
-			event.preventDefault();
-			alert('이미지를 첨부해 주세요');
-		}else{
+	$('#qnaRegist').submit(function(event){
 	    	imgNameWhenupdate = '';
-		}
-			
 	});
     
- 	$('#businessListBack').click(function(){
- 		location.href="/mypage/business";
+ 	$('#qnaListBack').click(function(){
+ 		location.href="/mypage/qnalist";
  	});
 	
- 	$('#businessDelete').click(function(){
- 		$('#businessRegist').attr('action', '/mypage/businessDelete');
+ 	$('#qnaDelete').click(function(){
+ 		$('#qnaRegist').attr('action', '/mypage/qnaDelete');
  	});
  	
 	
@@ -280,75 +297,124 @@ $(document).ready(function() {
 				<!-- top tiles -->
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
-						<form id="businessRegist" action="/mypage/businessUpdate"
+						<form id="qnaRegist" action="/mypage/qnaUpdate"
 							method="post" enctype="multipart/form-data">
-							<span class="question_questionCategory__1QDx6">쇼핑몰 상세내역</span>
+							<span class="question_questionCategory__1QDx6">문의 상세내역</span>
 							<div class="question_radioWrap__WZ6ME">
 								<div>
-									<input type="radio" name="businessOk" id="승인대기" value="승인대기"
-										disabled="disabled"><label for="승인대기">승인대기</label>
+									<input type="radio" name="qnaAnswerOk" id="답변대기" value="답변대기"
+										disabled="disabled"><label for="답변대기">답변대기</label>
 								</div>
 								<div>
-									<input type="radio" name="businessOk" id="승인완료" value="승인완료"
-										disabled="disabled"><label for="승인완료">승인완료</label>
+									<input type="radio" name="qnaAnswerOk" id="답변완료" value="답변완료"
+										disabled="disabled"><label for="답변완료">답변완료</label>
 								</div>
 							</div>
 							<div id="levelChange">
+								<span class="question_questionCategory__1QDx6">문의유형</span>
+								<div class="question_radioWrap__WZ6ME">
+									<div>
+										<input type="radio" name="qnaCategory" id="나의반려동물" value="나의반려동물"
+											checked><label for="나의반려동물">나의 반려동물</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="마켓" value="마켓"
+											><label for="마켓">마켓</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="게시판" value="게시판"
+											><label for="게시판">게시판</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="커뮤니티" value="커뮤니티"
+											><label for="커뮤니티">커뮤니티</label>
+									</div>
+									<div>
+										<input type="radio" name="qnaCategory" id="시스템" value="시스템"
+											><label for="시스템">시스템</label>
+									</div>
+								</div>
 								<div>
 									<div>
-										<input type='hidden' name='id' value='${id}' /> <input
-											type='hidden' name='businessTitle' value='사업자 역할신청' />
+										<input type='hidden' name='id' value='${id}' />
+										<input type='hidden' name='qnaNo' value='${qna.qnaNo}' /> 
 										<div>
-											<span class="question_questionCategory__1QDx6">사업자등록번호(주민번호)</span><span
-												class="question_questionMark__AykT_" id="사업자">*수정불가</span>
-										</div>
-										<input placeholder="숫자만 입력해주세요 (사업자번호 미보유시 주민번호)"
-											class="question_titleInput__S7Isd" type="text"
-											name="businessNumber" required="required" value="${business.businessNumber}" readonly="readonly"/>
-										<div class="question_alertText__WnxqW"></div>
-									</div>
-									<div>
-										<div>
-											<span class="question_questionCategory__1QDx6">상호명(대표자명)</span><span
+											<span class="question_questionCategory__1QDx6">문의제목</span><span
 												class="question_questionMark__AykT_">*</span>
 										</div>
-										<input placeholder="(상호명 미보유시 대표자명)"
+										<input placeholder="문의제목을 입력해주세요"
 											class="question_titleInput__S7Isd" type="text"
-											name="businessName" required="required" value="${business.businessName}"/>
-										<div class="question_alertText__WnxqW"></div>
-									</div>
-									<div>
-										<div>
-											<span class="question_questionCategory__1QDx6">업종</span><span
-												class="question_questionMark__AykT_">*</span>
-										</div>
-										<input placeholder="" class="question_titleInput__S7Isd"
-											type="text" name="businessSector" required="required" value="${business.businessSector}"/>
+											name="qnaTitle" required="required" value="${qna.qnaTitle}"/>
 										<div class="question_alertText__WnxqW"></div>
 									</div>
 
 									<textarea id="summernote" name="editordata"></textarea>
-									<input type="hidden" name="businessImg" id="businessImg"
-										required="required" value="${business.businessImg}"/>
-								</div>
-								
-
+									<input type="hidden" name="qnaImg" id="qnaImg"
+										required="required" value="${qna.qnaImg}"/>
 								<div class="qaDetail_qaDetailContent__ggrjL">
 									<div class="qaDetail_qaDetailImgBox__VzApc">
-										<h2>등록된 사업자 등록증 이미지</h2>										 
-										<img  class="img_verticalImage__P4gbA" src="/images/mypage/${business.businessImg}" alt="사업자등록증 Image" style="width: 600px; height: 500px;" />
-										<button class="question_submitBtn__vDrt_ buttonMove" type="submit" id="businessUpdate">쇼핑몰 수정하기</button>
-										<button class="question_submitBtn__vDrt_ buttonMove" type="submit" id="businessDelete">쇼핑몰 삭제하기</button>
-										<button class="question_submitBtn__vDrt_ buttonMove2" type="button" id="businessListBack">쇼핑몰리스트 보기</button>
+										<c:if test="${not empty qna.qnaImg}">
+											<h2>등록된 문의 이미지</h2>										 
+											<img  class="img_verticalImage__P4gbA" src="/images/mypage/${qna.qnaImg}" alt="문의 Image" style="width: 600px; height: 500px;" />
+										</c:if>		
 									</div>
 								</div>
+								<!-- 답변 부분 시작 -->	
+								<div id="reply">	
+									<div class="qaDetail_qaDetailBar__tOqjr"></div>
+									<ins class="adsbygoogle" data-ad-client="ca-pub-4786722989459138"
+										data-ad-slot="6986428526" data-ad-format="auto"
+										data-full-width-responsive="true" style="display: block;"></ins>
+									<div class="qaDetail_qaDetailAnswerWrapper__TJpOV">
+										<div class="qaDetail_qaDetailTotal__wSReo">문의 답변</div>
+										<div class="qaDetail_qaDetailComment__7y1PJ">
+											<div class="answer_qaAnswerInputWrapper___cOZ0">
+												<textarea id="replyC" style="overflow: hidden; height: auto;" readonly="readonly">${qna.qnaAnswer}</textarea>
+												<div class="answer_inputBtnWrapper__8hVzb">
+													<div class="answer_questionImgContainer__oRcY2"></div>
+													<div class="answer_answerBtnContainer__VgUOs">
+														<div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="qaDetail_qaDetailAnswer__E9eTw" id="answers-30298">
+											<div class="comment_qaDetailComment__guTi_">
+												<div class="comment_qaCommentIdWrapper__u6F4S">
+													<div>답변 작성자 : ${qna.qnaAnswerWriter}</div>
+													<div>
+														<c:set var="formattedDate">
+															<fmt:formatDate value="${qna.qnaAnswerDate}"
+																pattern="yyyy-MM-dd" />
+														</c:set>
 
-
+														<c:out value="${formattedDate}" />													
+													</div>
+												</div>
+												<div class="comment_qaDetailImgNone__ngvPO"></div>
+												<div class="comment_commentInfo__OI8e5">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 답변 부분 끝 -->												
+							</div>
+								
+							<div class="qaDetail_qaDetailContent__ggrjL">
+									<div class="qaDetail_qaDetailImgBox__VzApc">
+										<button class="question_submitBtn__vDrt_ buttonMove" type="submit" id="qnaUpdate">1:1 문의 수정하기</button>
+										<button class="question_submitBtn__vDrt_ buttonMove" type="submit" id="qnaDelete">1:1 문의 삭제하기</button>
+										<button class="question_submitBtn__vDrt_ buttonMove2" type="button" id="qnaListBack">1:1 문의리스트 보기</button>
+									</div>
+								</div>
 
 								<br />
 							</div>
 						</form>
-						<!-- 쇼핑몰 수정하기 끝 -->
+						<!-- 문의 수정 삭제하기 끝 -->
+						
 
 
 					</div>

@@ -34,6 +34,7 @@ import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
 import com.amuldanzi.entity.MemberPetEntity;
 import com.amuldanzi.service.LoginService;
@@ -274,7 +275,7 @@ public class MypageController {
 	
 	// 돌보미 신청시 DB 저장(이미지 저장 안하기 beforeunload로 파일처리 끝냄)
 	@RequestMapping(value = "/sitterRegist", method = RequestMethod.POST)
-	public String sitterRegist(SitterDTO sitter, @RequestParam("editordata") String editordata) {
+	public String sitterRegist(SitterDTO sitter, @RequestParam("editordata") String editordata) throws InterruptedException {
 	    // 썸머노트 에어리어에 입력한 값에서 <p> 태그 제거
 	    Document doc = Jsoup.parse(editordata);
 	    String cleanText = doc.text();
@@ -287,6 +288,8 @@ public class MypageController {
 		sitter.setSitterEtc(cleanText);
 
 		mypageService.saveSitter(sitter);
+		
+		Thread.sleep(2500);
         return "redirect:/mypage/sitter";
     }
 	
@@ -438,11 +441,11 @@ public class MypageController {
         m.addAttribute("businessOk", businessOk);
         
         Thread.sleep(2500); 
-	}
+	} // 쇼핑몰 신청페이지 이동 끝
 	
 	// 쇼핑몰 신청
 	@RequestMapping(value = "/businessRegist", method = RequestMethod.POST)
-	public String businessRegist(BusinessDTO business, MemberInfoDTO member) {
+	public String businessRegist(BusinessDTO business, MemberInfoDTO member) throws InterruptedException {
 
 		if(!business.getBusinessImg().equals("")) {
 			// 이미지 파일을 저장할 경로 설정 
@@ -452,6 +455,8 @@ public class MypageController {
 		business.setMemberId(member);
 
 		mypageService.saveBusiness(business);
+		
+		Thread.sleep(2500);
 
 		return "redirect:/mypage/business";
 	}
@@ -486,6 +491,211 @@ public class MypageController {
 		mypageService.businessDelete(business);
 		
 		return "redirect:/mypage/business";		
+	}
+	
+	// 1:1문의 페이지 이동
+	@RequestMapping("/qnalist")
+	public void qnalist(@RequestParam(name = "page", defaultValue = "1") int currentPage, Model m, MemberInfoDTO member,@RequestParam(name="qnaAnswerOk", defaultValue = "1") String qnaAnswerOk) throws ParseException{
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        boolean hasApprovalPending = false;
+        boolean hasApprovalComplete = false;
+        List<QnaDTO> qnaList = mypageService.qnaFindByMemberId(String.valueOf(map.get("id")));
+
+        List<HashMap<String, Object>> result1 = new ArrayList<>();
+        List<HashMap<String, Object>> result2 = new ArrayList<>();
+        int itemsPerPage = 3;
+        
+        // 답변대기와 답변완료가 있는지 검사
+        for (QnaDTO qna : qnaList) {
+            if ("답변대기".equals(qna.getQnaAnswerOk())) {
+                HashMap<String, Object> hashmap = new HashMap<>();
+                hashmap.put("qnaNo", qna.getQnaNo());
+                hashmap.put("qnaCategory", qna.getQnaCategory());
+                hashmap.put("qnaTitle", qna.getQnaTitle());
+                hashmap.put("qnaDate", qna.getQnaDate());
+                hashmap.put("qnaAnswerOk", qna.getQnaAnswerOk());
+                hashmap.put("qnaImg", qna.getQnaImg());
+                hashmap.put("memberId", qna.getMemberId());
+                result1.add(hashmap);
+                hasApprovalPending = true;
+            } else if ("답변완료".equals(qna.getQnaAnswerOk())) {
+                HashMap<String, Object> hashmap = new HashMap<>();
+                hashmap.put("qnaNo", qna.getQnaNo());
+                hashmap.put("qnaCategory", qna.getQnaCategory());
+                hashmap.put("qnaTitle", qna.getQnaTitle());
+                hashmap.put("qnaDate", qna.getQnaDate());
+                hashmap.put("qnaAnswerOk", qna.getQnaAnswerOk());
+                hashmap.put("qnaImg", qna.getQnaImg());
+                hashmap.put("memberId", qna.getMemberId());
+                result2.add(hashmap);
+                hasApprovalComplete = true;
+            }
+           
+        }
+        
+
+        if (qnaList.isEmpty()) {
+            // 1. 리스트가 비어있는 경우
+        } else if(hasApprovalPending == true && hasApprovalComplete == true){
+        	m.addAttribute("qna", "답변대기완료");
+        	
+            int totalItems1 = result1.size();
+    	    int totalPages1 = (int) Math.ceil((double) totalItems1 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages1);
+    	    int startIndex1 = (currentPage - 1) * itemsPerPage;
+            int endIndex1 = Math.min(startIndex1 + itemsPerPage, totalItems1);
+            startIndex1 = Math.max(0, startIndex1);  
+            endIndex1 = Math.max(startIndex1, endIndex1);
+            List<HashMap<String, Object>> qna1 = new ArrayList<>();
+            if (startIndex1 < result1.size() && startIndex1 <= endIndex1) {
+            	qna1 = result1.subList(startIndex1, endIndex1);
+            }
+    		m.addAttribute("totalPages1", totalPages1);
+            m.addAttribute("qna1", qna1);
+            
+            
+            int totalItems2 = result2.size();
+    	    int totalPages2 = (int) Math.ceil((double) totalItems2 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages2);
+    	    int startIndex2 = (currentPage - 1) * itemsPerPage;
+            int endIndex2 = Math.min(startIndex2 + itemsPerPage, totalItems2);
+            startIndex2 = Math.max(0, startIndex2);  
+            endIndex2 = Math.max(startIndex2, endIndex2);
+            
+            List<HashMap<String, Object>> qna2 = new ArrayList<>();
+            if (startIndex2 < result2.size() && startIndex2 <= endIndex2) {
+            	qna2 = result2.subList(startIndex2, endIndex2);
+            }
+    		m.addAttribute("totalPages2", totalPages2);
+            m.addAttribute("qna2", qna2);
+            
+            m.addAttribute("currentPage", currentPage);
+
+        	
+            m.addAttribute("qnaList", qnaList);
+        }else if(hasApprovalPending == true && hasApprovalComplete == false) {
+        	m.addAttribute("qna", "답변대기");
+
+            int totalItems1 = result1.size();
+    	    int totalPages1 = (int) Math.ceil((double) totalItems1 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages1);
+    	    int startIndex1 = (currentPage - 1) * itemsPerPage;
+            int endIndex1 = Math.min(startIndex1 + itemsPerPage, totalItems1);
+            startIndex1 = Math.max(0, startIndex1);  
+            endIndex1 = Math.max(startIndex1, endIndex1);
+            List<HashMap<String, Object>> qna1 = new ArrayList<>();
+            if (startIndex1 < result1.size() && startIndex1 <= endIndex1) {
+            	qna1 = result1.subList(startIndex1, endIndex1);
+            }
+    		m.addAttribute("totalPages1", totalPages1);
+            m.addAttribute("qna1", qna1);
+            m.addAttribute("currentPage", currentPage);
+        	
+            m.addAttribute("qnaList", qnaList);
+        }else {
+        	m.addAttribute("qna", "답변완료");
+        	
+            int totalItems2 = result2.size();
+    	    int totalPages2 = (int) Math.ceil((double) totalItems2 / itemsPerPage);
+    	    // 현재 페이지 번호가 1 미만이면 1로 설정
+    	    currentPage = Math.max(1, currentPage);
+    	    // 현재 페이지 번호가 총 페이지 개수를 넘어가면 총 페이지 개수로 설정
+    	    currentPage = Math.min(currentPage, totalPages2);
+    	    int startIndex2 = (currentPage - 1) * itemsPerPage;
+            int endIndex2 = Math.min(startIndex2 + itemsPerPage, totalItems2);
+            startIndex2 = Math.max(0, startIndex2);  
+            endIndex2 = Math.max(startIndex2, endIndex2);
+            
+            List<HashMap<String, Object>> qna2 = new ArrayList<>();
+            if (startIndex2 < result2.size() && startIndex2 <= endIndex2) {
+            	qna2 = result2.subList(startIndex2, endIndex2);
+            }
+    		m.addAttribute("totalPages2", totalPages2);
+            m.addAttribute("qna2", qna2);
+            m.addAttribute("currentPage", currentPage);
+        	
+            m.addAttribute("qnaList", qnaList);
+        }
+        
+        m.addAttribute("qnaAnswerOk", qnaAnswerOk);
+	} // 1:1 문의 페이지 이동
+	
+	// 1:1 문의 등록
+	@RequestMapping(value = "/qnaRegist", method = RequestMethod.POST)
+	public String qnaRegist(QnaDTO qna, MemberInfoDTO member, @RequestParam("editordata") String editordata) throws InterruptedException{
+
+		String textWithoutImages = removeImageTags(editordata);
+		qna.setQnaContent(textWithoutImages);
+		
+		String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\mypage\\";
+		qna.setQnaImgPath(savePath);			
+
+		qna.setMemberId(member);
+
+		mypageService.saveQna(qna);
+		
+        Thread.sleep(2500); 
+
+		return "redirect:/mypage/qnalist";
+	} // 문의 등록 끝
+	
+	// 이미지태그 삭제하기
+	public String removeImageTags(String input) {
+	    // 정규식 패턴
+	    String pattern = "<img\\s+[^>]*>"; // <img> 태그 패턴
+
+	    // 정규식 패턴에 해당하는 이미지 태그를 빈 문자열로 대체하여 제거
+	    String output = input.replaceAll(pattern, "");
+
+	    return output;
+	}
+	
+	// 문의 상세페이지 이동
+	@RequestMapping("/qnaDetail")
+	public void qnaDetail(Model m, MemberInfoDTO member, @RequestParam("qnaNo") Integer qnaNo){
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        QnaDTO qna = mypageService.qnaFindByRearId(qnaNo);
+
+        
+    	m.addAttribute("qnaAnswerOk", qna.getQnaAnswerOk());
+    	m.addAttribute("qna", qna);
+
+	}
+	
+	// 문의 수정
+	@RequestMapping("/qnaUpdate")
+	public String qnaUpdate(QnaDTO qna, @RequestParam("editordata") String editordata) {
+		
+		String textWithoutImages = removeImageTags(editordata);
+		qna.setQnaContent(textWithoutImages);
+		mypageService.qnaUpdate(qna);
+		
+		return "redirect:/mypage/qnalist";		
+	}
+	
+	// 문의 삭제
+	@RequestMapping("/qnaDelete")
+	public String qnaDelete(QnaDTO qna) {
+		mypageService.qnaDelete(qna);
+		
+		return "redirect:/mypage/qnalist";		
 	}
 	
 	

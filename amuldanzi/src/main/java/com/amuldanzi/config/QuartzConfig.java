@@ -41,16 +41,16 @@ public class QuartzConfig {
     }
 
     // Job을 실행할 스케줄을 정의합니다.
-    @Bean
+/*    @Bean
     public SimpleTriggerFactoryBean myJobTrigger() {
         SimpleTriggerFactoryBean factoryBean = new SimpleTriggerFactoryBean();
         factoryBean.setJobDetail(myJobDetail().getObject());
-        //factoryBean.setRepeatInterval(86400000); // 24시간 (1일) 마다 실행
-        factoryBean.setRepeatInterval(60000); // 1분 마다 실행
+//        factoryBean.setRepeatInterval(86400000); // 24시간 (1일) 마다 실행
+        factoryBean.setRepeatInterval(30000); // 30초 마다 실행
         return factoryBean;
     }
- 
-/*    @Bean
+*/ 
+    @Bean
     public CronTriggerFactoryBean myJobTrigger() {
         CronTriggerFactoryBean factoryBean = new CronTriggerFactoryBean();
         factoryBean.setJobDetail(myJobDetail().getObject());
@@ -58,7 +58,7 @@ public class QuartzConfig {
         factoryBean.setCronExpression("0 0 1 * * ?"); // Run at 1:00 AM every day
         return factoryBean;
     }
-*/
+
     // 스케줄러 설정
     @Bean
     public SchedulerFactoryBean schedulerFactory() {
