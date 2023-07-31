@@ -32,6 +32,7 @@ public class MyJob implements Job {
     	 
     	 // 돌보미, 쇼핑몰, 1:1문의 필요없는 파일 삭제
     	 FileCleanupService fileCleanupService = (FileCleanupService) jobDataMap.get("fileCleanupService");
-    
+    	 fileCleanupService.performFileCleanup();
+    	 
     }
 }
