@@ -64,13 +64,15 @@
   }
 
   .communityResults,
-  .noticeResults {
+  .noticeResults,
+  .careResults {
     list-style: none;
     padding: 0;
   }
 
   .communityResults li,
-  .noticeResults li {
+  .noticeResults li,
+  .careResults li {
     font-size: 16px;
     margin-bottom: 5px;
     padding: 5px;
@@ -79,13 +81,15 @@
   }
 
   .communityResults li a,
-  .noticeResults li a {
+  .noticeResults li a,
+  .careResults li a {
     color: #333;
     text-decoration: none;
   }
 
   .communityResults li a:hover,
-  .noticeResults li a:hover {
+  .noticeResults li a:hover, 
+  .careResults li a:hover{
     color: #007bff;
   }
 </style>
@@ -321,8 +325,8 @@ $(document).ready(function() {
             var source = results[i]._source;
             var careId = source.id;
             var careTitle = source.title;
-            var resultItem = "<li>◎<a href='/care/careDetail?id=" + careTitle + "' style='font-size: 25px;'>" + careTitle + "</a></li>";
-            noticeResultsContainer.append(resultItem);
+            var resultItem = "<li>◎<a href='/care/careDetail?id=" + careId + "' style='font-size: 25px;'>" + careTitle + "</a></li>";
+            careResultsContainer.append(resultItem);
         }
  
         // 검색 결과 컨테이너에 공지글 검색 결과 추가

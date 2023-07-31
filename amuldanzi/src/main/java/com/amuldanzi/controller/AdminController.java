@@ -28,6 +28,9 @@ import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.service.AdminService;
 import com.amuldanzi.util.MD5Generator;
+import com.amuldanzi.util.MariaDBToElasticCareSearch;
+import com.amuldanzi.util.MariaDBToElasticNoticeSearch;
+import com.amuldanzi.util.MariaDBToElasticSearch;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +38,14 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	private MariaDBToElasticNoticeSearch dbToElasticsearch;
+	
+	@Autowired
+	private MariaDBToElasticCareSearch careDbToElasticsearch;
+	
+	
 
 	@RequestMapping("/adminContentCate")
 	@ResponseBody
@@ -87,6 +98,10 @@ public class AdminController {
 		dto.setBoardCate(category);
 		dto.setCount(0);
 		adminService.noticeSave(dto);
+		
+		dbToElasticsearch.indexDataFromMariaDB();
+		
+		
 		return "redirect:/admin/adminContentList";
 	}
 	
@@ -95,6 +110,8 @@ public class AdminController {
 	
 		adminService.noticeUpdate(dto);
 		
+		dbToElasticsearch.indexDataFromMariaDB();
+		
 		return "redirect:/admin/adminContentList";
 	}
 	
@@ -102,6 +119,10 @@ public class AdminController {
 	public String noticeDelete(NoticeDTO dto) {
 
 		adminService.noticeDelete(dto);
+
+		dbToElasticsearch.deleteDataFromElasticsearch(dto.getId());
+		
+
 		return "redirect:/admin/adminContentList";
 	}
 
@@ -152,6 +173,10 @@ public class AdminController {
 	        // 데이터베이스에 저장
 	        System.out.println(dto.toString());
 	        adminService.eduSave(dto);
+	        
+	        
+	        
+	        
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	        // 업로드 실패 처리
@@ -271,6 +296,9 @@ public class AdminController {
 
 	        // 데이터베이스에 저장
 	        adminService.careSave(dto);
+	        
+	        careDbToElasticsearch.indexDataFromMariaDB();
+	        
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	        // 업로드 실패 처리
@@ -323,6 +351,8 @@ public class AdminController {
 
             // 데이터베이스에 저장
             adminService.careUpdate(dto);
+            
+            careDbToElasticsearch.indexDataFromMariaDB();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -340,6 +370,9 @@ public class AdminController {
 	public String careDelete(CareDTO dto) {
 
 		adminService.careDelete(dto);
+		
+		careDbToElasticsearch.deleteDataFromElasticsearch(dto.getId());
+		
 		return "redirect:/admin/adminContentList";
 	}
 
