@@ -1,6 +1,6 @@
 package com.amuldanzi.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -31,13 +32,19 @@ public class MarketGoodsDTO {
 	@Column(columnDefinition = "integer default 0" )
 	private 	Integer 	goodsCount;		// 조회수
 	
-	@Column(columnDefinition = "date default sysdate()"
+	@Column(columnDefinition = "timestamp default DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')"
 			,insertable = false
 			,updatable = false)
-	private 	Date 		goodsDate;		// 생성 일자
+	private 	Timestamp		goodsDate;		// 생성 일자
 	
 	private		String		img;		//광고 이미지
 	private		String		imgPath;	//광고 이미지 패스
+	
+	
+	@Column(columnDefinition = "integer default 0"
+	,insertable = false
+	,updatable = false)
+    private 	Long 		likesCount;  // 
 	
 	private 	String 		id;				// 회원(판매자) ID ( FK )
 	

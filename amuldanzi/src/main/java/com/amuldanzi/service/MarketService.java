@@ -3,6 +3,7 @@ package com.amuldanzi.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 
 public interface MarketService {
@@ -11,4 +12,13 @@ public interface MarketService {
 	Page<MarketGoodsDTO> findDolbomiCate(Pageable paging);
 	MarketGoodsDTO findById(Integer goodsId);
 	void jungoSave(MarketGoodsDTO dto);
+	void saveLike(String goodsId, String memberId);
+    void deleteLike(String goodsId, String memberId);
+    Integer getLikeCount(Integer goodsId);
+	void plusLikeByPk(String goodsId);
+	void minusLikeByPk(String goodsId);
+	JungoLikeDTO findByGoodsIdAndMemberId(Integer goodsId, Object id);
+	void save(MarketGoodsDTO result);
+	
+	
 }
