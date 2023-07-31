@@ -82,7 +82,6 @@ public class FileCleanupService {
             }
         }
         
-        System.out.println(dbImgList);
     }
     
     private void deleteImage(String filePath) {

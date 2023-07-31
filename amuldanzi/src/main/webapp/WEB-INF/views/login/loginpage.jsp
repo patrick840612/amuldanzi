@@ -188,7 +188,9 @@ $(function(){
 			</div>
 		</div>
 		<div class="login_loginBar__546og"></div>
-	
+<script type="text/javascript" src='/character/js/character2.js'></script>
+<img class='cat' src='/character/images/icons8-cat-26.png'>
+<div class='value'><!-- requestAnimationFrame --></div>	
 			<div class="login_loginfunction__KPcAe">
 				<div class="login_loginTab__9nBLa" id="findPassword">비밀번호 찾기</div>
 				<div class="login_loginfunctionBar__RYXDN"></div>
