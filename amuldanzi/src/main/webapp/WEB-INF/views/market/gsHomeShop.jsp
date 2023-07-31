@@ -87,11 +87,12 @@ a[href^='tel'] {
 				<section id="tv-index">
 					<div id="on-air">
 						<% if ((Boolean) request.getAttribute("iframeAccessible")) { %>
-   						 <!-- iframe이 접근 가능한 경우 iframe을 표시 -->
-   						 <iframe src="http://192.168.0.69:5000/viewer.html" width="100%" height="425px" frameborder="0"></iframe>
+						<!-- iframe이 접근 가능한 경우 iframe을 표시 -->
+						<iframe src="http://192.168.0.69:5000/viewer.html" width="100%"
+							height="425px" frameborder="0"></iframe>
 						<% } else { %>
-    						<!-- iframe이 접근 불가능한 경우 대체 이미지를 표시 -->
-    						<img src="/images/error/park.jpg" width="100%" height="425px">
+						<!-- iframe이 접근 불가능한 경우 대체 이미지를 표시 -->
+						<img src="/images/error/xlogin.jpg" width="100%" height="425px">
 						<% } %>
 					</div>
 					<!-- 현재 방송중인 상품 : 메인 페이지  on air와 같은 구조 -->
@@ -116,15 +117,12 @@ a[href^='tel'] {
 
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-
-											
-
 										</div>
 
 										<dl class="prd-info">
 											<dt class="prd-name">
 
-												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
 											</dt>
 
 											<dd class="price-info" data-exposPrcTypCd="4"
@@ -141,12 +139,6 @@ a[href^='tel'] {
 											</dd>
 
 											<dd class="user-side"></dd>
-
-											<dd class="advantage">
-												<div>
-													<span>#태그</span>
-												</div>
-											</dd>
 										</dl>
 								</a></li>
 								<!-- 상품반복 끝 -->
@@ -157,13 +149,12 @@ a[href^='tel'] {
 
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-												
 										</div>
 
 										<dl class="prd-info">
 											<dt class="prd-name">
 
-												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
 											</dt>
 
 											<dd class="price-info" data-exposPrcTypCd="4"
@@ -181,11 +172,6 @@ a[href^='tel'] {
 
 											<dd class="user-side"></dd>
 
-											<dd class="advantage">
-												<div>
-													<span>#태그</span>
-												</div>
-											</dd>
 										</dl>
 								</a></li>
 								<!-- 상품반복 끝 -->
@@ -195,13 +181,12 @@ a[href^='tel'] {
 
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-												
 										</div>
 
 										<dl class="prd-info">
 											<dt class="prd-name">
 
-												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
 											</dt>
 
 											<dd class="price-info" data-exposPrcTypCd="4"
@@ -219,27 +204,20 @@ a[href^='tel'] {
 
 											<dd class="user-side"></dd>
 
-											<dd class="advantage">
-												<div>
-													<span>#태그</span>
-												</div>
-											</dd>
 										</dl>
 								</a></li>
 								<!-- 상품반복 끝 -->
 								<!-- 상품 반복 ( 3개까지 ) -->
 								<li><a href="" class="prd-item" data-prdid="1034842032">
 										<div class="prd-img">
-
 											<img src="" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-												
 										</div>
 
 										<dl class="prd-info">
 											<dt class="prd-name">
 
-												<span class="color-cyan">[카테고리]</span> 맛있는 반려동물 사료
+												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
 											</dt>
 
 											<dd class="price-info" data-exposPrcTypCd="4"
@@ -257,11 +235,6 @@ a[href^='tel'] {
 
 											<dd class="user-side"></dd>
 
-											<dd class="advantage">
-												<div>
-													<span>#태그</span>
-												</div>
-											</dd>
 										</dl>
 								</a></li>
 								<!-- 상품반복 끝 -->
@@ -287,7 +260,121 @@ a[href^='tel'] {
 					</nav>
 
 					<section id="u_prdlst" class="prd-list type-4items">
-						<ul id="prd-list"></ul>
+					
+					
+						<ul id="prd-list">
+							<!-- 상품 반복 시작 -->
+							<a href=""
+								class="prd-item" style="width: 312px">
+								<div class="prd-img">
+									<img src="/images/error/xlogin.jpg"
+										onerror="this.src='/images/error/xlogin.jpg'"
+										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
+										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
+								</div>
+
+								<dl class="prd-info">
+									<dt class="prd-name">
+										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
+									</dt>
+
+									<dd class="price-info" data-exposprctypcd="4"
+										data-exposprdtypcd="P" data-consultproduct="false"
+										data-rentprc="0">
+										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
+										</span>
+										</span>
+										<!-- //price -->
+									</dd>
+									
+								</dl>
+							</a>
+							<!-- 상품 반복 끝 -->
+							
+							<!-- 상품 반복 시작 -->
+							<a href=""
+								class="prd-item" style="width: 312px">
+								<div class="prd-img">
+									<img src="/images/error/catcatcat.jpg"
+										onerror="this.src='/images/error/xlogin.jpg'"
+										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
+										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
+								</div>
+
+								<dl class="prd-info">
+									<dt class="prd-name">
+										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
+									</dt>
+
+									<dd class="price-info" data-exposprctypcd="4"
+										data-exposprdtypcd="P" data-consultproduct="false"
+										data-rentprc="0">
+										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
+										</span>
+										</span>
+										<!-- //price -->
+									</dd>
+									
+								</dl>
+							</a>
+							<!-- 상품 반복 끝 -->
+							
+							<!-- 상품 반복 시작 -->
+							<a href="amulDetail"
+								class="prd-item" style="width: 312px">
+								<div class="prd-img">
+									<img src="/images/error/cat2.jpg"
+										onerror="this.src='/images/error/cat2.jpg'"
+										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
+										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
+								</div>
+
+								<dl class="prd-info">
+									<dt class="prd-name">
+										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
+									</dt>
+
+									<dd class="price-info" data-exposprctypcd="4"
+										data-exposprdtypcd="P" data-consultproduct="false"
+										data-rentprc="0">
+										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
+										</span>
+										</span>
+										<!-- //price -->
+									</dd>
+									
+								</dl>
+							</a>
+							<!-- 상품 반복 끝 -->
+							
+							<!-- 상품 반복 시작 -->
+							<a href=""
+								class="prd-item" style="width: 312px">
+								<div class="prd-img">
+									<img src="/images/error/pang.jpg"
+										onerror="this.src='/images/error/cat2.jpg'"
+										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
+										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
+								</div>
+
+								<dl class="prd-info">
+									<dt class="prd-name">
+										<span style="color:hotpink">[무료배송]</span> 겁나 귀여운 곰
+									</dt>
+
+									<dd class="price-info" data-exposprctypcd="4"
+										data-exposprdtypcd="P" data-consultproduct="false"
+										data-rentprc="0">
+										<span class="price"> <span class="set-price"> <strong>39,900</strong>원
+										</span>
+										</span>
+										<!-- //price -->
+									</dd>
+									
+								</dl>
+							</a>
+							<!-- 상품 반복 끝 -->
+						</ul>
 					</section>
 
 					<button id="moreBtn" class="gui-btn big">
@@ -366,7 +453,135 @@ a[href^='tel'] {
 <script type="text/javascript"
 	src="//image.gsshop.com/ui/gsshop/pc/shop/player/videojs/scripts/videojs-7.14.1.min.js?20230705140638"></script>
 <!-- 배포해야함 2022-01-04 -->
+<script type="text/javascript">
+	jQuery(function($) {
 
+		var url = '//gstv-myshop.gsshop.com/myshop_hd/_definst_/myshop_hd.stream/playlist.m3u8';
+		/* var rtmpUrl = 'rtmp://livem.gsshop.com/gsmyshop_hd/_definst_/gsmyshop_hd.stream'; */
+
+		url = '//gstv-gsshop.gsshop.com/gsshop_hd/_definst_/gsshop_hd.stream/playlist.m3u8';
+		/* rtmpUrl = 'rtmp://livem.gsshop.com/gsshop_hd/_definst_/gsshop_hd.stream'; */
+
+		// 옵션 정리 2022-01-04
+		var type = 'application/x-mpegurl';
+		var videoSrc = url;
+
+		var $playerController = $('#player-control');
+		var $player = $('#videojs-player');
+		var pauseTieme;
+
+		var playerOption = {
+			preload : 'auto',
+			autoplay : true,
+			muted : false,
+			playsinline : true,
+			fullscreenToggle : false,
+			sources : [ {
+				'type' : type,
+				'src' : videoSrc
+			} ]
+		}
+		//    playerOption.techOrder = ['html5','flash'];
+
+		var player = videojs('videojs-player', playerOption);
+
+		player.on('play', function() {
+
+			$player = $('#videojs-player');
+
+			if (GsBase.os == 'android') {
+				$('.video-js').append($playerController);
+			}
+
+			setTimeout(function() {
+				if ($player.hasClass('vjs-playing')) {
+					$playerController.removeClass('ready');
+				}
+			}, 1000);
+		})
+		player.on('fullscreenchange', function() {
+			if (this.isFullscreen()) {
+				if (!$player.hasClass('vjs-playing'))
+					$playerController.find('.play').click();
+			} else {
+				$playerController.find('.stop').click();
+			}
+		});
+
+		$playerController.find('.play').on('click', function() {
+			$playerController.removeAttr('class').addClass('play');
+			player.play();
+		});
+
+		$playerController.find('.stop').on('click', function() {
+			$playerController.addClass('on').addClass('pause');
+			player.pause();
+		});
+
+		$playerController.find('.volume').on('click', function() {
+			if ($(this).hasClass('off')) {
+				$(this).removeClass('off');
+				player.muted(false);
+			} else {
+				$(this).addClass('off');
+				player.muted(true);
+			}
+		});
+
+		$playerController.find('.fullscreen').on('click', function() {
+			$('.vjs-fullscreen-control').click();
+			if (GsBase.mobileBrowser)
+				$('.vjs-play-control').click();
+		});
+
+		$playerController.find('button').on('click', function(e) {
+			e.stopPropagation();
+			clearTimeout(pauseTieme);
+			pauseTieme = null;
+		});
+
+		$playerController.find('.go').on('click', function() {
+			var linkUrl = $('#currentBroadLink').attr('href');
+			document.location.href = linkUrl;
+		});
+
+		if (GsBase.mobileBrowser) {
+			$('#player-control-inner').on(
+					'click',
+					function(e) {
+						e.stopPropagation();
+
+						clearTimeout(pauseTieme);
+						pauseTieme = null;
+
+						if ($playerController.hasClass('on')) {
+							if ($player.hasClass('vjs-playing')) {
+								$playerController.removeClass('on');
+							}
+						} else {
+							$playerController.addClass('on');
+
+							if ($player.hasClass('vjs-playing')) {
+								pauseTieme = setTimeout(function() {
+									$playerController.removeClass('on')
+											.removeClass('over');
+								}, 3000);
+							}
+						}
+
+						if ($player.hasClass('vjs-paused')) {
+							$playerController.removeClass('play').addClass(
+									'pause');
+						} else {
+							$playerController.addClass('over');
+						}
+					});
+		}
+
+		amplitudeCall()
+
+	});
+</script>
 </html>
 
 
