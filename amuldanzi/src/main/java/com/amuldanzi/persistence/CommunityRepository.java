@@ -74,5 +74,9 @@ public interface CommunityRepository  extends CrudRepository<CommunityDTO, Integ
             + "GROUP BY c.comm_no "
             + "ORDER BY l.like_count DESC, c.comm_no DESC  LIMIT 3 ", nativeQuery = true)
 	List<Object[]> selectLikeCommunityList();
+	
+	// 신고 정보가 있는 커뮤니티 정보를 가져오는 쿼리
+    @Query(value = "SELECT c.id AS id,c.comm_title AS title, c.comm_date AS date , c.comm_content AS content, c.comm_no AS commNo,COUNT(b.blame_id) AS bcnt FROM community c LEFT JOIN cm_blame b ON b.comm_no = c.comm_no WHERE b.blame_id IS NOT null GROUP BY c.comm_no;", nativeQuery = true)
+    List<Object[]> getCommunityListByBlamedId();
   
 }

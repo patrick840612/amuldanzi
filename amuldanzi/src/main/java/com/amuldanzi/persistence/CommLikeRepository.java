@@ -58,7 +58,6 @@ public interface CommLikeRepository extends CrudRepository<CommLikeDTO, Integer>
 	 // 게시글 번호에 해당하는 신고 갯수 반환
 	 @Query(value = "SELECT COUNT(*) FROM cm_blame WHERE comm_no = :commNo", nativeQuery = true)
 	 Integer getCommBlameCount(Integer commNo);
-	
 
 	 
 }
