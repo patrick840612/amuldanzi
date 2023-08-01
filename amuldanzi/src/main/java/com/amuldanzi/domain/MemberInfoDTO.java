@@ -22,8 +22,8 @@ public class MemberInfoDTO {
 	@Column(nullable = false, unique = true)
 	private String 	userTel;
 	private String 	userAddr;
-	@Column(nullable = true, updatable = false, insertable = false, columnDefinition = "varchar(255) default 'dog.jpg'")
-	private String 	characterImg;
+	@Column(nullable = true, updatable = true, insertable = true, columnDefinition = "varchar(255) default 'cat.png'")
+	private String 	selectCharacter;
 	@Column(updatable = true, insertable = true, columnDefinition = "TINYINT(1)") 
 	private boolean	marketingOk;
 	@Column(nullable = false)
@@ -34,4 +34,5 @@ public class MemberInfoDTO {
 	private boolean bloodGive;
 	private String bloodMessage;
 	private String bloodTel;
+	private Integer cpoint;
 }
