@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.CommBlameDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
@@ -770,9 +772,28 @@ public class AdminController {
 	}
 
 	@RequestMapping("/blamedList")
-	public void blamedList(Model m) {
-		List<CommunityDTO> blamedList = adminService.getCommunityList();
-		m.addAttribute("blamedList", blamedList);
+	public String blamedList(Model m) {
+		List<Map<String, Object>> blamedList = adminService.getCommunityListByBlamedId();		
+		m.addAttribute("blamedList", blamedList);		
+	
+		
+		return "/admin/blamedList";
+	}
+	
+	@RequestMapping("/blamedDelete")
+	public String blamedDelete(Integer commNo) {
+		
+		
+		
+	  
+		
+	    // 싫어요 정보 삭제
+		adminService.blamedDeleteByCommNo(commNo);	   
+		
+		// 커뮤니티 글 삭제
+		adminService.commDeleteByCommNo(commNo);
+		
+		return "/admin/blamedList";
 	}
 
 }

@@ -1,6 +1,9 @@
 package com.amuldanzi.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
+import com.amuldanzi.domain.CommImageDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
@@ -16,11 +20,16 @@ import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
+import com.amuldanzi.persistence.CommBlameRepository;
+import com.amuldanzi.persistence.CommImageRepository;
+import com.amuldanzi.persistence.CommLikeRepository;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.CommunityRepository;
 import com.amuldanzi.persistence.EducationRepository;
 import com.amuldanzi.persistence.MarketInfoRepository;
 import com.amuldanzi.persistence.NoticeRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -48,6 +57,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	CommunityRepository communityRepo;
+	
+	@Autowired
+	CommBlameRepository blamedRepo;
+	
+	@Autowired
+	CommImageRepository commImgRepo;
+	
+	@Autowired
+	CommLikeRepository commLikeRepo;
 
 	@Override
 	public List<MarketInfoDTO> getMarketList() {
@@ -343,11 +361,39 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<CommunityDTO> getCommunityList() {
-		// TODO Auto-generated method stub
-		return communityRepo.getCommunityListByBlame;
+	public List<Map<String, Object>> getCommunityListByBlamedId() {
+		   	
+			List<Object[]> resultList = communityRepo.getCommunityListByBlamedId();
+
+		    List<Map<String, Object>> communityList = new ArrayList<>();
+		    
+		    for (Object[] result : resultList) {
+		        Map<String, Object> community = new HashMap<>();
+		        community.put("id", result[0]);
+		        community.put("title", result[1]);
+		        community.put("date", result[2]);
+		        community.put("content", result[3]);
+		        community.put("commNo", result[4]);
+		        community.put("bcnt", result[5]);
+		        // 이 외에 필요한 컬럼들을 추가로 넣어줄 수 있습니다.
+		        communityList.add(community);
+		    }
+
+		    return communityList;
 	}
-	
+
+	@Override
+	@Transactional
+	public void blamedDeleteByCommNo(Integer commNo) {
+		// TODO Auto-generated method stub
+		blamedRepo.blamedDeleteByCommNo(commNo);
+	}
+
+	@Override
+	public void commDeleteByCommNo(Integer commNo) {
+		// TODO Auto-generated method stub
+		communityRepo.deleteById(commNo);
+	}	
 	
 
 }

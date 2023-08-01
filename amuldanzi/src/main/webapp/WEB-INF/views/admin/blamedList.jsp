@@ -193,10 +193,6 @@
 																			style="width: 95px;">작성일자</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Age: activate to sort column ascending"
-																			style="width: 40px;">조회수</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Start date: activate to sort column ascending"
 																			style="width: 50px;">신고수</th>
 																		<th class="sorting" tabindex="0"
@@ -212,11 +208,11 @@
 																	<!-- 첫 접속시 공지 내용 불러오기 -->
 																	<c:forEach items="${blamedList}" var="blamedList">
 																		<tr role="row" class="odd">
-																			<td class="sorting_1">${list.id }</td>
-																			<td><a href="/admin/blamedDetail?id=${blamedList.id}">${blamedList.title }</a></td>
-																			<td>${blamedList.regdate }</td>
-																			<td>${blamedList.count }</td>
-																			<td><a href="blamedDelete?id=${blamedList.id }">삭제</a></td>
+																			<td class="sorting_1">${blamedList.commNo }</td>
+																			<td><a href="/admin/blamedDetail?commNo=${blamedList.commNo}">${blamedList.title }</a></td>
+																			<td>${blamedList.date }</td>
+																			<td>${blamedList.bcnt }</td>
+																			<td><a href="blamedDelete?commNo=${blamedList.commNo }">삭제</a></td>
 																		</tr>
 																	</c:forEach>
 
