@@ -28,10 +28,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.amuldanzi.config.ConfigUtils;
+import com.amuldanzi.dao.CharacterDAO;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.dao.LoginJwtDAO;
 import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.dao.LoginSocialDAO;
+import com.amuldanzi.domain.CharacterDTO;
 import com.amuldanzi.domain.JwtDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
@@ -66,6 +68,9 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
 	private LoginJwtDAO loginJwtDAO;
+	
+	@Autowired
+	private CharacterDAO characterDAO;
 	
 	// 구글 로그인
 	public String googleLogin(String code) {
@@ -238,9 +243,15 @@ public class LoginServiceImpl implements LoginService {
 	// 회원가입 시 반려동물 목록을 확인하여 함께 입력
 	@Transactional
 	public void regist(MemberInfoDTO member, List<MemberPetDTO> petList) {
+	
 		String pw = BCrypt.hashpw(member.getUserPassword(), BCrypt.gensalt());
 		member.setUserPassword(pw);
-		loginDAO.save(member);
+		member.setSelectCharacter("cat.png");
+		member.setCpoint(0);
+		loginDAO.save(member); // x
+		CharacterDTO character = new CharacterDTO();
+		character.setMemberId(member);
+		characterDAO.save(character); // o
 		
 		if (petList != null) {
 			for(MemberPetDTO pet : petList) {
