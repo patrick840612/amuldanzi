@@ -73,10 +73,9 @@
 									<div class="c_product_view_img">
 										<div id="productImg">
 											<div class="img_full">
-												<img
-													src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/dl/v2/0/0/1/0/5/2/PZNEl/5995001052_148768660.jpg"
-													alt=""
-													onerror="this.src='https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/img/product/no_image.gif'">
+												<img src="/images/commerce/${list.img}" alt=""
+													onerror="this.src='/images/error/xlogin.jpg'" width="410px"
+													height="410px">
 											</div>
 										</div>
 									</div>
@@ -86,12 +85,13 @@
 								<div class="l_product_side_info">
 									<div class="c_product_info_title">
 
-										<em class="title_sub"> <!-- 서브 타이틀 -->방금 만든 떡처럼 쫄깃한
+										<em class="title_sub"> <!-- 서브 타이틀 -->남은재고 :
+											${list.commerceStock}개
 										</em>
 
 										<h1 class="title">
 											<!-- 타이틀 -->
-											모시장인 굳지않는 1+1 (1.8kg) 꿀떡 바람떡 송편 앙금 절편
+											${list.commerceName}
 										</h1>
 
 									</div>
@@ -120,11 +120,31 @@
 														<dl class="price_regular">
 															<dt>판매가</dt>
 															<dd>
-																<span class="value">9,900</span><span class="unit">원</span>
+																<span class="value">${list.commercePrice}</span><span
+																	class="unit">원</span>
 															</dd>
 														</dl>
 													</li>
 												</ul>
+												<ul class="button-group">
+													<button class="add-to-cart">장바구니에 추가</button>
+												</ul>
+												<style>
+												.button-group {
+													display: flex;
+													gap: 10px;
+												}
+												
+												.add-to-cart {
+													background-color: pink;
+													border: none;
+													padding: 10px;
+													cursor: pointer;
+													color: black; /* 글씨 색을 흰색으로 설정 */
+    												font-weight: bold; /* 글씨를 bold 처리 */
+												}
+												
+												</style>
 											</div>
 										</div>
 									</div>
@@ -186,7 +206,7 @@
 											data-log-actionid-label="tab"
 											data-log-body='{"current_product_no" : 5995001052, "btn_name" : "Q&A", "send_impression" : "Y"}'
 											id="tabMenuDetail3">
-											<span class="text_en">Q&amp;A</span> <i>(16) </i>
+											<span class="text_en">Q&amp;A</span> <i>(0) </i>
 										</button>
 									</li>
 									<li role="presentation" class="tab_menu">
@@ -201,17 +221,19 @@
 								</ul>
 
 								<!-- 리뷰/후기 -->
+								<img src="/images/commerceDetail/${list.detailImg}" alt=""
+									onerror="this.src='/images/error/xlogin.jpg'" width="1240px">
 								<!-- D:수정 -->
 								<script type="text/javascript"
 									src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-									<!--// 본문 내용 끝 //-->
-								</div>
+								<!--// 본문 내용 끝 //-->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketCategoryDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
@@ -232,7 +233,14 @@ public class MarketController {
 
 		// iframe 접근 가능 여부를 모델에 추가
 		m.addAttribute("iframeAccessible", iframeAccessible);
-
+		
+		
+		//-------------------------------------------------------------------------------------------------------
+		List<CommerceDTO> result = marketservice.findAllCommerce();
+		m.addAttribute("commerceList", result);
+		
+		
+		
 		return "market/gsHomeShop"; //
 	}
 
@@ -331,5 +339,26 @@ public class MarketController {
 
 		return result;
 	}
-
+	
+	
+	@RequestMapping("/amulDetail")
+	public void amulDetail( @RequestParam(required = false, defaultValue = "0", value = "commerceId") int commerceId, Model m ) {
+		
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		m.addAttribute("id", map.get("id"));
+		m.addAttribute("memberRole", map.get("memberRole"));
+		
+		//-------------------------------------------------------------
+		// commerceId가 없을 시 처리..
+		CommerceDTO result = marketservice.findByCommerceId(commerceId);
+		
+		m.addAttribute("list", result);
+		m.addAttribute("commmerceId",commerceId);
+		
+		
+	}
+	
+	
 }

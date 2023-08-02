@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko" data-page="isTVMain">
@@ -263,11 +264,13 @@ a[href^='tel'] {
 					
 					
 						<ul id="prd-list">
+							
+							<c:forEach items="${commerceList}" var="list">
 							<!-- 상품 반복 시작 -->
-							<a href=""
+							<a href="/market/amulDetail?commerceId=${list.commerceId}"
 								class="prd-item" style="width: 312px">
 								<div class="prd-img">
-									<img src="/images/error/xlogin.jpg"
+									<img src="/images/commerce/${list.img}"
 										onerror="this.src='/images/error/xlogin.jpg'"
 										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
 										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
@@ -275,13 +278,13 @@ a[href^='tel'] {
 
 								<dl class="prd-info">
 									<dt class="prd-name">
-										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
+										<span style="color:hotpink">[무료배송]</span> ${list.commerceName }
 									</dt>
 
 									<dd class="price-info" data-exposprctypcd="4"
 										data-exposprdtypcd="P" data-consultproduct="false"
 										data-rentprc="0">
-										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
+										<span class="price"> <span class="set-price"> <strong>${list.commercePrice }</strong>원
 										</span>
 										</span>
 										<!-- //price -->
@@ -290,90 +293,8 @@ a[href^='tel'] {
 								</dl>
 							</a>
 							<!-- 상품 반복 끝 -->
-							
-							<!-- 상품 반복 시작 -->
-							<a href="amulCart"
-								class="prd-item" style="width: 312px">
-								<div class="prd-img">
-									<img src="/images/error/catcatcat.jpg"
-										onerror="this.src='/images/error/xlogin.jpg'"
-										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
-										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
-								</div>
+							</c:forEach>
 
-								<dl class="prd-info">
-									<dt class="prd-name">
-										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
-									</dt>
-
-									<dd class="price-info" data-exposprctypcd="4"
-										data-exposprdtypcd="P" data-consultproduct="false"
-										data-rentprc="0">
-										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
-										</span>
-										</span>
-										<!-- //price -->
-									</dd>
-									
-								</dl>
-							</a>
-							<!-- 상품 반복 끝 -->
-							
-							<!-- 상품 반복 시작 -->
-							<a href="amulDetail"
-								class="prd-item" style="width: 312px">
-								<div class="prd-img">
-									<img src="/images/error/cat2.jpg"
-										onerror="this.src='/images/error/cat2.jpg'"
-										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
-										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
-								</div>
-
-								<dl class="prd-info">
-									<dt class="prd-name">
-										<span style="color:hotpink">[무료배송]</span> 겁나 마싯는 강쥐사료
-									</dt>
-
-									<dd class="price-info" data-exposprctypcd="4"
-										data-exposprdtypcd="P" data-consultproduct="false"
-										data-rentprc="0">
-										<span class="price"> <span class="set-price"> <strong>19,900</strong>원
-										</span>
-										</span>
-										<!-- //price -->
-									</dd>
-									
-								</dl>
-							</a>
-							<!-- 상품 반복 끝 -->
-							
-							<!-- 상품 반복 시작 -->
-							<a href="amulDetail2"
-								class="prd-item" style="width: 312px">
-								<div class="prd-img">
-									<img src="/images/error/pang.jpg"
-										onerror="this.src='/images/error/cat2.jpg'"
-										alt="상품이미지" style="height: 100%"> <span class="badge-abs"> </span> <span
-										class="toggle-zzim" id="toggle-zzim_1036063722">찜완료</span>
-								</div>
-
-								<dl class="prd-info">
-									<dt class="prd-name">
-										<span style="color:hotpink">[무료배송]</span> 겁나 귀여운 곰
-									</dt>
-
-									<dd class="price-info" data-exposprctypcd="4"
-										data-exposprdtypcd="P" data-consultproduct="false"
-										data-rentprc="0">
-										<span class="price"> <span class="set-price"> <strong>39,900</strong>원
-										</span>
-										</span>
-										<!-- //price -->
-									</dd>
-									
-								</dl>
-							</a>
-							<!-- 상품 반복 끝 -->
 						</ul>
 					</section>
 
