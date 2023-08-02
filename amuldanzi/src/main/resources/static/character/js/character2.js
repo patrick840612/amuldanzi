@@ -19,9 +19,9 @@ $(document).ready(function(){
 	
 	render();
 	
-	window.addEventListener('click', () => {
-		cancelAnimationFrame(rafId);
-	});
+	//window.addEventListener('click', () => {
+	//	cancelAnimationFrame(rafId);
+	//});
 	
 })
 

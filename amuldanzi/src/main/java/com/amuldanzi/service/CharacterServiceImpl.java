@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.amuldanzi.dao.CharacterDAO;
 import com.amuldanzi.dao.LoginDAO;
@@ -33,6 +34,21 @@ public class CharacterServiceImpl implements CharacterService {
 	public void random(MemberInfoDTO member, CharacterDTO character) {
 		loginDAO.cpointminus(member);
 		characterDAO.save(character);
+	}
+	
+	public void selectCharacter(MemberInfoDTO member) {
+		loginDAO.selectCharacter(member);
+	}
+	
+	public MemberInfoDTO findById(String id) {
+		return loginDAO.findById(id).orElse(null);
+	}
+	
+	@Transactional
+	public void evolveCharacter(MemberInfoDTO member, CharacterDTO character) {
+		loginDAO.selectCharacter(member);
+		loginDAO.cpointminus(member);
+		characterDAO.evolveCharacter(character);
 	}
 
 }

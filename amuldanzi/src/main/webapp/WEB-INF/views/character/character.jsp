@@ -8,6 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="icon" href="/admin/production/images/favicon.ico" type="image/ico" />
 <title>나의 캐릭터</title>
 
 <link rel="stylesheet" href="/chunks/css/market/marketOld.css" media="all" />
@@ -27,10 +28,9 @@
 
 .cat {
   position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: orange;
-  border-radius: 50%;
+  left: 500px;
+  top: 700px;
+  z-index: 999;
 }
 
 
@@ -49,9 +49,6 @@
     font-size: 18px;
 }
 
-.game-button:hover {
-    background-color: #2980b9;
-}
 
 /* 4행 3열로 버튼 배치하기 */
 #GameZone {
@@ -236,7 +233,7 @@ body {
 	<div class="__margin-top120px" >
 		<form action="/character/random" name="characterFrm" id="characterFrm" method="post">
 			<section class="_3nqg3y0" >
-				<div class="_3nqg3y1 _1ff3f302">
+				<div class="_3nqg3y1 _1ff3f302"><img class='cat' src='/character/images/${member.selectCharacter}' id="cat"/><!-- 선택 캐릭터 움직이기 -->
 					<div id="GameZone">
 		                <!-- JSTL을 사용하여 4행 3열로 12개의 버튼을 생성 -->
 		                <c:forEach var="characterDTO" items="${character}">
@@ -246,26 +243,25 @@ body {
 				                <img name="characterImg" src="/character/images/${characterDTO.characterImg}" alt="Character Image" class="isCharacter" />
 				              </button>
 				              <button type="button" class="select-button">
-				                선택
+				                장 착
 				              </button>
-				              <button type="button" class="evolve-button" data-characterNo="${characterDTO.characterNo}">
+				              <button type="button" class="evolve-button">
 				                진 화
 				              </button>
 				            </div>            
 		                </c:forEach>
 		                <input type="button" value="게임 시작" id="playGame"/>
 		                <input type="hidden" readonly="readonly" id="noMore" value="캐릭터 수집 완료(진화시켜 주세요)" disabled="disabled"/>
-		                <input type="hidden" readonly="readonly" id="cpointx" value="뽑기비용 10,000P" disabled="disabled"/>
+		                <input type="hidden" readonly="readonly" id="cpointx" value="뽑기/진화 비용 10,000P" disabled="disabled"/>
 		                <input type="text" readonly="readonly" id="cpoint" value="cpoint : " disabled="disabled"/>
 		                <input type="text" readonly="readonly" name="cpoint" id="point" value="${cpoint}"/>
 		                <input type="button" value="캐릭터 뽑기" id="selectImg"/>
 		                <input type="hidden" name="id" value="${id}" id="id"/>
 		                <input type="hidden" name="randomAnimal" id="randomAnimal" value="" />
-		                <canvas width="400" height="700">
+		                <canvas width="400" height="700">	
 					</div>
 				</div>
-				<img class='cat' src='/character/images/icons8-cat-26.png'>
-				<div class='value'></div>
+
 			</section>
 		</form>
 
@@ -274,7 +270,7 @@ body {
 
 $(function(){
 	
-	
+
 	let canvasZone = document.getElementsByTagName('canvas')[0];
 	let ctxBasic = canvasZone.getContext('2d');
 	let backImg = new Image();
@@ -282,7 +278,88 @@ $(function(){
 	backImg.onload = function () {
     	ctxBasic.drawImage(backImg, 0, 0, canvasZone.width, canvasZone.height);
     };	
-	
+    
+    const selectedCharacterImg = '/character/images/${member.selectCharacter}';
+    $('.button-container').each(function () {
+        const buttonImgSrc = $(this).find('img[name="characterImg"]').attr('src');
+        if (buttonImgSrc === selectedCharacterImg) {
+          $(this).find('.game-button').css('background-color', '#3498db'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.
+        }
+    });
+});
+
+//캐릭터 진화
+$('.evolve-button').click(function () {
+	if(parseInt($('#point').val(), 10) < 10000){
+		$('#cpointx').attr('type', 'text');
+	}else{
+		$('#cpointx').attr('type', 'hidden');
+		  // 진 화 버튼을 클릭한 버튼의 data-characterNo 속성 값을 가져옴
+		  let characterNo = $(this).closest('.button-container').find('input[name="characterNo"]').val();
+		  let imgSrcEvolve = $(this).closest('.button-container').find('img[name="characterImg"]').attr('src');
+		  let filename = imgSrcEvolve.split('/').pop();
+		  const lastIndexDot = filename.lastIndexOf('.');
+		  imgSrcEvolve = filename.slice(0, lastIndexDot) + "2" + filename.slice(lastIndexDot);
+		
+		  $('.button-container').each(function () {
+		        $(this).find('.game-button').css('background-color', 'white'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.
+		  });
+		  const newSrc = '/character/images/'+imgSrcEvolve;
+		  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');  
+		
+		  let paramS = { id : $('#id').val(), selectCharacter : imgSrcEvolve, characterNo : characterNo, characterImg : imgSrcEvolve, cpoint : $('#point').val() }
+		  $.ajax({
+				type : 'post',
+				data : paramS,
+				url : '/character/evolveCharacter',
+				dataType : 'text',
+				success : function(result){
+					$('#cat').attr('src', newSrc);
+					$('#point').val(result);
+				},
+				error : function(err){
+					console.log(err);
+					alert('Error');
+				}
+			}); // ajax end      
+	}
+});
+
+
+
+
+// 캐릭터 장착
+$('.select-button').click(function(){
+    let imgSrcSelect = $(this).closest('.button-container').find('img[name="characterImg"]').attr('src');
+    imgSrcSelect = imgSrcSelect.split('/').pop();
+    
+	let paramS = { id : $('#id').val(), selectCharacter : imgSrcSelect }
+	$.ajax({
+		type : 'post',
+		data : paramS,
+		url : '/character/selectCharacter',
+		dataType : 'text',
+		success : function(result){
+			const newSrc = '/character/images/'+result;
+			$('#cat').attr('src', newSrc);
+			
+		    const selectedCharacterImg = newSrc;
+		    $('.button-container').each(function () {
+		        const buttonImgSrc = $(this).find('img[name="characterImg"]').attr('src');
+		        if (buttonImgSrc === selectedCharacterImg) {
+		          $(this).find('.game-button').css('background-color', '#3498db'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.
+		        }else{
+		          $(this).find('.game-button').css('background-color', 'white'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.		        	
+		        }
+		    });
+			
+		},
+		error : function(err){
+			console.log(err);
+			alert('Error');
+		}
+	}); // ajax end
 });
 
 // 캐릭터 뽑기

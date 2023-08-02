@@ -39,4 +39,8 @@ public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
 	
 	@Query(value = "UPDATE member_info SET cpoint = :#{#member.cpoint} WHERE id = :#{#member.id}", nativeQuery = true)
 	void cpointminus(MemberInfoDTO member);
+	
+	@Query(value = "UPDATE member_info SET select_character = :#{#member.selectCharacter} WHERE id = :#{#member.id}", nativeQuery = true)
+	void selectCharacter(MemberInfoDTO member);	
+	
 }
