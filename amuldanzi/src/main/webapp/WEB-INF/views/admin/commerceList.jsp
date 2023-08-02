@@ -75,8 +75,8 @@
 								<li><a><i class="fa fa-user"></i> 회원관리<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="form.html">역할관리</a></li>
-										<li><a href="form_advanced.html">문의관리</a></li>
+										<li><a href="/admin/roleList">역할관리</a></li>
+										<li><a href="/admin/qnaList">문의관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-edit"></i> 게시판<span
 										class="fa fa-chevron-down"></span></a>
@@ -160,7 +160,8 @@
 		        <col style="width: 20%;">
 		        <col style="width: 15%;">
 		        <col style="width: 15%;">
-		        <col style="width: 40%;">
+		        <col style="width: 10%;">
+		        <col style="width: 30%;">
 		        <col style="width: 10;">
 		    </colgroup>
             <thead>
@@ -168,6 +169,7 @@
                     <th>상품명</th>
                     <th>재고량</th>
                     <th>가격</th>
+                    <th>할인률</th>
                     <th>상품이미지</th>
                     <th>삭제</th>
                 </tr>
@@ -178,7 +180,8 @@
 				            <td class="align-middle"><a href="commerceDetail?commerceId=${commerceList.commerceId }">${commerceList.commerceName}</a></td>
 				            <td class="align-middle">${commerceList.commerceStock}</td>
 				            <td class="align-middle">${commerceList.commercePrice}</td>
-				            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width= 200></td>
+				            <td class="align-middle">${commerceList.commercePer} %</td>
+				            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width= 200 height= 150></td>
 				            <td class="align-middle"><a class="btn btn-danger btn-sm" href="commerceDelete?commerceId=${commerceList.commerceId }">삭제</a></td>
 				        </tr>
 				    </c:forEach> 
@@ -208,11 +211,15 @@
                         </div>
                         <div class="form-group">
                             <label for="quantity">재고량</label>
-                            <input type="number" class="form-control" id="commerceStock" name="commerceStock" required>
+                            <input type="number" class="form-control" id="commerceStock" min="0"  name="commerceStock" required>
                         </div>
                         <div class="form-group">
                             <label for="price">가격</label>
-                            <input type="number" class="form-control" id="commercePrice" name="commercePrice" required>
+                            <input type="number" class="form-control" id="commercePrice" min="0"  name="commercePrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">할인률</label>
+                            <input type="number" class="form-control" id="commercePer" min="0"  max="100" name="commercePer" required>
                         </div>
                         <div class="form-group">
                             <label for="image">상품 이미지</label>
