@@ -292,7 +292,7 @@ a[href^='tel'] {
 							<!-- 상품 반복 끝 -->
 							
 							<!-- 상품 반복 시작 -->
-							<a href=""
+							<a href="amulCart"
 								class="prd-item" style="width: 312px">
 								<div class="prd-img">
 									<img src="/images/error/catcatcat.jpg"
@@ -348,7 +348,7 @@ a[href^='tel'] {
 							<!-- 상품 반복 끝 -->
 							
 							<!-- 상품 반복 시작 -->
-							<a href=""
+							<a href="amulDetail2"
 								class="prd-item" style="width: 312px">
 								<div class="prd-img">
 									<img src="/images/error/pang.jpg"
