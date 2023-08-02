@@ -82,6 +82,13 @@ li{
 label{
 	width: 90px !important;
 }
+
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

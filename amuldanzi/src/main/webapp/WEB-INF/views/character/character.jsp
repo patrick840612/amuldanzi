@@ -29,7 +29,7 @@
 .cat {
   position: absolute;
   left: 500px;
-  top: 700px;
+  top: 500px;
   z-index: 999;
 }
 

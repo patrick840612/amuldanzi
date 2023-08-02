@@ -18,6 +18,13 @@
 <link rel="stylesheet" href="/chunks/css/market/marketShop2.css" />
 
 <style type="text/css">
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
+
 ._3nqg3y0 {
     height: 50rem !important;
     padding: 0 1rem;

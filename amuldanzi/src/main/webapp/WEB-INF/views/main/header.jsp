@@ -95,8 +95,6 @@
   
   .cat {
   position: absolute;
-  left: 500px;
-  top: 700px;
   z-index: 999;
   }
 </style>

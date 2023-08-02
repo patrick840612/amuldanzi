@@ -90,6 +90,13 @@ li.disabled .atag {
    cursor: default; 
    페이징 맨앞과 맨 뒷 페이지일 때 화살표로 이동금지 클릭금지 아이콘 비활성화로 인해 적용 안함*/
 }
+
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
