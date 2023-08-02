@@ -24,6 +24,13 @@
 	crossorigin="anonymous">
 
 <style>
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
+
 dialog::backdrop{
 	background-color : rgba(0,0,0,0.3);
 	backdrop-filter: blur(1px);

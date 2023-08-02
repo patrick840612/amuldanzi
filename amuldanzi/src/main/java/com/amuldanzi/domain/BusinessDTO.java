@@ -34,6 +34,5 @@ public class BusinessDTO {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name="id", referencedColumnName = "id")
 	private MemberInfoDTO memberId;
-	
 
 }
