@@ -1,13 +1,17 @@
 package com.amuldanzi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.JungoLikeRepository;
 import com.amuldanzi.persistence.MarketRepository;
 import com.amuldanzi.persistence.MemberRepository;
@@ -18,16 +22,13 @@ import jakarta.transaction.Transactional;
 public class MarketServiceImpl implements MarketService {
 
 	@Autowired
-	MarketRepository marketRepo;
+	private MarketRepository marketRepo;
 
 	@Autowired
 	private JungoLikeRepository jungoLikeRepository;
-
+	
 	@Autowired
-	private MarketRepository marketGoodsRepository;
-
-	@Autowired
-	private MemberService memberService;
+	private CommerceRepository commerceRepo;
 
 	@Override
 	public Page<MarketGoodsDTO> findMarketCate(Pageable paging) {
@@ -87,6 +88,16 @@ public class MarketServiceImpl implements MarketService {
 	public void save(MarketGoodsDTO result) {
 		marketRepo.save(result);
 		
+	}
+
+	@Override
+	public List<CommerceDTO> findAllCommerce() {
+		return (List<CommerceDTO>) commerceRepo.findAll();
+	}
+
+	@Override
+	public CommerceDTO findByCommerceId(int commerceId) {
+		return commerceRepo.findById(commerceId).get();
 	}
 
 }
