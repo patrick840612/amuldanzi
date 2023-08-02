@@ -193,6 +193,15 @@
 			                  <input class="question_titleInput__S7Isd" type="number" name="commerceStock" min="0" value="${commerceDetail.commerceStock }" />
 			                  <div class="question_alertText__WnxqW"></div>
 			                </div>
+			                <div>
+			                  <div>
+			                    <span class="question_questionCategory__1QDx6">할인률 %</span>
+			                    <span class="question_questionMark__AykT_">*</span>
+			                  </div>
+			                  
+			                  <input class="question_titleInput__S7Isd" type="number" name="commercePer" min="0" max="100" value="${commerceDetail.commercePer }" />			                  
+			                  <div class="question_alertText__WnxqW"></div>
+			                </div>
 			                <div class="commerceFileForm">
 			                  <div class="question_fileInputWrapper__d9gmU">
 			                    <span class="question_questionCategory__1QDx6">상품 이미지</span>

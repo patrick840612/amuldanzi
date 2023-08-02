@@ -340,7 +340,7 @@ public class AdminServiceImpl implements AdminService {
 		result.setCommerceName(dto.getCommerceName());
 		result.setCommercePrice(dto.getCommercePrice());
 		result.setCommerceStock(dto.getCommerceStock());
-		
+		result.setCommercePer(dto.getCommercePer());
 		
 		//상품 이미지 패스가 null 값이라면 이미지와 이미지 패스는 기존 값 유지
 		//null 값이 아니라면 새로운 상품 이미지와 이미지 패스로 변경

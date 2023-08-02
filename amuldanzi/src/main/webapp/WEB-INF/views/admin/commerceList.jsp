@@ -148,99 +148,98 @@
 
 
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 1055px;">
+			<div class="right_col" role="main">
 				<div class="col-md-12 col-sm-12 ">
 					<div class="x_panel">
-    <div class="container mt-4">
-        <h2>상품 관리</h2>
-        <hr>
-        <!-- 재고 테이블 -->
-        <table class="table table-striped">
-        	<colgroup>
-		        <col style="width: 20%;">
-		        <col style="width: 15%;">
-		        <col style="width: 15%;">
-		        <col style="width: 10%;">
-		        <col style="width: 30%;">
-		        <col style="width: 10;">
-		    </colgroup>
-            <thead>
-                <tr>
-                    <th>상품명</th>
-                    <th>재고량</th>
-                    <th>가격</th>
-                    <th>할인률</th>
-                    <th>상품이미지</th>
-                    <th>삭제</th>
-                </tr>
-            </thead>
-				<tbody>
-				    <c:forEach items="${commerceList}" var="commerceList">        
-				        <tr>        	
-				            <td class="align-middle"><a href="commerceDetail?commerceId=${commerceList.commerceId }">${commerceList.commerceName}</a></td>
-				            <td class="align-middle">${commerceList.commerceStock}</td>
-				            <td class="align-middle">${commerceList.commercePrice}</td>
-				            <td class="align-middle">${commerceList.commercePer} %</td>
-				            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width= 200 height= 150></td>
-				            <td class="align-middle"><a class="btn btn-danger btn-sm" href="commerceDelete?commerceId=${commerceList.commerceId }">삭제</a></td>
-				        </tr>
-				    </c:forEach> 
-				</tbody>
-        	</table>
-        <!-- 상품 추가 버튼 -->
-        <hr>
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCommerceModal">상품 추가</button>
-    </div>
-
-    <!-- 재고 추가 모달 -->
-    <div class="modal fade" id="addCommerceModal" tabindex="-1" role="dialog" aria-labelledby="addCommerceModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCommerceModalLabel">상품 추가</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- 재고 추가 폼 -->
-                    <form id="commerceSave" action="commerceSave" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="productName">상품명</label>
-                            <input type="text" class="form-control" id="commerceName" name="commerceName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">재고량</label>
-                            <input type="number" class="form-control" id="commerceStock" min="0"  name="commerceStock" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">가격</label>
-                            <input type="number" class="form-control" id="commercePrice" min="0"  name="commercePrice" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">할인률</label>
-                            <input type="number" class="form-control" id="commercePer" min="0"  max="100" name="commercePer" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="image">상품 이미지</label>
-                            <input type="file" class="form-control-file" name="file" id="uploadFile" accept="image/*" onchange="previewImage(event)">
-                            <img id="imagePreview" src="#" alt="미리보기 이미지" width="200" style="display:none;">
-                        </div>
-                        <div class="form-group">
-                            <label for="detailImage">상품 상세 이미지</label>
-                            <input type="file" class="form-control-file" name="detailFile" id="uploadDetailFile" accept="image/*">
-                        </div>
-                        <button type="submit" class="btn btn-primary">추가</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    
-		<!-- /page content -->
+					    <div class="container mt-4">
+					        <h2>상품 관리</h2>
+					        <hr>
+					        <!-- 재고 테이블 -->
+					        <table class="table table-striped">
+					        	<colgroup>
+							        <col style="width: 20%;">
+							        <col style="width: 15%;">
+							        <col style="width: 15%;">
+							        <col style="width: 10%;">
+							        <col style="width: 30%;">
+							        <col style="width: 10;">
+							    </colgroup>
+					            <thead>
+					                <tr>
+					                    <th>상품명</th>
+					                    <th>재고량</th>
+					                    <th>가격</th>
+					                    <th>할인률</th>
+					                    <th>상품이미지</th>
+					                    <th>삭제</th>
+					                </tr>
+					            </thead>
+									<tbody>
+									    <c:forEach items="${commerceList}" var="commerceList">        
+									        <tr>        	
+									            <td class="align-middle"><a href="commerceDetail?commerceId=${commerceList.commerceId }">${commerceList.commerceName}</a></td>
+									            <td class="align-middle">${commerceList.commerceStock}</td>
+									            <td class="align-middle">${commerceList.commercePrice}</td>
+									            <td class="align-middle">${commerceList.commercePer} %</td>
+									            <td class="align-middle"><img src="/images/commerce/${commerceList.img}" decode="async" alt="image" onerror="this.src='/admin/images/noimage.jpg';" alt="상품 이미지" width= 200 height= 150></td>
+									            <td class="align-middle"><a class="btn btn-danger btn-sm" href="commerceDelete?commerceId=${commerceList.commerceId }">삭제</a></td>
+									        </tr>
+									    </c:forEach> 
+									</tbody>
+					        	</table>
+					        <!-- 상품 추가 버튼 -->
+					        <hr>
+					        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCommerceModal">상품 추가</button>
+					    </div>
+					
+					    <!-- 재고 추가 모달 -->
+					    <div class="modal fade" id="addCommerceModal" tabindex="-1" role="dialog" aria-labelledby="addCommerceModal" aria-hidden="true">
+					        <div class="modal-dialog" role="document">
+					            <div class="modal-content">
+					                <div class="modal-header">
+					                    <h5 class="modal-title" id="addCommerceModalLabel">상품 추가</h5>
+					                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                        <span aria-hidden="true">&times;</span>
+					                    </button>
+					                </div>
+					                <div class="modal-body">
+					                    <!-- 재고 추가 폼 -->
+					                    <form id="commerceSave" action="commerceSave" method="post" enctype="multipart/form-data">
+					                        <div class="form-group">
+					                            <label for="productName">상품명</label>
+					                            <input type="text" class="form-control" id="commerceName" name="commerceName" required>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="quantity">재고량</label>
+					                            <input type="number" class="form-control" id="commerceStock" min="0"  name="commerceStock" required>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="price">가격</label>
+					                            <input type="number" class="form-control" id="commercePrice" min="0"  name="commercePrice" required>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="price">할인률</label>
+					                            <input type="number" class="form-control" id="commercePer" min="0"  max="100" name="commercePer" required>
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="image">상품 이미지</label>
+					                            <input type="file" class="form-control-file" name="file" id="uploadFile" accept="image/*" onchange="previewImage(event)">
+					                            <img id="imagePreview" src="#" alt="미리보기 이미지" width="200" style="display:none;">
+					                        </div>
+					                        <div class="form-group">
+					                            <label for="detailImage">상품 상세 이미지</label>
+					                            <input type="file" class="form-control-file" name="detailFile" id="uploadDetailFile" accept="image/*">
+					                        </div>
+					                        <button type="submit" class="btn btn-primary">추가</button>
+					                    </form>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+    				</div>
+   				 </div>
+    		</div>    
+			<!-- /page content -->
 		</div>
 	</div>
 
