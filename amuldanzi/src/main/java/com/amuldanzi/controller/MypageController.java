@@ -71,6 +71,11 @@ public class MypageController {
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
         
+        if(!map.get("id").toString().isEmpty()) {
+            MemberInfoDTO member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
+        
 		return "/mypage/"+step;
 	}
 	
@@ -96,6 +101,10 @@ public class MypageController {
         	}else if(social.getSocial().equals("kakao")){
         		m.addAttribute("kakao", social.getSocial());
         	}
+        }
+        
+        if(!map.get("id").toString().isEmpty()) {
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
         }
 	}
 
@@ -271,6 +280,10 @@ public class MypageController {
             m.addAttribute("sitter", sitterDTO);
         });
         
+        if(!map.get("id").toString().isEmpty()) {
+            MemberInfoDTO member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
 	}
 	
 	// 돌보미 신청시 DB 저장(이미지 저장 안하기 beforeunload로 파일처리 끝냄)
@@ -440,6 +453,11 @@ public class MypageController {
         
         m.addAttribute("businessOk", businessOk);
         
+        if(!map.get("id").toString().isEmpty()) {
+            member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
+        
         Thread.sleep(2500); 
 	} // 쇼핑몰 신청페이지 이동 끝
 	
@@ -474,6 +492,11 @@ public class MypageController {
         
     	m.addAttribute("businessOk", business.getBusinessOk());
     	m.addAttribute("business", business);
+    	
+        if(!map.get("id").toString().isEmpty()) {
+            member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
 
 	}
 	
@@ -631,6 +654,11 @@ public class MypageController {
         }
         
         m.addAttribute("qnaAnswerOk", qnaAnswerOk);
+        if(!map.get("id").toString().isEmpty()) {
+            member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
+        
 	} // 1:1 문의 페이지 이동
 	
 	// 1:1 문의 등록
@@ -676,6 +704,11 @@ public class MypageController {
         
     	m.addAttribute("qnaAnswerOk", qna.getQnaAnswerOk());
     	m.addAttribute("qna", qna);
+    	
+        if(!map.get("id").toString().isEmpty()) {
+            member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
 
 	}
 	

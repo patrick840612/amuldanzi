@@ -26,15 +26,18 @@
 /*탭팬 스타일*/
 .tabs {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
 
 .tab {
+	width: 200px;
+	height: 60px;
     padding: 10px 20px;
     cursor: pointer;
     border: 1px solid #ccc;
+    background-color: white;
 }
 
 .tab.active {
@@ -50,42 +53,53 @@
     display: block;
 }
 /*탭팬 스타일 끝*/
+
+.bold-text {
+    font-weight: bold;
+}
+
+.gray-text {
+    color: gray;
+}
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
 <script type="text/javascript">
-$(function(){
+$(function(){});
 
-    function showTab(tabNumber) {
-        // 모든 탭과 탭 내용을 비활성화
-        var tabs = document.getElementsByClassName('tab');
-        var tabContents = document.getElementsByClassName('tab-content');
-        for (var i = 0; i < tabs.length; i++) {
-            tabs[i].classList.remove('active');
-            tabContents[i].classList.remove('active');
-        }
-
-        // 선택한 탭과 해당 탭 내용을 활성화
-        var selectedTab = document.getElementById('tab' + tabNumber + '-content');
-        selectedTab.classList.add('active');
-        tabs[tabNumber - 1].classList.add('active');
+// 탭팬 호출
+function showTab(tabNumber) {
+    // 모든 탭과 탭 내용을 비활성화
+    var tabs = document.getElementsByClassName('tab');
+    var tabContents = document.getElementsByClassName('tab-content');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        tabContents[i].classList.remove('active');
     }
 
-});
+    // 선택한 탭과 해당 탭 내용을 활성화
+    var selectedTab = document.getElementById('tab' + tabNumber + '-content');
+    selectedTab.classList.add('active');
+    tabs[tabNumber - 1].classList.add('active');
+}
+
+
 </script>
 </head>
 <jsp:include page="../main/header.jsp"></jsp:include>
 <body class="hoian-kr">
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="__margin-top120px" >
-
 		<section class="_3nqg3y0">
-			<div class="_3nqg3y1 _1ff3f302" id="GameZone">
+			<div class="_3nqg3y1 _1ff3f302">
 			    <div class="tabs">
-			        <div class="tab" onclick="showTab(1)">Tab 1</div>
-			        <div class="tab" onclick="showTab(2)">Tab 2</div>
-			        <div class="tab" onclick="showTab(3)">Tab 3</div>
-			        <div class="tab" onclick="showTab(4)">Tab 4</div>
-			        <div class="tab" onclick="showTab(5)">Tab 5</div>
+			        <div class="tab" onclick="showTab(1)"><div class="bold-text">주문내역</div><div class="gray-text">주문/배송안내</div></div>
+			        <div class="tab" onclick="showTab(2)"><div class="bold-text">0</div><div class="gray-text">준비중</div></div>
+			        <div class="tab" onclick="showTab(3)"><div class="bold-text">0</div><div class="gray-text">배송중</div></div>
+			        <div class="tab" onclick="showTab(4)"><div class="bold-text">0</div><div class="gray-text">배송완료</div></div>
+			        <div class="tab" onclick="showTab(5)"><div class="bold-text">0</div><div class="gray-text">결제취소</div></div>
 			    </div>
 			
 			    <div class="tab-content" id="tab1-content">

@@ -332,7 +332,9 @@ $(document).ready(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body class="nav-md">
-
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="container body">
 		<div class="main_container">
 

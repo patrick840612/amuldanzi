@@ -50,6 +50,11 @@ public class CharacterController {
         m.addAttribute("cpoint", cpoint);
         m.addAttribute("character", character);
 		m.addAttribute("member", member);
+
+		if(!map.get("id").toString().isEmpty()) {
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
+		
 	}
 	
 	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
