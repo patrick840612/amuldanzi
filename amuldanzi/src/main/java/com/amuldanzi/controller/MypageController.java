@@ -731,6 +731,143 @@ public class MypageController {
 		return "redirect:/mypage/qnalist";		
 	}
 	
+	// 구매내역 입장
+	@RequestMapping("/orderlist")
+	public void orderlist(@RequestParam(name = "page1", defaultValue = "1") int page1,
+			              @RequestParam(name = "page2", defaultValue = "1") int page2,
+			              Model m) {
+		
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));		
+        
+        if(!map.get("id").toString().isEmpty()) {
+            MemberInfoDTO member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
+        
+        int itemsPerPage = 3;
+        int startIndex1 = (page1 - 1) * itemsPerPage;
+        
+        List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id"))); // 변경하기
+        List<BusinessDTO> pagedBusinessList = businessList.subList(startIndex1, Math.min(startIndex1 + itemsPerPage, businessList.size()));
+        m.addAttribute("businessList", pagedBusinessList);
+        
+        int itemsPerPage2 = 3;
+        int startIndex2 = (page2 - 1) * itemsPerPage2;
+        
+        List<QnaDTO> qnaList = mypageService.qnaFindByMemberId(String.valueOf(map.get("id")));
+        List<QnaDTO> pagedQnaList = qnaList.subList(startIndex2, Math.min(startIndex2 + itemsPerPage2, qnaList.size()));
+        m.addAttribute("qnaList", pagedQnaList);
+        
+        m.addAttribute("currentPage1", page1);
+        m.addAttribute("currentPage2", page2);
+        m.addAttribute("totalPages1", (businessList.size() + itemsPerPage - 1) / itemsPerPage);
+        m.addAttribute("totalPages2", (qnaList.size() + itemsPerPage2 - 1) / itemsPerPage2);		
+	}
+	
+	 @RequestMapping(value = "/orderlistPage", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	 @ResponseBody
+	 public String getOrderList(@RequestParam(name = "tabNumber", defaultValue = "1") int tabNumber,
+			 @RequestParam(name = "page1", defaultValue = "1") int page1,
+             @RequestParam(name = "page2", defaultValue = "1") int page2,
+             Model m) {
+		 
+			Map<String,Object> map = headerChange();
+	        m.addAttribute("id", map.get("id"));
+        
+	        List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id"))); // 변경하기
+	        m.addAttribute("businessList", businessList);
+        
+	        List<QnaDTO> qnaList = mypageService.qnaFindByMemberId(String.valueOf(map.get("id")));
+	        m.addAttribute("qnaList", qnaList);
+	        
+		 
+		    // 해당하는 탭에 대한 HTML 컨텐츠 반환
+		    switch (tabNumber) {
+		        /*case 2:
+		            return generateTab2Content(m, page1, page2);
+		        case 3:
+		            return generateTab3Content(m, page1, page2);*/
+		        case 4:
+		            return generateTab4Content(m, page1, page2);
+		        case 5:
+		            return generateTab5Content(m, page1, page2);
+		        default:
+		            return "";
+		    }
+		 
+	 }
+	 
+	 private String generateTab4Content(Model m, int page1, int page2) {
+		    // 모델에서 businessList를 가져와 HTML 컨텐츠를 생성하는 코드
+		    List<BusinessDTO> businessList = (List<BusinessDTO>) m.getAttribute("businessList");
+		    
+		    int itemsPerPage = 3; // 한 페이지당 보여줄 상품 수
+		    int startIndex = (page1 - 1) * itemsPerPage;
+		    int endIndex = Math.min(startIndex + itemsPerPage, businessList.size());
+		    List<BusinessDTO> page1Products = businessList.subList(startIndex, endIndex);
+		    
+		    StringBuilder content = new StringBuilder();
+		    for (BusinessDTO product : page1Products) {
+		        // 각 상품에 대한 HTML 생성
+		    	content.append("<div class=\"product-container\">");
+		    	content.append("<div class=\"product-info\">");
+		    	content.append("<div class=\"product-name\">").append(product.getBusinessNumber()).append("</div>");
+		    	content.append("<div class=\"product-invoice\">송장번호: ").append(product.getBusinessTitle()).append("</div>");
+		    	content.append("<div class=\"product-price\">가격: ").append(product.getBusinessName()).append("원</div>");
+		    	content.append("<div class=\"product-quantity\">수량: ").append(product.getBusinessSector()).append("개</div>");
+		    	content.append("</div>");
+		    	content.append("<img class=\"product-image\" src=\"/images/mypage/").append(product.getBusinessImg()).append("\" alt=\"상품 이미지\">");
+		    	content.append("</div>");
+		    }
+		    // 페이징 컨트롤 추가
+		    int totalPages1 = (int) Math.ceil((double) businessList.size() / itemsPerPage);
+		    content.append("<ul class=\"pagination\">");
+		    for (int i = 1; i <= totalPages1; i++) {
+		        content.append("<li class=\"").append(page1 == i ? "active" : "").append("\">");
+		        content.append("<a href=\"#\" onclick=\"loadTabContent(4, ").append(i).append(", ").append(page2).append(")\">").append(i).append("</a>");
+		        content.append("</li>");
+		    }
+		    content.append("</ul>");
+		    System.out.println("content.toString()");
+		    return content.toString();
+		}
+	 
+		 private String generateTab5Content(Model m, int page1, int page2) {
+			 
+			 int itemsPerPage = 3;
+			 List<QnaDTO> qnaList = (List<QnaDTO>) m.getAttribute("qnaList");
+			 int startIndex = (page2 - 1) * itemsPerPage;
+			 int endIndex = Math.min(startIndex + itemsPerPage, qnaList.size());
+			 List<QnaDTO> page2Products = qnaList.subList(startIndex, endIndex);
+			 StringBuilder content = new StringBuilder();
+			 
+			 for (QnaDTO product : page2Products) {
+				 content.append("<div class=\"product-container\">");
+				 content.append("<div class=\"product-info\">");
+				 content.append("<div class=\"product-name\">").append(product.getQnaCategory()).append("</div>");
+				 content.append("<div class=\"product-invoice\">송장번호: ").append(product.getQnaTitle()).append("</div>");
+				 content.append("<div class=\"product-price\">가격: ").append(product.getQnaContent()).append("원</div>");
+				 content.append("<div class=\"product-quantity\">수량: ").append(product.getQnaNo()).append("개</div>");
+				 content.append("</div>");
+				 content.append("<img class=\"product-image\" src=\"/images/mypage/").append(product.getQnaImg()).append("\" alt=\"상품 이미지\">");
+				 content.append("</div>");
+			 }
+			 
+			 int totalPages2 = (int) Math.ceil((double) qnaList.size() / itemsPerPage);
+			 content.append("<ul class=\"pagination\">");
+			 
+		     for (int i = 1; i <= totalPages2; i++) {
+		        content.append("<li class=\"").append(page2 == i ? "active" : "").append("\">");
+		        content.append("<a href=\"#\" onclick=\"loadTabContent(5, ").append(page1).append(", ").append(i).append(")\">").append(i).append("</a>");
+		        content.append("</li>");
+		     }
+		     content.append("</ul>");			 
+			 
+			 return content.toString();
+		}
 	
 } // end of class MypageController
 

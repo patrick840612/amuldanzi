@@ -24,7 +24,7 @@ public class SitterDTO {
 	@PrimaryKeyJoinColumn
 	private MemberInfoDTO memberId;
 	
-	private String sitter;
+	private String sitter; // 승인여부 : '승인대기', '승인완료'
 	private String sitterTitle;
 	private String sitterCareer;
 	private String sitterPetCareer;
