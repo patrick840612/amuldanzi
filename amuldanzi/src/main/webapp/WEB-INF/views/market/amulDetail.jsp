@@ -86,8 +86,7 @@
 								<div class="l_product_side_info">
 									<div class="c_product_info_title">
 
-										<em class="title_sub">
-											<!-- 서브 타이틀 -->방금 만든 떡처럼 쫄깃한
+										<em class="title_sub"> <!-- 서브 타이틀 -->방금 만든 떡처럼 쫄깃한
 										</em>
 
 										<h1 class="title">
@@ -160,6 +159,8 @@
 
 							<input type="hidden" id="likeIt" value="false" />
 
+
+
 							<h2 class="skip">상세 정보</h2>
 							<div class="l_product_detail_wrap" id="tabDetail">
 								<ul role="tablist" class="c_product_tab_list">
@@ -201,10 +202,16 @@
 
 								<!-- 리뷰/후기 -->
 								<!-- D:수정 -->
-								<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+								<script type="text/javascript"
+									src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-
-								<!--// 본문 내용 끝 //-->
-
+									<!--// 본문 내용 끝 //-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>
