@@ -582,4 +582,7 @@ function hidePopup() {
         <button id="popCloseBtn">close</button>
     </div>
 </body>
+
+<jsp:include page="./footer.jsp"></jsp:include>
+
 </html>
