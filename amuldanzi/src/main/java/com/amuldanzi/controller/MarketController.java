@@ -101,6 +101,8 @@ public class MarketController {
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
+		
+		
 
 		// Pageable 객체를 생성하여 페이징 정보 설정
 		Pageable paging = PageRequest.of(pageNo, 12, Sort.by("goodsId").descending());

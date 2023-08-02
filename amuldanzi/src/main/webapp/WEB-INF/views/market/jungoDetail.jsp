@@ -112,9 +112,9 @@
 				</c:if>
 			</p>
 			<p id="article-price" property="schema:price" content=""
-				style="font-size: 18px; font-weight: bold;">가격</p>
+				style="font-size: 18px; font-weight: bold;">${marketList.goodsPrice }</p>
 			<div property="schema:description" id="article-detail">
-				<p>내용</p>
+				<p>${marketList.goodsContent }</p>
 			</div>
 			<p id="article-counts"></p>
 		</section>
