@@ -92,13 +92,20 @@
   .careResults li a:hover{
     color: #007bff;
   }
+  
+  .cat {
+  position: absolute;
+  z-index: 999;
+  }
 </style>
 <!-- 섬머노트 추가--> 
 <link rel="stylesheet" href="/mypage/css/summernote/summernote-lite.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/mypage/js/summernote/summernote-lite.js"></script>
 <script src="/mypage/js/summernote/lang/summernote-ko-KR.js"></script>
-
+<c:if test="${not empty selectCharacter}">
+	<script type="text/javascript" src='/character/js/characterRandom.js'></script>
+</c:if>
 <script type="text/javascript">
 $(document).ready(function() {
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.amuldanzi.domain.CharacterDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 
 public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
@@ -33,5 +34,13 @@ public interface LoginDAO extends CrudRepository<MemberInfoDTO, String>
 	@Query(value = "UPDATE member_info SET blood_give = :#{#member.bloodGive} WHERE id = :#{#member.id}", nativeQuery = true)
 	void changBloodGive(MemberInfoDTO member);
 	
+	@Query(value = "UPDATE member_info SET cpoint = :#{#member.cpoint} WHERE id = :#{#member.id}", nativeQuery = true)
+	void cpointupdate(MemberInfoDTO member);
+	
+	@Query(value = "UPDATE member_info SET cpoint = :#{#member.cpoint} WHERE id = :#{#member.id}", nativeQuery = true)
+	void cpointminus(MemberInfoDTO member);
+	
+	@Query(value = "UPDATE member_info SET select_character = :#{#member.selectCharacter} WHERE id = :#{#member.id}", nativeQuery = true)
+	void selectCharacter(MemberInfoDTO member);	
 	
 }

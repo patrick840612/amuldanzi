@@ -60,6 +60,13 @@
 	margin : 40px auto 0px !important;
 }
 
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -258,7 +265,9 @@ $(document).ready(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body class="nav-md">
-  
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if>   
 	<div class="container body">
 		<div class="main_container">
 

@@ -430,6 +430,9 @@ $(function(){
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="login_contents__1fQZs">
 		<div class="account_signUpContainer__nL9LE">
 			<div class="account_contents__E8DTc">

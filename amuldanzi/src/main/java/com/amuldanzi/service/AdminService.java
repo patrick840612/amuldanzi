@@ -1,6 +1,7 @@
 package com.amuldanzi.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.CareDTO;
@@ -10,6 +11,7 @@ import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.domain.QnaDTO;
 
 public interface AdminService {
 
@@ -73,8 +75,18 @@ public interface AdminService {
 
 	CommerceDTO getCommerceById(CommerceDTO dto);
 
-	List<CommunityDTO> getCommunityList();
+	List<Map<String, Object>> getCommunityListByBlamedId();
 
-	
+	void blamedDeleteByCommNo(Integer commNo);
+
+	void commDeleteByCommNo(Integer commNo);
+
+	void imgDeleteByCommNO(Integer commNo);
+
+	List<String> getCommImagesByNo(Integer commNo);
+
+	CommunityDTO getCommunityByNo(Integer commNo);
+
+	List<QnaDTO> getQnaList();
 
 }

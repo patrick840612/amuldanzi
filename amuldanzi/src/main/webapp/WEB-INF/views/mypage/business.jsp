@@ -84,6 +84,19 @@ li{
 	background-color : #ffeb994d !important;
 	margin-left: 10px;
 }
+
+li.disabled .atag {
+  /*pointer-events: none;
+   cursor: default; 
+   페이징 맨앞과 맨 뒷 페이지일 때 화살표로 이동금지 클릭금지 아이콘 비활성화로 인해 적용 안함*/
+}
+
+.cat {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+  z-index: 999;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -326,7 +339,9 @@ $(document).ready(function() {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body class="nav-md">
-
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="container body">
 		<div class="main_container">
 
@@ -601,18 +616,17 @@ $(document).ready(function() {
 					</ul>								
 								
 								
-								
-								
-								
-								
-								
-								
 							</div>
 							<div>
 							<button class="question_submitBtn__vDrt_ buttonMove" type="button"
 								id="carrotShop">쇼핑몰 가기</button>
 							</div>
+					<br/>		
+					<div>
+						<hr class="popper_popperMenuDivider__j1QQj">
+					</div>	
 						</div>
+						
 						<!-- 쇼핑몰 신청완료 끝 -->
 
 					</div>
@@ -620,6 +634,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+
 
 
 	<!-- Bootstrap -->

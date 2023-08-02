@@ -22,167 +22,179 @@
 <link href="/chunks/css/text.css" rel="stylesheet">
  
 <style>
-    
-    #popupDiv {  /* 팝업창 css */
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    background: white;
-    width: 500px;
-    height: 500px;
-    display: none; 
-    }
-    
-    #popup_mask { /* 팝업 배경 css */
-        position: fixed;
-        width: 100%;
-        height: 1000px;
-        top: 0px;
-        left: 0px;
-         display: none; 
-         background-color:#000;
-         opacity: 0.8;
-    }  
-       /* 이미지 스타일링 */
-        #slideshow {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-        }
-        
-        
-          #slideshow img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            z-index: 1;
-        }
-        
-        
-          #popCloseBtn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 9999;
-            cursor: pointer;
-        }
-        #caption {
-			    text-align: center;
-			    padding: 30px; /* Increased padding to make the text area larger */
-			    font-size: 22px;
-			    font-family: 'Arial', sans-serif; /* Change font style to Arial or any other font you prefer */
-			    font-weight: bold; /* Make the text bold */
-			    color: #ff1493; /* Pink color */
-			    position: absolute;
-			    z-index: 2;
-			    bottom: 0; /* 위치 조정을 통해 이미지 아래에 배치 */
-			    left: 50%; /* 가운데 정렬 */
-			    transform: translateX(-50%); /* 가운데 정렬 */
-			    width: 80%; /* Increased width to make the text area wider */
-			    border-radius: 10px; /* Rounded corners for the text area */
-			}
+#popupDiv { /* 팝업창 css */
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	background: white;
+	width: 500px;
+	height: 500px;
+	display: none;
+}
 
-        /* 클릭 버튼 스타일링 */
-        #clickButton {
-            position: absolute;
-            z-index: 2;
-            bottom: 80px; /* 위치 조정을 통해 이미지 아래에 배치 */
-            left: 50%; /* 가운데 정렬 */
-            transform: translateX(-50%); /* 가운데 정렬 */
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            animation: sparkle 1s infinite alternate;
-            transition: background-color 0.3s ease;
-        }
-        
-         /* 클릭 버튼 애니메이션 */
-        @keyframes sparkle {
-            from { background-color: rgba(255, 255, 255, 0); box-shadow: none; }
-            to { background-color: #ff1493; box-shadow: 0 0 5px #rgba(255, 255, 255, 0); }
-        }
-         
-    /* 공지사항 테이블 스타일 */
-    .notice-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 16px;
-    }
+#popup_mask { /* 팝업 배경 css */
+	position: fixed;
+	width: 100%;
+	height: 1000px;
+	top: 0px;
+	left: 0px;
+	display: none;
+	background-color: #000;
+	opacity: 0.8;
+}
+/* 이미지 스타일링 */
+#slideshow {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
 
-    /* 테이블 헤더 스타일 */
-    .notice-table th {
-        background-color: #f2f2f2;
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 8px;
-        font-weight: bold;
-    }
+#slideshow img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+	z-index: 1;
+}
 
-    /* 테이블 셀 스타일 */
-    .notice-table td {
-        border: 1px solid #dddddd;
-        text-align: center; 
-    }
+#popCloseBtn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 9999;
+	cursor: pointer;
+}
 
-    /* 카테고리 셀 스타일 */
-    .notice-category-cell {
-        position: relative; /* 구분선 위치 조정을 위해 상대적 위치로 지정 */
-        width: 200px;
-        padding: 0; /* 셀 안의 패딩 제거 */
-        text-align: center; /* 가운데 정렬 */
-    }
+#caption {
+	text-align: center;
+	padding: 30px; /* Increased padding to make the text area larger */
+	font-size: 22px;
+	font-family: 'Arial', sans-serif;
+	/* Change font style to Arial or any other font you prefer */
+	font-weight: bold; /* Make the text bold */
+	color: #ff1493; /* Pink color */
+	position: absolute;
+	z-index: 2;
+	bottom: 0; /* 위치 조정을 통해 이미지 아래에 배치 */
+	left: 50%; /* 가운데 정렬 */
+	transform: translateX(-50%); /* 가운데 정렬 */
+	width: 80%; /* Increased width to make the text area wider */
+	border-radius: 10px; /* Rounded corners for the text area */
+}
 
-    /* 카테고리 원형 스타일 */
-    .notice-category {
-        width: 67px;
-        height: 46px;
-        left: 58px;
-        border-radius: 50%;
-        display: flex; /* Flexbox로 변경 */
-        justify-content: center; /* 가로 중앙 정렬 */
-        align-items: center; /* 세로 중앙 정렬 */
-        border: 2px solid red;
-        background-color: white;
-        text-align: center;
-        color: black;
-        font-size: 12px;
-        font-weight: bold;
-        text-decoration: none;
-        position: relative; /* 원형 스타일에 포함된 내용을 위해 상대적 위치로 지정 */
-        z-index: 1; /* 원형 스타일을 위로 올리기 위해 z-index 지정 */
-    }
+/* 클릭 버튼 스타일링 */
+#clickButton {
+	position: absolute;
+	z-index: 2;
+	bottom: 80px; /* 위치 조정을 통해 이미지 아래에 배치 */
+	left: 50%; /* 가운데 정렬 */
+	transform: translateX(-50%); /* 가운데 정렬 */
+	background-color: #3498db;
+	color: #fff;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+	animation: sparkle 1s infinite alternate;
+	transition: background-color 0.3s ease;
+}
 
-    /* 카테고리 마우스 호버 스타일 */
-    .notice-category:hover {
-        background-color: #ffdddd; /* 마우스 호버 시 배경색 변경 */
-    }
+/* 클릭 버튼 애니메이션 */
+@
+keyframes sparkle {from { background-color:rgba(255, 255, 255, 0);
+	box-shadow: none;
+}
 
-    /* 번호 폭 조정 */
-    .notice-number {
-        width: 50px; /* 번호의 폭을 줄임 */
-   		text-align: center;
-    }
-    
-    
-    /* 구분선 스타일 */
-    .notice-divider {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        border-right: 1px solid #dddddd; /* 우측에 구분선 추가 */
-        z-index: 0; /* 구분선을 원형 스타일 아래로 숨기기 위해 z-index 지정 */
-    }
-    </style>
+to {
+	background-color: #ff1493;
+	box-shadow: 0 0 5px #rgba(255, 255, 255, 0);
+}
+
+}
+
+/* 공지사항 테이블 스타일 */
+.notice-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 16px;
+}
+
+/* 테이블 헤더 스타일 */
+.notice-table th {
+	background-color: #f2f2f2;
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+	font-weight: bold;
+}
+
+/* 테이블 셀 스타일 */
+.notice-table td {
+	border: 1px solid #dddddd;
+	text-align: center;
+}
+
+/* 카테고리 셀 스타일 */
+.notice-category-cell {
+	position: relative; /* 구분선 위치 조정을 위해 상대적 위치로 지정 */
+	width: 200px;
+	padding: 0; /* 셀 안의 패딩 제거 */
+	text-align: center; /* 가운데 정렬 */
+}
+
+/* 카테고리 원형 스타일 */
+.notice-category {
+	width: 67px;
+	height: 46px;
+	left: 58px;
+	border-radius: 50%;
+	display: flex; /* Flexbox로 변경 */
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	border: 2px solid red;
+	background-color: white;
+	text-align: center;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	position: relative; /* 원형 스타일에 포함된 내용을 위해 상대적 위치로 지정 */
+	z-index: 1; /* 원형 스타일을 위로 올리기 위해 z-index 지정 */
+}
+
+/* 카테고리 마우스 호버 스타일 */
+.notice-category:hover {
+	background-color: #ffdddd; /* 마우스 호버 시 배경색 변경 */
+}
+
+/* 번호 폭 조정 */
+.notice-number {
+	width: 50px; /* 번호의 폭을 줄임 */
+	text-align: center;
+}
+
+/* 구분선 스타일 */
+.notice-divider {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	border-right: 1px solid #dddddd; /* 우측에 구분선 추가 */
+	z-index: 0; /* 구분선을 원형 스타일 아래로 숨기기 위해 z-index 지정 */
+}
+
+.cat {
+	position: absolute;
+	left: 500px;
+	top: 500px;
+	z-index: 999;
+}
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -219,47 +231,47 @@ function showPopup() {
 function hidePopup() {
     $("#popup_mask").css("display", "none");
     $("#popupDiv").css("display", "none");
-    $("body").css("overflow", "auto");
+    $("body").css("
+	overflow", "auto");
 
- // 이미지 슬라이드 쇼 정지
-    stopSlideshow();
-}
+					// 이미지 슬라이드 쇼 정지
+					stopSlideshow();
+				}
 
+				// 이미지 슬라이드 쇼 시작 함수
+				function startSlideshow() {
 
+					$("#slideshow img").eq(currentSlideIndex).css("opacity",
+							"1");
 
-	// 이미지 슬라이드 쇼 시작 함수
-	function startSlideshow() {
-		
-		$("#slideshow img").eq(currentSlideIndex).css("opacity", "1");
-		
-	    slideInterval = setInterval(nextSlide, 3000); // 2초마다 다음 슬라이드로 이동
-	}
-	
-	// 이미지 슬라이드 쇼 정지 함수
-	function stopSlideshow() {
-	    clearInterval(slideInterval);
-	}
-	
-	// 다음 슬라이드로 이동 함수
-	function nextSlide() {
-	      var slides = $("#slideshow img");
-          var nextSlideIndex = (currentSlideIndex + 1) % slides.length;
+					slideInterval = setInterval(nextSlide, 3000); // 2초마다 다음 슬라이드로 이동
+				}
 
-          // 현재 슬라이드를 투명하게 만들고 다음 슬라이드를 표시
-          slides.eq(currentSlideIndex).css("opacity", "0");
-          slides.eq(nextSlideIndex).css("opacity", "1");
+				// 이미지 슬라이드 쇼 정지 함수
+				function stopSlideshow() {
+					clearInterval(slideInterval);
+				}
 
-          currentSlideIndex = nextSlideIndex;
-	} 
+				// 다음 슬라이드로 이동 함수
+				function nextSlide() {
+					var slides = $("#slideshow img");
+					var nextSlideIndex = (currentSlideIndex + 1)
+							% slides.length;
 
+					// 현재 슬라이드를 투명하게 만들고 다음 슬라이드를 표시
+					slides.eq(currentSlideIndex).css("opacity", "0");
+					slides.eq(nextSlideIndex).css("opacity", "1");
 
-});
+					currentSlideIndex = nextSlideIndex;
+				}
 
-    
+			});
 </script>
 
 <body>
- 
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="main_mainContents__GXYBn2">
 		 <!-- 공지사항 테이블 -->
         <table class="notice-table">

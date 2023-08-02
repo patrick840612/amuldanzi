@@ -7,6 +7,7 @@ import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
 
 public interface MypageService {
@@ -24,5 +25,9 @@ public interface MypageService {
 	public BusinessDTO businessFindByMemberRearId(String businessNumber);
 	public void businessUpdate(BusinessDTO business);
 	public void businessDelete(BusinessDTO business);
-
+	public List<QnaDTO> qnaFindByMemberId(String id);
+	public void saveQna(QnaDTO qna);
+	public QnaDTO qnaFindByRearId(Integer qnaNo);
+	public void qnaUpdate(QnaDTO qna);
+	public void qnaDelete(QnaDTO qna);
 }

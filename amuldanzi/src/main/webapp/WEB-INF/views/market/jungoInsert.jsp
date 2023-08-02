@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,13 +112,13 @@
                 </div>
                 <div>
                     <div>
-                        <span class="question_questionCategory__1QDx6">아이디</span><span class="question_questionMark__AykT_">*</span>
-                        <input placeholder="아이디를 입력해 주세요" class="question_titleInput__S7Isd" name="id" value = "${id}">
+                        
+                        <input type="hidden" class="question_titleInput__S7Isd" name="id" value = "${id}">
                         <div class="question_alertText__WnxqW"></div>
                     </div>
                     <!--  -->
                     <div>
-                        <span class="question_questionCategory__1QDx6">글 작성</span><span class="question_questionMark__AykT_">*</span>
+                        <span class="question_questionCategory__1QDx6">제목</span><span class="question_questionMark__AykT_">*</span>
                     </div>
                     <input placeholder="제목을 입력해주세요" class="question_titleInput__S7Isd" name="goodsName">
                     <div class="question_alertText__WnxqW"></div>

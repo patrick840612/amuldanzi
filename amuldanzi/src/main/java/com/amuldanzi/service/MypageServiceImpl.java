@@ -12,11 +12,13 @@ import com.amuldanzi.dao.BusinessDAO;
 import com.amuldanzi.dao.LoginDAO;
 import com.amuldanzi.dao.LoginPetDAO;
 import com.amuldanzi.dao.LoginSocialDAO;
+import com.amuldanzi.dao.QnaDAO;
 import com.amuldanzi.dao.SitterDAO;
 import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
+import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
 
 @Service("mypageService")
@@ -36,6 +38,9 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	BusinessDAO businessDAO;
+	
+	@Autowired
+	QnaDAO qnaDAO;
 	
 	// pet 정보 가져오기(회원정보관리 입장시)
 	@Override
@@ -142,4 +147,29 @@ public class MypageServiceImpl implements MypageService {
 		businessDAO.delete(business);
 	}
 	
+	// 문의 검색
+	public List<QnaDTO> qnaFindByMemberId(String id) {
+		return qnaDAO.findByMemberId(id);
+	}
+	
+	// 문의 등록
+	public void saveQna(QnaDTO qna) {
+		qnaDAO.save(qna);
+	}
+	
+	// 문의 검색(상세페이지용)
+	public QnaDTO qnaFindByRearId(Integer qnaNo) {
+		   Optional<QnaDTO> qnaOptional = qnaDAO.findById(qnaNo);
+		    return qnaOptional.orElse(null); // 객체가 있으면 해당 DTO를 반환하고, 없으면 null을 반환
+	}
+	
+	// 문의 수정
+	public void qnaUpdate(QnaDTO qna) {
+		qnaDAO.qnaUpdate(qna);
+	}
+	
+	// 문의 삭제
+	public void qnaDelete(QnaDTO qna) {
+		qnaDAO.delete(qna);
+	}
 }

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.BoardCategoryDTO;
 import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.CommBlameDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.service.AdminService;
 import com.amuldanzi.util.MD5Generator;
@@ -770,9 +773,48 @@ public class AdminController {
 	}
 
 	@RequestMapping("/blamedList")
-	public void blamedList(Model m) {
-		List<CommunityDTO> blamedList = adminService.getCommunityList();
-		m.addAttribute("blamedList", blamedList);
+	public String blamedList(Model m, Integer commNo) {
+		List<Map<String, Object>> blamedList = adminService.getCommunityListByBlamedId();		
+		
+		m.addAttribute("blamedList", blamedList);		
+		
+		System.out.println(blamedList);
+		
+		return "/admin/blamedList";
+	}
+	
+	@RequestMapping("/blamedDetail")
+	public String blamedDetail(Integer commNo, Model m) {
+		
+		CommunityDTO community = adminService.getCommunityByNo(commNo);
+		List<String> commImage = adminService.getCommImagesByNo(commNo);
+		
+		m.addAttribute("community", community);
+		m.addAttribute("commImage", commImage);
+		
+		return "/admin/blamedDetail";
+	}
+	
+	@RequestMapping("/blamedDelete")
+	public String blamedDelete(Integer commNo) {	  
+		
+	    // 싫어요 정보 삭제
+		adminService.blamedDeleteByCommNo(commNo);	   
+		// 이미지 데이터 베이스 삭제
+		adminService.imgDeleteByCommNO(commNo);
+		// 커뮤니티 글 삭제
+		adminService.commDeleteByCommNo(commNo);
+		
+		return "/admin/blamedList";
+	}
+	
+	@RequestMapping("/qnaList")
+	public void qnaList(Model m) {
+		
+		List<QnaDTO> qnaList = adminService.getQnaList();
+		
+		m.addAttribute("qnaList", qnaList);
+		
 	}
 
 }

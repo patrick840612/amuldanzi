@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-//@Entity
+@Entity
 @Table(name = "qna")
 @DynamicInsert
 public class QnaDTO {
@@ -26,7 +26,7 @@ public class QnaDTO {
 	@Column(nullable = false, updatable = false, insertable = false)
 	private Integer qnaNo;
 	
-	private String qnaCategory; // 문의유형 시스템, 나의 반려동물, 마켓, 게시판, 커뮤니티
+	private String qnaCategory; // 문의유형 나의반려동물, 마켓, 게시판, 커뮤니티, 시스템
 	private String qnaTitle;
 	@Column(length = 6000)
 	private String qnaContent;
@@ -36,10 +36,10 @@ public class QnaDTO {
 
 	@Column(length = 6000)
 	private String qnaAnswer;
-	//private String qnaAnswerWriter; // 작성자 필요한지(빼고싶음)
-	@Column(columnDefinition = "date default sysdate()", insertable = false, updatable = true)
-	private Date qnaAnswerDate; // 답변일자
-	// 있었으면 좋겠음 ㅋㅋㅋ private String qnaAnswerOk; // 답변여부 : '답변대기','답변완료'
+	private String qnaAnswerWriter; 
+
+	private Date qnaAnswerDate; 
+	private String qnaAnswerOk; // 답변여부 : '답변대기','답변완료'
 	
 	private String qnaImg;
 	private String qnaImgPath;

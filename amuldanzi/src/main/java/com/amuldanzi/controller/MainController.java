@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.service.CareService;
 import com.amuldanzi.service.CommuityService;
@@ -57,7 +58,11 @@ public class MainController {
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
-
+        
+        if(!map.get("id").toString().isEmpty()) {
+            MemberInfoDTO member = loginService.selectCharacter(map.get("id").toString());
+            m.addAttribute("selectCharacter", member.getSelectCharacter());
+        }
 	}
 	
 	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
