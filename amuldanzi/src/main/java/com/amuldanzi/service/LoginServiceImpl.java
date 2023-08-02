@@ -448,5 +448,8 @@ public class LoginServiceImpl implements LoginService {
 		loginDAO.changePassword(member);
 	}
 	
+	public MemberInfoDTO selectCharacter(String id) {
+		return loginDAO.findById(id).orElse(null);
+	}
 	
 }

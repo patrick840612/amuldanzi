@@ -38,4 +38,7 @@ public interface LoginService {
 	public List<JwtDTO> findAll();
 	public void changePassword(MemberInfoDTO member);
 	
+	public MemberInfoDTO selectCharacter(String id); 
+	
+	
 }

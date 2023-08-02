@@ -259,7 +259,9 @@ function hidePopup() {
 </script>
 
 <body>
- 
+<c:if test="${not empty selectCharacter}">
+	<img class='cat' src='/character/images/${selectCharacter}' id="cat"/>
+</c:if> 
 	<div class="main_mainContents__GXYBn2">
 		 <!-- 공지사항 테이블 -->
         <table class="notice-table">
