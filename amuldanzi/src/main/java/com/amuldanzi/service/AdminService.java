@@ -11,6 +11,7 @@ import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
+import com.amuldanzi.domain.QnaDTO;
 
 public interface AdminService {
 
@@ -80,6 +81,12 @@ public interface AdminService {
 
 	void commDeleteByCommNo(Integer commNo);
 
+	void imgDeleteByCommNO(Integer commNo);
 
+	List<String> getCommImagesByNo(Integer commNo);
+
+	CommunityDTO getCommunityByNo(Integer commNo);
+
+	List<QnaDTO> getQnaList();
 
 }

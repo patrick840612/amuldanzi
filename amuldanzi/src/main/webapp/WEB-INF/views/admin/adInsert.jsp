@@ -106,8 +106,8 @@ $(document).ready(function() {
 								<li><a><i class="fa fa-user"></i> 회원관리<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="form.html">역할관리</a></li>
-										<li><a href="form_advanced.html">문의관리</a></li>
+										<li><a href="/admin/roleList">역할관리</a></li>
+										<li><a href="/admin/qnaList">문의관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-edit"></i> 게시판<span
 										class="fa fa-chevron-down"></span></a>

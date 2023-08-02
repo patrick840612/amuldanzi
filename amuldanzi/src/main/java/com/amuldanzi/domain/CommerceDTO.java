@@ -32,16 +32,8 @@ public class CommerceDTO {
 	private 	String		img;
 	private 	String		imgPath;
 	private 	String		detailImg;
-	private		String		detaiImgPath;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
-//	private 	CommerceEventDTO 	eventId;		// 이벤트 ID ( FK )
-//	
-//	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "scheduleId", referencedColumnName = "scheduleId")
-//	private 	CommerceScheduleDTO 	scheduleId;		// 일정관리 ID ( FK )
+	private		String		detaiImgPath;	
+	private 	Integer		commercePer;
 	
 	
 }
