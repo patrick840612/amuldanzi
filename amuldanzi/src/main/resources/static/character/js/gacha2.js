@@ -1,35 +1,13 @@
-$(function(){
-    const animalList = [ 'bear.png', 'calamari.png', 'cat.png', 'dog.png', 'dragon.png', 'koala.png', 'lobster.png', 'octopus.png', 'penguin.png', 'snake.png', 'turtle.png', 'whale.png'];
 
-    // 이미지 태그를 동적으로 생성하여 반환하는 함수
-    function createImageTag(imageName) {
-        const img = document.createElement('img');
-        img.src = `/character/images/${imageName}`;
-        img.alt = imageName;
-        img.classList.add('atCharacter'); // 이미지 태그에 class="atCharacter" 속성 추가
-        // 이미지 태그의 추가적인 속성 및 스타일 설정 가능
-        return img;
-    }
 
-    // 이미지를 출력할 영역의 ID를 지정
-    const imageContainer = document.getElementById('imageContainer');
-
-    // animalList 배열에 있는 각 이미지 파일 이름에 대해 이미지 태그 생성 및 출력
-    animalList.forEach((imageName) => {
-        const imgTag = createImageTag(imageName);
-        imageContainer.appendChild(imgTag);
-    });
-    
-    $('#imageContainer').hide();
-});		  
+		  
 function startGacha() {
-	
-	  const characterImages = document.querySelectorAll('.atCharacter');
+	  const characterImages = document.querySelectorAll('.isCharacter');
 	  const randomIndex = Math.floor(Math.random() * characterImages.length);
 	  const selectedCharacter = characterImages[randomIndex]; // 랜덤 선택 이미지 넣기
 
 	  // 반복 횟수 설정 (10번 반복하려면 10으로 설정)
-	  const repeatCount = 7;
+	  const repeatCount = 10;
 	  // pang 애니메이션 10번 반복하는 함수 호출
 	  repeatPangAnimation(selectedCharacter, repeatCount);
 
@@ -44,15 +22,14 @@ function startGacha() {
 		  selectedCharacterImage.src = selectedCharacter.src;
 	
 		  // 팝업 표시
-   	  	  popupOverlay.style.display = 'block';
-
-		  // 캐릭터 이미지 팝업 후, 1초 후에 팝업을 닫습니다.
+		  popupOverlay.style.display = 'block';
+	
+		  // 캐릭터 이미지 팝업 후, 2초 후에 팝업을 닫습니다.
 		  setTimeout(() => {
-			    popupOverlay.style.display = 'none';
-		  }, 1000);
-			  
-	  }, 3000);	
-	  return selectedCharacter;	 
+		    popupOverlay.style.display = 'none';
+		  }, 1500);
+		  
+		}, 3000);		 
 }
 
 const positions = [

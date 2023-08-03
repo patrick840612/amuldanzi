@@ -50,5 +50,9 @@ public class CharacterServiceImpl implements CharacterService {
 		loginDAO.cpointminus(member);
 		characterDAO.evolveCharacter(character);
 	}
+	
+	public void minusCpoint(MemberInfoDTO member) {
+		loginDAO.cpointminus(member);
+	}
 
 }
