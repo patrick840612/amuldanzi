@@ -400,6 +400,7 @@ $('.evolve-button').click(function () {
 		$('#cpointx').attr('type', 'hidden');
 		  // 진 화 버튼을 클릭한 버튼의 data-characterNo 속성 값을 가져옴
 		  let characterNo = $(this).closest('.button-container').find('input[name="characterNo"]').val();
+		  let baseImg = $(this).closest('.button-container').find('img[name="characterImg"]').attr('src');
 		  let imgSrcEvolve = $(this).closest('.button-container').find('img[name="characterImg"]').attr('src');
 		  let filename = imgSrcEvolve.split('/').pop();
 		  const lastIndexDot = filename.lastIndexOf('.');
@@ -409,27 +410,99 @@ $('.evolve-button').click(function () {
 		        $(this).find('.game-button').css('background-color', 'white'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.
 		  });
 		  const newSrc = '/character/images/'+imgSrcEvolve;
+		  
 		  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
-		  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');
-		  $(this).closest('.button-container').find('img[name="characterImg"]').addClass('evolCharacter');
-		
-		  let paramS = { id : $('#id').val(), selectCharacter : imgSrcEvolve, characterNo : characterNo, characterImg : imgSrcEvolve, cpoint : $('#point').val() }
-		  $.ajax({
-				type : 'post',
-				data : paramS,
-				url : '/character/evolveCharacter',
-				dataType : 'text',
-				success : function(result){
-					$('#cat').attr('src', newSrc);
-					$('#cat').addClass('evolCharacter');
-					$('#point').val(result);
+	  	  setTimeout(() => {
+	  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 500);
+	  	  setTimeout(() => {
+	  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 1000);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 1400);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 1800);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 2100);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 2400);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 2600);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 2800);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 2900);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 3000);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 3100);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 3200);		  	  
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 3300);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 3400);		
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 3500);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 3600);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 3700);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 3800);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 3900);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 4000);
+	  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+		  }, 4100);
+		  	  setTimeout(() => {
+		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  }, 4200);					  	  
 
-				},
-				error : function(err){
-					console.log(err);
-					alert('Error');
-				}
-			}); // ajax end      
+		  	  setTimeout(() => {
+			  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+			  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');
+			  $(this).closest('.button-container').find('img[name="characterImg"]').addClass('evolCharacter');
+			
+			  let paramS = { id : $('#id').val(), selectCharacter : imgSrcEvolve, characterNo : characterNo, characterImg : imgSrcEvolve, cpoint : $('#point').val() }
+			  $.ajax({
+					type : 'post',
+					data : paramS,
+					url : '/character/evolveCharacter',
+					dataType : 'text',
+					success : function(result){
+						$('#cat').attr('src', newSrc);
+						$('#cat').addClass('evolCharacter');
+						$('#point').val(result);
+
+					},
+					error : function(err){
+						console.log(err);
+						alert('Error');
+					}
+				}); // ajax end      
+		  }, 4100);
+		  
 	}
 });
 

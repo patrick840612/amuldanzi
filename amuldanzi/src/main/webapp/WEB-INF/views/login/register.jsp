@@ -574,7 +574,7 @@ $(function() {
 
 						<div class="account_alertText__bGPQB"></div>
 						<div class="account_signUpInputWrapper__kzyF3">
-							<input type="tel" id="hiddenPhone" class="form-control" required/>	
+							<input type="hidden" id="hiddenPhone" class="form-control" required/>	
 							<input type="tel" name="userTel" placeholder="전화번호"
 								class="account_inputSignUp___sBwm form-control" id="userTel" readonly>
 							<div id="TelCheckDup"></div><div></div>								
@@ -724,7 +724,7 @@ $(function() {
 				<div class="login_loginBar__546og"></div>
 
 				<div class="login_loginfunction__KPcAe">
-					<div class="login_loginTab__9nBLa">비밀번호 찾기</div>
+					<div class="login_loginTab__9nBLa">아이디 / 비밀번호 찾기</div>
 				</div>
 			</div>
 		</div>
