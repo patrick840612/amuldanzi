@@ -182,7 +182,7 @@ public class CommunityController {
 			List<CommImageDTO> fileDtos = new ArrayList<>();
 			
 			// 업로드된 파일 처리 
-			for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < files.length ; i++) {
 		        MultipartFile file = files[i];
 		        String origFilename = file.getOriginalFilename();
 
