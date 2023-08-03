@@ -20,6 +20,32 @@
 <link rel="stylesheet" type="text/css"
 	href="//c.011st.com/css/product/product_view.css">
 <script src="//c.011st.com/js/common/ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#addCartBtn").click(function(){
+        var commerceId = "${list.commerceId}"; // 상품 ID
+        var id = "${id}"; // 사용자 ID
+
+        $.ajax({
+            url: 'http://localhost:8080/market/cartSave', // 데이터를 전송할 URL을 입력해주세요
+            type: 'POST', // HTTP 메소드를 선택합니다 (POST, GET 등)
+            data: { 'commerceId': commerceId, 'id': id }, // 서버로 전송할 데이터
+            success: function(response) { // 서버로부터 응답을 받았을 때의 처리
+                alert(response.message);
+                var r = confirm("장바구니로 이동하시겠습니까?");
+                if (r == true) {
+                    window.location.href = "/market/amulCart";
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // 에러가 발생했을 때의 처리
+                alert("데이터 전송 중 에러가 발생했습니다: " + textStatus);
+            }
+        });
+        
+    });
+}); // end of $
+</script>
 <body class="l_body">
 
 	<!--[if lte IE 7]>
@@ -102,7 +128,7 @@
 												<dl class="rate">
 													<dt>할인율</dt>
 													<dd>
-														<span class="value">10</span><span class="unit">%</span>
+														<span class="value">${list.commercePer }</span><span class="unit">%</span>
 													</dd>
 												</dl>
 
@@ -112,7 +138,7 @@
 														<dl class="price">
 															<dt>할인가</dt>
 															<dd>
-																<strong> <span class="value">8,910</span><span
+																<strong> <span class="value">${price }</span><span
 																	class="unit">원</span>
 																</strong>
 															</dd>
@@ -126,9 +152,9 @@
 														</dl>
 													</li>
 												</ul>
-												<ul class="button-group">
-													<button class="add-to-cart">장바구니에 추가</button>
-												</ul>
+												<div class="button-group">
+													<button class="add-to-cart" id="addCartBtn">장바구니에 추가</button>
+												</div>
 												<style>
 												.button-group {
 													display: flex;
@@ -228,6 +254,7 @@
 									src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 								<!--// 본문 내용 끝 //-->
+								
 							</div>
 						</div>
 					</div>

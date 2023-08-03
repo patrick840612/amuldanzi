@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -143,20 +144,138 @@
 	
 </script>
 <!-- LUX - iMall UI/UX 리뉴얼 프로젝트 추가 [끝] -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-	// ----------------------------------------------------------------------------------
-	// 2015-08-17 : txs
-	// 				AS-IS 화면 호환 하도록 가로 폭 조절 스크립트
-	//				<div id="container"> 가 있으면 AS-IS 화면으로 간주 함.
-	//				만약 AS-IS 화면인 경우 body 에 id=rn_imall_asis 로 지정 함.
-	// ----------------------------------------------------------------------------------
 	$(document).ready(function() {
 		if ($("#container").length > 0) {
 			$("body").attr("id", "rn_imall_asis");
 		}
+
+		// 개별 체크박스 클릭 이벤트
+	    $('input[name="cartCheckbox"]').on('change', function() {
+	        var total = $('input[name="cartCheckbox"]').length;
+	        var checked = $('input[name="cartCheckbox"]:checked').length;
+	        // 전체 선택 체크박스 상태 업데이트
+	        $('#normalAllChk').prop('checked', total === checked);
+	        // 선택된 체크박스 수 업데이트
+	        $('#checkedCount').text(checked);
+
+	        updateTotalPriceAndItems();
+	    });
+
+	    // 전체 선택 체크박스 클릭 이벤트
+	    $('#normalAllChk').on('change', function() {
+	        var isChecked = $(this).is(':checked');
+	        // 모든 체크박스 상태 업데이트
+	        $('input[name="cartCheckbox"]').prop('checked', isChecked).trigger('change');
+	    });
 	});
+
+	$(document).on('click', '.minus', function() {
+        var input = $(this).next('input');
+        var count = parseInt(input.val()) - 1;
+        if (count < 1) {
+            alert("애물단지 상품은 최소 1개 이상 주문이 가능하니 1개 이상의 상품으로 수정해주세요.");
+        } else {
+            input.val(count);
+        }
+    });
+
+    $(document).on('click', '.plus', function() {
+        var input = $(this).prev('input');
+        var count = parseInt(input.val()) + 1;
+        input.val(count);
+    });
+
+    $(document).on('click', '.btn_stype2', function() {
+        var _this = $(this); // 'this'를 '_this' 변수에 할당
+        var input = _this.closest('.cnt').find('input.txt');
+        var count = input.val();
+        var commerceId = _this.siblings('input[name="commerceId"]').val();
+        var id = "${id}"; // JSP에서 id값을 가져옵니다.
+
+        $.ajax({
+            url: 'http://localhost:8080/market/updateCartCount', 
+            type: 'POST',
+            data: { 
+                count: count,
+                commerceId: commerceId,
+                id: id
+            },
+            success: function(response) {
+                var commercePrice = parseFloat(_this.data('price')); // data-price 속성에서 상품 가격 가져오기
+                var commercePer = parseFloat(_this.data('per')); // data-per 속성에서 상품 할인율 가져오기
+                var updatedPrice = Math.round((commercePrice - commercePrice / commercePer) * count);
+
+                // 상품 가격 업데이트
+                _this.parent().parent().next('.price_wrap').find('.price span').text(updatedPrice);
+
+                // 체크박스의 data-price 속성 업데이트
+                _this.closest('tr').find('input[name="cartCheckbox"]').data('price', updatedPrice);
+
+                alert('상품 수정이 완료되었습니다.');
+
+                updateTotalPriceAndItems();
+            },
+            error: function(error) {
+                alert('상품 수정에 실패했습니다.');
+            }
+        });
+    });
+
+    function updateTotalPriceAndItems() {
+        var totalItems = 0;
+        var totalPrice = 0;
+
+        // 체크된 체크박스를 찾아서 순회
+        $("input[name='cartCheckbox']:checked").each(function() {
+            totalItems++;
+            // 가격 정보를 찾아서 더함 (data-price 속성에서 가격 정보를 찾음)
+            totalPrice += parseFloat($(this).data('price'));
+        });
+
+        // 결과를 화면에 업데이트
+        $('#totalResultCount').text(totalItems + '건');
+        $('#totalResultPrc').text(totalPrice.toLocaleString() + '원');
+        $('#total_sale_prc').text(totalPrice.toLocaleString());
+    }
+
+    $(document).on('click', '#selectDelete', function() {
+        var cartIds = [];
+        $('input[name="cartCheckbox"]:checked').each(function() {
+            cartIds.push($(this).data('id'));
+        });
+
+        $.ajax({
+            url: 'http://localhost:8080/market/cartDelete',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                // JSON 형식에 맞게 객체 형태로 래핑하여 보냄
+                cartIds: cartIds
+            }),
+            success: function(response) {
+                alert('선택한 항목이 삭제되었습니다.');
+                location.reload();
+            },
+            error: function(error) {
+                alert('선택한 항목을 삭제하는 데 실패했습니다.');
+                console.log(JSON.stringify({ cartIds: cartIds }));
+            }
+        });
+    });
+    
 </script>
-</link>
+
+<style type="text/css">
+#checkedCount {
+    color: #444444;
+    text-decoration: none;
+    margin-left: 2px;
+    line-height: 22px;
+    font-size: 15px;
+}
+</style>
 </head>
 <jsp:include page="../main/header.jsp"></jsp:include>
 <body>
@@ -254,52 +373,28 @@
 						</div>
 						<div class="cart_renewal order_form" id="cartListArea">
 							<div class="lft">
-								<!--<div class="none_div">
-<p>장바구니가 비어있습니다.</p>
-22-06-22 현행화
-</div>
--->
+								<c:if test="${cartSize}">
+								<div class="none_div">
+								<p>장바구니가 비어있습니다.</p>
+								</div>
+								</c:if>
 								<div class="product_tit" style="top: 84px;" id="normalCartTit">
 									<!-- s: 22-06-22 수정 -->
 									<h3>
 										<div class="c_item">
-											<input type="checkbox" id="normalAllChk" name="normalAllChk"
-												onclick="fn_chkCart('normal', '일반', this, true); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_전체선택');">
-											<label for="normalAllChk" id="normalCartCountTxt">일반
-												(0/0)</label>
+											<input type="checkbox" id="normalAllChk" name="normalAllChk">
+											<label for="normalAllChk">일반
+												(<span id="checkedCount" class="checked-count">0</span>/${cartCount})</label>
 										</div>
 										<div class="btns_wrap">
-											<a href="javascript://" class="btn_stype2"
-												onclick="fn_deleteCartList('normal', this, false); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_선택상품삭제');">선택삭제</a>
+											<a href="javascript://" class="btn_stype" id="selectDelete">선택삭제</a>
 										</div>
 									</h3>
 									<!-- e: 22-06-22 수정 -->
 								</div>
+								<c:if test="${cartList ne null}">
+								<c:forEach items="${cartList }" var="list" varStatus="status">
 								<div class="cart_list" id="normalCartList">
-									<!-- 	묶음 처리 및 배송비 정책 로직 적용
-1. 쿼리 결과가 묶음 수만큼 rnum 으로 집계되서 오므로 rnum 변경 여부와 배송비 정책으로 비교하여 묶음 적용
-2. 다음 rnum 값을 체크하여 틀려질 경우 혹은 배송비 정책이 변경 될 경우 닫고 배송비 표시 -->
-									<!--매장 전달메시지 있는지-->
-									<!--선물메시지 있는지-->
-									<!--선물포장 가능한지-->
-									<!--  배송 단위 묶음 적용값  -->
-									<!--값 세팅-->
-									<!--상품금액합계  ( 세일가 합계 )-->
-									<!--최대할인합계-->
-									<!--배송비합계-->
-									<!--롯데 포인트 총 적립예상금액-->
-									<!--배송구분-->
-									<!--일반 장바구니일 경우-->
-									<!--소속상품  CART_SN-->
-									<!--모든 소속상품 CART_SN-->
-									<!--E-COUPON상품 CART_SN-->
-									<!--유입전시번호-->
-									<!--배송비 row단위 합치기를 위한변수-->
-									<!--배송비 row단위 합치기를 위한변수-->
-									<!--장바구니별 총 주문금액 정보-->
-									<!--[2017.10.25 정영훈] 배송비 추가구매문구/버튼 노출을 위한 선작업-->
-									<!--추가구매 버튼 처리를 위한 변수-->
-									<!--추가구매 버튼 처리를 위한 변수-->
 									<div class="iplist">
 										<table
 											summary="장바구니 목록을 상품명, 혜택, 수량 주문금액, 배송비, 구매/보관으로 정보를 제공하는 표"
@@ -318,71 +413,20 @@
 												<tr>
 													<input type="hidden" name="cart_type" value="normal" />
 													<input type="hidden" name="cart_name" value="일반" />
-													<input type="hidden" name="cart_sn" id="normal_cart_sn0"
-														value="1929708745" />
-													<input type="hidden" name="goods_cmps_cd"
-														id="normal_goods_cmps_cd0" value="50" />
-													<input type="hidden" name="goods_no" id="normal_goods_no0"
-														value="12774229" />
-													<input type="hidden" name="item_no" id="normal_item_no0"
-														value="1" />
-													<input type="hidden" name="dlv_polc_no"
-														id="normal_dlv_polc_no0" value="300" />
-													<input type="hidden" name="goods_choc_desc"
-														id="normal_goods_choc_desc0" value="" />
-													<input type="hidden" name="conr_no" id="normal_conr_no0"
-														value="0" />
-													<input type="hidden" name="smp_vst_shop_no"
-														id="normal_smp_vst_shop_no0" value="0" />
-													<input type="hidden" name="smp_vst_rsv_dtime"
-														id="normal_smp_vst_rsv_dtime0" value="" />
-													<input type="hidden" name="max_lmt_qty"
-														id="normal_max_lmt_qty0" value="20" />
-													<!-- 최대구매수량 -->
-													<input type="hidden" name="min_lmt_qty"
-														id="normal_min_lmt_qty0" value="1" />
-													<!-- 최소구매수량 -->
-													<input type="hidden" name="pur_qty_lmt_yn"
-														id="normal_pur_qty_lmt_yn0" value="Y" />
 													<!-- 구매제한수량 여부 -->
 													<input type="hidden" name="goods_nm" id="normal_goods_nm0"
-														value="로젠토 남성 다이얼 아쿠아 트레킹화 " />
-													<input type="hidden" name="inv_qty" id="normal_inv_qty0"
-														value="99999" />
-													<!-- 재고수량 -->
-													<input type="hidden" name="dsp_psb_yn"
-														id="normal_dsp_psb_yn0" value="N" />
-													<input type="hidden" name="idne_yn" id="normal_idne_yn0"
-														value="N" />
-													<input type="hidden" name="entr_contr_no"
-														id="normal_entr_contr_no0" value="035397" />
-													<input type="hidden" name="ondemand_goods_yn"
-														id="normal_ondemand_goods_yn0" value="N" />
-													<input type="hidden" name="subd_goods_yn"
-														id="normal_subd_goods_yn0" value="N" />
-													<input type="hidden" name="byr_age_lmt_cd"
-														id="byr_age_lmt_cd1929708745" value="0" />
-													<!-- 상품등급 -->
-													<input type="hidden" name="dawn_dlv_ex_comm_goods_yn"
-														id="normal_dawn_dlv_ex_comm_goods_yn0" value="N" />
-													<input type="hidden" name="dawn_dlv_ex_comm_entr_nm"
-														id="normal_dawn_dlv_ex_comm_entr_nm0" value="" />
-													<input type="hidden" name="dawn_dlv_ex_comm_no"
-														id="normal_dawn_dlv_ex_comm_no0" value="" />
-													<input type="hidden" name="gwangCleChkGoods0"
-														id="gwangCleChkGoods1929708745" value="N" />
+														value="애물단지" />
 													<td class="img">
 														<div class="c_item">
-															<input type="checkbox" id="normal0" name="cartCheckbox"
-																value="1929708745"
-																onclick="fn_chkCart('normal', '일반', this, false); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_상품선택');"
-																title="상품선택" /> <label for="normal0">
+															<input type="checkbox" id="normal${status.count}" name="cartCheckbox"
+																value="value${status.count}" data-price="${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}"
+																data-id="${list.cartId}" title="상품선택" /> <label for="normal${status.count}">
 																<div class="img_dim">
 																	<a href="#">
 																		<img
-																		src="https://image2.lotteimall.com/goods/29/42/77/12774229_EM.jpg"
-																		onError="javascript:this.src='https://image2.lotteimall.com/goods/common/no_110.gif'"
-																		width="86" height="86" alt="로젠토 남성 다이얼 아쿠아 트레킹화 " />
+																		src="/images/commerce/${list.commerce.img }"
+																		onError="/images/error/xlogin.jpg'"
+																		width="86" height="86" alt="" />
 																	</a>
 																</div>
 															</label>
@@ -391,69 +435,29 @@
 													<td class="tit">
 														<p class="iptit1">
 															<a href="#">
-																[<span class="bran">로젠토</span>] <span class="name">로젠토
-																	남성 다이얼 아쿠아 트레킹화 </span>
+																<span class="name">${list.commerce.commerceName}</span>
 															<!-- 22-06-22 스마트픽 아이콘 추가 -->
 															</a>
 														</p> <!-- 옵션 -->
-														<p class="ipoption" id="normal0_option"
-															name="normal0_option" style="display: none">
-															<!--선택형 or 추가구성형 or 일반상품-->
-															<select id="normal0_selectbar" name="normal0_selectbar"
-																onchange="fn_changeOption(this, '1');"
-																style="width: 200px;" value="색상:블랙,사이즈:250mm">
-															</select>
-															<!-- 단품관리 여부 end -->
-															<script type="text/javascript">
-																fn_SearchOptionList(
-																		'12774229',
-																		'0',
-																		'1929708745',
-																		'1',
-																		'5000037',
-																		'1',
-																		'Y',
-																		'normal',
-																		'', '',
-																		'0',
-																		'0',
-																		'N',
-																		'0');
-															</script>
-															<!-- //단품관리 여부 end -->
-														</p> <input type="hidden" id="noint_1929708745"
-														name="noint_1929708745" value="0" /> <input type="hidden"
-														id="save_amt_1929708745" name="save_amt_1929708745"
-														value="0" /> <input type="hidden"
-														id="lt_pnt_rsrv_amt_1929708745"
-														name="lt_pnt_rsrv_amt_1929708745" value="30" /> <input
-														type="hidden" id="okcs_rsrv_amt_1929708745"
-														name="okcs_rsrv_amt_1929708745" value="0" /> <!-- 혜택 정보 end-->
-														<!--추가선택정보(배송희망일, 이니셜 등) start-->
-														<div class="ipbene1 pay_add addOption"></div> <!--추가선택정보 end-->
 													</td>
 													<td class="cnt">
 														<!-- s: 22-06-22 수정 -->
 														<div class="count_wrap">
 															<div class="number_area">
-																<a href="javascript:void(0)" class="minus"
-																	onclick="fn_max_qry_update('normal','minus','0');">-</a>
+																<a href="javascript:void(0)" class="minus">-</a>
 																<input type="text" class="txt" name="ord_qty"
-																	id="normal_ord_qty0" maxlength="3" title="수량입력"
-																	value="1"
-																	onclick="fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_수량인풋박스');"
-																	onkeyup="fn_setNumberQty(this);" /> <a
-																	href="javascript:void(0)" class="plus"
-																	onclick="fn_max_qry_update('normal','plus','0');">+</a>
+																	id="normal_ord_qty${status.count}" maxlength="3" title="수량입력"
+																	value="${list.count}"
+																	onclick=""/> <a
+																	href="javascript:void(0)" class="plus">+</a>
 															</div>
-															<span class="btns_wrap"> <a
+															<span class="btns_wrap"> 
+															<input type="hidden" name="commerceId" value=${list.commerce.commerceId } />
+															<a
 																href="javascript:void(0)" class="btn_stype2"
-																onclick="fn_qry_update('normal', '0','12774229','1'); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_수량수정');">수정</a>
+																data-price="${list.commerce.commercePrice}" data-per="${list.commerce.commercePer}">수정</a>
 															</span>
-														</div> <!-- 상품가 --> <!--주문금액--> <!--최대 혜택가--> <!--즉석쿠폰할인--> <!--ARS할인-->
-														<!--일시불할인--> <!--적립P--> <!--할인금액--> <!--주문수량과 관계없이 순수한 상품가격-->
-														<!--묶음상품은 쿼리에서 소속상품 주문갯수만큼 *n개 해주어 대표상품에 sum해서 보여준다. 별도로 처리안해도됨-->
-														<!--할인율 10:정액 20 : 정률--> <!--할인 금액/율--> <!--//[2023.02.08 이주형] 할인금액은 즉석쿠폰, 임직원 할인, ARS할인 중 큰 금액 적용1-->
+														</div>
 														<div class="price_wrap">
 															<input type="hidden" name="sale_prc"
 																id="normal_sale_prc0" value="29800" /> <input
@@ -461,24 +465,14 @@
 																value="0" />
 															<!--즉석쿠폰/임직원 할인/ARS할인이 없는 경우(수정자:210014 이주형)-->
 															<p class="price">
-																<span>29,800</span>원
+																<span>${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}</span>원
 															</p>
-															<button class="btn_popup"
-																onclick="modal('/cart/popup/forward.pop_benefit_discount.lotte?cart_sn=1929708745&mbr_no=202308513287&sale_prc=29800&goods_no=12774229&item_no=1&ord_qty=1&staff_yn=N&site_no=1&chl_no=0&chl_dtl_no=&mc_yn=N'+'','380','','');">혜택자세히보기</button>
-															<!-- 22-06-22 혜택자세히보기 버튼 추가 -->
-															<!--즉석쿠폰이나 임직원 할인이 있는 경우-->
+															
 														</div> <!-- e: 22-06-22 수정 -->
 													</td>
 													<td class="btns_wrap"><a href="javascript://"
-														class="btn_stype1"
-														onclick="fn_order('normal', 'single', '1929708745', '0', '', undefined, undefined, '0'); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_바로구매');">바로구매</a>
-														<a href="javascript://" class="btn_stype2"
-														onclick="longTermItem('1929708745','N','0','normal'); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_계속담기');"
-														id="longTermnormalBtn0">계속담기</a> <a href="javascript://"
-														class="btn_stype2"
-														onclick="fnChkLogin('','','','','','fn_addWishList({ goods_no:\'12774229\',item_no:\'1\',goods_choc_desc:\'\',goods_cmps_cd:\'\',conr_no:\'0\',smp_vst_shop_no:\'0\',smp_vst_rsv_dtime:\'\',master_goods_yn:\'Y\'})');fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_찜하기');">찜하기</a>
-														<a href="javascript://" class="btn_stype2"
-														onclick="fn_deleteCartList('normal', this, true); fn_makeGaTraking('장바구니(PC)','장바구니(PC)_상품유닛','장바구니(PC)_상품유닛_삭제');">삭제</a>
+														class="btn_stype1">바로구매</a>
+														<a href="/market/cartDelete?cartId=${list.cartId }" class="btn_stype2">삭제</a>
 													</td>
 												</tr>
 												<!-- 옵션정보문구 case 1~10 -->
@@ -493,14 +487,14 @@
 														</div>
 													</td>
 												</tr>
-												<!-- 사은품 있을때 갯수카운트 disable class="disabled_table"-->
 											</tbody>
 										</table>
 										
 									</div>
 								</div>
 								<!--일반 장바구니 for문 end-->
-								
+								</c:forEach>
+								</c:if>
 							</div>
 							<!-- 3. product. //product list area -->
 							<div class="rht">

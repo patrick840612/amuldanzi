@@ -72,25 +72,50 @@
 
 			<section class="cards-wrap">
 
-				<!-- 상품 반복부분 -->
-				<c:forEach items="${marketList}" var="list">
+
+				<c:forEach items="${marketList}" var="list" varStatus="loop">
+					<!-- 상품 반복부분 -->
 					<article class="card-top ">
-						<a class="card-link " href="/market/jungoDetail?goodsId=${list.goodsId}">
+						<a class="card-link "
+							href="/market/dolbomiDetail?goodsId=${list.goodsId}">
 							<div class="card-photo ">
-								<img alt="" src="" />
+								<img alt="" src="/images/market/${list.img}" />
 							</div>
 							<div class="card-desc">
 								<h2 class="card-title">${list.goodsName}</h2>
 								<div class="card-price ">시급 : ${list.goodsPrice}원</div>
-								<div class="card-region-name">날짜 | 시간</div>
+								<div class="card-region-name"></div>
 								<div class="card-counts">
-									<span> 조회수 ${list.goodsCount} </span>
+									<span> 조회수 : ${list.goodsCount} </span> <br />
+									<p id="elapsedTime${loop.index}"></p>
 								</div>
 							</div>
 						</a>
 					</article>
+					<!-- 상품 반복 끝 -->
+					<script>
+					var serverTime = new Date('${list.goodsDate}'); // 서버로부터 받은 시간
+					var now = new Date(); // 현재 시간
+
+					var diffMs = now - serverTime; // 시간 차이 (밀리초)
+					var diffSecs = Math.floor(diffMs / 1000); // 시간 차이 (초)
+					var diffMins = Math.floor(diffSecs / 60); // 시간 차이 (분)
+					var diffHours = Math.floor(diffMins / 60); // 시간 차이 (시간)
+					var diffDays = Math.floor(diffHours / 24); // 시간 차이 (일)
+
+					var elapsedTime = '';
+					if (diffDays > 0) {
+						elapsedTime = diffDays + ' 일 전';
+					} else if (diffHours > 0) {
+						elapsedTime = diffHours + ' 시간 전';
+					} else {
+						elapsedTime = diffMins + ' 분 전';
+					}
+
+					document.getElementById('elapsedTime' + ${loop.index}).innerText = elapsedTime;
+					</script>
 				</c:forEach>
-				<!-- 상품 반복 끝 -->
+
 
 			</section>
 		</section>

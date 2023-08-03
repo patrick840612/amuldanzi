@@ -1,20 +1,22 @@
 package com.amuldanzi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.amuldanzi.domain.CartDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.persistence.CartRepository;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.JungoLikeRepository;
 import com.amuldanzi.persistence.MarketRepository;
-import com.amuldanzi.persistence.MemberRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -29,6 +31,9 @@ public class MarketServiceImpl implements MarketService {
 	
 	@Autowired
 	private CommerceRepository commerceRepo;
+	
+	@Autowired
+	private CartRepository cartRepo;
 
 	@Override
 	public Page<MarketGoodsDTO> findMarketCate(Pageable paging) {
@@ -99,5 +104,40 @@ public class MarketServiceImpl implements MarketService {
 	public CommerceDTO findByCommerceId(int commerceId) {
 		return commerceRepo.findById(commerceId).get();
 	}
+
+	@Override
+	public void cartSave(CartDTO cart) {
+		cartRepo.save(cart);
+	}
+
+	@Override
+	public boolean cartCheck(MemberInfoDTO memberInfo, CommerceDTO commerce) {
+		return cartRepo.findByMemberInfoAndCommerce(memberInfo, commerce).isPresent();
+	}
+
+	@Override
+	public List<CartDTO> findCartById(Object id) {
+		return cartRepo.findByMemberInfo_Id(id);
+		
+	}
+
+	@Override
+	public void deleteCartByCartId(int cartId) {
+		cartRepo.deleteById(cartId);
+	}
+
+	@Override
+	public Optional<CartDTO> findByMemberInfoAndCommerce(MemberInfoDTO member, CommerceDTO commerce) {
+		return cartRepo.findByMemberInfoAndCommerce(member, commerce);
+	}
+
+	@Override
+	public void cartDelete(int cartId, String userId) {
+		cartRepo.cartDelete(cartId,userId);
+	}
+
+
+
+
 
 }
