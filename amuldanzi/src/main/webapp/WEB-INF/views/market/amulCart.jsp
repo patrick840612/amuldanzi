@@ -175,8 +175,14 @@
 		        buyer_postcode : "123-456"
 		    }, function(rsp) {
 		        if ( rsp.success ) {
-		            // 결제 성공 시 로직
-		            alert("결제가 완료되었습니다.");
+		        	var msg = '결제가 완료되었습니다.';
+	    			msg += '\n고유ID : ' + rsp.imp_uid;
+	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	    			msg += '\결제 금액 : ' + rsp.paid_amount;
+	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+	    			
+	    			alert(msg);
+
 		        } else {
 		            // 결제 실패 시 로직
 		            alert("결제에 실패하였습니다.");
@@ -506,8 +512,7 @@
 
 																</div> <!-- e: 22-06-22 수정 -->
 															</td>
-															<td class="btns_wrap"><a href="javascript://"
-																class="btn_stype1">바로구매</a> <a
+															<td class="btns_wrap"> <a
 																href="/market/cartDelete?cartId=${list.cartId }"
 																class="btn_stype2">삭제</a></td>
 														</tr>
