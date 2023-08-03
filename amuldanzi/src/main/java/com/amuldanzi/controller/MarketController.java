@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,16 +28,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amuldanzi.domain.CartDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketCategoryDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
+import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.persistence.CommerceRepository;
+import com.amuldanzi.persistence.MemberRepository;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MarketService;
 import com.amuldanzi.util.MD5Generator;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "http://192.168.0.69:3000")
@@ -52,6 +58,12 @@ public class MarketController {
 
 	@Autowired
 	private MarketService marketservice;
+	
+	@Autowired
+    private CommerceRepository commerceRepository;
+
+    @Autowired
+    private MemberRepository memberInfoRepository;
 
 	// 페이지 이동
 	@RequestMapping("/{step}")
@@ -357,8 +369,199 @@ public class MarketController {
 		m.addAttribute("list", result);
 		m.addAttribute("commmerceId",commerceId);
 		
+		if(result.getCommercePer()!=0) {
+			m.addAttribute("price", result.getCommercePrice() - result.getCommercePrice() / result.getCommercePer());
+		}
+		
 		
 	}
 	
+	@RequestMapping(value = "/dolbomiSave", method = RequestMethod.POST)
+	public String dolbomiSave(@RequestParam("file") MultipartFile file, MarketGoodsDTO dto, Model m) {
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		m.addAttribute("id", map.get("id"));
+		m.addAttribute("memberRole", map.get("memberRole"));
+
+		MarketCategoryDTO cate = new MarketCategoryDTO();
+		cate.setCateId(2);
+		cate.setCateName("돌보미마켓");
+
+		dto.setMarketCate(cate);
+		dto.setGoodsCount(0);
+		dto.setGoodsQuality("new");
+
+		try {
+			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\market";
+
+			if (!new File(savePath).exists()) {
+				new File(savePath).mkdir(); // 이미지 폴더 생성
+			}
+
+			String oriFilename = file.getOriginalFilename();
+
+			if (oriFilename != null && !oriFilename.equals("")) {
+				String filename = new MD5Generator(oriFilename).toString();
+				String filepath = savePath + "\\" + filename;
+				file.transferTo(new File(filepath));
+
+				dto.setImg(filename);
+				dto.setImgPath(filepath);
+			}
+
+			// 데이터베이스에 저장
+			System.out.println(dto.toString());
+			marketservice.jungoSave(dto);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			// 업로드 실패 처리
+			System.out.println("예외 메시지: " + ex.getMessage());
+			return "redirect:/admin/adminContentInsert?error";
+		}
+
+		return "redirect:/market/dolbomiShop";
+
+	}
+	
+	@RequestMapping("/dolbomiDetail")
+	@Transactional
+	public void dolbomiDetail(MarketGoodsDTO dto, Model m) {
+
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		m.addAttribute("id", map.get("id"));
+		m.addAttribute("memberRole", map.get("memberRole"));
+
+		MarketGoodsDTO result = marketservice.findById(dto.getGoodsId());
+		result.setGoodsCount(result.getGoodsCount()+1);
+		marketservice.save(result);
+		m.addAttribute("marketList", result);
+
+		// DB에서 가져온 날짜
+		Timestamp dbTime = result.getGoodsDate();
+
+		// 현재 시간을 가져옴
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+		// 두 시간 사이의 차이 계산
+		long milliseconds = currentTime.getTime() - dbTime.getTime();
+		int seconds = (int) milliseconds / 1000;
+
+		// 초를 분, 시간, 일로 변환
+		int minutes = seconds / 60;
+		int hours = minutes / 60;
+		int days = hours / 24;
+
+		m.addAttribute("hours", hours);
+		m.addAttribute("minutes", minutes);
+		
+		JungoLikeDTO likeCheck = marketservice.findByGoodsIdAndMemberId(dto.getGoodsId(),map.get("id"));
+		
+		if(likeCheck != null) {
+			m.addAttribute("hasLike",1);
+		}else {
+			m.addAttribute("hasLike",0);
+		}
+	}
+	
+	@PostMapping("/cartSave")
+	public ResponseEntity<Map<String, String>> addCart(@RequestParam("commerceId") Integer commerceId, @RequestParam("id") String id) {
+	    CommerceDTO commerce = commerceRepository.findById(commerceId)
+	            .orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
+	    MemberInfoDTO member = memberInfoRepository.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+
+	    Map<String, String> response = new HashMap<>();
+
+	    if (marketservice.cartCheck(member, commerce)) {
+	        response.put("message", "이미 장바구니에 담긴 상품입니다.");
+	    } else {
+	        CartDTO cart = new CartDTO();
+	        cart.setCommerce(commerce);
+	        cart.setMemberInfo(member);
+	        cart.setCount(1); // default count is 1. Change this as needed.
+
+	        marketservice.cartSave(cart);
+	        response.put("message", "장바구니에 상품이 추가되었습니다.");
+	    }
+
+	    return ResponseEntity.ok(response);
+	}
+	
+	@RequestMapping("/amulCart")
+	public void amulCart(Model m) {
+		
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		m.addAttribute("id", map.get("id"));
+		m.addAttribute("memberRole", map.get("memberRole"));
+
+		List<CartDTO> cartResult = marketservice.findCartById(map.get("id"));
+		
+		if(cartResult.isEmpty()) {
+			m.addAttribute("cartList", null);
+		}else {
+			m.addAttribute("cartList", cartResult);
+			int count = cartResult.size();
+			m.addAttribute("cartCount", count);
+		}
+		
+		
+	}
+	
+	@RequestMapping("/cartDelete")
+	public String cartDelete( @RequestParam(required = false, value = "cartId") int cartId, Model m ) {
+		
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		m.addAttribute("id", map.get("id"));
+		m.addAttribute("memberRole", map.get("memberRole"));
+		
+		//-------------------------------------------------------------
+		marketservice.deleteCartByCartId(cartId);
+		
+		return "redirect:/market/amulCart";
+		
+	}
+	
+	@PostMapping("/updateCartCount")
+	public ResponseEntity<Map<String, String>> updateCartCount(@RequestParam("id") String id, @RequestParam("commerceId") Integer commerceId, @RequestParam("count") Integer count) {
+	    CommerceDTO commerce = commerceRepository.findById(commerceId)
+	            .orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
+	    MemberInfoDTO member = memberInfoRepository.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+
+	    CartDTO cart = marketservice.findByMemberInfoAndCommerce(member, commerce)
+	            .orElseThrow(() -> new IllegalArgumentException("No cart found with given member Id and commerce Id"));
+	    cart.setCount(count);
+
+	    marketservice.cartSave(cart);
+
+	    Map<String, String> response = new HashMap<>();
+	    response.put("message", "장바구니 상품 수량이 업데이트 되었습니다.");
+
+	    return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/cartDelete")
+	@ResponseBody
+	public String cartDelete(@RequestBody Map<String, List<Integer>> requestBody) {
+	    List<Integer> cartIds = requestBody.get("cartIds");
+
+	    // headerChange() 메서드를 통해 헤더 정보를 가져옴
+	    Map<String, Object> map = headerChange();
+	    // 헤더 정보를 모델에 추가
+	    String userId = (String) map.get("id");
+	    
+	    for (int cartId : cartIds) {
+	        marketservice.cartDelete(cartId, userId);
+	    }
+
+	    return "Success";
+	}
 	
 }

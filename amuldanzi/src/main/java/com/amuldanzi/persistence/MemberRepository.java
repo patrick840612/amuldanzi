@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.amuldanzi.domain.MemberInfoDTO;
 
-public interface MemberRepository extends CrudRepository<MemberInfoDTO, Integer>{
+public interface MemberRepository extends CrudRepository<MemberInfoDTO, String>{
 
 	@Query("SELECT m FROM MemberInfoDTO m WHERE m.id = ?1")
 	MemberInfoDTO findId(String memberId);

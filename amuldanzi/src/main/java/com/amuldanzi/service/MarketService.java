@@ -1,13 +1,16 @@
 package com.amuldanzi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.amuldanzi.domain.CartDTO;
 import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
+import com.amuldanzi.domain.MemberInfoDTO;
 
 public interface MarketService {
 
@@ -24,6 +27,11 @@ public interface MarketService {
 	void save(MarketGoodsDTO result);
 	List<CommerceDTO> findAllCommerce();
 	CommerceDTO findByCommerceId(int commerceId);
-	
+	void cartSave(CartDTO cart);
+	boolean cartCheck(MemberInfoDTO memberInfo, CommerceDTO commerce);
+	List<CartDTO> findCartById(Object id);
+	void deleteCartByCartId(int cartId);
+	Optional<CartDTO> findByMemberInfoAndCommerce(MemberInfoDTO member, CommerceDTO commerce);
+	void cartDelete(int cartId, String userId);
 	
 }

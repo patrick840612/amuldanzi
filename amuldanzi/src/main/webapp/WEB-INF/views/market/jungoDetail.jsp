@@ -32,7 +32,7 @@
 <body class="hoian-kr">
 
 	<article id="content" data-id="611832877">
-		<h1 class="hide">위닉스 제습기 10L</h1>
+		<h1 class="hide">${marketList.goodsName} </h1>
 		<section id="article-images">
 			<h3 class="hide">이미지</h3>
 			<div id="image-slider">
