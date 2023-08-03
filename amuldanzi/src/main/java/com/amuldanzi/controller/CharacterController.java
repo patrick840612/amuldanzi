@@ -109,6 +109,16 @@ public class CharacterController {
 		return "redirect:/character/character";
 	}
 	
+	@RequestMapping("/ranmdoFail")
+	@ResponseBody
+	public String ranmdoFail(MemberInfoDTO member) {
+		
+		member.setCpoint(member.getCpoint()-10000);
+		characterService.minusCpoint(member);
+		
+		return String.valueOf(member.getCpoint());
+	}
+	
 	//캐릭터 선택
 	@RequestMapping("/selectCharacter")
 	@ResponseBody
@@ -118,7 +128,7 @@ public class CharacterController {
 		return member.getSelectCharacter(); 
 	}	
 	
-	//캐릭터 선택
+	//캐릭터 진화
 	@RequestMapping("/evolveCharacter")
 	@ResponseBody
 	public String evolveCharacter(MemberInfoDTO member, CharacterDTO character) {

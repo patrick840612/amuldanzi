@@ -12,5 +12,5 @@ public interface CharacterService {
 	public void selectCharacter(MemberInfoDTO member);
 	public MemberInfoDTO findById(String id);
 	public void evolveCharacter(MemberInfoDTO member, CharacterDTO character);
-	
+	public void minusCpoint(MemberInfoDTO member);
 }

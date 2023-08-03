@@ -156,7 +156,7 @@ body {
   bottom: 10px;
   right: 50px;
   margin-bottom: 30px;
-  margin-right: 260px;
+  margin-right: 250px;
   text-align: center;
   color: red;
   font-weight: bold;
@@ -250,7 +250,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
 }
 
@@ -267,31 +267,9 @@ body {
 .selected-character-image {
   max-width: 200%;
   max-height: 200%;
-  width: 300px;
+  width: 500px;
  
 }
-
-/*진화 애니메이션*/
-.evolCharacter {
-  /* 기본적인 이미지 스타일 설정 */
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  /* 빛나는 효과 설정 */
-  box-shadow: 0 0 5px #FFF, 0 0 20px #FFF, 0 0 40px #FFF, 0 0 60px #FFF;
-  animation: glow 1s infinite alternate;
-}
-
-/* 빛나는 효과 애니메이션 설정 */
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px #FFF, 0 0 20px #FFF, 0 0 40px #FFF, 0 0 60px #FFF;
-  }
-  to {
-    box-shadow: 0 0 20px #FFC0CB, 0 0 80px #00FFFF, 0 0 160px #FFFF00, 0 0 240px #FFA500;
-  }
-}
-
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
@@ -324,11 +302,11 @@ body {
 				            </div>            
 		                </c:forEach>
 		                <input type="button" value="게임 시작" id="playGame"/>
-		                <input type="hidden" readonly="readonly" id="noMore" value="중복 캐릭터가 있습니다(-10,000P)" disabled="disabled"/>
+		                <input type="hidden" readonly="readonly" id="noMore" value="캐릭터 수집 완료(진화시켜 주세요)" disabled="disabled"/>
 		                <input type="hidden" readonly="readonly" id="cpointx" value="뽑기/진화 비용 10,000P" disabled="disabled"/>
 		                <input type="text" readonly="readonly" id="cpoint" value="cpoint : " disabled="disabled"/>
 		                <input type="text" readonly="readonly" name="cpoint" id="point" value="${cpoint}"/>
-		                <input type="button" value="캐릭터 뽑기" id="selectImg"/>
+		                <input type="button" value="캐릭터 뽑기" id="selectImg" onclick="startGacha()"/>
 		                
 		                
 <div class="popup-overlay" id="popupOverlay">
@@ -343,7 +321,7 @@ body {
 		                
 		                <input type="hidden" name="id" value="${id}" id="id"/>
 		                <input type="hidden" name="randomAnimal" id="randomAnimal" value="" />
-		                <canvas width="400" height="700">	<div id="imageContainer"/>
+		                <canvas width="400" height="700">	
 					</div>
 				</div>
 
@@ -371,21 +349,6 @@ $(function(){
           $(this).find('.game-button').css('background-color', '#3498db'); // 배경색을 변경하거나 원하는 스타일을 적용합니다.
         }
     });
-    
-    let imgSrcList = [];
-	$('.game-button').each(function () {
-	    let imgSrc = $(this).find('img[name="characterImg"]').attr('src').split('/').pop();
-	    // imgSrc 값이 "2.png"로 끝나는 경우에 isCharacter 클래스를 추가
-	    if (imgSrc.endsWith("2.png")) {
-	        $(this).find('img[name="characterImg"]').addClass('evolCharacter');
-	    }
-	});
-	
-	let catTest = $('#cat').attr('src').split('/').pop();
-	if(catTest.endsWith("2.png")){
-		$('#cat').addClass('evolCharacter');
-	}
-    
 });
 
 //캐릭터 진화
@@ -406,8 +369,7 @@ $('.evolve-button').click(function () {
 		  });
 		  const newSrc = '/character/images/'+imgSrcEvolve;
 		  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
-		  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');
-		  $(this).closest('.button-container').find('img[name="characterImg"]').addClass('evolCharacter');
+		  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');  
 		
 		  let paramS = { id : $('#id').val(), selectCharacter : imgSrcEvolve, characterNo : characterNo, characterImg : imgSrcEvolve, cpoint : $('#point').val() }
 		  $.ajax({
@@ -417,9 +379,7 @@ $('.evolve-button').click(function () {
 				dataType : 'text',
 				success : function(result){
 					$('#cat').attr('src', newSrc);
-					$('#cat').addClass('evolCharacter');
 					$('#point').val(result);
-
 				},
 				error : function(err){
 					console.log(err);
@@ -446,12 +406,6 @@ $('.select-button').click(function(){
 		success : function(result){
 			const newSrc = '/character/images/'+result;
 			$('#cat').attr('src', newSrc);
-			let catTest = $('#cat').attr('src').split('/').pop();
-			if(catTest.endsWith("2.png")){
-				$('#cat').addClass('evolCharacter');
-			}else{
-				$('#cat').removeClass('evolCharacter');
-			}
 			
 		    const selectedCharacterImg = newSrc;
 		    $('.button-container').each(function () {
@@ -473,58 +427,41 @@ $('.select-button').click(function(){
 
 // 캐릭터 뽑기
 $('#selectImg').click(function(event){
-	//let animalList2 = animalList.filter(item => !imgSrcList.includes(item)); // 리스트끼리 포함 비교하기
 	event.preventDefault();
-  if(parseInt($('#point').val(), 10) < 10000){
-	  $('#cpointx').attr('type', 'text');
-	  $('#point').focus();
-  }else{ // 가챠 성공
-	  $('#cpointx').attr('type', 'hidden');
-		let foundRandomAnimal = false;
-		let imgSrcList = []; // 이미지 파일 이름들을 저장할 배열
-		$('.game-button').each(function () {
+	let animalList = [ 'bear.png', 'calamari.png', 'cat.png', 'dog.png', 'dragon.png', 'koala.png', 'lobster.png', 'octopus.png', 'penguin.png', 'snake.png', 'turtle.png', 'whale.png'];
+	let foundRandomAnimal = false;
+	let imgSrcList = []; // 이미지 파일 이름들을 저장할 배열
+	
+	  $('.game-button').each(function () {
 		    let imgSrc = $(this).find('img[name="characterImg"]').attr('src').split('/').pop();
 		    imgSrcList.push(imgSrc);		    
-		});
-		
-		let chooseCharacter = startGacha();
-		let chooseCharacterSrc = $(chooseCharacter).attr('src').split('/').pop();
-		
-		if (imgSrcList.includes(chooseCharacterSrc)) {
-		    foundRandomAnimal = true;
-		}
-		
-		if(foundRandomAnimal){
-			setTimeout(() => {
-				$('#noMore').attr('type', 'text');
-				
-				  let paramS = { id : $('#id').val(), cpoint : $('#point').val() }
-				  $.ajax({
-						type : 'post',
-						data : paramS,
-						url : '/character/ranmdoFail',
-						dataType : 'text',
-						success : function(result){
-							$('#point').val(result);
-							$('#point').focus();
-							setTimeout(() => {
-								$('#noMore').attr('type', 'hidden');					
-							}, 3000);
-						},
-						error : function(err){
-							console.log(err);
-							alert('Error');
-						}
-					}); // ajax end      				
+	  });
+	
+	  if(parseInt($('#point').val(), 10) < 10000){
+		  $('#cpointx').attr('type', 'text');
+	  }else{ // 가챠 성공
+		  $('#cpointx').attr('type', 'hidden');
 
-			}, 4000);
-		}else{
-			setTimeout(() => {
-			    $('#randomAnimal').val(chooseCharacterSrc);
-	            $('#characterFrm').submit();	
-			}, 4000);
-		}
-  }
+		  animalList = animalList.filter(item => !imgSrcList.includes(item));
+
+		    if (animalList.length > 0) {
+
+		    	foundRandomAnimal = true;
+		    	$('#noMore').attr('type', 'hidden');
+			    let randomIndex = Math.floor(Math.random() * animalList.length);
+			    let randomAnimal = animalList[randomIndex];
+			    $('#randomAnimal').val(randomAnimal);
+		    }else{
+		    	$('#noMore').attr('type', 'text');
+		    }
+	  }
+
+      if (foundRandomAnimal) {
+    	setTimeout(() => {
+            $('#characterFrm').submit();			
+		}, 5000);
+
+      }
 });
 
 
