@@ -70,14 +70,23 @@
         	        sejong: new kakao.maps.Marker({
         	            position: new kakao.maps.LatLng(36.4804, 127.2895)
         	        }),
-        	        chungcheong: new kakao.maps.Marker({
-        	            position: new kakao.maps.LatLng(36.6358, 127.4917)
+        	        chungbuk: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(36.6360, 127.4910)
         	        }),
-        	        jeonla: new kakao.maps.Marker({
-        	            position: new kakao.maps.LatLng(35.7167, 127.1444)
+        	        chungnam: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(36.6591, 126.6734)
         	        }),
-        	        gyungsang: new kakao.maps.Marker({
-        	            position: new kakao.maps.LatLng(35.4606, 128.2132)
+        	        jeonbuk: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(35.8203, 127.1087)
+        	        }),
+        	        jeonnam: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(34.8159, 126.4628)
+        	        }),
+        	        gyungbuk: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(36.5759, 128.5055)
+        	        }),
+        	        gyungnam: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(35.2381, 128.6923)
         	        }),
         	        uleong: new kakao.maps.Marker({
         	            position: new kakao.maps.LatLng(37.4857, 130.8989)
@@ -111,7 +120,7 @@
                     // 데이터를 순회하며 결과 추가
 					$.each(data, function(index, item) {
 						  var resultRow = "<tr class='result-item'>";
-						  resultRow += "<td class='tel-info' data-tel='" + item.blood_tel + "'>***-****-****</td>";
+						  resultRow += "<td class='tel-info' data-tel='" + item.userTel + "'>***-****-****</td>";
 						  resultRow += "<td>" + item.sido + "</td>";
 						  resultRow += "<td>" + item.petBlood + "</td>";
 						  resultRow += "<td>" + item.whichPet + "</td>";

@@ -396,6 +396,7 @@ function hidePopup() {
 			<c:forEach items="${eduList}" var ="edu">
 			<div class="mainContent_mainContentBox__shdST">
 				<div>
+				<a href="/education/educationDetail?id=${edu.id}&title=${edu.title}">
 					<span
 						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"><span
 						style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 63.8298% 0px 0px;"></span><img
@@ -404,10 +405,11 @@ function hidePopup() {
 						decoding="async" data-nimg="responsive"
 						class="mainContent_mainImg__dWbCy"
 						style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; filter: none; background-size: cover; background-image: none; background-position: 0% 0%;">
-					<noscript></noscript></span>
+					<noscript></noscript></span></a>
 				</div>
 				<div class="mainContent_mainContent__w_Buk">
-					<div class="mainContent_mainTitle__8iW62">${edu.title}</div>
+				<a href="/education/educationDetail?id=${edu.id}&title=${edu.title}">
+					<div class="mainContent_mainTitle__8iW62">${edu.title}</div></a>
 					<div class="mainContent_mainAuthor__kKyGl">애물단지</div>
 				</div>
 			</div>

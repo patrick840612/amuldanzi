@@ -167,58 +167,7 @@ public class MapServiceImpl implements MapService{
 		    
 		    return result;
 	}
-
-	@Override
-	public List<HashMap<String, Object>> getChungcheongData() {
-		List<Object[]> regionData = mapRepository.findByLocation("충청");
-
-        List<HashMap<String, Object>> result = new ArrayList<>();
-        for (Object[] objArray : regionData) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("sido", objArray[0]);
-            map.put("userTel", objArray[1]);
-            map.put("whichPet", objArray[2]);
-            map.put("petBlood", objArray[3]);
-            result.add(map);
-        }
-		    
-		    return result;
-	}
-
-	@Override
-	public List<HashMap<String, Object>> getJeonlaData() {
-		List<Object[]> regionData = mapRepository.findByLocation("전라");
-
-        List<HashMap<String, Object>> result = new ArrayList<>();
-        for (Object[] objArray : regionData) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("sido", objArray[0]);
-            map.put("userTel", objArray[1]);
-            map.put("whichPet", objArray[2]);
-            map.put("petBlood", objArray[3]);
-            result.add(map);
-        }
-		    
-		    return result;
-	}
-
-	@Override
-	public List<HashMap<String, Object>> getGyungsangData() {
-		List<Object[]> regionData = mapRepository.findByLocation("경상");
-
-        List<HashMap<String, Object>> result = new ArrayList<>();
-        for (Object[] objArray : regionData) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("sido", objArray[0]);
-            map.put("userTel", objArray[1]);
-            map.put("whichPet", objArray[2]);
-            map.put("petBlood", objArray[3]);
-            result.add(map);
-        }
-		    
-		    return result;
-	}
-
+ 
 	@Override
 	public List<HashMap<String, Object>> getuleongData() {
 		List<Object[]> regionData = mapRepository.findByLocation("울릉");
@@ -239,6 +188,108 @@ public class MapServiceImpl implements MapService{
 	@Override
 	public List<HashMap<String, Object>> gwangwonData() {
 		List<Object[]> regionData = mapRepository.findByLocation("강원");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getChungnukData() {
+		List<Object[]> regionData = mapRepository.findByLocation("충북");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getChungnamData() {
+		List<Object[]> regionData = mapRepository.findByLocation("충남");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getJeonbukData() {
+		List<Object[]> regionData = mapRepository.findByLocation("전북");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getJeonnamData() {
+		List<Object[]> regionData = mapRepository.findByLocation("전남");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getGyungbukData() {
+		List<Object[]> regionData = mapRepository.findByLocation("경북");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getGyungnamData() {
+		List<Object[]> regionData = mapRepository.findByLocation("경남");
 		
 		List<HashMap<String, Object>> result = new ArrayList<>();
 		for (Object[] objArray : regionData) {

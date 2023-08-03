@@ -77,7 +77,9 @@ html, body {
 }
 
 .card-list {
-	display: block;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin: 1rem auto;
 	padding: 0;
 	font-size: 0;
@@ -166,7 +168,7 @@ function lazyLoad() {
 		</a>
 		<a class="card-description" href="/education/educationDetail?id=${edu.id}&title=${edu.title}" target="_blank">
 			<h2>${edu.title}</h2> 
-			<p>${edu.content}</p>
+			<p>애물단지</p>
 		</a>
 	</li>
 	</c:forEach> 

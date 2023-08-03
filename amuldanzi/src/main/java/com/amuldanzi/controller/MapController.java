@@ -170,30 +170,60 @@ public class MapController {
 	       }
 	       
 	       // 충청도 데이터 요청
-	       @GetMapping("/chungcheongData")
+	       @GetMapping("/chungnukData")
 	       @ResponseBody
-	       public List<HashMap<String,Object>> getChungcheongData(Model m) {
-	           List<HashMap<String,Object>> chungcheongData = mapService.getChungcheongData();
+	       public List<HashMap<String,Object>> getChungnukData(Model m) {
+	           List<HashMap<String,Object>> chungcheongData = mapService.getChungnukData();
+	           System.out.println(chungcheongData); 
+	        return chungcheongData;   
+	           
+	       }
+	       
+	    // 충청도 데이터 요청
+	       @GetMapping("/chungnamData")
+	       @ResponseBody
+	       public List<HashMap<String,Object>> getChungnamData(Model m) {
+	           List<HashMap<String,Object>> chungcheongData = mapService.getChungnamData();
 	           System.out.println(chungcheongData); 
 	        return chungcheongData;   
 	           
 	       }
 	       
 	       // 전라도 데이터 요청  
-	       @GetMapping("/jeonlaData")
+	       @GetMapping("/jeonbukData")
 	       @ResponseBody
-	       public List<HashMap<String,Object>> getJeonlaData(Model m) {
-	           List<HashMap<String,Object>> jeonlaData = mapService.getJeonlaData();
+	       public List<HashMap<String,Object>> getJeonbukData(Model m) {
+	           List<HashMap<String,Object>> jeonlaData = mapService.getJeonbukData();
+	           System.out.println(jeonlaData); 
+	        return jeonlaData;   
+	           
+	       } 
+	       
+	       // 전라도 데이터 요청  
+	       @GetMapping("/jeonnamData")
+	       @ResponseBody
+	       public List<HashMap<String,Object>> getJeonnamData(Model m) {
+	           List<HashMap<String,Object>> jeonlaData = mapService.getJeonnamData();
 	           System.out.println(jeonlaData); 
 	        return jeonlaData;   
 	           
 	       } 
 	       
 	       // 경상도 데이터 요청
-	       @GetMapping("/gyungsangData")
+	       @GetMapping("/gyungbukData")
 	       @ResponseBody
-	       public List<HashMap<String,Object>> getGyungsangData(Model m) {
-	           List<HashMap<String,Object>> gyungsangData = mapService.getGyungsangData();
+	       public List<HashMap<String,Object>> getGyungbukData(Model m) {
+	           List<HashMap<String,Object>> gyungsangData = mapService.getGyungbukData();
+	           System.out.println(gyungsangData); 
+	        return gyungsangData;   
+	           
+	       }
+	       
+	       // 경상도 데이터 요청
+	       @GetMapping("/gyungnamData")
+	       @ResponseBody
+	       public List<HashMap<String,Object>> getGyungnamData(Model m) {
+	           List<HashMap<String,Object>> gyungsangData = mapService.getGyungnamData();
 	           System.out.println(gyungsangData); 
 	        return gyungsangData;   
 	           

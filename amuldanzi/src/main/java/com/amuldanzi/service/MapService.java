@@ -32,19 +32,25 @@ public interface MapService {
 	// 세종 데이터 검색결과 호출 함수 
 	List<HashMap<String, Object>> getSejongData();
 
-	// 충청도 데이터 검색결과 호출 함수 
-	List<HashMap<String, Object>> getChungcheongData();
+	List<HashMap<String, Object>> getChungnukData();
 
-	// 전라도 데이터 검색결과 호출 함수 
-	List<HashMap<String, Object>> getJeonlaData();
+	List<HashMap<String, Object>> getChungnamData();
 
-	// 경상도 데이터 검색결과 호출 함수 
-	List<HashMap<String, Object>> getGyungsangData();
+	List<HashMap<String, Object>> getJeonbukData();
+
+	List<HashMap<String, Object>> getJeonnamData();
+
+	List<HashMap<String, Object>> getGyungbukData();
+
+	List<HashMap<String, Object>> getGyungnamData();
 
 	// 울릉도 데이터 검색결과 호출 함수 
 	List<HashMap<String, Object>> getuleongData();
 
 	// 강원도 데이터 검색결과 호출 함수
 	List<HashMap<String, Object>> gwangwonData();
+
+	
+ 
  
 }

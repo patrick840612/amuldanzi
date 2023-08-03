@@ -123,8 +123,7 @@ $(document).ready(function() {
             event.preventDefault(); // 기본 동작을 막음
 
             
-            var keyword = searchInput.val().trim(); // 검색 키워드 가져오기
-            alert(keyword);
+            var keyword = searchInput.val().trim(); // 검색 키워드 가져오기 
             
             if (keyword === "") {
                 // 키워드가 비어있을 경우 최신 글을 검색합니다
