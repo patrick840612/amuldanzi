@@ -112,5 +112,7 @@
 		      
     </script> 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBOVnOwiiflRUtvahCdSBef0vpW4yskfrk&callback=initialize"></script>
+  <footer><jsp:include page="../main/footer.jsp"></jsp:include></footer>
   </body>
+  
 </html>

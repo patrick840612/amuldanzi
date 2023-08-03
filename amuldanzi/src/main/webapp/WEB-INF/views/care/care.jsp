@@ -85,20 +85,12 @@
 
 <body>
 	<div class="main_mainContents__GXYBn2">
+	
 		<hr class="popper_popperMenuDivider__j1QQj">
-		<p class="main_mainTitle__nxOQS">
-		<h1>
-			<center>
-				<strong>케어정보</strong>
-			</center>
-		</h1>
-		</p>
-		<br /> <br />
+		<p class="main_mainTitle__nxOQS" style="font-weight: bold;">케어정보</p> 
 		<hr class="popper_popperMenuDivider__j1QQj">
-	</div>
-	<br />
-	<br />
-	<br />
+	</div>  
+	<br/>
 	<div class="container">
 		<div class="row">
 			<!-- careList 순회하며 케어정보를 썸네일 형식으로 보여줌 -->
@@ -126,6 +118,7 @@
 	<br />
 	<br />
 	<br />
-	<br />
-</body>
+	<br /> 
+
+</body> 
 </html>

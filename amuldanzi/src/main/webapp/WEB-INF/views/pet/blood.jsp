@@ -17,7 +17,15 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<style type="text/css">
+	#footer{
 	
+	position: fixed;
+	margin-top: 210px
+	
+	}
+	
+	</style>
     <script>
 
     //jQuery 
@@ -171,7 +179,7 @@
 </script> 
 </head>
 <body>
-	<div style="position:relative;top:100px;left:830px;">
+	<div style="position:relative;top:120px;left:830px;">
     <h1 class='font' style='color:#fd2c58'>혈액 나눔 정보</h1>
     </div>
     <div style="height:1000px;">
@@ -190,6 +198,9 @@
     </tbody>
     </div>
   	</div>
+  
 </table>
+	<footer><jsp:include page="../main/footer.jsp"></jsp:include></footer>
 </body> 
+
 </html>

@@ -55,12 +55,15 @@
 }
 
 .video-list {
+	position: relative;
 	display: inline-block; /* 요소를 가로로 배치 */
 	flex: 0 0 160px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: flex-start;
-	margin-left: -11px;
+	justify-content: flex-start; 
+	left: 844px;
+	top: -471px;
+	
 }
 
 .video-container {
@@ -77,6 +80,21 @@
 .col-md-4 {
 	display: inline-block;
 }
+
+#list{
+
+	position: relative;
+    bottom: 380px;
+    right: 300px;
+
+}
+
+#footer{
+
+	position: relative;
+    bottom: 300px;
+
+}
 </style>
 
 </head>
@@ -85,16 +103,6 @@
 
 <body>
 	<div class="main_mainContents__GXYBn2">
-		<hr class="popper_popperMenuDivider__j1QQj">
-		<p class="main_mainTitle__nxOQS">
-		<h1>
-			<center>
-				<strong>케어정보 상세보기</strong>
-			</center>
-		</h1>
-		</p>
-		<br /> <br />
-		<hr class="popper_popperMenuDivider__j1QQj">
 	</div>
 	<br />
 
@@ -132,7 +140,7 @@
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container" id="list">
 		<div class="row">
 			<div class="col-md-9 offset-md-3">
 				<h3 style="display: inline-block; color: pink;">▶</h3>
@@ -151,4 +159,6 @@
 		</div>
 	</div>
 </body>
+<jsp:include page="../main/footer.jsp" />
+
 </html>

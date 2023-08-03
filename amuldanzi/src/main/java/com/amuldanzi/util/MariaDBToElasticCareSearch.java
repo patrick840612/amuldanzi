@@ -45,15 +45,13 @@ public class MariaDBToElasticCareSearch {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String animal = resultSet.getString("animal");  
-                String content = resultSet.getString("content");  
+                String animal = resultSet.getString("animal");   
                 String careTitle  = resultSet.getString("title");  
 
                 // JSON 형식으로 데이터 변환
                 String jsonBody = "{" +
                         "\"id\":\"" + id + "\"," +
-                        "\"animal\":\"" + animal + "\"," + 
-                        "\"content\":\"" + content + "\"," + 
+                        "\"animal\":\"" + animal + "\"," +  
                         "\"title\":\"" + careTitle + "\"" +  
                         "}";
 

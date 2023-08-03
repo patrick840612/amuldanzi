@@ -123,4 +123,6 @@
 	</div>
 
 </body>
+
+<jsp:include page="../main/footer.jsp"></jsp:include>
 </html>

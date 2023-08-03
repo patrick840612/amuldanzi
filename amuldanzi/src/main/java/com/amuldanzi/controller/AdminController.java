@@ -117,10 +117,11 @@ public class AdminController {
 		BoardCategoryDTO category = new BoardCategoryDTO(0, "공지");
 		dto.setBoardCate(category);
 		dto.setCount(0);
-		adminService.noticeSave(dto);
 		
+		adminService.noticeSave(dto); 
+		 
 		dbToElasticsearch.indexDataFromMariaDB();
-		
+		dbToElasticsearch.searchDataFromElasticsearch();
 		
 		return "redirect:/admin/adminContentList";
 	}
@@ -132,6 +133,7 @@ public class AdminController {
 		
 		dbToElasticsearch.indexDataFromMariaDB();
 		
+		
 		return "redirect:/admin/adminContentList";
 	}
 	
@@ -141,7 +143,7 @@ public class AdminController {
 		adminService.noticeDelete(dto);
 
 		dbToElasticsearch.deleteDataFromElasticsearch(dto.getId());
-		
+		System.out.println(dto.getId());
 
 		return "redirect:/admin/adminContentList";
 	}

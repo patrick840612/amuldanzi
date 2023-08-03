@@ -63,7 +63,7 @@ function updateBlameCount(commNo) {
 	<div class="main_mainContents__GXYBn">
 		<br /> <br /> <br /> <br /> <br /> <br />
 		<hr class="popper_popperMenuDivider__j1QQj">
-		<p class="main_mainTitle__nxOQS">커뮤니티</p>
+		<p class="main_mainTitle__nxOQS" style="font-weight: bold">커뮤니티</p>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		</br>
 		<div class="community_loungeLeftContent__wnv1Z">
@@ -178,4 +178,5 @@ function updateBlameCount(commNo) {
 		<hr class="popper_popperMenuDivider__j1QQj">
 	</div>
 </body>
+<jsp:include page="../main/footer.jsp"></jsp:include>
 </html>

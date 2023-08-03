@@ -154,7 +154,7 @@ $(document).ready(function() {
     // 최신 글을 검색하는 함수
     function searchLatest() {
         $.ajax({
-            url: "http://localhost:9200/community/_search",
+            url: "http://localhost:9200/community/_search?size=100",
             method: "GET",
             data: {
                 match_all: {}
@@ -169,7 +169,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://localhost:9200/notice/_search",
+            url: "http://localhost:9200/notice/_search?size=100",
             method: "GET",
             data: {
                 match_all: {}
@@ -184,7 +184,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://localhost:9200/care/_search",
+            url: "http://localhost:9200/care/_search?size=100",
             method: "GET",
             data: {
                 match_all: {}
@@ -209,7 +209,7 @@ $(document).ready(function() {
     	var encodedKeyword = encodeURIComponent(keyword); // 검색어 인코딩
         
         $.ajax({
-            url: "http://localhost:9200/community/_search",
+            url: "http://localhost:9200/community/_search?size=100",
             method: "POST",
             contentType: "application/json",
             data:JSON.stringify({
@@ -231,7 +231,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://localhost:9200/notice/_search",
+            url: "http://localhost:9200/notice/_search?size=100",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -253,7 +253,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://localhost:9200/care/_search",
+            url: "http://localhost:9200/care/_search?size=100",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({

@@ -12,10 +12,16 @@ import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -76,6 +82,37 @@ public class MariaDBToElasticNoticeSearch {
         }
     } 
     
+    public void searchDataFromElasticsearch() {
+        try (RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(ES_HOST, ES_PORT, "http")))) {
+            // Elasticsearch 검색 요청
+            SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+            // 더 많은 결과를 얻기 위해 size를 설정합니다 (예: 100)
+            int size = 100;
+            searchSourceBuilder.size(size);
+
+            // 쿼리 정의 (검색 요구 사항에 맞게 사용자 정의 가능)
+            searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+
+            // 검색 요청에 대한 타임아웃 설정 (예: 30초)
+            searchSourceBuilder.timeout(TimeValue.timeValueSeconds(30));
+
+            searchRequest.source(searchSourceBuilder);
+
+            // 검색 수행
+            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+            // 검색 결과 처리
+            SearchHit[] hits = searchResponse.getHits().getHits();
+            for (SearchHit hit : hits) {
+                System.out.println("ID: " + hit.getId() + ", Source: " + hit.getSourceAsString());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         MariaDBToElasticNoticeSearch indexer = new MariaDBToElasticNoticeSearch();
@@ -83,8 +120,11 @@ public class MariaDBToElasticNoticeSearch {
         
         
      // Elasticsearch에서 데이터를 삭제하려면 해당 데이터의 comm_no를 인자로 전달합니다.
-        int commNoToDelete = 39; // 삭제하려는 데이터의 comm_no를 설정하세요.
+        int commNoToDelete = 6; // 삭제하려는 데이터의 comm_no를 설정하세요.
         indexer.deleteDataFromElasticsearch(commNoToDelete);
+         
+        indexer.searchDataFromElasticsearch();
+        
         
     }
 	

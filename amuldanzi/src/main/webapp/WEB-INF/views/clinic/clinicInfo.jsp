@@ -20,6 +20,16 @@
 	
 	<jsp:include page="../main/header.jsp"></jsp:include>
 		<style type="text/css"> 
+			.infowindow-content {
+	  background-color: #fff;
+	  border-radius: 10px;
+	  padding: 10px;
+	  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	  }
+		#footer {
+	    background: #FFC0CB !important;
+	    margin-top: 1450px;
+	}
 	</style> 
 	
 </head>
@@ -317,7 +327,7 @@
 </script> 
 
 <body>
-	<div style="position:relative;top:100px;left:750px;">
+	<div style="position:relative;top:120px;margin-left:750px;">
     <h1 class='font' style='color:black'>가까운 동물 병원 찾기</h1>
     </div>
         <div class="button-container">
@@ -366,6 +376,6 @@
             </tbody>
         </table>
     </div>  
-
+<footer><jsp:include page="../main/footer.jsp"></jsp:include></footer>
 </body> 
 </html>

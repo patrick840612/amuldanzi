@@ -15,7 +15,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" defer>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cfe8de01569b97e3def8a80bd57abb6&libraries=services"></script>
-
+	
 	
 	<jsp:include page="../main/header.jsp"></jsp:include>  
  
@@ -26,7 +26,10 @@
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-	
+	#footer {
+    background: #FFC0CB !important;
+    margin-top: 1450px;
+}
 	</style> 
     <script>  
 
@@ -338,7 +341,7 @@
 </script> 
 </head>
 <body>
-	<div style="position:relative;top:100px;margin-left:750px;">
+	<div style="position:relative;top:120px;margin-left:750px;">
         <h1 class='font' style='color:black'>가까운 반려동물 용품 찾기</h1>
     </div>
     
@@ -389,5 +392,7 @@
             </tbody>
         </table>
     </div> 
+    <footer><jsp:include page="../main/footer.jsp"></jsp:include></footer>
 </body> 
+
 </html>
