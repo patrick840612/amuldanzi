@@ -65,7 +65,7 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	z-index: 9999;
+	z-index: 10;
 	cursor: pointer;
 }
 
@@ -231,8 +231,7 @@ function showPopup() {
 function hidePopup() {
     $("#popup_mask").css("display", "none");
     $("#popupDiv").css("display", "none");
-    $("body").css("
-	overflow", "auto");
+    $("body").css("overflow", "auto");
 
 					// 이미지 슬라이드 쇼 정지
 					stopSlideshow();
