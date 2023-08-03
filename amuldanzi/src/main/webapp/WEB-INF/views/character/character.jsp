@@ -292,6 +292,10 @@ body {
   }
 }
 
+body{
+	width: 100% !important;
+	height: 100% !important;
+}
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>

@@ -144,12 +144,45 @@
 	
 </script>
 <!-- LUX - iMall UI/UX 리뉴얼 프로젝트 추가 [끝] -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		if ($("#container").length > 0) {
 			$("body").attr("id", "rn_imall_asis");
 		}
+
+		$(document).on('click', '#orderBt', function() {
+			
+			var IMP = window.IMP; // Iamport 객체를 가져옴
+		    IMP.init("imp30255621"); // Iamport에 등록한 본인의 가맹점 식별코드를 사용
+
+		 // 결제 창을 호출
+		    IMP.request_pay({
+		        pg : "kakaopay",
+		        pay_method : "card",
+		        merchant_uid : "merchant_" + new Date().getTime(),
+		        name : "주문명:결제테스트",
+		        amount : $("#totalResultPrc").text(),
+		        buyer_email : "${member.userEmail}",
+		        buyer_name : "${member.userName}",
+		        buyer_tel : "${member.userTel}",
+		        buyer_addr : "${member.userAddr}",
+		        buyer_postcode : "123-456"
+		    }, function(rsp) {
+		        if ( rsp.success ) {
+		            // 결제 성공 시 로직
+		            alert("결제가 완료되었습니다.");
+		        } else {
+		            // 결제 실패 시 로직
+		            alert("결제에 실패하였습니다.");
+		        }
+		    });
+		});
 
 		// 개별 체크박스 클릭 이벤트
 	    $('input[name="cartCheckbox"]').on('change', function() {
@@ -169,6 +202,7 @@
 	        // 모든 체크박스 상태 업데이트
 	        $('input[name="cartCheckbox"]').prop('checked', isChecked).trigger('change');
 	    });
+
 	});
 
 	$(document).on('click', '.minus', function() {
@@ -223,6 +257,8 @@
         });
     });
 
+    
+
     function updateTotalPriceAndItems() {
         var totalItems = 0;
         var totalPrice = 0;
@@ -269,11 +305,11 @@
 
 <style type="text/css">
 #checkedCount {
-    color: #444444;
-    text-decoration: none;
-    margin-left: 2px;
-    line-height: 22px;
-    font-size: 15px;
+	color: #444444;
+	text-decoration: none;
+	margin-left: 2px;
+	line-height: 22px;
+	font-size: 15px;
 }
 </style>
 </head>
@@ -355,7 +391,7 @@
 								<a class="one" href="gsHomeShop"> 라이브커머스 </a>
 							</div>
 							<div class="his addClassOn">
-								<a class="one" href="#"> 장바구니 </a>
+								<a class="one" href="/market/amulRecip"> 장바구니 </a>
 							</div>
 						</div>
 						<div class="cart_tit">
@@ -374,17 +410,18 @@
 						<div class="cart_renewal order_form" id="cartListArea">
 							<div class="lft">
 								<c:if test="${cartSize}">
-								<div class="none_div">
-								<p>장바구니가 비어있습니다.</p>
-								</div>
+									<div class="none_div">
+										<p>장바구니가 비어있습니다.</p>
+									</div>
 								</c:if>
 								<div class="product_tit" style="top: 84px;" id="normalCartTit">
 									<!-- s: 22-06-22 수정 -->
 									<h3>
 										<div class="c_item">
 											<input type="checkbox" id="normalAllChk" name="normalAllChk">
-											<label for="normalAllChk">일반
-												(<span id="checkedCount" class="checked-count">0</span>/${cartCount})</label>
+											<label for="normalAllChk">일반 (<span id="checkedCount"
+												class="checked-count">0</span>/${cartCount})
+											</label>
 										</div>
 										<div class="btns_wrap">
 											<a href="javascript://" class="btn_stype" id="selectDelete">선택삭제</a>
@@ -393,107 +430,106 @@
 									<!-- e: 22-06-22 수정 -->
 								</div>
 								<c:if test="${cartList ne null}">
-								<c:forEach items="${cartList }" var="list" varStatus="status">
-								<div class="cart_list" id="normalCartList">
-									<div class="iplist">
-										<table
-											summary="장바구니 목록을 상품명, 혜택, 수량 주문금액, 배송비, 구매/보관으로 정보를 제공하는 표"
-											style="width: 100%;">
-											<caption>장바구니 목록</caption>
-											<colgroup>
-												<!-- 22-06-22 col 넓이 수정 -->
-												<col style="width: 18%">
-												<col style="width: 36%">
-												<col style="width: 32%">
-												<col style="width: 14%">
-											</colgroup>
-											<thead>
-											</thead>
-											<tbody>
-												<tr>
-													<input type="hidden" name="cart_type" value="normal" />
-													<input type="hidden" name="cart_name" value="일반" />
-													<!-- 구매제한수량 여부 -->
-													<input type="hidden" name="goods_nm" id="normal_goods_nm0"
-														value="애물단지" />
-													<td class="img">
-														<div class="c_item">
-															<input type="checkbox" id="normal${status.count}" name="cartCheckbox"
-																value="value${status.count}" data-price="${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}"
-																data-id="${list.cartId}" title="상품선택" /> <label for="normal${status.count}">
-																<div class="img_dim">
-																	<a href="#">
-																		<img
-																		src="/images/commerce/${list.commerce.img }"
-																		onError="/images/error/xlogin.jpg'"
-																		width="86" height="86" alt="" />
-																	</a>
+									<c:forEach items="${cartList }" var="list" varStatus="status">
+										<div class="cart_list" id="normalCartList">
+											<div class="iplist">
+												<table
+													summary="장바구니 목록을 상품명, 혜택, 수량 주문금액, 배송비, 구매/보관으로 정보를 제공하는 표"
+													style="width: 100%;">
+													<caption>장바구니 목록</caption>
+													<colgroup>
+														<!-- 22-06-22 col 넓이 수정 -->
+														<col style="width: 18%">
+														<col style="width: 36%">
+														<col style="width: 32%">
+														<col style="width: 14%">
+													</colgroup>
+													<thead>
+													</thead>
+													<tbody>
+														<tr>
+															<input type="hidden" name="cart_type" value="normal" />
+															<input type="hidden" name="cart_name" value="일반" />
+															<!-- 구매제한수량 여부 -->
+															<input type="hidden" name="goods_nm"
+																id="normal_goods_nm0" value="애물단지" />
+															<td class="img">
+																<div class="c_item">
+																	<input type="checkbox" id="normal${status.count}"
+																		name="cartCheckbox" value="value${status.count}"
+																		data-price="${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}"
+																		data-id="${list.cartId}" title="상품선택" /> <label
+																		for="normal${status.count}">
+																		<div class="img_dim">
+																			<a href="#"> <img
+																				src="/images/commerce/${list.commerce.img }"
+																				onError="/images/error/xlogin.jpg'" width="86"
+																				height="86" alt="" />
+																			</a>
+																		</div>
+																	</label>
 																</div>
-															</label>
-														</div>
-													</td>
-													<td class="tit">
-														<p class="iptit1">
-															<a href="#">
-																<span class="name">${list.commerce.commerceName}</span>
-															<!-- 22-06-22 스마트픽 아이콘 추가 -->
-															</a>
-														</p> <!-- 옵션 -->
-													</td>
-													<td class="cnt">
-														<!-- s: 22-06-22 수정 -->
-														<div class="count_wrap">
-															<div class="number_area">
-																<a href="javascript:void(0)" class="minus">-</a>
-																<input type="text" class="txt" name="ord_qty"
-																	id="normal_ord_qty${status.count}" maxlength="3" title="수량입력"
-																	value="${list.count}"
-																	onclick=""/> <a
-																	href="javascript:void(0)" class="plus">+</a>
-															</div>
-															<span class="btns_wrap"> 
-															<input type="hidden" name="commerceId" value=${list.commerce.commerceId } />
-															<a
-																href="javascript:void(0)" class="btn_stype2"
-																data-price="${list.commerce.commercePrice}" data-per="${list.commerce.commercePer}">수정</a>
-															</span>
-														</div>
-														<div class="price_wrap">
-															<input type="hidden" name="sale_prc"
-																id="normal_sale_prc0" value="29800" /> <input
-																type="hidden" name="dscnt_prc" id="normal_dscnt_prc0"
-																value="0" />
-															<!--즉석쿠폰/임직원 할인/ARS할인이 없는 경우(수정자:210014 이주형)-->
-															<p class="price">
-																<span>${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}</span>원
-															</p>
-															
-														</div> <!-- e: 22-06-22 수정 -->
-													</td>
-													<td class="btns_wrap"><a href="javascript://"
-														class="btn_stype1">바로구매</a>
-														<a href="/market/cartDelete?cartId=${list.cartId }" class="btn_stype2">삭제</a>
-													</td>
-												</tr>
-												<!-- 옵션정보문구 case 1~10 -->
-												<!-- 배송비 -->
-												<!-- 배송정보 case -->
-												<tr class="option_box delivery">
-													<td colspan="4">
-														<div class="option_box_text">
-															<p>
-																<span class="text_bold">무료배송</span>
-															</p>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-										
-									</div>
-								</div>
-								<!--일반 장바구니 for문 end-->
-								</c:forEach>
+															</td>
+															<td class="tit">
+																<p class="iptit1">
+																	<a href="#"> <span class="name">${list.commerce.commerceName}</span>
+																		<!-- 22-06-22 스마트픽 아이콘 추가 -->
+																	</a>
+																</p> <!-- 옵션 -->
+															</td>
+															<td class="cnt">
+																<!-- s: 22-06-22 수정 -->
+																<div class="count_wrap">
+																	<div class="number_area">
+																		<a href="javascript:void(0)" class="minus">-</a> <input
+																			type="text" class="txt" name="ord_qty"
+																			id="normal_ord_qty${status.count}" maxlength="3"
+																			title="수량입력" value="${list.count}" onclick="" /> <a
+																			href="javascript:void(0)" class="plus">+</a>
+																	</div>
+																	<span class="btns_wrap"> <input type="hidden"
+																		name="commerceId" value=${list.commerce.commerceId } />
+																		<a href="javascript:void(0)" class="btn_stype2"
+																		data-price="${list.commerce.commercePrice}"
+																		data-per="${list.commerce.commercePer}">수정</a>
+																	</span>
+																</div>
+																<div class="price_wrap">
+																	<input type="hidden" name="sale_prc"
+																		id="normal_sale_prc0" value="29800" /> <input
+																		type="hidden" name="dscnt_prc" id="normal_dscnt_prc0"
+																		value="0" />
+																	<!--즉석쿠폰/임직원 할인/ARS할인이 없는 경우(수정자:210014 이주형)-->
+																	<p class="price">
+																		<span>${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}</span>원
+																	</p>
+
+																</div> <!-- e: 22-06-22 수정 -->
+															</td>
+															<td class="btns_wrap"><a href="javascript://"
+																class="btn_stype1">바로구매</a> <a
+																href="/market/cartDelete?cartId=${list.cartId }"
+																class="btn_stype2">삭제</a></td>
+														</tr>
+														<!-- 옵션정보문구 case 1~10 -->
+														<!-- 배송비 -->
+														<!-- 배송정보 case -->
+														<tr class="option_box delivery">
+															<td colspan="4">
+																<div class="option_box_text">
+																	<p>
+																		<span class="text_bold">무료배송</span>
+																	</p>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+										</div>
+										<!--일반 장바구니 for문 end-->
+									</c:forEach>
 								</c:if>
 							</div>
 							<!-- 3. product. //product list area -->
@@ -531,11 +567,10 @@
 												</tbody>
 											</table>
 											<div class="btns_wrap type1">
-												<a class="btn_type1" href="javascript:void(0)" onclick="">
-													<strong id="orderBtn"> 주문하기 </strong> <span
-													class="order_tot_wrap"> ( <span class="order_qty"
-														id="totalResultCount"> 0건 </span> <span class="price_tot"
-														id="totalResultPrc"> 0원 </span> )
+												<a class="btn_type1" href="javascript:void(0)" id="orderBt">
+													<strong> 주문하기 </strong> <span class="order_tot_wrap">
+														( <span class="order_qty" id="totalResultCount"> 0건
+													</span> <span class="price_tot" id="totalResultPrc"> 0원 </span> )
 												</span>
 												</a>
 											</div>
@@ -562,6 +597,7 @@
 	<script charset="utf-8"
 		src="/resources/js/common/util.js?d=20230801094">
 </script>
+
 </body>
 </html>
 <br />

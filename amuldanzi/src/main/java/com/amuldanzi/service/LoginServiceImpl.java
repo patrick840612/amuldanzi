@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
         String accessToken = getAccessToken(code);
         JsonNode userResourceNode = getUserResource(accessToken);
         
-        String email = userResourceNode.get("email").asText();
+        String email = userResourceNode.get("id").asText();
         // System.out.println(userResourceNode.toPrettyString());
         
         return email;
@@ -211,13 +211,11 @@ public class LoginServiceImpl implements LoginService {
 				// JSON String -> Map
 				Map<String, Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
 				});
-
-				Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("kakao_account");
-
+				//Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("id");
+				String kakao_account = String.valueOf(jsonMap.get("id"));
 				// System.out.println(properties.get("nickname"));
 				// System.out.println(kakao_account.get("email"));
-
-				email = kakao_account.get("email").toString();
+				email = kakao_account;
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -235,7 +233,7 @@ public class LoginServiceImpl implements LoginService {
 		String id;
 		
 		id = loginSocialDAO.sRegistCheck(member);
-		
+
 		if(id == null)return "";
 		else return id;
 	}
@@ -252,7 +250,6 @@ public class LoginServiceImpl implements LoginService {
 		CharacterDTO character = new CharacterDTO();
 		character.setMemberId(member);
 		characterDAO.save(character); // o
-		
 		if (petList != null) {
 			for(MemberPetDTO pet : petList) {
 				loginPetDAO.save(pet);

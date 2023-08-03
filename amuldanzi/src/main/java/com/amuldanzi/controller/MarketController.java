@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -498,6 +499,13 @@ public class MarketController {
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
+		
+		Optional<MemberInfoDTO> memberDTOOptional = memberInfoRepository.findById((String) map.get("id"));
+
+		if (memberDTOOptional.isPresent()) {
+		    MemberInfoDTO memberDTO = memberDTOOptional.get();
+		    m.addAttribute("member", memberDTO);
+		}
 
 		List<CartDTO> cartResult = marketservice.findCartById(map.get("id"));
 		
