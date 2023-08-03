@@ -220,6 +220,56 @@ body {
 .select-button:hover {
   background-color: purple;
 }
+
+/*가챠 애니메이션*/
+@keyframes pangEffectAnimation {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.pang {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: #FFD700; /* Use any color you prefer */
+  animation: pangEffectAnimation 0.3s ease-out;
+  margin-left: 700px;
+  margin-top: 100px;
+}
+@keyframes revealAnimation {
+  0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.revealCharacter {
+  animation: revealAnimation 1s ease-in-out;
+}
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selected-character-image {
+  max-width: 200%;
+  max-height: 200%;
+  width: 500px;
+ 
+}
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
@@ -229,6 +279,7 @@ body {
 <jsp:include page="../main/header.jsp"></jsp:include>
 <body class="hoian-kr">
 <script type="text/javascript" src='/character/js/characterRandom.js'></script>
+<script type="text/javascript" src='/character/js/gacha.js'></script>
 <!-- <script type="text/javascript" src='/character/js/characterGame.js'></script> -->
 	<div class="__margin-top120px" >
 		<form action="/character/random" name="characterFrm" id="characterFrm" method="post">
@@ -255,7 +306,19 @@ body {
 		                <input type="hidden" readonly="readonly" id="cpointx" value="뽑기/진화 비용 10,000P" disabled="disabled"/>
 		                <input type="text" readonly="readonly" id="cpoint" value="cpoint : " disabled="disabled"/>
 		                <input type="text" readonly="readonly" name="cpoint" id="point" value="${cpoint}"/>
-		                <input type="button" value="캐릭터 뽑기" id="selectImg"/>
+		                <input type="button" value="캐릭터 뽑기" id="selectImg" onclick="startGacha()"/>
+		                
+		                
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-content">
+    <img id="selectedCharacterImage" alt="Selected Character" class="selected-character-image" />
+  </div>
+</div>		                
+		                
+		                
+		                
+		                
+		                
 		                <input type="hidden" name="id" value="${id}" id="id"/>
 		                <input type="hidden" name="randomAnimal" id="randomAnimal" value="" />
 		                <canvas width="400" height="700">	

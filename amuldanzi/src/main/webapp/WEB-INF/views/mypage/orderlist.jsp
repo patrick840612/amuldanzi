@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/chunks/css/market/marketShop.css" />
 <link rel="preload" href="/chunks/css/market/marketShop2.css" as="style" />
 <link rel="stylesheet" href="/chunks/css/market/marketShop2.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap">
 
 <style type="text/css">
 .cat {
@@ -68,14 +69,87 @@
 .gray-text {
     color: gray;
 }
+
+.h3class {
+    color: #333 !important;
+    margin-top: 25px !important;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Pacifico', sans-serif;
+}
+
+.pclass {
+    color: #555 !important;
+    margin-bottom: 10px !important;
+    font-size: 16px;
+	font-family: 'Lato', sans-serif; 
+}
+
+.boxbox {
+    background-color: #f0f8ff; /* 연한 파란색 배경 */
+    padding: 10px; /* 각 박스의 내용을 더욱 구분하기 위해 패딩을 추가 */
+    border-radius: 5px; /* 모서리를 둥글게 만듭니다. */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+/* 상품 정보를 담을 컨테이너 */
+.product-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+/* 상품 이미지 스타일 */
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* 상품 정보 스타일 */
+.product-info {
+    flex: 1;
+    display: flex; /* 수평 정렬을 위해 추가 */
+    flex-direction: column; /* 내부 컨텐츠를 수직으로 배치 */
+    justify-content: center; /* 가운데 정렬을 위해 추가 */
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #f00; /* 가격은 빨간색으로 표시 */
+}
+
+.product-quantity {
+    font-size: 14px;
+    color: #777; /* 수량은 회색으로 표시 */
+}
+
+.product-invoice {
+    font-size: 14px;
+    color: #333; /* 송장번호는 검은색으로 표시 */
+    margin-top: auto; /* 수직 가운데 정렬을 위해 추가 */
+    text-align: center; /* 가운데 정렬을 위해 추가 */
+}
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
 <script type="text/javascript">
-$(function(){});
+$(function(){
+	showTab(1);
+});
 
 // 탭팬 호출
-function showTab(tabNumber) {
+/*function showTab(tabNumber) {
     // 모든 탭과 탭 내용을 비활성화
     var tabs = document.getElementsByClassName('tab');
     var tabContents = document.getElementsByClassName('tab-content');
@@ -88,7 +162,7 @@ function showTab(tabNumber) {
     var selectedTab = document.getElementById('tab' + tabNumber + '-content');
     selectedTab.classList.add('active');
     tabs[tabNumber - 1].classList.add('active');
-}
+}*/
 
 
 </script>
@@ -110,9 +184,21 @@ function showTab(tabNumber) {
 			    </div>
 			
 			    <div class="tab-content" id="tab1-content">
-			        <!-- Tab 1 내용 -->
-			        <h3>Tab 1 Content</h3>
-			        <p>This is the content of Tab 1.</p>
+			        <!-- Tab 1 내용 --><br/><br/>
+			        <div class="boxbox"><br/>
+				        <span class="h3class">유의사항</span><br/><br/>
+				        <p class="pclass">＊배송조회는 택배사로 상품전달 후 조회 가능합니다.</p>
+				        <p class="pclass">＊주문한 상품이 품절될 경우 해당 상품은 자동 취소 신청됩니다.</p><br/>
+			        </div><br/>
+			        <div class="boxbox"><br/>
+			        	<span class="h3class">카드결제(간편결제,법인카드 포함) 취소 안내</span><br/><br/>
+				        <p class="pclass">＊카드결제 취소 기간 안내</p>
+				        <p class="pclass"> -전체취소 : 당일 취소/환불 처리</p>			        
+				        <p class="pclass"> -부분취소 : 영업일 기준 3~5일 소요(당일 취소 포함)</p>
+				        <p class="pclass">＊카드사 정책에 따라 주문당일 부분취소한 경우 당일 취소 및 환불 불가합니다.</p>
+				        <p class="pclass">＊부분취소한 경우 카드사 승인 취소는 약 3~5일 소요됩니다.</p>
+				        <p class="pclass">＊주문취소시 오류가 발생하거나 환불이 정상 처리되지 않을 경우 1:1로 문의 주시기 바랍니다.</p><br/>
+			        </div>			        			        			        			        
 			    </div>
 			
 			    <div class="tab-content" id="tab2-content">
@@ -129,19 +215,102 @@ function showTab(tabNumber) {
 			
 			    <div class="tab-content" id="tab4-content">
 			        <!-- Tab 4 내용 -->
-			        <h3>Tab 4 Content</h3>
-			        <p>This is the content of Tab 4.</p>
+    				<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 -->
+	    			<c:forEach var="product" items="${businessList}">        
+							<div class="product-container">
+							    <div class="product-info">
+							        <div class="product-name">${product.businessNumber}</div>
+							        <div class="product-invoice">송장번호: ${product.businessTitle}</div>					        
+							        <div class="product-price">가격: ${product.businessName}원</div>
+							        <div class="product-quantity">수량: ${product.businessSector}개</div>
+							    </div>
+							    <img class="product-image" src="/images/mypage/${product.businessImg}" alt="상품 이미지">					    
+							</div>
+					</c:forEach>
+					<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 끝-->
+					<!-- 페이징 -->
+				    <c:choose>
+				        <c:when test="${totalPages1 > 1}">
+				            <ul class="pagination">
+				                <c:forEach var="i" begin="1" end="${totalPages1}">
+				                    <li class="${currentPage1 == i ? 'active' : ''}">
+				                        <a href="#" onclick="loadTabContent(4, ${i}, ${currentPage2})">${i}</a>
+				                    </li>
+				                </c:forEach>
+				            </ul>
+				        </c:when>
+				    </c:choose>	
+				    <!-- 페이징 끝-->				
 			    </div>
 			
 			    <div class="tab-content" id="tab5-content">
 			        <!-- Tab 5 내용 -->
-			        <h3>Tab 5 Content</h3>
-			        <p>This is the content of Tab 5.</p>
-			    </div>			
+     				<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 -->
+	    			<c:forEach var="product" items="${qnaList}">      
+							<div class="product-container">
+							    <div class="product-info">
+							        <div class="product-name">${product.qnaCategory}</div>
+							        <div class="product-invoice">송장번호: ${product.qnaTitle}</div>					        
+							        <div class="product-price">가격: ${product.qnaContent}원</div>
+							        <div class="product-quantity">수량: ${product.qnaNo}개</div>
+							    </div>
+							    <img class="product-image" src="/images/mypage/${product.qnaImg}" alt="상품 이미지">					    
+							</div>
+					</c:forEach>
+					<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 끝-->
+					<!-- 페이징 -->
+				    <c:choose>
+				        <c:when test="${totalPages2 > 1}">
+				            <ul class="pagination">
+				                <c:forEach var="i" begin="1" end="${totalPages2}">
+				                    <li class="${currentPage2 == i ? 'active' : ''}">
+				                        <a href="#" onclick="loadTabContent(5, ${currentPage1}, ${i})">${i}</a>
+				                    </li>
+				                </c:forEach>
+				            </ul>
+				        </c:when>
+				    </c:choose>	
+				    <!-- 페이징 끝-->	
+			    </div>
+			    			
 			</div>
 		</section>
-		
-
 	</div>
+<script type="text/javascript">
+function loadTabContent(tabNumber, page1, page2) {
+    $.ajax({
+        type: 'GET',
+        url: '/mypage/orderlistPage',
+        data: {
+            tabNumber: tabNumber,
+            page1: page1,
+            page2: page2
+        },
+        dataType : 'html',
+        success: function (data) {
+        	console.log(data)
+            $('#tab' + tabNumber + '-content').html(data);
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    });
+}
+
+function showTab(tabNumber) {
+    // 모든 탭 컨텐츠를 숨깁니다.
+    $('.tab-content').hide();
+
+    // 선택한 탭 컨텐츠를 표시합니다.
+    $('#tab' + tabNumber + '-content').show();
+
+    // 선택한 탭에 active 클래스를 추가합니다.
+    $('.tab').removeClass('active');
+    $('.tab:eq(' + (tabNumber - 1) + ')').addClass('active');
+
+    // 선택한 탭의 컨텐츠를 가져와 첫 번째 페이지를 표시합니다.
+    //loadTabContent(tabNumber, 1, 1);
+}
+</script>	
 </body>
 </html>
