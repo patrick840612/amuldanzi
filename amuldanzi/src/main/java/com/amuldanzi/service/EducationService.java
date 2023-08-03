@@ -7,5 +7,10 @@ import com.amuldanzi.domain.EducationDTO;
 public interface EducationService {
 
 	List<EducationDTO> geteduList();
+ 
+	EducationDTO getEduDetail(String id);
+
+	List<String> getVideoList(String title);
+ 
 
 }

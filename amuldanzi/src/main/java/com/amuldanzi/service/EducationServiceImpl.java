@@ -17,7 +17,20 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public List<EducationDTO> geteduList() {
 		
-		return (List<EducationDTO>)eduRepo.findAll();
+		return (List<EducationDTO>)eduRepo.selectEduList();
+	} 
+
+	@Override
+	public EducationDTO getEduDetail(String id) {
+		// TODO Auto-generated method stub
+		return (EducationDTO)eduRepo.selectEduTitle(id);
+	}
+
+	@Override
+	public List<String> getVideoList(String title) { 
+		
+		
+		return (List<String>)eduRepo.selectVideoList(title);
 	}
 
 	

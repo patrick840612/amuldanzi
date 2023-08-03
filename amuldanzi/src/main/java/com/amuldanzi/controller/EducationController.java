@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.service.EducationService;
@@ -33,14 +34,45 @@ public class EducationController {
 	public void education(Model m) {
 		
 		List<EducationDTO> eduList = service.geteduList();
-		m.addAttribute("eduList", eduList);
-		System.out.println(eduList);
+		m.addAttribute("eduList", eduList); 
 		
 		Map<String,Object> map = headerChange();
         m.addAttribute("id", map.get("id"));
         m.addAttribute("memberRole", map.get("memberRole"));
 		
 	}
+	
+	
+	
+	@RequestMapping("/educationDetail")
+	public String educationDetail(@RequestParam("id") String id, @RequestParam("title") String title, Model m) {
+		
+		
+		System.out.println("요청 ***********");
+		
+		EducationDTO education = service.getEduDetail(id);
+		m.addAttribute("education", education);
+		
+		List<String> videoList = service.getVideoList(title);
+		m.addAttribute("videoList", videoList);
+		
+		
+		
+		System.out.println("*******************==>>>");
+		System.out.println(education);
+		System.out.println(videoList);
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+        
+        
+		return "/education/educationDetail";
+		
+		
+		
+	}
+	
 	
 	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
 	private Map<String,Object> headerChange() {
