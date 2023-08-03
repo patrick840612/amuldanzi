@@ -27,7 +27,7 @@
 }
 
 ._3nqg3y0 {
-    height: 50rem !important;
+    height: 80rem !important;
     padding: 0 1rem;
 }
 
@@ -78,6 +78,7 @@
     font-family: 'Pacifico', sans-serif;
 }
 
+
 .pclass {
     color: #555 !important;
     margin-bottom: 10px !important;
@@ -125,13 +126,24 @@
 }
 
 .product-price {
-    font-size: 16px;
-    color: #f00; /* 가격은 빨간색으로 표시 */
+    font-size: 14px;
+    color: #333; /* 가격은 검은색으로 표시 */
+}
+
+.product-cnacle {
+    font-size: 14px;
+    color: red; /* 결제취소 빨간색으로 표시 */
+}
+
+.product-confirm {
+    font-size: 14px;
+    font-weight: bold; /* 결제완료 굵게 표시 */
 }
 
 .product-quantity {
     font-size: 14px;
-    color: #777; /* 수량은 회색으로 표시 */
+    color: #333; /* 수량은 회색으로 표시 */
+    font-weight: bold;
 }
 
 .product-invoice {
@@ -141,7 +153,38 @@
     text-align: center; /* 가운데 정렬을 위해 추가 */
 }
 
-.
+.product-orderdate{
+    font-size: 12px;
+    color: #777; /* 결제일은 회색으로 표시 */
+
+}
+
+/* 고객센터 */
+  .costomerCenter {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .costomerCenter::before {
+    font-size: 36px;
+    position: absolute;
+	left: 8px;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    z-index: -1;
+  }
+
+  .costomerCenter:hover {
+    background-color: #45a049;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
@@ -181,8 +224,8 @@ $(function(){
 			        <div class="tab" onclick="showTab(1)"><div class="bold-text">주문내역</div><div class="gray-text">주문/배송안내</div></div>
 			        <div class="tab" onclick="showTab(2)"><div class="bold-text">0</div><div class="gray-text">준비중</div></div>
 			        <div class="tab" onclick="showTab(3)"><div class="bold-text">0</div><div class="gray-text">배송중</div></div>
-			        <div class="tab" onclick="showTab(4)"><div class="bold-text">0</div><div class="gray-text">배송완료</div></div>
-			        <div class="tab" onclick="showTab(5)"><div class="bold-text">0</div><div class="gray-text">결제취소</div></div>
+			        <div class="tab" onclick="showTab(4)"><div class="bold-text"><c:out value="${businessList.size()}"/></div><div class="gray-text">배송완료</div></div>
+			        <div class="tab" onclick="showTab(5)"><div class="bold-text"><c:out value="${qnaList.size()}"/></div><div class="gray-text">결제취소</div></div>
 			    </div>
 			
 			    <div class="tab-content" id="tab1-content">
@@ -205,14 +248,14 @@ $(function(){
 			
 			    <div class="tab-content" id="tab2-content">
 			        <!-- Tab 2 내용 -->
-			        <h3>Tab 2 Content</h3>
-			        <p>This is the content of Tab 2.</p>
+			        <br/><br/><h3>준비중인 상품이 없습니다</h3><br/><br/><br/><br/>
+			        <h3>상품을 주문해 주세요^^</h4>
 			    </div>
 			
 			    <div class="tab-content" id="tab3-content">
 			        <!-- Tab 3 내용 -->
-			        <h3>Tab 3 Content</h3>
-			        <p>This is the content of Tab 3.</p>
+			        <br/><br/><h3>배송중인 상품이 없습니다</h3><br/><br/><br/><br/>
+			        <h3>상품을 주문해 주세요~~ㅇ!!</h4>
 			    </div>
 			
 			    <div class="tab-content" id="tab4-content">
@@ -221,10 +264,13 @@ $(function(){
 	    			<c:forEach var="product" items="${businessList}">        
 							<div class="product-container">
 							    <div class="product-info">
-							        <div class="product-name">${product.businessNumber}</div>
+							        <div class="product-name">${product.businessNumber}(<span class="product-confirm"> 배송완료 </span>)</div>
 							        <div class="product-invoice">송장번호: ${product.businessTitle}</div>					        
-							        <div class="product-price">가격: ${product.businessName}원</div>
-							        <div class="product-quantity">수량: ${product.businessSector}개</div>
+							        <div class="product-price">${product.businessName}(원) * ${product.businessSector}(개)</div><br/>
+							        <div class="product-quantity">총 주문금액 : 원</div><br/>
+							        <div class="product-orderdate">결제일: </div><br/>
+							        <div><a href="#" class="costomerCenter">고객센터 채팅연결</a></div>
+							        
 							    </div>
 							    <img class="product-image" src="/images/mypage/${product.businessImg}" alt="상품 이미지">					    
 							</div>
@@ -251,10 +297,13 @@ $(function(){
 	    			<c:forEach var="product" items="${qnaList}">      
 							<div class="product-container">
 							    <div class="product-info">
-							        <div class="product-name">${product.qnaCategory}</div>
+							        <div class="product-name">${product.qnaCategory}( <span class="product-cnacle"> 결제취소 </span>)</div>
 							        <div class="product-invoice">송장번호: ${product.qnaTitle}</div>					        
-							        <div class="product-price">가격: ${product.qnaContent}원</div>
-							        <div class="product-quantity">수량: ${product.qnaNo}개</div>
+							        <div class="product-price">${product.qnaContent}(원) * (개)</div><br/>
+							        <div class="product-quantity">총 환불금액 : 원</div><br/>
+							        <div class="product-orderdate">결제일: </div><br/>
+							        <div><a href="#" class="costomerCenter">고객센터 채팅연결</a></div>
+							        
 							    </div>
 							    <img class="product-image" src="/images/mypage/${product.qnaImg}" alt="상품 이미지">					    
 							</div>
