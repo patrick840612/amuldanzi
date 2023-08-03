@@ -48,27 +48,6 @@
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-  // 사진 업로드 미리보기
-  $('#uploadFile').on('change', function(event) {
-    var previewContainer = $('#imagePreviewContainer');
-    previewContainer.html('');
-
-    var files = event.target.files;
-    if (files && files.length > 0) {
-      var file = files[0];
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var image = $('<img>').attr('src', e.target.result);
-        var preview = $('<div class="image-preview"></div>').append(image);
-        previewContainer.append(preview);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-});
-</script>
 
 <body class="nav-md">
 	<div class="container body">
@@ -181,48 +160,65 @@ $(document).ready(function() {
 				<!-- top tiles -->
 				<div class="question_questionContainer__xQp_P">
 					<div class="question_questionContent__Y4VxA">
-						<span class="question_questionCategory__1QDx6">카테고리</span><span
-							class="question_questionMark__AykT_">*</span>
-						<div class="question_radioWrap__WZ6ME">
-							<div>
-								<input type="radio" name="question" id="광고" value="광고" checked="광고"><label
-									for="광고">광고</label>
-							</div>
-						</div>
-						<form id="adSave" action="adSave" method="post" enctype="multipart/form-data">
 								<div>
 									<div>
-										<span class="question_questionCategory__1QDx6">글 작성</span><span
+										<span class="question_questionCategory__1QDx6">문의 유형</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
-									<input placeholder="제목을 입력해주세요"
-										class="question_titleInput__S7Isd" type="text" name="title" />
+									<div class="question_titleInput__S7Isd">${qnaDetail.qnaCategory }</div>
 									<div class="question_alertText__WnxqW"></div>
 								</div>
 								<div>
 									<div>
-										<span class="question_questionCategory__1QDx6">광고 사이트 주소</span><span
+										<span class="question_questionCategory__1QDx6">문의 제목</span><span
 											class="question_questionMark__AykT_">*</span>
 									</div>
-									<input placeholder="예) https://www.naver.com"
-										class="question_titleInput__S7Isd" type="text" name="url" />
+									<div class="question_titleInput__S7Isd">${qnaDetail.qnaTitle }</div>
 									<div class="question_alertText__WnxqW"></div>
 								</div>
-				                <div class="question_fileInputWrapper__d9gmU">
-				                    <span class="question_questionCategory__1QDx6">사진 업로드</span>
-				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer"></div>
-				                    <input id="uploadFile" name="file" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" style="display: none;">
-				                    <label for="uploadFile" class="question_inputFileBtn__zg7jN">
-				                    <div class="question_inputFileText__Cgamr">사진 첨부</div>
-				                    <img src="/icons/ICON_PHOTO_CAMERA.svg">
-				                    </label>
-				                    <span class="question_imgDesc__SQFui">개당 업로드 용량: 10MB, 광고 첨부 파일은 1개만 가능합니다.</span>
+								<div>
+									<div>
+										<span class="question_questionCategory__1QDx6">문의자 아이디</span><span
+											class="question_questionMark__AykT_">*</span>
+									</div>
+									<div class="question_titleInput__S7Isd">${qnaDetail.memberId.id }</div>
+									<div class="question_alertText__WnxqW"></div>
+								</div>
+								<div>
+									<div>
+										<span class="question_questionCategory__1QDx6">문의 내용</span><span
+											class="question_questionMark__AykT_">*</span>
+									</div>
+					                <div class="question_questionInputWrapper__fGaar">
+					                  <div class="question_questionInput___Mb57">${qnaDetail.qnaContent }</div>
+					                </div>
+								</div>
+			                    <div class="question_fileInputWrapper__d9gmU">
+				                    <span class="question_questionCategory__1QDx6">이미지</span>
+				                    <div class="question_questionImgContainer__tNqZy" id="imagePreviewContainer">
+								        <div>								        									        	
+									        <span>
+									            <img class="image-preview" src="/images/mypage/${qnaDetail.qnaImg}" alt="qnaImg" style="width: 200px; height: 200px;">
+									        </span>									        
+									    </div>				                    
+				                    </div>
 				                </div>
+							<form id="qnaDetailAnswer" action="qnaDetailAnswer" method="post">
 								<div>
-									<button class="question_submitBtn__vDrt_" type="submit">광고 등록</button>
+									<div>
+										<input type="hidden" id="qnaAnswerWriter" name="qnaAnswerWriter" value="${id }">
+										<input type="hidden" id="qnaNo" name="qnaNo" value="${qnaDetail.qnaNo }">
+										<span class="question_questionCategory__1QDx6">답변</span><span
+											class="question_questionMark__AykT_">*</span>
+									</div>
+					                <div class="question_questionInputWrapper__fGaar">
+					                  <textarea placeholder="5자 이상의 글 내용을 입력해주세요" class="question_questionInput___Mb57" name="qnaAnswer"></textarea>
+					                </div>
 								</div>
-								<br />
-								
+								<div>
+									<button class="question_submitBtn__vDrt_" type="submit">답변 등록</button>
+								</div>
+								<br />								
 						</form>
 					</div>
 				</div>				

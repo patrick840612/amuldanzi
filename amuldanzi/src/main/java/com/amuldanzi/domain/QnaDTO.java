@@ -1,5 +1,6 @@
 package com.amuldanzi.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -38,7 +39,7 @@ public class QnaDTO {
 	private String qnaAnswer;
 	private String qnaAnswerWriter; 
 
-	private Date qnaAnswerDate; 
+	private LocalDate qnaAnswerDate; 
 	private String qnaAnswerOk; // 답변여부 : '답변대기','답변완료'
 	
 	private String qnaImg;

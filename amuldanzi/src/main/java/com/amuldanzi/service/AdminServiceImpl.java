@@ -1,5 +1,6 @@
 package com.amuldanzi.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,19 +8,24 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
+
+import com.amuldanzi.dao.BusinessDAO;
 import com.amuldanzi.dao.QnaDAO;
+import com.amuldanzi.dao.SitterDAO;
 import com.amuldanzi.domain.AdvertisementDTO;
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
-import com.amuldanzi.domain.CommImageDTO;
+
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommerceScheduleDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.domain.QnaDTO;
+import com.amuldanzi.domain.SitterDTO;
 import com.amuldanzi.persistence.AdvertisementRepository;
 import com.amuldanzi.persistence.CareRepository;
 import com.amuldanzi.persistence.ClinicRepository;
@@ -27,6 +33,7 @@ import com.amuldanzi.persistence.CommBlameRepository;
 import com.amuldanzi.persistence.CommImageRepository;
 import com.amuldanzi.persistence.CommLikeRepository;
 import com.amuldanzi.persistence.CommerceRepository;
+import com.amuldanzi.persistence.CommerceScheduleRepository;
 import com.amuldanzi.persistence.CommunityRepository;
 import com.amuldanzi.persistence.EducationRepository;
 import com.amuldanzi.persistence.MarketInfoRepository;
@@ -72,6 +79,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	QnaDAO qnaRepo;
+	
+	@Autowired
+	BusinessDAO businessRepo;
+	
+	@Autowired
+	SitterDAO sitterRepo;
+	
+	@Autowired
+	CommerceScheduleRepository commScheduleRepo;
 
 	@Override
 	public List<MarketInfoDTO> getMarketList() {
@@ -423,7 +439,99 @@ public class AdminServiceImpl implements AdminService {
 	public List<QnaDTO> getQnaList() {
 		// TODO Auto-generated method stub
 		return (List<QnaDTO>)qnaRepo.findAll();
-	}	
+	}
+
+	@Override
+	public List<BusinessDTO> getBusinessList() {
+		// TODO Auto-generated method stub
+		return (List<BusinessDTO>)businessRepo.findAll();
+	}
+
+	@Override
+	public List<SitterDTO> getSitterList() {
+		// TODO Auto-generated method stub
+		return (List<SitterDTO>)sitterRepo.findAll();
+	}
+
+	@Override
+	public void sitterUpdate(SitterDTO dto) {
+		// TODO Auto-generated method stub
+		SitterDTO result = sitterRepo.findById(dto.getId()).get();
+		
+		result.setSitter("승인완료");
+		
+		sitterRepo.save(result);
+		
+	}
+
+	@Override
+	public void businessUpdate(BusinessDTO dto) {
+		// TODO Auto-generated method stub
+		BusinessDTO result = businessRepo.findById(dto.getBusinessNumber()).get();
+		
+		result.setBusinessOk("승인완료");
+		
+		businessRepo.save(result);
+		
+	}
+
+	@Override
+	public void commerceScheduleSave(CommerceScheduleDTO dto) {
+		// TODO Auto-generated method stub
+		commScheduleRepo.save(dto);
+		
+	}
+
+	@Override
+	public List<CommerceScheduleDTO> commerceScheduleList() {
+		// TODO Auto-generated method stub
+		
+		return (List<CommerceScheduleDTO>)commScheduleRepo.findAll();
+	}
+
+	@Override
+	public void scheduleDeleteById(CommerceScheduleDTO dto) {
+		// TODO Auto-generated method stub
+		commScheduleRepo.deleteById(dto.getScheduleId());
+	}
+
+	@Override
+	public void scheduleUpdate(CommerceScheduleDTO dto) {
+		// TODO Auto-generated method stub
+		CommerceScheduleDTO result = commScheduleRepo.findById(dto.getScheduleId()).get();
+		
+		result.setCommerceDate(dto.getCommerceDate());
+		result.setCommerceStart(dto.getCommerceStart());
+		result.setCommerceEnd(dto.getCommerceEnd());
+		
+		commScheduleRepo.save(result);
+		
+	}
+
+	@Override
+	public QnaDTO qnaDetailById(QnaDTO dto) {
+		// TODO Auto-generated method stub
+		return qnaRepo.findById(dto.getQnaNo()).get();
+		
+	}
+
+	@Override
+	public void qnaDetailAnswer(QnaDTO dto) {
+		// TODO Auto-generated method stub
+		QnaDTO result = qnaRepo.findById(dto.getQnaNo()).get();
+		
+		result.setQnaAnswer(dto.getQnaAnswer());
+		result.setQnaAnswerOk("답변완료");
+		result.setQnaAnswerWriter(dto.getQnaAnswerWriter());
+		
+		System.out.println(dto.getMemberId());
+	    // 오늘 날짜를 설정합니다.
+	    LocalDate today = LocalDate.now();
+		result.setQnaAnswerDate(today);
+		
+		qnaRepo.save(result);
+	}
+	
 	
 
 }

@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,16 +39,12 @@
 <link href="/admin/build/css/custom.min.css" rel="stylesheet">
 
 
-
+<link href="/admin/chunks/css/c552b37c371c331c.css" rel="stylesheet">
 <link href="/admin/chunks/css/39c68523bb4928b9.css" rel="stylesheet">
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 </head>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -97,7 +94,7 @@
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceSchedule">방송 일정</a></li>
 										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
@@ -154,24 +151,40 @@
 			</div>
 			<!-- /top navigation -->
 
+
+
 			<!-- page content -->
-			
-			
-			
+			<div class="right_col" role="main" style="min-height: 1055px;">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>애물단지</h3>
+						</div>
+
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control"
+										placeholder="Search for..."> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button">검색</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+				</div>
+			</div>
 			<!-- /page content -->
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">
-					Gentelella - Bootstrap Admin Template by <a
-						href="https://colorlib.com">Colorlib</a>
-				</div>
-				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
 		</div>
 	</div>
-
 
 	<!-- jQuery -->
 	<script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
@@ -181,35 +194,34 @@
 	<script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="/admin/vendors/nprogress/nprogress.js"></script>
-	<!-- bootstrap-progressbar -->
-	<script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="/admin/vendors/moment/min/moment.min.js"></script>
-	<script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap-wysiwyg -->
-	<script src="/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="/admin/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-	<script src="/admin/vendors/google-code-prettify/src/prettify.js"></script>
-	<!-- jQuery Tags Input -->
-	<script src="/admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-	<!-- Switchery -->
-	<script src="/admin/vendors/switchery/dist/switchery.min.js"></script>
-	<!-- Select2 -->
-	<script src="/admin/vendors/select2/dist/js/select2.full.min.js"></script>
-	<!-- Parsley -->
-	<script src="/admin/vendors/parsleyjs/dist/parsley.min.js"></script>
-	<!-- Autosize -->
-	<script src="/admin/vendors/autosize/dist/autosize.min.js"></script>
-	<!-- jQuery autocomplete -->
-	<script src="/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-	<!-- starrr -->
-	<script src="/admin/vendors/starrr/dist/starrr.js"></script>
-	<!-- Custom Theme Scripts -->
-	
-	
+	<!-- Datatables -->
+	<script src="/admin/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="/admin/vendors/jszip/dist/jszip.min.js"></script>
+	<script src="/admin/vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="/admin/vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    	
+	<!-- Custom Theme Scripts -->
+	<script src="/admin/build/js/custom.min.js"></script>
+
 </body>
 </html>

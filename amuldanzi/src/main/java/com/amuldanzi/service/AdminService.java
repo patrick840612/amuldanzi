@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.amuldanzi.domain.AdvertisementDTO;
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.ClinicDTO;
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommerceScheduleDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MarketInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.domain.QnaDTO;
+import com.amuldanzi.domain.SitterDTO;
 
 public interface AdminService {
 
@@ -88,5 +91,25 @@ public interface AdminService {
 	CommunityDTO getCommunityByNo(Integer commNo);
 
 	List<QnaDTO> getQnaList();
+
+	List<BusinessDTO> getBusinessList();
+
+	List<SitterDTO> getSitterList();
+
+	void sitterUpdate(SitterDTO dto);
+
+	void businessUpdate(BusinessDTO dto);
+
+	void commerceScheduleSave(CommerceScheduleDTO dto);
+
+	List<CommerceScheduleDTO> commerceScheduleList();
+
+	void scheduleDeleteById(CommerceScheduleDTO dto);
+
+	void scheduleUpdate(CommerceScheduleDTO dto);
+
+	QnaDTO qnaDetailById(QnaDTO dto);
+
+	void qnaDetailAnswer(QnaDTO dto);
 
 }

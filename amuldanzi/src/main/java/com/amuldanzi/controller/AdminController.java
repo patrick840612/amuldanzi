@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,19 +25,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amuldanzi.domain.AdvertisementDTO;
 import com.amuldanzi.domain.BoardCategoryDTO;
+import com.amuldanzi.domain.BusinessDTO;
 import com.amuldanzi.domain.CareDTO;
 import com.amuldanzi.domain.CommBlameDTO;
 import com.amuldanzi.domain.CommerceDTO;
+import com.amuldanzi.domain.CommerceScheduleDTO;
 import com.amuldanzi.domain.CommunityDTO;
 import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.domain.QnaDTO;
+import com.amuldanzi.domain.SitterDTO;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.service.AdminService;
+import com.amuldanzi.service.LoginService;
 import com.amuldanzi.util.MD5Generator;
 import com.amuldanzi.util.MariaDBToElasticCareSearch;
 import com.amuldanzi.util.MariaDBToElasticNoticeSearch;
 import com.amuldanzi.util.MariaDBToElasticSearch;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,6 +52,12 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	LoginService loginService;
+	
+	@Autowired
+	HttpServletRequest request;
 	
 	@Autowired
 	private MariaDBToElasticNoticeSearch dbToElasticsearch;
@@ -811,10 +828,124 @@ public class AdminController {
 	@RequestMapping("/qnaList")
 	public void qnaList(Model m) {
 		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+		
 		List<QnaDTO> qnaList = adminService.getQnaList();
 		
 		m.addAttribute("qnaList", qnaList);
 		
 	}
+	
+	@RequestMapping("/roleList")
+	public void roleList(Model m) {
+		
+		List<BusinessDTO> businessList = adminService.getBusinessList();
+		List<SitterDTO> sitterList = adminService.getSitterList();
+		
+		m.addAttribute("businessList", businessList);
+		m.addAttribute("sitterList", sitterList);
+	}
+	
+	@RequestMapping("/sitterUpdate")
+	public String sitterUpdate(SitterDTO dto) {
+		
+		adminService.sitterUpdate(dto);
+		
+		return "redirect:/admin/roleList";		
+	}
+	
+	
+	
+	@RequestMapping("/businessUpdate")
+	public String businessUpdate(BusinessDTO dto) {
+		
+		adminService.businessUpdate(dto);
+		
+		return "redirect:/admin/roleList";
+		
+	}
+	
+	@RequestMapping("/commerceSchedule")
+	public void commerceSchedule(Model m) {
+		
+		List<CommerceScheduleDTO> commScheduleList = adminService.commerceScheduleList();		
+		m.addAttribute("commScheduleList", commScheduleList);
+		
+	}
+	
+	@RequestMapping("/commerceScheduleSave")
+	public String commerceScheduleSave(CommerceScheduleDTO dto) {
+		
+		adminService.commerceScheduleSave(dto);
+		
+		return "redirect:/admin/commerceSchedule";
+	}
+	
+	@RequestMapping("/scheduleDelete")
+	public String scheduleDelete(CommerceScheduleDTO dto) {
+		
+		adminService.scheduleDeleteById(dto);
+		
+		return "redirect:/admin/commerceSchedule";
+	}
+	
+	@RequestMapping("/scheduleUpdate")
+	public String scheduleUpdate(CommerceScheduleDTO dto) {
+		
+		adminService.scheduleUpdate(dto);
+		
+		return "redirect:/admin/commerceSchedule";
+	}
+	
+	@RequestMapping("/qnaDetail")
+	public void qnaDetailById(QnaDTO dto, Model m) {
+		
+		Map<String,Object> map = headerChange();
+        m.addAttribute("id", map.get("id"));
+        m.addAttribute("memberRole", map.get("memberRole"));
+		// TODO Auto-generated method stub
+		QnaDTO qnaDetail = adminService.qnaDetailById(dto);
+		m.addAttribute("qnaDetail", qnaDetail);
+	}
+	
+	@RequestMapping("/qnaDetailAnswer")
+	public String qnaDetailAnswer(QnaDTO dto) {
+		
+		adminService.qnaDetailAnswer(dto);
+		
+		return "redirect:/admin/qnaList";
+	}
+	
+	// 페이지 이동시 회원역할에 따른 헤더 변경하기 정보 얻기 함수
+	private Map<String,Object> headerChange() {
+		Map<String,Object> map = new HashMap<String, Object>();
+        Cookie[] cookies = request.getCookies();
+        String accessToken = null;
+        
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("access_token".equals(cookie.getName())) {
+                    accessToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
 
+		if(accessToken != null) {
+	        String id = (String)loginService.getClaims(accessToken).get("id");
+	        String memberRole = (String)loginService.getClaims(accessToken).get("memberRole");
+	        map.put("memberRole", memberRole);
+	        map.put("id", id);
+
+		}else {
+	        map.put("memberRole", "");
+	        map.put("id", "");
+
+		}
+		return map;
+		
+	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
+	
 }

@@ -46,42 +46,7 @@
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
 
 
-<script>
-$(document).ready(function() {
-	
-    $('#datatable tbody').on('click', 'tr', function() {
-        var commNo = $(this).find('td').eq(0).text();
 
-        // 서버로 상세 정보를 가져오기 위해 AJAX 요청을 보냅니다.
-        $.ajax({
-            url: '/blamedDetail',
-            type: 'GET',
-            data: { commNo: commNo },
-            dataType: 'html', // 컨트롤러가 HTML 템플릿을 반환하므로 'html'로 변경
-            success: function(html) {
-                // 모달에 가져온 데이터를 채웁니다.
-                $('#blamedDetailModal .modal-content').html(html);
-
-                // 모달을 보여줍니다.
-                $('#blamedDetailModal').modal('show');
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-            }
-        });
-    });
-  
-  // 두 번째 열의 텍스트에 마우스를 올렸을 때 커서 스타일 변경
-  $('#datatable tbody tr td:nth-child(2) span').on('mouseover', function() {
-    $(this).css('cursor', 'pointer');
-  });
-
-  // 두 번째 열의 텍스트에서 마우스를 떼었을 때 커서 스타일 원래대로 되돌리기
-  $('#datatable tbody tr td:nth-child(2) span').on('mouseout', function() {
-    $(this).css('cursor', 'auto');
-  });
-});
-</script>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -132,7 +97,7 @@ $(document).ready(function() {
 								<li><a><i class="fa fa-video-camera"></i> 라이브 커머스 <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="/admin/commerce">방송 일정</a></li>
+										<li><a href="/admin/commerceSchedule">방송 일정</a></li>
 										<li><a href="/admin/commerceList">상품 관리</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-tags"></i> 광고 <span
@@ -224,7 +189,7 @@ $(document).ready(function() {
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Position: activate to sort column ascending"
-																			style="width: 250px;">제목</th>
+																			style="width: 150px;">제목</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Office: activate to sort column ascending"
@@ -247,7 +212,7 @@ $(document).ready(function() {
 																	<c:forEach items="${blamedList}" var="blamedData">
 																		<tr role="row" class="odd">
 																			<td class="sorting_1">${blamedData.commNo }</td>
-																			<td><span>${blamedData.title }</span></td>
+																			<td><a href="blamedDetail?commNo=${blamedData.commNo }">${blamedData.title }</a></td>
 																			<td>${blamedData.date }</td>
 																			<td>${blamedData.bcnt }</td>																																	
 																			<td><a href="blamedDelete?commNo=${blamedData.commNo }">삭제</a></td>
@@ -270,45 +235,6 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<!-- /page content -->
-			<!-- 상세 내용 보기 -->
-		    <div class="modal fade" id="blamedDetailModal" tabindex="-1" role="dialog" aria-labelledby="blamedDetailModal" aria-hidden="true">
-		        <div class="modal-dialog" role="document">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <h5 class="modal-title" id="blamedDetailModalLabel">상세 내용</h5>
-		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                        <span aria-hidden="true">&times;</span>
-		                    </button>
-		                </div>
-		                <div class="modal-body">		                    
-		                        <div class="form-group">
-		                            <label for="title">제목</label>
-		                            <input type="text" class="form-control" id="title" name="title" readonly>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="id">글쓴이</label>
-		                            <input type="text" class="form-control" id="id" name="id" readonly>
-		                        </div>
-		                   		<div class="form-group">
-		                            <label for="date">글등록일</label>
-		                            <input type="text" class="form-control" id="date" name="date" readonly>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="bcnt">신고수</label>
-		                            <input type="text" class="form-control" id="bcnt" name="bcnt" readonly>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="content">내용</label>
-		                            <input type="text" class="form-control" id="content" name="content" readonly>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="image">이미지</label>		                            
-		                            <img src="#" alt="img" width="200" style="display:none;">
-		                        </div>	                    
-		                </div>
-		            </div>
-		        </div>
-		    </div>
 
 			<!-- footer content -->
 			<footer>
