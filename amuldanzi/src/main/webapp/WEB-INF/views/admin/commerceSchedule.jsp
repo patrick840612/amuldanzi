@@ -44,7 +44,6 @@
 <link href="/admin/chunks/css/281067dbec461a13.css" rel="stylesheet">
 <link href="/admin/chunks/css/3ca3804aef0f69b8.css" rel="stylesheet">
 <link href="/admin/chunks/css/text.css" rel="stylesheet">
-
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -155,84 +154,121 @@
 
 
 			<!-- page content -->
-			<div class="right_col" role="main" style="min-height: 857px;">
+			<div class="right_col" role="main" style="min-height: 1055px;">
 				<div class="">
-					<div class="clearfix"></div>
-					<div class="row" style="display: block;">
-						<div class="clearfix"></div>
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>신고글 리스트</h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-sm-12">
-											<div>
-												<div id="datatable_wrapper"
-													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-													<div class="row">
-														<div class="col-sm-12">
-															<table id="datatable"
-																class="table table-striped table-bordered dataTable no-footer"
-																style="width: 100%;" role="grid"
-																aria-describedby="datatable_info">
-																<thead>
-																	<tr role="row">
-																		<th class="sorting_desc" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Name: activate to sort column ascending"
-																			style="width: 40px;" aria-sort="descending">문의 유형</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Position: activate to sort column ascending"
-																			style="width: 150px;">제목</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Office: activate to sort column ascending"
-																			style="width: 95px;">작성일자</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;">답변여부</th>
-																		<th class="sorting" tabindex="0"
-																			aria-controls="datatable" rowspan="1" colspan="1"
-																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;"></th>	
-																	</tr>
-																</thead>
-
-
-																<tbody id="blamedList">
-																
-																	<!-- 첫 접속시 공지 내용 불러오기 -->
-																	<c:forEach items="${qnaList}" var="qList">`1
-																		<tr role="row" class="odd">
-																			<td class="sorting_1">${qList.qnaCategory }</td>
-																			<td><span>${qList.qnaTitle }</span></td>
-																			<td>${qList.qnaDate }</td>
-																			<td>${qList.qnaAnswerOk }</td>																																	
-																			<td><a href="qnaDetail?qnaNo=${qList.qnaNo }">답변하기</a></td>
-																		</tr>
-																	</c:forEach>
-
-																</tbody>
-																
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+					<div class="page-title">
+						<div class="title_left">
+							<h3>방송 일정</h3>
 						</div>
 					</div>
+					<div class="clearfix"></div>
+					<div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>방송일정 등록</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                  <form class="commerceScheduleSave" action="commerceScheduleSave" method="post">
+                                        <span class="section">방송 정보</span>
+                                        <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">방송 날짜<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <input class="form-control" type="date" name="commerceDate" required="required"></div>
+                                        </div>
+                                        <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">방송 시작시간<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <input class="form-control" type="time" name="commerceStart" required="required"></div>
+                                        </div>
+                                        <div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">방송 종료시간<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <input class="form-control" type="time" name="commerceEnd" required="required"></div>
+                                        </div>                         
+                                        <div class="ln_solid">
+                                            <div class="form-group">
+                                                <div class="col-md-6 offset-md-3">
+                                                    <button type="submit" class="btn btn-primary">등록</button>
+                                                    <button type="reset" class="btn btn-success">리셋</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 ">
+					<div class="x_panel">
+					    <div class="container mt-4">
+					        <h2>방송 일정리스트</h2>
+					        <hr>
+					        <!-- 재고 테이블 -->
+					        <table class="table table-striped">
+					        	<colgroup>
+							        <col style="width: 15%;">
+							        <col style="width: 25%;">
+							        <col style="width: 20%;">
+							        <col style="width: 20%;">
+							        <col style="width: 10%;">
+							        <col style="width: 10%;">
+							    </colgroup>
+					            <thead>
+					                <tr>
+					                    <th>번호</th>
+					                    <th>방송 날짜</th>
+					                    <th>방송 시작시간</th>
+					                    <th>방송 종료시간</th>
+					                    <th></th>
+					                    <th></th>
+					                </tr>
+					            </thead>
+									<tbody>
+										<c:forEach items="${commScheduleList}" var="scheduleList">
+										    <form class="scheduleForm" action="/admin/scheduleUpdate" method="post">
+										        <tr>
+										            <td>${scheduleList.scheduleId}</td>
+										            <td class="editable">
+										                <span>${scheduleList.commerceDate}</span>
+										                <input type="date" name="commerceDate" value="${scheduleList.commerceDate}" style="display:none;">
+										            </td>
+										            <td class="editable">
+										                <span>${scheduleList.commerceStart}</span>
+										                <input type="time" name="commerceStart" value="${scheduleList.commerceStart}" style="display:none;">
+										            </td>
+										            <td class="editable">
+										                <span>${scheduleList.commerceEnd}</span>
+										                <input type="time" name="commerceEnd" value="${scheduleList.commerceEnd}" style="display:none;">
+										            </td>
+										            <td>
+										                <input type="hidden" name="scheduleId" value="${scheduleList.scheduleId}">
+										                <a href="#" class="edit-link">수정</a>
+										                <button type="submit" style="display:none;">저장</button>
+										                <button type="button" class="cancel-button" style="display:none;">취소</button>
+										            </td>
+										            <td>
+										                <a href="scheduleDelete?scheduleId=${scheduleList.scheduleId}">삭제</a>
+										            </td>
+										        </tr>
+										    </form>
+										</c:forEach>  
+									</tbody>
+					        	</table>
+					        <!-- 상품 추가 버튼 -->
+					        <hr>
+					    </div>
+    				</div>
+   				 </div>
+                    </div>
 				</div>
 			</div>
-			<!-- /page content -->			
+			<!-- /page content -->
+
 			<!-- footer content -->
 			<footer>
 			</footer>
@@ -276,6 +312,30 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
+		
+	<script>
+	    $(document).ready(function() {
+	        $(".edit-link").click(function(event) {
+	            event.preventDefault();
+	            var row = $(this).closest("tr");
+	            row.find(".editable span").hide();
+	            row.find(".editable input").show();
+	            row.find(".edit-link").hide();
+	            row.find("button[type='submit']").show();
+	            row.find(".cancel-button").show();
+	        });
+	
+	        $(".cancel-button").click(function(event) {
+	            event.preventDefault();
+	            var row = $(this).closest("tr");
+	            row.find(".editable span").show();
+	            row.find(".editable input").hide();
+	            row.find(".edit-link").show();
+	            row.find("button[type='submit']").hide();
+	            row.find(".cancel-button").hide();
+	        });
+	    });
+	</script>
 
 </body>
 </html>

@@ -1,6 +1,11 @@
 package com.amuldanzi.domain;
 
-import java.util.Date;
+
+
+
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,11 +24,11 @@ public class CommerceScheduleDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = true, updatable = false, insertable = false)
-	private 	Integer 	scheduleId;		// 일정관리 ID ( PK )
+	private 	Integer 			scheduleId;		// 일정관리 ID ( PK )
 	
-	private 	String 		commerceStart;	// 방송 시작시간
-	private 	String 		commerceEnd;	// 방송 종료시간
-	private 	Date 	    commerceDate;	// 방송 날짜
+	private 	LocalTime 			commerceStart;	// 방송 시작시간
+	private 	LocalTime  			commerceEnd;	// 방송 종료시간
+	private 	LocalDate 	    	commerceDate;	// 방송 날짜
 	
 
 }

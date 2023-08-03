@@ -163,7 +163,11 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>신고글 리스트</h2>
+									<h2>비지니스 신청 리스트</h2>
+					                    <ul class="nav navbar-right panel_toolbox">
+					                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					                      </li>
+					                    </ul>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -183,11 +187,11 @@
 																		<th class="sorting_desc" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Name: activate to sort column ascending"
-																			style="width: 40px;" aria-sort="descending">문의 유형</th>
+																			style="width: 40px;" aria-sort="descending">아이디</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Position: activate to sort column ascending"
-																			style="width: 150px;">제목</th>
+																			style="width: 250px;">제목</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Office: activate to sort column ascending"
@@ -195,28 +199,24 @@
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Start date: activate to sort column ascending"
-																			style="width: 50px;">답변여부</th>
+																			style="width: 50px;">승인여부</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="datatable" rowspan="1" colspan="1"
 																			aria-label="Start date: activate to sort column ascending"
 																			style="width: 50px;"></th>	
 																	</tr>
 																</thead>
-
-
-																<tbody id="blamedList">
 																
-																	<!-- 첫 접속시 공지 내용 불러오기 -->
-																	<c:forEach items="${qnaList}" var="qList">`1
+																<tbody id="sList">
+																<c:forEach items="${sitterList }" var="sList">
 																		<tr role="row" class="odd">
-																			<td class="sorting_1">${qList.qnaCategory }</td>
-																			<td><span>${qList.qnaTitle }</span></td>
-																			<td>${qList.qnaDate }</td>
-																			<td>${qList.qnaAnswerOk }</td>																																	
-																			<td><a href="qnaDetail?qnaNo=${qList.qnaNo }">답변하기</a></td>
+																			<td class="sorting_1">${sList.id }</td>
+																			<td><a href="sitterDetail?id=${sList.id }">${sList.sitterTitle }</a></td>
+																			<td>${sList.sitterRegdate }</td>
+																			<td>${sList.sitter }</td>																																																				
+																			<td><a href="sitterUpdate?id=${sList.id }">승인하기</a></td>
 																		</tr>
-																	</c:forEach>
-
+																</c:forEach>
 																</tbody>
 																
 															</table>
@@ -229,6 +229,88 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-md-12 col-sm-12 ">
+			                <div class="x_panel">
+			                  <div class="x_title">
+			                    <h2>돌보미 신청 리스트</h2>
+			                    <ul class="nav navbar-right panel_toolbox">
+			                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			                      </li>
+			                    </ul>
+			                    <div class="clearfix"></div>
+			                  </div>
+			                  <div class="x_content">
+			                      <div class="row">
+			                          <div class="col-sm-12">
+			                            <div class="card-box table-responsive">
+												<div id="datatable-fixed-header_wrapper"
+													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+													<div class="row">
+														<div class="col-sm-12">
+															<table id="datatable-fixed-header"
+																class="table table-striped table-bordered dataTable no-footer"
+																style="width: 100%;" role="grid"
+																aria-describedby="datatable-fixed-header_info">
+																<thead>
+																	<tr role="row">
+																		<th class="sorting_desc" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Name: activate to sort column ascending"
+																			aria-sort="descending" style="width: 118px;">상호/대표자명</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Position: activate to sort column ascending"
+																			style="width: 189px;">사업자/주민등록 번호</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Office: activate to sort column ascending"
+																			style="width: 88px;">업종</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Age: activate to sort column ascending"
+																			style="width: 80px;">작성일자</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Start date: activate to sort column ascending"
+																			style="width: 80px;">승인여부</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable-fixed-header" rowspan="1"
+																			colspan="1"
+																			aria-label="Salary: activate to sort column ascending"
+																			style="width: 66px;"></th>
+																	</tr>
+																</thead>
+
+
+
+
+																<tbody id="bList">																
+																	<c:forEach items="${businessList }" var="bList">
+																		<tr role="row" class="odd">
+																			<td class="sorting_1">${bList.businessName }</td>
+																			<td>${bList.businessNumber }</td>
+																			<td>${bList.businessSector }</td>
+																			<td>${bList.businessRegdate }</td>
+																			<td>${bList.businessOk }</td>																																	
+																			<td><a href="businessUpdate?businessNumber=${bList.businessNumber }">승인하기</a></td>
+																		</tr>																	
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+			                </div>
+			              </div>
+			            </div>
+                </div>
+              </div>
 					</div>
 				</div>
 			</div>
