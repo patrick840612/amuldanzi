@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.EducationDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.service.CareService;
 import com.amuldanzi.service.CommuityService;
+import com.amuldanzi.service.EducationService;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.NoticeService;
 
@@ -38,6 +40,9 @@ public class MainController {
 	
 	@Autowired
 	private CareService careservice;
+	
+	@Autowired
+	private EducationService eduservice;
 	 
 	
 	@RequestMapping("/index")
@@ -46,10 +51,13 @@ public class MainController {
       List<HashMap<String, Object>> communityLikeList = communityService.selectLikeCommunityList();
       List<NoticeDTO> noticeList = service.getNoticeListRecent();
       List<CareDTO> careList = careservice.getCareListRecent(); 
+      List<EducationDTO> eduList = eduservice.getEduListRecent();
+      
       
       
 	  m.addAttribute("careList", careList);
       m.addAttribute("noticeList", noticeList);
+      m.addAttribute("eduList", eduList);
       m.addAttribute("communityLikeList", communityLikeList);  		
 	  
 	  

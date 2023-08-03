@@ -26,6 +26,9 @@ public interface EducationRepository extends CrudRepository<EducationDTO, Intege
 	EducationDTO selectEduTitle(@Param("id") String id);
 
 	@Query("SELECT e.video FROM EducationDTO e WHERE e.title = :title")
-	List<String> selectVideoList(@Param("title") String title);
+	List<String> selectVideoList(@Param("title") String title); 
+	
+	@Query(value = "SELECT * FROM education GROUP BY title ORDER BY id DESC LIMIT 2",nativeQuery = true)
+	List<EducationDTO> selectEduListRecent();
 
 }

@@ -33,6 +33,12 @@ public class EducationServiceImpl implements EducationService {
 		return (List<String>)eduRepo.selectVideoList(title);
 	}
 
+	@Override
+	public List<EducationDTO> getEduListRecent() {
+		// TODO Auto-generated method stub
+		return (List<EducationDTO>)eduRepo.selectEduListRecent();
+	}
+
 	
 
 }

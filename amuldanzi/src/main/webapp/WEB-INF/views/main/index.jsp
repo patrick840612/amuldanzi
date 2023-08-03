@@ -392,48 +392,26 @@ function hidePopup() {
 			</div> 
 			</c:forEach>
 			
-			
-			
-			
-			
+
+			<c:forEach items="${eduList}" var ="edu">
 			<div class="mainContent_mainContentBox__shdST">
 				<div>
 					<span
 						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"><span
 						style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 63.8298% 0px 0px;"></span><img
 						alt="main_image" sizes="700px"
-						srcset="/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=16&amp;q=75 16w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=256&amp;q=75 256w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=384&amp;q=75 384w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=3840&amp;q=75 3840w"
-						src="/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=3840&amp;q=75"
+						src="/images/edu/${edu.img}"
 						decoding="async" data-nimg="responsive"
 						class="mainContent_mainImg__dWbCy"
 						style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; filter: none; background-size: cover; background-image: none; background-position: 0% 0%;">
 					<noscript></noscript></span>
 				</div>
 				<div class="mainContent_mainContent__w_Buk">
-					<div class="mainContent_mainTitle__8iW62">아기 집사가 울음 터트리자
-						토닥토닥해준 야옹이.."울지말라옹 뚝!"</div>
-					<div class="mainContent_mainAuthor__kKyGl">노트펫</div>
+					<div class="mainContent_mainTitle__8iW62">${edu.title}</div>
+					<div class="mainContent_mainAuthor__kKyGl">애물단지</div>
 				</div>
 			</div>
-			<div class="mainContent_mainContentBox__shdST">
-				<div>
-					<span
-						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"><span
-						style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 63.8298% 0px 0px;"></span><img
-						alt="main_image" sizes="700px"
-						srcset="/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=16&amp;q=75 16w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=32&amp;q=75 32w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=48&amp;q=75 48w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=64&amp;q=75 64w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=96&amp;q=75 96w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=128&amp;q=75 128w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=256&amp;q=75 256w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=384&amp;q=75 384w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=3840&amp;q=75 3840w"
-						src="/_next/image?url=https%3A%2F%2Fcontents.creators.mypetlife.co.kr%2Fcontent%2Fuploads%2F2021%2F09%2F09100118%2F2021092Ffb_4f592cad374d6b83d9f89ad31f97ad1d.png&amp;w=3840&amp;q=75"
-						decoding="async" data-nimg="responsive"
-						class="mainContent_mainImg__dWbCy"
-						style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; filter: none; background-size: cover; background-image: none; background-position: 0% 0%;">
-					<noscript></noscript></span>
-				</div>
-				<div class="mainContent_mainContent__w_Buk">
-					<div class="mainContent_mainTitle__8iW62">아기 집사가 울음 터트리자
-						토닥토닥해준 야옹이.."울지말라옹 뚝!"</div>
-					<div class="mainContent_mainAuthor__kKyGl">노트펫</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 		<hr class="popper_popperMenuDivider__j1QQj">
 		<br/>

@@ -11,6 +11,8 @@ public interface EducationService {
 	EducationDTO getEduDetail(String id);
 
 	List<String> getVideoList(String title);
+
+	List<EducationDTO> getEduListRecent();
  
 
 }
