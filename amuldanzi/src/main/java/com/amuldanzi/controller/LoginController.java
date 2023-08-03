@@ -136,6 +136,7 @@ public class LoginController {
 		if(member.getUserPassword() == null || member.getUserPassword().equals("")) { // 일반회원 가입은 되어 있지만 소셜회원 가입은 안 되었을 때
 			memberSocial.setMemberId(member);
 			loginService.socialRegist(memberSocial);
+			member.setMemberRole("일반회원");
 			creatJwtToken(member);
 			Map<String,Object> map = headerChange();
 	        m.addAttribute("memberRole", map.get("memberRole"));
@@ -164,11 +165,11 @@ public class LoginController {
 		member.setSocialKey(email);
 		member.setSocial("google");
 		String id = loginService.sRegistCheck(member); // 구글 회원가입 체크
-		
+
 		if(id != "") { // 구글 가입 되어 있을 때
 			MemberInfoDTO mem = new MemberInfoDTO();
 			mem.setId(id);
-			
+			mem.setMemberRole("일반회원");
 			mem.setMemberRole(creatJwtToken(mem).getMemberRole());
 			return "redirect:/main/index";
 		}else { // 구글로 회원 가입 안되어 있을 때
@@ -192,7 +193,7 @@ public class LoginController {
 		if(id != "") {// 카카오 가입 되어 있을 때
 			MemberInfoDTO mem = new MemberInfoDTO();
 			mem.setId(id);
-			
+			mem.setMemberRole("일반회원");
 			mem.setMemberRole(creatJwtToken(mem).getMemberRole());
 			return "redirect:/main/index";
 		}else { // 카카오로 회원 가입 안되어 있을 때
