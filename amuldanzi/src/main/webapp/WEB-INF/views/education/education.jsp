@@ -1,7 +1,6 @@
 
 <%@ page contentType="text/html; charset=UTF-8"%>
-
-
+ 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -44,206 +43,136 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+.card-image {
+	display: block;
+	min-height: 20rem; /* layout hack */
+	background: #fff center center no-repeat;
+	background-size: cover;
+	filter: blur(3px); /* blur the lowres image */
+}
+
+.card-image > img {
+	display: block;
+	width: 100%;
+	opacity: 0; /* visually hide the img element */
+}
+
+.card-image.is-loaded {
+	filter: none; /* remove the blur on fullres image */
+	transition: filter 1s;
+}
 
 
 
+
+/* Layout Styles */
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-size: 16px;
+	font-family: sans-serif;
+}
+
+.card-list {
+	display: block;
+	margin: 1rem auto;
+	padding: 0;
+	font-size: 0;
+	text-align: center;
+	list-style: none;
+}
+
+.card {
+	display: inline-block;
+	width: 90%;
+	max-width: 20rem;
+	margin: 1rem;
+	font-size: 1rem;
+	text-decoration: none;
+	overflow: hidden;
+	box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+	transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.card:hover {
+	transform: translateY(-0.5rem) scale(1.0125);
+	box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
+}
+
+.card-description {
+	display: block;
+	padding: 1em 0.5em;
+	color: #515151;
+	text-decoration: none;
+}
+
+.card-description > h2 {
+	margin: 0 0 0.5em;
+}
+
+.card-description > p {
+	margin: 0;
+}
+</style>
+
+<script type="text/javascript">
+window.addEventListener('load', function() {
+	
+	// setTimeout to simulate the delay from a real page load
+	setTimeout(lazyLoad, 1000);
+	
+});
+
+function lazyLoad() {
+	var card_images = document.querySelectorAll('.card-image');
+	
+	// loop over each card image
+	card_images.forEach(function(card_image) {
+		var image_url = card_image.getAttribute('data-image-full');
+		var content_image = card_image.querySelector('img');
+		
+		// change the src of the content image to load the new high res photo
+		content_image.src = image_url;
+		
+		// listen for load event when the new photo is finished loading
+		content_image.addEventListener('load', function() {
+			// swap out the visible background image with the new fully downloaded photo
+			card_image.style.backgroundImage = 'url(' + image_url + ')';
+			// add a class to remove the blur filter to smoothly transition the image change
+			card_image.className = card_image.className + ' is-loaded';
+		});
+		
+	});
+	
+}
+
+
+</script>
 
 </head>
 
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <body>
-	<div class="main_mainContents__GXYBn2">
-		<hr class="popper_popperMenuDivider__j1QQj">
-		<p class="main_mainTitle__nxOQS">
-		<h1>
-			<center>
-				<strong>교육정보</strong>
-			</center>
-		</h1>
-		</p>
-		<br /> <br />
-		<hr class="popper_popperMenuDivider__j1QQj">
-	</div>
-
-	<div class="container">
-		<div class="col-xs-12">
-
-			<div class="page-header">
-				<h3>기초교육</h3>
-			</div>
-
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item wactive">
-						<ul class="thumbnails">
-							<c:forEach items="${eduList}" var="education" varStatus="status">
-								<c:if test="${status.index % 4 == 0}">
-									<c:set var="active" value="${status.index == 0}" />
-									<div class="item ${active ? 'active' : ''}">
-										<ul class="thumbnails">
-								</c:if>
-								<li class="col-sm-3">
-									<div class="fff">
-										<div class="thumbnail">
-											<a href="#"><img src="${education.img}" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>${education.title}</h4>
-											<p>${education.step}</p>
-											<a class="btn btn-mini" href="#">» 더보기</a>
-										</div>
-									</div>
-								</li>
-								<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
-						</ul>
-					</div>
-					</c:if>
-					</c:forEach>
-				</div>
-				<nav>
-					<ul class="control-box pager">
-						<li><a data-slide="prev" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-left"></i></a></li>
-						<li><a data-slide="next" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-right"></i></li>
-					</ul>
-				</nav>
-				
-				
-				<div class="page-header">
-				<h3>사회화교육</h3>
-			</div>
-
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item wactive">
-						<ul class="thumbnails">
-							<c:forEach items="${eduList}" var="education" varStatus="status">
-								<c:if test="${status.index % 4 == 0}">
-									<c:set var="active" value="${status.index == 0}" />
-									<div class="item ${active ? 'active' : ''}">
-										<ul class="thumbnails">
-								</c:if>
-								<li class="col-sm-3">
-									<div class="fff">
-										<div class="thumbnail">
-											<a href="#"><img src="${education.img}" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>${education.title}</h4>
-											<p>${education.step}</p>
-											<a class="btn btn-mini" href="#">» 더보기</a>
-										</div>
-									</div>
-								</li>
-								<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
-						</ul>
-					</div>
-					</c:if>
-					</c:forEach>
-				</div>
-				<nav>
-					<ul class="control-box pager">
-						<li><a data-slide="prev" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-left"></i></a></li>
-						<li><a data-slide="next" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-right"></i></li>
-					</ul>
-				</nav>
-				
-				<div class="page-header">
-				<h3>기본교육</h3>
-			</div>
-
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item wactive">
-						<ul class="thumbnails">
-							<c:forEach items="${eduList}" var="education" varStatus="status">
-								<c:if test="${status.index % 4 == 0}">
-									<c:set var="active" value="${status.index == 0}" />
-									<div class="item ${active ? 'active' : ''}">
-										<ul class="thumbnails">
-								</c:if>
-								<li class="col-sm-3">
-									<div class="fff">
-										<div class="thumbnail">
-											<a href="#"><img src="${education.img}" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>${education.title}</h4>
-											<p>${education.step}</p>
-											<a class="btn btn-mini" href="#">» 더보기</a>
-										</div>
-									</div>
-								</li>
-								<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
-						</ul>
-					</div>
-					</c:if>
-					</c:forEach>
-				</div>
-				<nav>
-					<ul class="control-box pager">
-						<li><a data-slide="prev" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-left"></i></a></li>
-						<li><a data-slide="next" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-right"></i></li>
-					</ul>
-				</nav>
-				
-				<div class="page-header">
-				<h3>습관화</h3>
-			</div>
-
-			<div class="carousel slide" id="myCarousel">
-				<div class="carousel-inner">
-					<div class="item wactive">
-						<ul class="thumbnails">
-							<c:forEach items="${eduList}" var="education" varStatus="status">
-								<c:if test="${status.index % 4 == 0}">
-									<c:set var="active" value="${status.index == 0}" />
-									<div class="item ${active ? 'active' : ''}">
-										<ul class="thumbnails">
-								</c:if>
-								<li class="col-sm-3">
-									<div class="fff">
-										<div class="thumbnail">
-											<a href="#"><img src="${education.img}" alt=""></a>
-										</div>
-										<div class="caption">
-											<h4>${education.title}</h4>
-											<p>${education.step}</p>
-											<a class="btn btn-mini" href="#">» 더보기</a>
-										</div>
-									</div>
-								</li>
-								<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
-						</ul>
-					</div>
-					</c:if>
-					</c:forEach>
-				</div>
-				<nav>
-					<ul class="control-box pager">
-						<li><a data-slide="prev" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-left"></i></a></li>
-						<li><a data-slide="next" href="#myCarousel" class=""><i
-								class="glyphicon glyphicon-chevron-right"></i></li>
-					</ul>
-				</nav>
-				
-				<!-- /.control-box -->
-
-			</div>
-			<!-- /#myCarousel -->
-
-		</div>
-		<!-- /.col-xs-12 -->
-
-	</div>
-	<!-- /.container -->
-
+<ul class="card-list" style ="margin-top: 165px;">
+	
+	<c:forEach items = "${eduList}" var = "edu"> 
+	<li class="card">
+		<a class="card-image" href="/education/educationDetail?id=${edu.id}&title=${edu.title}" target="_blank" style="background-image: url(/images/edu/${edu.img});" data-image-full="/images/edu/${edu.img}">
+			<img src="/images/edu/${edu.img}" alt="let's go" /><img src="" alt="Psychopomp" />
+		</a>
+		<a class="card-description" href="/education/educationDetail?id=${edu.id}&title=${edu.title}" target="_blank">
+			<h2>${edu.title}</h2> 
+			<p>${edu.content}</p>
+		</a>
+	</li>
+	</c:forEach> 
+	
+</ul>
 </body>
+
 </html>
+<jsp:include page="../main/footer.jsp"></jsp:include>

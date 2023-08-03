@@ -435,14 +435,16 @@ $(document).ready(function() {
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">케어정보</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
+											<a rel="noopener noreferrer" href="/community/communityList"
+												class="popper_popperTab__LvzGS"><img
+												src="/icons/shop/SHOP_CAT_BTN2.png">
+												<div class="popper_popperMenu__8QpIV">커뮤니티</div></a>
+											<hr class="popper_popperMenuDivider__j1QQj">
 
 
 										</div>
 									</div>
 								</div></li>
-							<li class="Header_headerLi__6LLa5"><a
-								class="Header_defaultMenu__cursor" href="/community/communityList">커뮤니티</a>
-								<div></div></li>
 							<li class="Header_headerLi__6LLa5">
 							
 							<!-- 비 로그인시 -->
