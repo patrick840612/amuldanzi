@@ -140,6 +140,8 @@
     margin-top: auto; /* 수직 가운데 정렬을 위해 추가 */
     text-align: center; /* 가운데 정렬을 위해 추가 */
 }
+
+.
 </style>
 
 <script src="https://d1unjqcospf8gs.cloudfront.net/assets/home/base-4b55f04bb2798d1f6aa4e078c0ad3504ef4993ad4123005ec35dde545e5788bd.js"></script>
