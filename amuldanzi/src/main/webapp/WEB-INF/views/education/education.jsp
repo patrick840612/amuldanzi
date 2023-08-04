@@ -167,7 +167,7 @@ function lazyLoad() {
 			<img src="/images/edu/${edu.img}" alt="let's go" /><img src="" alt="Psychopomp" />
 		</a>
 		<a class="card-description" href="/education/educationDetail?id=${edu.id}&title=${edu.title}" target="_blank">
-			<h2>${edu.title}</h2> 
+			<h2 style="font-weight:">${edu.title}</h2> 
 			<p>애물단지</p>
 		</a>
 	</li>

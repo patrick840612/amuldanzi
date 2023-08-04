@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Kakao Map Example</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cfe8de01569b97e3def8a80bd57abb6&libraries=services"></script>
 	<jsp:include page="../main/header.jsp"></jsp:include>
 	
@@ -16,12 +16,12 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap" rel="stylesheet"> 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" defer>
 	<style type="text/css">
 	#footer{
 	
 	position: fixed;
-	margin-top: 210px
+	margin-top: 100px;
 	
 	}
 	
@@ -51,6 +51,9 @@
         	        }),
         	        busan: new kakao.maps.Marker({
         	            position: new kakao.maps.LatLng(35.1796, 129.0750)
+        	        }),
+        	        kyungki: new kakao.maps.Marker({
+        	            position: new kakao.maps.LatLng(37.4721, 126.8726)
         	        }),
         	        daegu: new kakao.maps.Marker({
         	            position: new kakao.maps.LatLng(35.8092, 128.5650)
