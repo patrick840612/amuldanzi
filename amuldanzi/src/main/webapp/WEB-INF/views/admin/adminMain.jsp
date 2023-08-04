@@ -163,7 +163,7 @@
 					</div>
 					<div class="clearfix"></div>
 					<iframe
-						src="http://localhost:5601/app/dashboards#/view/cb86d6a0-3278-11ee-ba35-ddbaf3f05a46?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'%EC%95%A0%EB%AC%BC%EB%8B%A8%EC%A7%80%20%EA%B7%B8%EB%9E%98%ED%94%84',viewMode:view)"
+						src="http://192.168.0.99:5601/app/dashboards#/view/cb86d6a0-3278-11ee-ba35-ddbaf3f05a46?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'%EC%95%A0%EB%AC%BC%EB%8B%A8%EC%A7%80%20%EA%B7%B8%EB%9E%98%ED%94%84',viewMode:view)"
 						height="1200" width="1650"></iframe>
 						</div>
 			</div>
