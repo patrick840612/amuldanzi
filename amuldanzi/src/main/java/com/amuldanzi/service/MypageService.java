@@ -9,6 +9,7 @@ import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
 import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
+import com.amuldanzi.entity.OrderItemsEntity2;
 
 public interface MypageService {
 	public List<MemberPetDTO> selectById(MemberInfoDTO member);
@@ -30,4 +31,8 @@ public interface MypageService {
 	public QnaDTO qnaFindByRearId(Integer qnaNo);
 	public void qnaUpdate(QnaDTO qna);
 	public void qnaDelete(QnaDTO qna);
+	
+	public List<OrderItemsEntity2> orderOFindByMemberId(String id);
+	public List<OrderItemsEntity2> orderXFindByMemberId(String id);
+	
 }
