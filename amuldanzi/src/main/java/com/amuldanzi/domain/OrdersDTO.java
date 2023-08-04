@@ -29,9 +29,7 @@ public class OrdersDTO {
 			,updatable = false)
 	private Timestamp payDate;
 	
-	@Column(columnDefinition = "varchar default 'order'"
-			,insertable = false
-			,updatable = false)
+	@Column(columnDefinition = "varchar default '결제완료'")
 	private String orderStatus;
 	
 	private String oneId;

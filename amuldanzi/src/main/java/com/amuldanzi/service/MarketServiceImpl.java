@@ -13,10 +13,14 @@ import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.OrderItemsDTO;
+import com.amuldanzi.domain.OrdersDTO;
 import com.amuldanzi.persistence.CartRepository;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.JungoLikeRepository;
 import com.amuldanzi.persistence.MarketRepository;
+import com.amuldanzi.persistence.OrderItemsRepository;
+import com.amuldanzi.persistence.OrdersRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -34,7 +38,13 @@ public class MarketServiceImpl implements MarketService {
 	
 	@Autowired
 	private CartRepository cartRepo;
-
+	
+	@Autowired
+	private OrdersRepository ordersRepo;
+	
+	@Autowired
+	private OrderItemsRepository orderItemsRepository;
+	
 	@Override
 	public Page<MarketGoodsDTO> findMarketCate(Pageable paging) {
 		return marketRepo.findMarketCate(paging);
@@ -132,8 +142,35 @@ public class MarketServiceImpl implements MarketService {
 	}
 
 	@Override
-	public void cartDelete(int cartId, String userId) {
-		cartRepo.cartDelete(cartId,userId);
+	public void cartDelete(int cartId) {
+		cartRepo.deleteById(cartId);
+	}
+
+	@Override
+	@Transactional
+	public Integer ordersSave(OrdersDTO dto) {
+		ordersRepo.save(dto);
+		
+		return dto.getOrderId();
+		
+	}
+
+	@Override
+	public void saveOrderItems(OrderItemsDTO dto) {
+		orderItemsRepository.save(dto);
+		
+	}
+
+	@Override
+	public void updateCommerce(CommerceDTO commerce) {
+		commerceRepo.save(commerce);
+		
+	}
+
+	@Override
+	public void cartDeleteAll(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

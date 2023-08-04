@@ -11,6 +11,8 @@ import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.OrderItemsDTO;
+import com.amuldanzi.domain.OrdersDTO;
 
 public interface MarketService {
 
@@ -32,6 +34,10 @@ public interface MarketService {
 	List<CartDTO> findCartById(Object id);
 	void deleteCartByCartId(int cartId);
 	Optional<CartDTO> findByMemberInfoAndCommerce(MemberInfoDTO member, CommerceDTO commerce);
-	void cartDelete(int cartId, String userId);
+	void cartDelete(int cartId);
+	Integer ordersSave(OrdersDTO dto);
+	void saveOrderItems(OrderItemsDTO dto);
+	void updateCommerce(CommerceDTO commerce);
+	void cartDeleteAll(String string);
 	
 }

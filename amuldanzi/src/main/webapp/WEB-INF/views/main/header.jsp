@@ -396,11 +396,6 @@ $(document).ready(function() {
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">중고장터</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-											<a   rel="noopener noreferrer" href="/market/carrotShop"
-												class="popper_popperTab__LvzGS"><img
-												src="/icons/shop/SHOP_CAT_BTN2.png">
-												<div class="popper_popperMenu__8QpIV">쇼핑몰</div></a>
-											<hr class="popper_popperMenuDivider__j1QQj">
 											<a   rel="noopener noreferrer" href="/market/dolbomiShop"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">

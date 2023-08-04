@@ -35,15 +35,18 @@ import com.amuldanzi.domain.JungoLikeDTO;
 import com.amuldanzi.domain.MarketCategoryDTO;
 import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
+import com.amuldanzi.domain.OrderItemsDTO;
+import com.amuldanzi.domain.OrdersDTO;
+import com.amuldanzi.entity.OrderItemsEntity;
 import com.amuldanzi.persistence.CommerceRepository;
 import com.amuldanzi.persistence.MemberRepository;
+import com.amuldanzi.persistence.OrdersRepository;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MarketService;
 import com.amuldanzi.util.MD5Generator;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "http://192.168.0.69:3000")
@@ -59,12 +62,15 @@ public class MarketController {
 
 	@Autowired
 	private MarketService marketservice;
-	
-	@Autowired
-    private CommerceRepository commerceRepository;
 
-    @Autowired
-    private MemberRepository memberInfoRepository;
+	@Autowired
+	private CommerceRepository commerceRepository;
+
+	@Autowired
+	private MemberRepository memberInfoRepository;
+
+	@Autowired
+	private OrdersRepository ordersRepository;
 
 	// 페이지 이동
 	@RequestMapping("/{step}")
@@ -106,8 +112,7 @@ public class MarketController {
 		return map;
 
 	}// 페이지 이동시 회원역할에 따른 헤더 변경하기 끝
-	
-	
+
 	@RequestMapping("/carrot")
 	public String carrot(@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model m) {
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
@@ -115,8 +120,6 @@ public class MarketController {
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
-		
-		
 
 		// Pageable 객체를 생성하여 페이징 정보 설정
 		Pageable paging = PageRequest.of(pageNo, 12, Sort.by("goodsId").descending());
@@ -145,7 +148,7 @@ public class MarketController {
 
 		return "market/carrot"; // 여기에 JSP 페이지의 이름을 입력해주세요
 	}
-	
+
 	@RequestMapping("/dolbomiShop")
 	public String dolbomiShop(@RequestParam(required = false, defaultValue = "0", value = "page") int pageNo, Model m) {
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
@@ -193,7 +196,7 @@ public class MarketController {
 		m.addAttribute("memberRole", map.get("memberRole"));
 
 		MarketGoodsDTO result = marketservice.findById(dto.getGoodsId());
-		result.setGoodsCount(result.getGoodsCount()+1);
+		result.setGoodsCount(result.getGoodsCount() + 1);
 		marketservice.save(result);
 		m.addAttribute("marketList", result);
 
@@ -214,13 +217,13 @@ public class MarketController {
 
 		m.addAttribute("hours", hours);
 		m.addAttribute("minutes", minutes);
-		
-		JungoLikeDTO likeCheck = marketservice.findByGoodsIdAndMemberId(dto.getGoodsId(),map.get("id"));
-		
-		if(likeCheck != null) {
-			m.addAttribute("hasLike",1);
-		}else {
-			m.addAttribute("hasLike",0);
+
+		JungoLikeDTO likeCheck = marketservice.findByGoodsIdAndMemberId(dto.getGoodsId(), map.get("id"));
+
+		if (likeCheck != null) {
+			m.addAttribute("hasLike", 1);
+		} else {
+			m.addAttribute("hasLike", 0);
 		}
 	}
 
@@ -246,14 +249,11 @@ public class MarketController {
 
 		// iframe 접근 가능 여부를 모델에 추가
 		m.addAttribute("iframeAccessible", iframeAccessible);
-		
-		
-		//-------------------------------------------------------------------------------------------------------
+
+		// -------------------------------------------------------------------------------------------------------
 		List<CommerceDTO> result = marketservice.findAllCommerce();
 		m.addAttribute("commerceList", result);
-		
-		
-		
+
 		return "market/gsHomeShop"; //
 	}
 
@@ -305,8 +305,6 @@ public class MarketController {
 
 	}
 
-	
-	
 	// 관심 버튼 구현
 	@PostMapping("/like")
 	@ResponseBody
@@ -320,7 +318,7 @@ public class MarketController {
 		// 중고 글에 관심 정보 저장
 		marketservice.saveLike(goodsId, memberId);
 		marketservice.plusLikeByPk(goodsId);
-		
+
 		return "redirect:/community/communityDetail?comm_no=" + goodsId;
 
 	}
@@ -352,31 +350,30 @@ public class MarketController {
 
 		return result;
 	}
-	
-	
+
 	@RequestMapping("/amulDetail")
-	public void amulDetail( @RequestParam(required = false, defaultValue = "0", value = "commerceId") int commerceId, Model m ) {
-		
+	public void amulDetail(@RequestParam(required = false, defaultValue = "0", value = "commerceId") int commerceId,
+			Model m) {
+
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
 		Map<String, Object> map = headerChange();
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
-		
-		//-------------------------------------------------------------
+
+		// -------------------------------------------------------------
 		// commerceId가 없을 시 처리..
 		CommerceDTO result = marketservice.findByCommerceId(commerceId);
-		
+
 		m.addAttribute("list", result);
-		m.addAttribute("commmerceId",commerceId);
-		
-		if(result.getCommercePer()!=0) {
+		m.addAttribute("commmerceId", commerceId);
+
+		if (result.getCommercePer() != 0) {
 			m.addAttribute("price", result.getCommercePrice() - result.getCommercePrice() / result.getCommercePer());
 		}
-		
-		
+
 	}
-	
+
 	@RequestMapping(value = "/dolbomiSave", method = RequestMethod.POST)
 	public String dolbomiSave(@RequestParam("file") MultipartFile file, MarketGoodsDTO dto, Model m) {
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
@@ -424,7 +421,7 @@ public class MarketController {
 		return "redirect:/market/dolbomiShop";
 
 	}
-	
+
 	@RequestMapping("/dolbomiDetail")
 	@Transactional
 	public void dolbomiDetail(MarketGoodsDTO dto, Model m) {
@@ -436,7 +433,7 @@ public class MarketController {
 		m.addAttribute("memberRole", map.get("memberRole"));
 
 		MarketGoodsDTO result = marketservice.findById(dto.getGoodsId());
-		result.setGoodsCount(result.getGoodsCount()+1);
+		result.setGoodsCount(result.getGoodsCount() + 1);
 		marketservice.save(result);
 		m.addAttribute("marketList", result);
 
@@ -457,119 +454,171 @@ public class MarketController {
 
 		m.addAttribute("hours", hours);
 		m.addAttribute("minutes", minutes);
-		
-		JungoLikeDTO likeCheck = marketservice.findByGoodsIdAndMemberId(dto.getGoodsId(),map.get("id"));
-		
-		if(likeCheck != null) {
-			m.addAttribute("hasLike",1);
-		}else {
-			m.addAttribute("hasLike",0);
+
+		JungoLikeDTO likeCheck = marketservice.findByGoodsIdAndMemberId(dto.getGoodsId(), map.get("id"));
+
+		if (likeCheck != null) {
+			m.addAttribute("hasLike", 1);
+		} else {
+			m.addAttribute("hasLike", 0);
 		}
 	}
-	
+
 	@PostMapping("/cartSave")
-	public ResponseEntity<Map<String, String>> addCart(@RequestParam("commerceId") Integer commerceId, @RequestParam("id") String id) {
-	    CommerceDTO commerce = commerceRepository.findById(commerceId)
-	            .orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
-	    MemberInfoDTO member = memberInfoRepository.findById(id)
-	            .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+	public ResponseEntity<Map<String, String>> addCart(@RequestParam("commerceId") Integer commerceId,
+			@RequestParam("id") String id) {
+		CommerceDTO commerce = commerceRepository.findById(commerceId)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
+		MemberInfoDTO member = memberInfoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
 
-	    Map<String, String> response = new HashMap<>();
+		Map<String, String> response = new HashMap<>();
 
-	    if (marketservice.cartCheck(member, commerce)) {
-	        response.put("message", "이미 장바구니에 담긴 상품입니다.");
-	    } else {
-	        CartDTO cart = new CartDTO();
-	        cart.setCommerce(commerce);
-	        cart.setMemberInfo(member);
-	        cart.setCount(1); // default count is 1. Change this as needed.
+		if (marketservice.cartCheck(member, commerce)) {
+			response.put("message", "이미 장바구니에 담긴 상품입니다.");
+		} else {
+			CartDTO cart = new CartDTO();
+			cart.setCommerce(commerce);
+			cart.setMemberInfo(member);
+			cart.setCount(1); // default count is 1. Change this as needed.
 
-	        marketservice.cartSave(cart);
-	        response.put("message", "장바구니에 상품이 추가되었습니다.");
-	    }
+			marketservice.cartSave(cart);
+			response.put("message", "장바구니에 상품이 추가되었습니다.");
+		}
 
-	    return ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
-	
+
 	@RequestMapping("/amulCart")
 	public void amulCart(Model m) {
-		
+
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
 		Map<String, Object> map = headerChange();
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
-		
+
 		Optional<MemberInfoDTO> memberDTOOptional = memberInfoRepository.findById((String) map.get("id"));
 
 		if (memberDTOOptional.isPresent()) {
-		    MemberInfoDTO memberDTO = memberDTOOptional.get();
-		    m.addAttribute("member", memberDTO);
+			MemberInfoDTO memberDTO = memberDTOOptional.get();
+			m.addAttribute("member", memberDTO);
 		}
 
 		List<CartDTO> cartResult = marketservice.findCartById(map.get("id"));
-		
-		if(cartResult.isEmpty()) {
+
+		if (cartResult.isEmpty()) {
 			m.addAttribute("cartList", null);
-		}else {
+		} else {
 			m.addAttribute("cartList", cartResult);
 			int count = cartResult.size();
 			m.addAttribute("cartCount", count);
 		}
-		
-		
+
 	}
-	
+
 	@RequestMapping("/cartDelete")
-	public String cartDelete( @RequestParam(required = false, value = "cartId") int cartId, Model m ) {
-		
+	public String cartDelete(@RequestParam(required = false, value = "cartId") int cartId, Model m) {
+
 		// headerChange() 메서드를 통해 헤더 정보를 가져옴
 		Map<String, Object> map = headerChange();
 		// 헤더 정보를 모델에 추가
 		m.addAttribute("id", map.get("id"));
 		m.addAttribute("memberRole", map.get("memberRole"));
-		
-		//-------------------------------------------------------------
+
+		// -------------------------------------------------------------
 		marketservice.deleteCartByCartId(cartId);
-		
+
 		return "redirect:/market/amulCart";
-		
+
 	}
-	
+
 	@PostMapping("/updateCartCount")
-	public ResponseEntity<Map<String, String>> updateCartCount(@RequestParam("id") String id, @RequestParam("commerceId") Integer commerceId, @RequestParam("count") Integer count) {
-	    CommerceDTO commerce = commerceRepository.findById(commerceId)
-	            .orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
-	    MemberInfoDTO member = memberInfoRepository.findById(id)
-	            .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+	public ResponseEntity<Map<String, String>> updateCartCount(@RequestParam("id") String id,
+			@RequestParam("commerceId") Integer commerceId, @RequestParam("count") Integer count) {
+		CommerceDTO commerce = commerceRepository.findById(commerceId)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid commerce Id:" + commerceId));
+		MemberInfoDTO member = memberInfoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
 
-	    CartDTO cart = marketservice.findByMemberInfoAndCommerce(member, commerce)
-	            .orElseThrow(() -> new IllegalArgumentException("No cart found with given member Id and commerce Id"));
-	    cart.setCount(count);
+		CartDTO cart = marketservice.findByMemberInfoAndCommerce(member, commerce)
+				.orElseThrow(() -> new IllegalArgumentException("No cart found with given member Id and commerce Id"));
+		cart.setCount(count);
 
-	    marketservice.cartSave(cart);
+		marketservice.cartSave(cart);
 
-	    Map<String, String> response = new HashMap<>();
-	    response.put("message", "장바구니 상품 수량이 업데이트 되었습니다.");
+		Map<String, String> response = new HashMap<>();
+		response.put("message", "장바구니 상품 수량이 업데이트 되었습니다.");
 
-	    return ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
-	
+
 	@PostMapping("/cartDelete")
 	@ResponseBody
 	public String cartDelete(@RequestBody Map<String, List<Integer>> requestBody) {
-	    List<Integer> cartIds = requestBody.get("cartIds");
+		List<Integer> cartIds = requestBody.get("cartIds");
 
-	    // headerChange() 메서드를 통해 헤더 정보를 가져옴
-	    Map<String, Object> map = headerChange();
-	    // 헤더 정보를 모델에 추가
-	    String userId = (String) map.get("id");
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		// 헤더 정보를 모델에 추가
+		String userId = (String) map.get("id");
+
+		for (int cartId : cartIds) {
+			marketservice.cartDelete(cartId);
+		}
+
+		return "Success";
+	}
+
+	@PostMapping("/paySuccess")
+	@ResponseBody
+	public Integer processPayment(@RequestBody OrdersDTO dto) {
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+
+		MemberInfoDTO memberInfo = new MemberInfoDTO();
+		memberInfo.setId((String) map.get("id"));
+		dto.setMemberInfo(memberInfo);
+		dto.setOrderStatus("결제완료");
+
+		// 받은 결제 정보를 데이터베이스에 저장하는 로직
+		Integer orderId = marketservice.ordersSave(dto);
+
+		// 실제 환경에서는 서비스 클래스를 이용하여 비즈니스 로직을 처리합니다.
+
+		// 처리가 성공적으로 끝났다면 클라이언트에게 성공 메시지를 보냅니다.
+		return orderId;
+	}
+
+	@PostMapping("/saveProductInfo")
+	@ResponseBody
+	public String saveProductInfo(@RequestBody OrderItemsEntity entity) {
+		
+		// headerChange() 메서드를 통해 헤더 정보를 가져옴
+		Map<String, Object> map = headerChange();
+		    
+		// commerceId를 사용하여 CommerceDTO 객체를 찾음
+		CommerceDTO commerce = commerceRepository.findById(entity.getCommerceId()).get();
+		    
+		// orderId를 사용하여 OrdersDTO 객체를 찾음
+		OrdersDTO orders = ordersRepository.findById(entity.getOrderId()).get();
+
+		// OrderItemsDTO 객체를 생성하고 데이터를 설정
+		OrderItemsDTO dto = new OrderItemsDTO();
+		dto.setCommerce(commerce);
+		dto.setOrders(orders);
+		dto.setCount(entity.getCount());
+		dto.setPrice(entity.getPrice());
 	    
-	    for (int cartId : cartIds) {
-	        marketservice.cartDelete(cartId, userId);
-	    }
+	    // OrderItemsDTO 객체를 데이터베이스에 저장
+	    marketservice.saveOrderItems(dto);
+	    
+	    commerce.setCommerceStock(commerce.getCommerceStock()-entity.getCount());
+	    marketservice.updateCommerce(commerce);
+	    
+	    marketservice.deleteCartByCartId(entity.getCartId());
 
-	    return "Success";
+	    return "Product info has been saved successfully";
 	}
 	
 }

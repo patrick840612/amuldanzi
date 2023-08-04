@@ -175,13 +175,43 @@
 		        buyer_postcode : "123-456"
 		    }, function(rsp) {
 		        if ( rsp.success ) {
-		        	var msg = '결제가 완료되었습니다.';
-	    			msg += '\n고유ID : ' + rsp.imp_uid;
-	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	    			msg += '\결제 금액 : ' + rsp.paid_amount;
-	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+			        
+		        	$.ajax({
+		        	    url: 'http://localhost:8080/market/paySuccess',  // 서버로 보낼 URL
+		        	    type: 'POST', // HTTP 메소드
+		        	    contentType: 'application/json', // Content-Type 헤더를 JSON으로 설정
+		        	    data: JSON.stringify({ // 서버로 보낼 데이터를 JSON 형식으로 변환
+		        	        oneId: rsp.imp_uid, // 아임포트 거래 고유 번호
+		        	        shopId: rsp.merchant_uid, // 가맹점 거래 고유 번호
+		        	        totalPrice: rsp.paid_amount, // 실제 결제된 금액
+		        	        cardNum: rsp.apply_num, // 카드사 승인번호
+		        	        // 추가로 필요한 정보들을 여기에 포함
+		        	    }),
+		        	    success: function (data) {
+		        	    	selectedProducts.forEach(function(product) {
+		                        $.ajax({
+		                            url: 'http://localhost:8080/market/saveProductInfo',
+		                            type: 'POST',
+		                            contentType: 'application/json',
+		                            data: JSON.stringify({
+		                                orderId: data,
+		                                cartId : product.cartId,
+		                                commerceId: product.commerceId,
+		                                count: product.count,
+		                                price: product.price
+		                            }),
+		                            success: function (response) {
+		                                console.log('Product info has been saved successfully');
+		                            },
+		                            error: function (error) {
+		                                console.log('Failed to save product info');
+		                            }
+		                        });
+		                    });
+		        	    }
+		        	});
 	    			
-	    			alert(msg);
+	    			alert('결제가 완료되었습니다.');
 
 		        } else {
 		            // 결제 실패 시 로직
@@ -190,24 +220,80 @@
 		    });
 		});
 
-		// 개별 체크박스 클릭 이벤트
-	    $('input[name="cartCheckbox"]').on('change', function() {
+		// 체크박스가 선택된 상품의 정보를 저장하는 배열
+	    var selectedProducts = [];
+
+	    $("input[name='cartCheckbox']").on('change', function() {
 	        var total = $('input[name="cartCheckbox"]').length;
 	        var checked = $('input[name="cartCheckbox"]:checked').length;
+
 	        // 전체 선택 체크박스 상태 업데이트
 	        $('#normalAllChk').prop('checked', total === checked);
+
 	        // 선택된 체크박스 수 업데이트
 	        $('#checkedCount').text(checked);
 
+	        var id = $(this).data('id');
+	        var productId = $(this).data('commerceid');
+	        var price = $(this).data('price');
+	        var quantity = parseInt($(this).closest('tr').find('input[name="ord_qty"]').val());
+
+	        var productInfo = {
+	    	    cartId : id,
+	            commerceId: productId,
+	            price: price,
+	            count: quantity
+	        };
+
+	        if ($(this).is(':checked')) {
+	            selectedProducts.push(productInfo);
+	        } else {
+	            selectedProducts = selectedProducts.filter(function(product) {
+	                return product.commerceId !== productId;
+	            });
+	        }
+
 	        updateTotalPriceAndItems();
+	        console.log(selectedProducts);
 	    });
 
-	    // 전체 선택 체크박스 클릭 이벤트
 	    $('#normalAllChk').on('change', function() {
 	        var isChecked = $(this).is(':checked');
-	        // 모든 체크박스 상태 업데이트
+
+	     	// 모든 체크박스 상태 업데이트 및 change 이벤트 발생
 	        $('input[name="cartCheckbox"]').prop('checked', isChecked).trigger('change');
+
+	        // selectedProducts 배열 초기화
+	        selectedProducts = [];
+
+	        // 각 체크박스를 순회
+	        $('input[name="cartCheckbox"]').each(function() {
+	            if ($(this).is(':checked')) {
+		            
+	            	var id = $(this).data('id');
+	     	        var productId = $(this).data('commerceid');
+	     	        var price = $(this).data('price');
+	     	        var quantity = parseInt($(this).closest('tr').find('input[name="ord_qty"]').val());
+
+	     	        var productInfo = {
+	     	    	    cartId : id,
+	     	            commerceId: productId,
+	     	            price: price,
+	     	            count: quantity
+	     	        };
+	                // 선택된 체크박스의 정보를 selectedProducts 배열에 추가
+	                selectedProducts.push(productInfo);
+	            }
+	        });
+
+	        // 선택된 체크박스 수 업데이트
+	        $('#checkedCount').text(selectedProducts.length);
+
+	        updateTotalPriceAndItems();
+	        console.log(selectedProducts);
 	    });
+
+
 
 	});
 
@@ -222,9 +308,16 @@
     });
 
     $(document).on('click', '.plus', function() {
+        var maxConut = $(this).data('maxcount');
         var input = $(this).prev('input');
         var count = parseInt(input.val()) + 1;
-        input.val(count);
+        if (count > maxConut) {
+            alert("해당 상품은 최대 "+maxConut+"개 까지만 주문이 가능합니다");
+            input.val(maxConut);
+        } else {
+            input.val(count);
+        }
+
     });
 
     $(document).on('click', '.btn_stype2', function() {
@@ -464,7 +557,7 @@
 																	<input type="checkbox" id="normal${status.count}"
 																		name="cartCheckbox" value="value${status.count}"
 																		data-price="${Math.round((list.commerce.commercePrice-list.commerce.commercePrice/list.commerce.commercePer)*list.count)}"
-																		data-id="${list.cartId}" title="상품선택" /> <label
+																		data-id="${list.cartId}" data-commerceid="${list.commerce.commerceId}" title="상품선택" /> <label
 																		for="normal${status.count}">
 																		<div class="img_dim">
 																			<a href="#"> <img
@@ -491,7 +584,7 @@
 																			type="text" class="txt" name="ord_qty"
 																			id="normal_ord_qty${status.count}" maxlength="3"
 																			title="수량입력" value="${list.count}" onclick="" /> <a
-																			href="javascript:void(0)" class="plus">+</a>
+																			href="javascript:void(0)" class="plus" data-maxcount="${list.commerce.commerceStock }">+</a>
 																	</div>
 																	<span class="btns_wrap"> <input type="hidden"
 																		name="commerceId" value=${list.commerce.commerceId } />

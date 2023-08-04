@@ -104,7 +104,6 @@ section .section-title {
 					<ul class="list-unstyled quick-links">
 						<li><a href="/market/gsHomeShop"><i class="fa fa-angle-double-right"></i>Live Commerce</a></li>
 						<li><a href="/market/carrot"><i class="fa fa-angle-double-right"></i>Flea Market</a></li>
-						<li><a href="/market/carrotShop"><i class="fa fa-angle-double-right"></i>Shopping</a></li>
 						<li><a href="/market/dolbomiShop"><i class="fa fa-angle-double-right"></i>Care Service</a></li> 
 					</ul>
 				</div>
