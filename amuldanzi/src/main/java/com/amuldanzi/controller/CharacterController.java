@@ -132,9 +132,9 @@ public class CharacterController {
 	@RequestMapping("/evolveCharacter")
 	@ResponseBody
 	public String evolveCharacter(MemberInfoDTO member, CharacterDTO character) {
-		characterService.evolveCharacter(member, character);
 		member.setCpoint(member.getCpoint()-10000);
-		
+		characterService.evolveCharacter(member, character);
+
 		return String.valueOf(member.getCpoint()); 
 	}	
 
