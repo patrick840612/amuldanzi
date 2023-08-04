@@ -39,5 +39,7 @@ public interface MarketService {
 	void saveOrderItems(OrderItemsDTO dto);
 	void updateCommerce(CommerceDTO commerce);
 	void cartDeleteAll(String string);
+	List<MarketGoodsDTO> getJunggoListRecent();
+	List<CommerceDTO> getCommerceListRecent();
 	
 }

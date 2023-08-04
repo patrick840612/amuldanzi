@@ -10,13 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.amuldanzi.domain.CareDTO;
+import com.amuldanzi.domain.CommerceDTO;
 import com.amuldanzi.domain.EducationDTO;
+import com.amuldanzi.domain.MarketGoodsDTO;
 import com.amuldanzi.domain.MemberInfoDTO;
 import com.amuldanzi.domain.NoticeDTO;
 import com.amuldanzi.service.CareService;
 import com.amuldanzi.service.CommuityService;
 import com.amuldanzi.service.EducationService;
 import com.amuldanzi.service.LoginService;
+import com.amuldanzi.service.MarketService;
 import com.amuldanzi.service.NoticeService;
 
 import jakarta.servlet.http.Cookie;
@@ -43,6 +46,9 @@ public class MainController {
 	
 	@Autowired
 	private EducationService eduservice;
+	
+	@Autowired
+	private MarketService marketservice;
 	 
 	
 	@RequestMapping("/index")
@@ -52,14 +58,16 @@ public class MainController {
       List<NoticeDTO> noticeList = service.getNoticeListRecent();
       List<CareDTO> careList = careservice.getCareListRecent(); 
       List<EducationDTO> eduList = eduservice.getEduListRecent();
-      
+      List<MarketGoodsDTO> marketList = marketservice.getJunggoListRecent();
+      List<CommerceDTO> commerceList = marketservice.getCommerceListRecent();
       
       
 	  m.addAttribute("careList", careList);
       m.addAttribute("noticeList", noticeList);
       m.addAttribute("eduList", eduList);
       m.addAttribute("communityLikeList", communityLikeList);  		
-	  
+      m.addAttribute("marketList", marketList);
+      m.addAttribute("commerceList", commerceList); 
 	  
 
 		

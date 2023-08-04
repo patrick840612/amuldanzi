@@ -173,6 +173,16 @@ public class MarketServiceImpl implements MarketService {
 		
 	}
 
+	@Override
+	public List<MarketGoodsDTO> getJunggoListRecent() {
+		return (List<MarketGoodsDTO>)marketRepo.getJunggoListRecent();
+	}
+
+	@Override
+	public List<CommerceDTO> getCommerceListRecent() {
+		return (List<CommerceDTO>)commerceRepo.getCommerceListRecent();
+	}
+
 
 
 

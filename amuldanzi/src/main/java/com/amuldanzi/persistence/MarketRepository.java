@@ -1,5 +1,7 @@
 package com.amuldanzi.persistence;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,5 +26,8 @@ public interface MarketRepository extends CrudRepository<MarketGoodsDTO, Integer
 	@Modifying
 	@Query(value = "UPDATE marketgoods  SET likes_count = likes_count - 1 WHERE goods_id = :goodsId", nativeQuery = true)
 	void minusLikeByPk(String goodsId);
+	
+	@Query("SELECT m FROM MarketGoodsDTO m WHERE m.marketCate.cateId = 1 ORDER BY m.goodsDate DESC")
+	List<MarketGoodsDTO> getJunggoListRecent();
 	
 }
