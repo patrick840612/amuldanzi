@@ -18,6 +18,23 @@
 <link rel="stylesheet" href="/chunks/css/market/marketShop2.css" />
 
 <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #fullscreenElement {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0;
+      display: none;
+    }
+
+
 ._3nqg3y0 {
     height: 52rem;
 }
@@ -271,6 +288,16 @@ body {
  
 }
 
+.evolCharacter2 {
+  /* 기본적인 이미지 스타일 설정 */
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  /* 빛나는 효과 설정 */
+  box-shadow: 0 0 5px #FFF, 0 0 20px #FFF, 0 0 40px #FFF, 0 0 60px #FFF;
+  animation: glow 1s infinite alternate;
+}
+
 /*진화 애니메이션*/
 .evolCharacter {
   /* 기본적인 이미지 스타일 설정 */
@@ -307,7 +334,8 @@ body{
 <script type="text/javascript" src='/character/js/characterRandom.js'></script>
 <script type="text/javascript" src='/character/js/gacha.js'></script>
 <!-- <script type="text/javascript" src='/character/js/characterGame.js'></script> -->
-	<div class="__margin-top120px" >
+	<div id="fullscreenElement"></div>
+	<div class="__margin-top120px">
 		<form action="/character/random" name="characterFrm" id="characterFrm" method="post">
 			<section class="_3nqg3y0" >
 				<div class="_3nqg3y1 _1ff3f302"><img class='cat' src='/character/images/${member.selectCharacter}' id="cat"/><!-- 선택 캐릭터 움직이기 -->
@@ -333,19 +361,12 @@ body{
 		                <input type="text" readonly="readonly" id="cpoint" value="cpoint : " disabled="disabled"/>
 		                <input type="text" readonly="readonly" name="cpoint" id="point" value="${cpoint}"/>
 		                <input type="button" value="캐릭터 뽑기" id="selectImg"/>
-		                
-		                
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-content">
     <img id="selectedCharacterImage" alt="Selected Character" class="selected-character-image" />
   </div>
 </div>		                
-		                
-		                
-		                
-		                
-		                
-		                <input type="hidden" name="id" value="${id}" id="id"/>
+			                <input type="hidden" name="id" value="${id}" id="id"/>
 		                <input type="hidden" name="randomAnimal" id="randomAnimal" value="" />
 		                <canvas width="400" height="700">	<div id="imageContainer"/>
 					</div>
@@ -411,79 +432,108 @@ $('.evolve-button').click(function () {
 		  });
 		  const newSrc = '/character/images/'+imgSrcEvolve;
 		  
-		  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  
+		  /*진화 효과*/ 
+		  let selectedCharacterImage = document.getElementById('selectedCharacterImage');
+		  const popupOverlay = document.getElementById('popupOverlay');
+
+	
+		  // 선택된 캐릭터 이미지 설정
+		  selectedCharacterImage.src = newSrc;
+	
+		  // 팝업 표시
+   	  	  popupOverlay.style.display = 'block';
+
+		  // 캐릭터 이미지 팝업 후, 1초 후에 팝업을 닫습니다.
+		  setTimeout(() => {
+			    popupOverlay.style.display = 'none';
+		  }, 5000);
+		  
+
 	  	  setTimeout(() => {
-	  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+			  selectedCharacterImage.src = baseImg;
 		  }, 500);
 	  	  setTimeout(() => {
-	  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  		selectedCharacterImage.src = newSrc;
 		  }, 1000);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 1400);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+			selectedCharacterImage.src = newSrc;
 		  }, 1800);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 2100);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+			selectedCharacterImage.src = newSrc;
 		  }, 2400);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 2600);
 		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+		  	selectedCharacterImage.src = newSrc;
 		  }, 2800);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 2900);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+		  	selectedCharacterImage.src = newSrc;
 		  }, 3000);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 3100);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
 		  }, 3200);		  	  
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 3300);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
 		  }, 3400);		
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 3500);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
 		  }, 3600);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 3700);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
 		  }, 3800);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 3900);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
 		  }, 4000);
 	  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', baseImg);
+	  		selectedCharacterImage.src = baseImg;
 		  }, 4100);
-		  	  setTimeout(() => {
-		  		$(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
-		  }, 4200);					  	  
-
-		  	  setTimeout(() => {
+	  	  setTimeout(() => {
+	  		selectedCharacterImage.src = newSrc;
+	  		selectedCharacterImage.classList.add('evolCharacter2');
+		  }, 4200);					  	  		  
+		  
+	      const fullscreenElement = document.getElementById('fullscreenElement');
+	      setTimeout(() => {
+		      // 페이드인 효과를 보여줄 때
+		      fadeIn(fullscreenElement);
+		  }, 4200);
+	      
+	      // 5초 후에 페이드아웃 효과를 보여줄 때
+	      setTimeout(function () {
+	        fadeOut(fullscreenElement);
+	      }, 5000);
+		  	  
+		  setTimeout(() => {
 			  $(this).closest('.button-container').find('img[name="characterImg"]').attr('src', newSrc);
 			  $(this).closest('.button-container').find('.game-button').css('background-color', '#3498db');
 			  $(this).closest('.button-container').find('img[name="characterImg"]').addClass('evolCharacter');
-			
+			  selectedCharacterImage.classList.remove('evolCharacter2');		
 			  let paramS = { id : $('#id').val(), selectCharacter : imgSrcEvolve, characterNo : characterNo, characterImg : imgSrcEvolve, cpoint : $('#point').val() }
 			  $.ajax({
 					type : 'post',
@@ -501,10 +551,37 @@ $('.evolve-button').click(function () {
 						alert('Error');
 					}
 				}); // ajax end      
-		  }, 4100);
+		  }, 5000);
 		  
 	}
 });
+// 페이드인 아웃
+function fadeIn(element) {
+    let opacity = 0;
+    element.style.display = "block";
+
+    const fadeInInterval = setInterval(function () {
+      opacity += 0.02;
+      element.style.opacity = opacity;
+
+      if (opacity >= 1) {
+        clearInterval(fadeInInterval);
+      }
+    }, 30);
+  }
+  function fadeOut(element) {
+    let opacity = 1;
+
+    const fadeOutInterval = setInterval(function () {
+      opacity -= 0.02;
+      element.style.opacity = opacity;
+
+      if (opacity <= 0) {
+        clearInterval(fadeOutInterval);
+        element.style.display = "none";
+      }
+    }, 30);
+  }
 
 
 
