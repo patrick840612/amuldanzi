@@ -1,5 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,7 +32,8 @@
 <!-- JQVMap -->
 <link href="/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
-<link href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
+<link
+	href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -51,8 +52,8 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
-							<span>애물단지</span></a>
+						<a href="/admin/adminMain" class="site_title"><i
+							class="fa fa-paw"></i> <span>애물단지</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -137,11 +138,10 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false">관리자
-							</a>
+								aria-expanded="false">관리자 </a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -160,28 +160,17 @@
 						<div class="title_left">
 							<h3>애물단지</h3>
 						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">검색</button>
-									</span>
-								</div>
-							</div>
-						</div>
 					</div>
-
 					<div class="clearfix"></div>
-				</div>
+					<iframe
+						src="http://localhost:5601/app/dashboards#/view/cb86d6a0-3278-11ee-ba35-ddbaf3f05a46?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'%EC%95%A0%EB%AC%BC%EB%8B%A8%EC%A7%80%20%EA%B7%B8%EB%9E%98%ED%94%84',viewMode:view)"
+						height="1200" width="1650"></iframe>
+						</div>
 			</div>
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
-			</footer>
+			<footer> </footer>
 			<!-- /footer content -->
 		</div>
 	</div>
@@ -198,14 +187,18 @@
 	<script src="/admin/vendors/iCheck/icheck.min.js"></script>
 	<!-- Datatables -->
 	<script src="/admin/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script
+		src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
 	<script
 		src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 	<script

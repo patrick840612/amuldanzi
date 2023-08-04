@@ -7,13 +7,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpHost;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -46,6 +45,7 @@ public class MariaDBToElasticStart {
                 indexer.indexDataFromMariaDBNotice();
                 indexer.indexDataFromMariaDBCare();
                 indexer.indexDataFromMariaDBEducation();
+                indexer.indexDataFromMariaDBOrder();
             }
         };
 
@@ -154,6 +154,39 @@ public class MariaDBToElasticStart {
 	        e.printStackTrace();
 	    }
 	}
+	
+	protected void indexDataFromMariaDBOrder() {
+		// TODO Auto-generated method stub
+	    try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+	            Statement statement = connection.createStatement();
+	            RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost(ES_HOST, ES_PORT, "http")))) {
+
+	        String sql = "SELECT order_id, total_price, pay_date FROM orders";
+	        ResultSet resultSet = statement.executeQuery(sql);
+
+	        while (resultSet.next()) {
+	            int order_id = resultSet.getInt("order_id");	            
+	            int total_price = resultSet.getInt("total_price");
+	            Timestamp pay_date = resultSet.getTimestamp("pay_date");
+
+	            // JSON 형식으로 데이터 변환
+	            String jsonBody = "{" +
+	                    "\"order_id\":\"" + order_id + "\"," +
+	                    "\"total_price\":\"" + total_price + "\"," +
+	                    "\"pay_date\":\"" + pay_date + "\"," +	            
+	                    "}";
+
+	            // ElasticSearch에 데이터 색인
+	            IndexRequest request = new IndexRequest("orders").id(Integer.toString(order_id)).source(jsonBody, XContentType.JSON);
+	            IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+	            System.out.println("Indexed document with ID: " + response.getId());
+	        }
+
+	    } catch (SQLException | IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	
 	
 }
