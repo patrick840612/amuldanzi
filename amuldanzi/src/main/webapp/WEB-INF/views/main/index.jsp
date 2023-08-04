@@ -441,7 +441,14 @@ function hidePopup() {
 							</div>
 						</div>
 						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">좋아요 : ${likeList['likeCount'] }</div>
+						 <c:choose>
+						        <c:when test="${empty likeList['likeCount']}">
+						            <div class="qaList_communityType__p7p5C">좋아요 : 0</div>
+						        </c:when>
+						        <c:otherwise>
+						            <div class="qaList_communityType__p7p5C">좋아요 : ${likeList['likeCount']}</div>
+						        </c:otherwise>
+						    </c:choose> 
 							<div>${likeList['id']}</div>
 							<div>${likeList['date']}</div>
 						</div>

@@ -127,9 +127,16 @@ function updateBlameCount(commNo) {
 							</div>
 						</div>
 						<div class="qaList_qaListAbout__qL7GR">
-							<div class="qaList_communityType__p7p5C">좋아요 : ${community['likeCount'] }</div>
-							<div>${community['id']}</div>
-							<div>${community['date']}</div>
+						    <c:choose>
+						        <c:when test="${empty community['likeCount']}">
+						            <div class="qaList_communityType__p7p5C">좋아요 : 0</div>
+						        </c:when>
+						        <c:otherwise>
+						            <div class="qaList_communityType__p7p5C">좋아요 : ${community['likeCount']}</div>
+						        </c:otherwise>
+						    </c:choose>
+						    <div>${community['id']}</div>
+						    <div>${community['date']}</div>
 						</div>
 						<div class="qaList_labelWrapper__vsqC0">
 							<div class="qaList_desktopLabelContainer__EEK_6"></div>
