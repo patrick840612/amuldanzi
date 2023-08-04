@@ -37,6 +37,7 @@ import com.amuldanzi.domain.MemberSocialDTO;
 import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
 import com.amuldanzi.entity.MemberPetEntity;
+import com.amuldanzi.entity.OrderItemsEntity2;
 import com.amuldanzi.service.LoginService;
 import com.amuldanzi.service.MypageService;
 import com.google.gson.Gson;
@@ -747,24 +748,27 @@ public class MypageController {
             m.addAttribute("selectCharacter", member.getSelectCharacter());
         }
         
+        
         int itemsPerPage = 3;
         int startIndex1 = (page1 - 1) * itemsPerPage;
         
-        List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id"))); // 변경하기
-        List<BusinessDTO> pagedBusinessList = businessList.subList(startIndex1, Math.min(startIndex1 + itemsPerPage, businessList.size()));
-        m.addAttribute("businessList", pagedBusinessList);
+        List<OrderItemsEntity2> orderOList = mypageService.orderOFindByMemberId(String.valueOf(map.get("id")));
+        List<OrderItemsEntity2> pagedorderOList = orderOList.subList(startIndex1, Math.min(startIndex1 + itemsPerPage, orderOList.size()));
+        m.addAttribute("orderOList", pagedorderOList);
+        m.addAttribute("orderOlistSize", orderOList.size());
         
         int itemsPerPage2 = 3;
         int startIndex2 = (page2 - 1) * itemsPerPage2;
         
-        List<QnaDTO> qnaList = mypageService.qnaFindByMemberId(String.valueOf(map.get("id")));
-        List<QnaDTO> pagedQnaList = qnaList.subList(startIndex2, Math.min(startIndex2 + itemsPerPage2, qnaList.size()));
-        m.addAttribute("qnaList", pagedQnaList);
+        List<OrderItemsEntity2> orderXList = mypageService.orderXFindByMemberId(String.valueOf(map.get("id")));
+        List<OrderItemsEntity2> pagedorderXList = orderXList.subList(startIndex2, Math.min(startIndex2 + itemsPerPage2, orderXList.size()));
+        m.addAttribute("orderXList", pagedorderXList);
+        m.addAttribute("orderXlistSize", orderXList.size());
         
         m.addAttribute("currentPage1", page1);
         m.addAttribute("currentPage2", page2);
-        m.addAttribute("totalPages1", (businessList.size() + itemsPerPage - 1) / itemsPerPage);
-        m.addAttribute("totalPages2", (qnaList.size() + itemsPerPage2 - 1) / itemsPerPage2);		
+        m.addAttribute("totalPages1", (orderOList.size() + itemsPerPage - 1) / itemsPerPage);
+        m.addAttribute("totalPages2", (orderXList.size() + itemsPerPage2 - 1) / itemsPerPage2);		
 	}
 	
 	 @RequestMapping(value = "/orderlistPage", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
@@ -777,11 +781,11 @@ public class MypageController {
 			Map<String,Object> map = headerChange();
 	        m.addAttribute("id", map.get("id"));
         
-	        List<BusinessDTO> businessList = mypageService.businessFindByMemberId(String.valueOf(map.get("id"))); // 변경하기
-	        m.addAttribute("businessList", businessList);
+	        List<OrderItemsEntity2> orderOList = mypageService.orderOFindByMemberId(String.valueOf(map.get("id")));
+	        m.addAttribute("orderOList", orderOList);
         
-	        List<QnaDTO> qnaList = mypageService.qnaFindByMemberId(String.valueOf(map.get("id")));
-	        m.addAttribute("qnaList", qnaList);
+	        List<OrderItemsEntity2> orderXList = mypageService.orderXFindByMemberId(String.valueOf(map.get("id")));
+	        m.addAttribute("orderXList", orderXList);
 	        
 		 
 		    // 해당하는 탭에 대한 HTML 컨텐츠 반환
@@ -802,28 +806,33 @@ public class MypageController {
 	 
 	 private String generateTab4Content(Model m, int page1, int page2) {
 		    // 모델에서 businessList를 가져와 HTML 컨텐츠를 생성하는 코드
-		    List<BusinessDTO> businessList = (List<BusinessDTO>) m.getAttribute("businessList");
+		 List<OrderItemsEntity2> orderOList = (List<OrderItemsEntity2>) m.getAttribute("orderOList");
 		    
 		    int itemsPerPage = 3; // 한 페이지당 보여줄 상품 수
 		    int startIndex = (page1 - 1) * itemsPerPage;
-		    int endIndex = Math.min(startIndex + itemsPerPage, businessList.size());
-		    List<BusinessDTO> page1Products = businessList.subList(startIndex, endIndex);
+		    int endIndex = Math.min(startIndex + itemsPerPage, orderOList.size());
+		    List<OrderItemsEntity2> page1Products = orderOList.subList(startIndex, endIndex);
 		    
 		    StringBuilder content = new StringBuilder();
-		    for (BusinessDTO product : page1Products) {
+		    for (OrderItemsEntity2 product : page1Products) {
 		        // 각 상품에 대한 HTML 생성
 		    	content.append("<div class=\"product-container\">");
 		    	content.append("<div class=\"product-info\">");
-		    	content.append("<div class=\"product-name\">").append(product.getBusinessNumber()).append("</div>");
-		    	content.append("<div class=\"product-invoice\">송장번호: ").append(product.getBusinessTitle()).append("</div>");
-		    	content.append("<div class=\"product-price\">가격: ").append(product.getBusinessName()).append("원</div>");
-		    	content.append("<div class=\"product-quantity\">수량: ").append(product.getBusinessSector()).append("개</div>");
-		    	content.append("</div>");
-		    	content.append("<img class=\"product-image\" src=\"/images/mypage/").append(product.getBusinessImg()).append("\" alt=\"상품 이미지\">");
-		    	content.append("</div>");
+		        content.append("<div class=\"product-name\">").append(product.getCommerceName()).append("(<span class=\"product-confirm\">배송완료</span>)</div>");
+		        content.append("<div class=\"product-invoice\">송장번호: ").append(product.getTrackingNumber()).append("</div>");
+		        content.append("<div class=\"product-price\">").append(String.format("%.0f", (double) product.getPrice() / product.getCount())).append("(원) * ").append(product.getCount()).append("(개)</div>");
+		        content.append("<br/>");
+		        content.append("<div class=\"product-quantity\">총 주문금액 : ").append(product.getPrice()).append("원</div>");
+		        content.append("<br/>");
+		        content.append("<div class=\"product-orderdate\">결제일: ").append(product.getPayDate()).append("</div>");
+		        content.append("<br/>");
+		        content.append("<div><a href=\"#\" class=\"costomerCenter\">고객센터 채팅연결</a></div>");
+		        content.append("</div>");
+		        content.append("<img class=\"product-image\" src=\"/images/commerce/").append(product.getImg()).append("\" alt=\"상품 이미지\">");
+		        content.append("</div>");
 		    }
 		    // 페이징 컨트롤 추가
-		    int totalPages1 = (int) Math.ceil((double) businessList.size() / itemsPerPage);
+		    int totalPages1 = (int) Math.ceil((double) orderOList.size() / itemsPerPage);
 		    content.append("<ul class=\"pagination\">");
 		    for (int i = 1; i <= totalPages1; i++) {
 		        content.append("<li class=\"").append(page1 == i ? "active" : "").append("\">");
@@ -838,25 +847,30 @@ public class MypageController {
 		 private String generateTab5Content(Model m, int page1, int page2) {
 			 
 			 int itemsPerPage = 3;
-			 List<QnaDTO> qnaList = (List<QnaDTO>) m.getAttribute("qnaList");
+			 List<OrderItemsEntity2> orderXList = (List<OrderItemsEntity2>) m.getAttribute("orderXList");
 			 int startIndex = (page2 - 1) * itemsPerPage;
-			 int endIndex = Math.min(startIndex + itemsPerPage, qnaList.size());
-			 List<QnaDTO> page2Products = qnaList.subList(startIndex, endIndex);
+			 int endIndex = Math.min(startIndex + itemsPerPage, orderXList.size());
+			 List<OrderItemsEntity2> page2Products = orderXList.subList(startIndex, endIndex);
 			 StringBuilder content = new StringBuilder();
 			 
-			 for (QnaDTO product : page2Products) {
-				 content.append("<div class=\"product-container\">");
-				 content.append("<div class=\"product-info\">");
-				 content.append("<div class=\"product-name\">").append(product.getQnaCategory()).append("</div>");
-				 content.append("<div class=\"product-invoice\">송장번호: ").append(product.getQnaTitle()).append("</div>");
-				 content.append("<div class=\"product-price\">가격: ").append(product.getQnaContent()).append("원</div>");
-				 content.append("<div class=\"product-quantity\">수량: ").append(product.getQnaNo()).append("개</div>");
-				 content.append("</div>");
-				 content.append("<img class=\"product-image\" src=\"/images/mypage/").append(product.getQnaImg()).append("\" alt=\"상품 이미지\">");
-				 content.append("</div>");
+			 for (OrderItemsEntity2 product : page2Products) {
+				    content.append("<div class=\"product-container\">");
+				    content.append("<div class=\"product-info\">");
+				    content.append("<div class=\"product-name\">").append(product.getCommerceName()).append("( <span class=\"product-cnacle\"> 결제취소 </span>)</div>");
+				    content.append("<div class=\"product-invoice\">송장번호: ").append(product.getTrackingNumber()).append("</div>");
+				    content.append("<div class=\"product-price\">").append(String.format("%.0f", (double) product.getPrice() / product.getCount())).append("(원) * ").append(product.getCount()).append("(개)</div>");
+				    content.append("<br/>");
+				    content.append("<div class=\"product-quantity\">총 환불금액 : ").append(product.getPrice()).append("원</div>");
+				    content.append("<br/>");
+				    content.append("<div class=\"product-orderdate\">결제일: ").append(product.getPayDate()).append("</div>");
+				    content.append("<br/>");
+				    content.append("<div><a href=\"#\" class=\"costomerCenter\">고객센터 채팅연결</a></div>");
+				    content.append("</div>");
+				    content.append("<img class=\"product-image\" src=\"/images/commerce/").append(product.getImg()).append("\" alt=\"상품 이미지\">");
+				    content.append("</div>");
 			 }
 			 
-			 int totalPages2 = (int) Math.ceil((double) qnaList.size() / itemsPerPage);
+			 int totalPages2 = (int) Math.ceil((double) orderXList.size() / itemsPerPage);
 			 content.append("<ul class=\"pagination\">");
 			 
 		     for (int i = 1; i <= totalPages2; i++) {

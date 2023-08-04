@@ -224,8 +224,8 @@ $(function(){
 			        <div class="tab" onclick="showTab(1)"><div class="bold-text">주문내역</div><div class="gray-text">주문/배송안내</div></div>
 			        <div class="tab" onclick="showTab(2)"><div class="bold-text">0</div><div class="gray-text">준비중</div></div>
 			        <div class="tab" onclick="showTab(3)"><div class="bold-text">0</div><div class="gray-text">배송중</div></div>
-			        <div class="tab" onclick="showTab(4)"><div class="bold-text"><c:out value="${businessList.size()}"/></div><div class="gray-text">배송완료</div></div>
-			        <div class="tab" onclick="showTab(5)"><div class="bold-text"><c:out value="${qnaList.size()}"/></div><div class="gray-text">결제취소</div></div>
+			        <div class="tab" onclick="showTab(4)"><div class="bold-text"><c:out value="${orderOlistSize}"/></div><div class="gray-text">배송완료</div></div>
+			        <div class="tab" onclick="showTab(5)"><div class="bold-text"><c:out value="${orderXlistSize}"/></div><div class="gray-text">결제취소</div></div>
 			    </div>
 			
 			    <div class="tab-content" id="tab1-content">
@@ -261,18 +261,18 @@ $(function(){
 			    <div class="tab-content" id="tab4-content">
 			        <!-- Tab 4 내용 -->
     				<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 -->
-	    			<c:forEach var="product" items="${businessList}">        
+	    			<c:forEach var="product" items="${orderOList}">        
 							<div class="product-container">
 							    <div class="product-info">
-							        <div class="product-name">${product.businessNumber}(<span class="product-confirm"> 배송완료 </span>)</div>
-							        <div class="product-invoice">송장번호: ${product.businessTitle}</div>					        
-							        <div class="product-price">${product.businessName}(원) * ${product.businessSector}(개)</div><br/>
-							        <div class="product-quantity">총 주문금액 : 원</div><br/>
-							        <div class="product-orderdate">결제일: </div><br/>
+							        <div class="product-name">${product.commerceName}(<span class="product-confirm"> 배송완료 </span>)</div>
+							        <div class="product-invoice">송장번호: ${product.trackingNumber}</div>					        
+							        <div class="product-price">${String.format("%.0f", product.price / product.count)}(원) * ${product.count}(개)</div><br/>
+							        <div class="product-quantity">총 주문금액 : ${product.price}원</div><br/>
+							        <div class="product-orderdate">결제일: ${product.payDate}</div><br/>
 							        <div><a href="#" class="costomerCenter">고객센터 채팅연결</a></div>
 							        
 							    </div>
-							    <img class="product-image" src="/images/mypage/${product.businessImg}" alt="상품 이미지">					    
+							    <img class="product-image" src="/images/commerce/${product.img}" alt="상품 이미지">					    
 							</div>
 					</c:forEach>
 					<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 끝-->
@@ -294,18 +294,18 @@ $(function(){
 			    <div class="tab-content" id="tab5-content">
 			        <!-- Tab 5 내용 -->
      				<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 -->
-	    			<c:forEach var="product" items="${qnaList}">      
+	    			<c:forEach var="product" items="${orderXList}">      
 							<div class="product-container">
 							    <div class="product-info">
-							        <div class="product-name">${product.qnaCategory}( <span class="product-cnacle"> 결제취소 </span>)</div>
-							        <div class="product-invoice">송장번호: ${product.qnaTitle}</div>					        
-							        <div class="product-price">${product.qnaContent}(원) * (개)</div><br/>
-							        <div class="product-quantity">총 환불금액 : 원</div><br/>
+							        <div class="product-name">${product.commerceName}( <span class="product-cnacle"> 결제취소 </span>)</div>
+							        <div class="product-invoice">송장번호: ${product.trackingNumber}</div>					        
+							        <div class="product-price">${String.format("%.0f", product.price / product.count)}(원) * ${product.count}(개)</div><br/>
+							        <div class="product-quantity">총 환불금액 : ${product.payDate}원</div><br/>
 							        <div class="product-orderdate">결제일: </div><br/>
 							        <div><a href="#" class="costomerCenter">고객센터 채팅연결</a></div>
 							        
 							    </div>
-							    <img class="product-image" src="/images/mypage/${product.qnaImg}" alt="상품 이미지">					    
+							    <img class="product-image" src="/images/commerce/${product.img}" alt="상품 이미지">					    
 							</div>
 					</c:forEach>
 					<!-- 리스트의 현재 페이지에 해당하는 상품 목록을 가져오기 끝-->

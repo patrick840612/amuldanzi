@@ -1,5 +1,7 @@
 package com.amuldanzi.service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,8 @@ import com.amuldanzi.domain.MemberPetDTO;
 import com.amuldanzi.domain.MemberSocialDTO;
 import com.amuldanzi.domain.QnaDTO;
 import com.amuldanzi.domain.SitterDTO;
+import com.amuldanzi.entity.OrderItemsEntity2;
+import com.amuldanzi.persistence.OrderItemsRepository;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService {
@@ -41,6 +45,9 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	QnaDAO qnaDAO;
+	
+	@Autowired
+	OrderItemsRepository orderItemsRepository;
 	
 	// pet 정보 가져오기(회원정보관리 입장시)
 	@Override
@@ -171,5 +178,45 @@ public class MypageServiceImpl implements MypageService {
 	// 문의 삭제
 	public void qnaDelete(QnaDTO qna) {
 		qnaDAO.delete(qna);
+	}
+	
+	public List<OrderItemsEntity2> orderOFindByMemberId(String id){
+		List<Object[]> rawResult = orderItemsRepository.orderOFindByMemberId(id);
+		OrderItemsEntity2 Entity2 = new OrderItemsEntity2();
+	      List<OrderItemsEntity2> olist = new ArrayList<>();
+
+	        for (Object[] row : rawResult) {
+	            Integer count = (Integer) row[0];
+	            Integer price = (Integer) row[1];
+	            String trackingNumber = (String) row[2];
+	            Timestamp payDate = (Timestamp) row[3];
+	            String commerceName = (String) row[4];
+	            String img = (String) row[5];
+
+	            OrderItemsEntity2 orderItemsEntity2 = new OrderItemsEntity2(count, price, trackingNumber, payDate, commerceName, img);
+	            olist.add(orderItemsEntity2);
+	        }
+
+	        return olist;
+	}
+	
+	public List<OrderItemsEntity2> orderXFindByMemberId(String id){
+		List<Object[]> rawResult = orderItemsRepository.orderXFindByMemberId(id);
+		OrderItemsEntity2 Entity2 = new OrderItemsEntity2();
+	      List<OrderItemsEntity2> olist = new ArrayList<>();
+
+	        for (Object[] row : rawResult) {
+	            Integer count = (Integer) row[0];
+	            Integer price = (Integer) row[1];
+	            String trackingNumber = (String) row[2];
+	            Timestamp payDate = (Timestamp) row[3];
+	            String commerceName = (String) row[4];
+	            String img = (String) row[5];
+
+	            OrderItemsEntity2 orderItemsEntity2 = new OrderItemsEntity2(count, price, trackingNumber, payDate, commerceName, img);
+	            olist.add(orderItemsEntity2);
+	        }
+
+	        return olist;
 	}
 }
