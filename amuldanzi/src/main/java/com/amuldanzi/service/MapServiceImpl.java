@@ -33,7 +33,7 @@ public class MapServiceImpl implements MapService{
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getBusanData() {
+	public List<HashMap<String, Object>> getJejuData() {
 		List<Object[]> regionData = mapRepository.findByLocation("제주");
 
         List<HashMap<String, Object>> result = new ArrayList<>();
@@ -50,7 +50,7 @@ public class MapServiceImpl implements MapService{
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getJejuData() {
+	public List<HashMap<String, Object>> getBusanData () {
 		List<Object[]> regionData = mapRepository.findByLocation("부산");
 
         List<HashMap<String, Object>> result = new ArrayList<>();
@@ -290,6 +290,23 @@ public class MapServiceImpl implements MapService{
 	@Override
 	public List<HashMap<String, Object>> getGyungnamData() {
 		List<Object[]> regionData = mapRepository.findByLocation("경남");
+		
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		for (Object[] objArray : regionData) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("sido", objArray[0]);
+            map.put("userTel", objArray[1]);
+            map.put("whichPet", objArray[2]);
+            map.put("petBlood", objArray[3]);
+            result.add(map);
+        }
+		    
+		    return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getKyungkiData() {
+		List<Object[]> regionData = mapRepository.findByLocation("경기");
 		
 		List<HashMap<String, Object>> result = new ArrayList<>();
 		for (Object[] objArray : regionData) {

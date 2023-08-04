@@ -50,6 +50,8 @@ public interface MapService {
 	// 강원도 데이터 검색결과 호출 함수
 	List<HashMap<String, Object>> gwangwonData();
 
+	List<HashMap<String, Object>> getKyungkiData();
+
 	
  
  

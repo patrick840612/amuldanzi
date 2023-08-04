@@ -145,8 +145,7 @@
 			<div class="col-md-9 offset-md-3">
 				<h3 style="display: inline-block; color: pink;">▶</h3>
 				<h4 style="display: inline-block; margin-left: 5px;">영상정보</h4>
-				<h4
-					style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${care.content}</h4>
+				<h4>${care.content}</h4>
 			</div>
 		</div>
 		<div class="row">

@@ -108,6 +108,14 @@ public class MapController {
 	        return busanData;   
 	           
 	       }
+	       @GetMapping("/kyungkiData")
+	       @ResponseBody
+	       public List<HashMap<String,Object>> getKyungkiData(Model m) {
+	           List<HashMap<String,Object>> kyungkiData = mapService.getKyungkiData();
+	           System.out.println(kyungkiData); 
+	        return kyungkiData;   
+	           
+	       }
 	       
 	       // 대구 데이터 요청 
 	       @GetMapping("/daeguData")
@@ -170,12 +178,12 @@ public class MapController {
 	       }
 	       
 	       // 충청도 데이터 요청
-	       @GetMapping("/chungnukData")
+	       @GetMapping("/chungbukData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getChungnukData(Model m) {
-	           List<HashMap<String,Object>> chungcheongData = mapService.getChungnukData();
-	           System.out.println(chungcheongData); 
-	        return chungcheongData;   
+	           List<HashMap<String,Object>> chungbukData = mapService.getChungnukData();
+	           System.out.println(chungbukData); 
+	        return chungbukData;   
 	           
 	       }
 	       
@@ -183,9 +191,9 @@ public class MapController {
 	       @GetMapping("/chungnamData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getChungnamData(Model m) {
-	           List<HashMap<String,Object>> chungcheongData = mapService.getChungnamData();
-	           System.out.println(chungcheongData); 
-	        return chungcheongData;   
+	           List<HashMap<String,Object>> chungnamData = mapService.getChungnamData();
+	           System.out.println(chungnamData); 
+	        return chungnamData;   
 	           
 	       }
 	       
@@ -193,9 +201,9 @@ public class MapController {
 	       @GetMapping("/jeonbukData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getJeonbukData(Model m) {
-	           List<HashMap<String,Object>> jeonlaData = mapService.getJeonbukData();
-	           System.out.println(jeonlaData); 
-	        return jeonlaData;   
+	           List<HashMap<String,Object>> jeonbukData = mapService.getJeonbukData();
+	           System.out.println(jeonbukData); 
+	        return jeonbukData;   
 	           
 	       } 
 	       
@@ -203,9 +211,9 @@ public class MapController {
 	       @GetMapping("/jeonnamData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getJeonnamData(Model m) {
-	           List<HashMap<String,Object>> jeonlaData = mapService.getJeonnamData();
-	           System.out.println(jeonlaData); 
-	        return jeonlaData;   
+	           List<HashMap<String,Object>> jeonnamData = mapService.getJeonnamData();
+	           System.out.println(jeonnamData); 
+	        return jeonnamData;   
 	           
 	       } 
 	       
@@ -213,9 +221,9 @@ public class MapController {
 	       @GetMapping("/gyungbukData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getGyungbukData(Model m) {
-	           List<HashMap<String,Object>> gyungsangData = mapService.getGyungbukData();
-	           System.out.println(gyungsangData); 
-	        return gyungsangData;   
+	           List<HashMap<String,Object>> gyungbukData = mapService.getGyungbukData();
+	           System.out.println(gyungbukData); 
+	        return gyungbukData;   
 	           
 	       }
 	       
@@ -223,9 +231,9 @@ public class MapController {
 	       @GetMapping("/gyungnamData")
 	       @ResponseBody
 	       public List<HashMap<String,Object>> getGyungnamData(Model m) {
-	           List<HashMap<String,Object>> gyungsangData = mapService.getGyungnamData();
-	           System.out.println(gyungsangData); 
-	        return gyungsangData;   
+	           List<HashMap<String,Object>> gyungnamData = mapService.getGyungnamData();
+	           System.out.println(gyungnamData); 
+	        return gyungnamData;   
 	           
 	       }
 	       
