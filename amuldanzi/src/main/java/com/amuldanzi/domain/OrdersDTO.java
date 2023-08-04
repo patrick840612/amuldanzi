@@ -24,12 +24,11 @@ public class OrdersDTO {
 	
 	private Integer totalPrice;
 	
-	@Column(columnDefinition = "timestamp default DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%s')"
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP"
 			,insertable = false
 			,updatable = false)
 	private Timestamp payDate;
 	
-	@Column(columnDefinition = "varchar default '결제완료'")
 	private String orderStatus;
 	
 	private String oneId;
