@@ -258,7 +258,7 @@
 										    </form>
 										</c:forEach>  
 									</tbody>
-					        	</table>					        
+					        	</table>			        
 					        <hr>
 					    </div>
     				</div>
@@ -317,45 +317,32 @@
         // .edit-link 클래스를 가진 요소(버튼 또는 링크)가 클릭되었을 때 실행됩니다.
         $(".edit-link").click(function(event) {
             event.preventDefault(); // 기본 동작(예: 링크 이동)을 방지합니다.
-
             // 클릭된 요소의 부모 tr 요소를 찾습니다(버튼이 포함된 행).
             var row = $(this).closest("tr");
-
             // .editable 클래스를 가진 요소들 안의 span 요소를 숨깁니다.
             row.find(".editable span").hide();
-
             // .editable 클래스를 가진 요소들 안의 input 요소를 보여줍니다.
             row.find(".editable input").show();
-
             // .edit-link 클래스를 가진 버튼을 숨깁니다.
             row.find(".edit-link").hide();
-
             // 해당 행의 submit 버튼을 보여줍니다.
             row.find("button[type='submit']").show();
-
             // 해당 행의 취소 버튼을 보여줍니다.
             row.find(".cancel-button").show();
         });
-
         // .cancel-button 클래스를 가진 요소(버튼 또는 링크)가 클릭되었을 때 실행됩니다.
         $(".cancel-button").click(function(event) {
             event.preventDefault(); // 기본 동작(예: 링크 이동)을 방지합니다.
-
             // 클릭된 요소의 부모 tr 요소를 찾습니다(버튼이 포함된 행).
             var row = $(this).closest("tr");
-
             // .editable 클래스를 가진 요소들 안의 span 요소를 보여줍니다.
             row.find(".editable span").show();
-
             // .editable 클래스를 가진 요소들 안의 input 요소를 숨깁니다.
             row.find(".editable input").hide();
-
             // .edit-link 클래스를 가진 버튼을 보여줍니다.
             row.find(".edit-link").show();
-
             // 해당 행의 submit 버튼을 숨깁니다.
             row.find("button[type='submit']").hide();
-
             // 해당 행의 취소 버튼을 숨깁니다.
             row.find(".cancel-button").hide();
         });
