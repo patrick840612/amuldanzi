@@ -19,9 +19,7 @@ public interface CommerceRepository extends CrudRepository<CommerceDTO, Integer>
 	@Query(value = "SELECT c " +
             "FROM CommerceDTO c " +
             "INNER JOIN OrderItemsDTO o ON c.commerceId = o.commerce.commerceId " +
-            "GROUP BY c.commerceId " +
-            "ORDER BY o.price DESC " +
-            "LIMIT 4")
+            "ORDER BY o.price DESC")
 	List<CommerceDTO> getCommerceAsc();
 
 }
