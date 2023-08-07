@@ -252,7 +252,10 @@ public class MarketController {
 
 		// -------------------------------------------------------------------------------------------------------
 		List<CommerceDTO> result = marketservice.findAllCommerce();
+		List<CommerceDTO> result2 = marketservice.findCommerceAsc();
+		
 		m.addAttribute("commerceList", result);
+		m.addAttribute("commerceListAsc", result2);
 
 		return "market/gsHomeShop"; //
 	}

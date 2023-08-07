@@ -41,5 +41,6 @@ public interface MarketService {
 	void cartDeleteAll(String string);
 	List<MarketGoodsDTO> getJunggoListRecent();
 	List<CommerceDTO> getCommerceListRecent();
+	List<CommerceDTO> findCommerceAsc();
 	
 }
