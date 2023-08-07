@@ -89,7 +89,7 @@ a[href^='tel'] {
 					<div id="on-air">
 						<% if ((Boolean) request.getAttribute("iframeAccessible")) { %>
 						<!-- iframe이 접근 가능한 경우 iframe을 표시 -->
-						<iframe src="http://192.168.0.69:5000/viewer.html" width="100%"
+						<iframe src="http://192.168.0.36:5000/viewer.html" width="100%"
 							height="425px" frameborder="0"></iframe>
 						<% } else { %>
 						<!-- iframe이 접근 불가능한 경우 대체 이미지를 표시 -->
