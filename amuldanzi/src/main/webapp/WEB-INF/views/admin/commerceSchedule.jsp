@@ -117,7 +117,7 @@
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
+							href="/login/logout"> <span class="glyphicon glyphicon-off"
 							aria-hidden="true"></span>
 						</a>
 					</div>
@@ -141,7 +141,7 @@
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="/login/logout"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -258,8 +258,7 @@
 										    </form>
 										</c:forEach>  
 									</tbody>
-					        	</table>
-					        <!-- 상품 추가 버튼 -->
+					        	</table>					        
 					        <hr>
 					    </div>
     				</div>
@@ -313,29 +312,55 @@
 	<!-- Custom Theme Scripts -->
 	<script src="/admin/build/js/custom.min.js"></script>
 		
-	<script>
-	    $(document).ready(function() {
-	        $(".edit-link").click(function(event) {
-	            event.preventDefault();
-	            var row = $(this).closest("tr");
-	            row.find(".editable span").hide();
-	            row.find(".editable input").show();
-	            row.find(".edit-link").hide();
-	            row.find("button[type='submit']").show();
-	            row.find(".cancel-button").show();
-	        });
-	
-	        $(".cancel-button").click(function(event) {
-	            event.preventDefault();
-	            var row = $(this).closest("tr");
-	            row.find(".editable span").show();
-	            row.find(".editable input").hide();
-	            row.find(".edit-link").show();
-	            row.find("button[type='submit']").hide();
-	            row.find(".cancel-button").hide();
-	        });
-	    });
-	</script>
+<script>
+    $(document).ready(function() {
+        // .edit-link 클래스를 가진 요소(버튼 또는 링크)가 클릭되었을 때 실행됩니다.
+        $(".edit-link").click(function(event) {
+            event.preventDefault(); // 기본 동작(예: 링크 이동)을 방지합니다.
+
+            // 클릭된 요소의 부모 tr 요소를 찾습니다(버튼이 포함된 행).
+            var row = $(this).closest("tr");
+
+            // .editable 클래스를 가진 요소들 안의 span 요소를 숨깁니다.
+            row.find(".editable span").hide();
+
+            // .editable 클래스를 가진 요소들 안의 input 요소를 보여줍니다.
+            row.find(".editable input").show();
+
+            // .edit-link 클래스를 가진 버튼을 숨깁니다.
+            row.find(".edit-link").hide();
+
+            // 해당 행의 submit 버튼을 보여줍니다.
+            row.find("button[type='submit']").show();
+
+            // 해당 행의 취소 버튼을 보여줍니다.
+            row.find(".cancel-button").show();
+        });
+
+        // .cancel-button 클래스를 가진 요소(버튼 또는 링크)가 클릭되었을 때 실행됩니다.
+        $(".cancel-button").click(function(event) {
+            event.preventDefault(); // 기본 동작(예: 링크 이동)을 방지합니다.
+
+            // 클릭된 요소의 부모 tr 요소를 찾습니다(버튼이 포함된 행).
+            var row = $(this).closest("tr");
+
+            // .editable 클래스를 가진 요소들 안의 span 요소를 보여줍니다.
+            row.find(".editable span").show();
+
+            // .editable 클래스를 가진 요소들 안의 input 요소를 숨깁니다.
+            row.find(".editable input").hide();
+
+            // .edit-link 클래스를 가진 버튼을 보여줍니다.
+            row.find(".edit-link").show();
+
+            // 해당 행의 submit 버튼을 숨깁니다.
+            row.find("button[type='submit']").hide();
+
+            // 해당 행의 취소 버튼을 숨깁니다.
+            row.find(".cancel-button").hide();
+        });
+    });
+</script>
 
 </body>
 </html>

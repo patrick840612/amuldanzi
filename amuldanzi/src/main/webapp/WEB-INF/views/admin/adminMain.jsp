@@ -52,8 +52,8 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="/admin/adminMain" class="site_title"><i
-							class="fa fa-paw"></i> <span>애물단지</span></a>
+						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
+							<span>애물단지</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -118,7 +118,7 @@
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
+							href="/login/logout"> <span class="glyphicon glyphicon-off"
 							aria-hidden="true"></span>
 						</a>
 					</div>
@@ -138,10 +138,11 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false">관리자 </a>
+								aria-expanded="false">관리자
+							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="/login/logout"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -164,7 +165,7 @@
 					<div class="clearfix"></div>
 					<iframe
 						src="http://localhost:5601/app/dashboards#/view/cb86d6a0-3278-11ee-ba35-ddbaf3f05a46?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:'%EC%95%A0%EB%AC%BC%EB%8B%A8%EC%A7%80%20%EA%B7%B8%EB%9E%98%ED%94%84',viewMode:view)"
-						height="1200" width="1650"></iframe>
+						height="1200" width="1600"></iframe>
 						</div>
 			</div>
 			<!-- /page content -->

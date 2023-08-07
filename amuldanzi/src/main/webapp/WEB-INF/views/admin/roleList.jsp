@@ -118,7 +118,7 @@
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
+							href="/login/logout"> <span class="glyphicon glyphicon-off"
 							aria-hidden="true"></span>
 						</a>
 					</div>
@@ -142,7 +142,7 @@
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="/login/logout"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -163,7 +163,7 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>비지니스 신청 리스트</h2>
+									<h2>돌보니 신청 리스트</h2>
 					                    <ul class="nav navbar-right panel_toolbox">
 					                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					                      </li>
@@ -232,7 +232,7 @@
 						<div class="col-md-12 col-sm-12 ">
 			                <div class="x_panel">
 			                  <div class="x_title">
-			                    <h2>돌보미 신청 리스트</h2>
+			                    <h2>사업자 신청 리스트</h2>
 			                    <ul class="nav navbar-right panel_toolbox">
 			                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                      </li>

@@ -111,7 +111,7 @@
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
+							href="/login/logout"> <span class="glyphicon glyphicon-off"
 							aria-hidden="true"></span>
 						</a>
 					</div>
@@ -135,7 +135,7 @@
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a	class="dropdown-item" href="login.html"><i
+									<a	class="dropdown-item" href="/login/logout"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</div>
 							</li>
@@ -189,6 +189,7 @@
 					        	</table>
 					        <!-- 상품 추가 버튼 -->
 					        <hr>
+					        <!-- 버튼 클릭시 addCommerceModal 모달이 띄워짐-->
 					        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCommerceModal">상품 추가</button>
 					    </div>
 					
@@ -236,6 +237,7 @@
 					            </div>
 					        </div>
 					    </div>
+					    <!-- 재고 추가 모달 끝 -->
     				</div>
    				 </div>
     		</div>    
