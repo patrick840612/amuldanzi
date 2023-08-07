@@ -200,14 +200,14 @@ public class CommunityController {
 		            fileDto.setCommImgPath(filepath);
 		            fileDto.setCommunityNum(dto);
 		            
-		            fileDtos.add(fileDto);
-		            
-		             
-		            
+		            fileDtos.add(fileDto); 
 		        }
-		    }
-			
+		    } 
 			communityService.saveCommunity(dto, fileDtos);
+			
+			
+			
+			
 			
 			dbToElasticsearch.indexDataFromMariaDB();
 			

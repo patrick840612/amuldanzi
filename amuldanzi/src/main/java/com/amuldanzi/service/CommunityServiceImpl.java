@@ -31,16 +31,13 @@ public class CommunityServiceImpl implements CommuityService {
 	CommLikeRepository commLikeRepo;
 	
 	@Override
-	public void saveCommunity(CommunityDTO dto, List<CommImageDTO> fileDtos) {
- 
+	public void saveCommunity(CommunityDTO dto, List<CommImageDTO> fileDtos) { 
 		// 커뮤니티 글 정보 저장
 		commRepo.save(dto); 
-		for(CommImageDTO com : fileDtos) {
-			
+		for(CommImageDTO com : fileDtos) { 
 			// 이미지 파일정보 한장씩 저장
 			commImgRepo.save(com); 
-		}
-		
+		} 
 	}
 
     @Override
