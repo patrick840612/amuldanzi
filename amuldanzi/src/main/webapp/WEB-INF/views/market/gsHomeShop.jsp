@@ -111,19 +111,19 @@ a[href^='tel'] {
 					<div class="outline-wrap">
 						<section class="mod-stage">
 							<ul>
-
+								<c:forEach items='${commerceListAsc}' var='listAsc'>
 								<!-- 상품 반복 ( 3개까지 ) -->
-								<li><a href="" class="prd-item" data-prdid="1034842032">
+								<li><a href="/market/amulDetail?commerceId=${listAsc.commerceId}" class="prd-item" data-prdid="1034842032">
 										<div class="prd-img">
 
-											<img src="" onerror="" alt="상품이미지"> <span
+											<img src="/images/commerce/${listAsc.img}" onerror="" alt="상품이미지"> <span
 												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
 										</div>
 
 										<dl class="prd-info">
 											<dt class="prd-name">
 
-												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
+												<span style="color:hotpink">[무료배송]</span> ${listAsc.commerceName}
 											</dt>
 
 											<dd class="price-info" data-exposPrcTypCd="4"
@@ -132,7 +132,7 @@ a[href^='tel'] {
 
 												<!-- 가격 -->
 												<span class="price"> <span class="set-price">
-														<strong>10000</strong>원
+														<strong>${listAsc.commercePrice}</strong>원
 												</span>
 
 												</span>
@@ -142,103 +142,8 @@ a[href^='tel'] {
 											<dd class="user-side"></dd>
 										</dl>
 								</a></li>
-								<!-- 상품반복 끝 -->
-
-								<!-- 상품 반복 ( 3개까지 ) -->
-								<li><a href="" class="prd-item" data-prdid="1034842032">
-										<div class="prd-img">
-
-											<img src="" onerror="" alt="상품이미지"> <span
-												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-										</div>
-
-										<dl class="prd-info">
-											<dt class="prd-name">
-
-												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
-											</dt>
-
-											<dd class="price-info" data-exposPrcTypCd="4"
-												data-exposPrdTypCd="P" data-consultProduct="false"
-												data-rentPrc="0">
-
-												<!-- 가격 -->
-												<span class="price"> <span class="set-price">
-														<strong>10000</strong>원
-												</span>
-
-												</span>
-												<!-- //price -->
-											</dd>
-
-											<dd class="user-side"></dd>
-
-										</dl>
-								</a></li>
-								<!-- 상품반복 끝 -->
-								<!-- 상품 반복 ( 3개까지 ) -->
-								<li><a href="" class="prd-item" data-prdid="1034842032">
-										<div class="prd-img">
-
-											<img src="" onerror="" alt="상품이미지"> <span
-												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-										</div>
-
-										<dl class="prd-info">
-											<dt class="prd-name">
-
-												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
-											</dt>
-
-											<dd class="price-info" data-exposPrcTypCd="4"
-												data-exposPrdTypCd="P" data-consultProduct="false"
-												data-rentPrc="0">
-
-												<!-- 가격 -->
-												<span class="price"> <span class="set-price">
-														<strong>10000</strong>원
-												</span>
-
-												</span>
-												<!-- //price -->
-											</dd>
-
-											<dd class="user-side"></dd>
-
-										</dl>
-								</a></li>
-								<!-- 상품반복 끝 -->
-								<!-- 상품 반복 ( 3개까지 ) -->
-								<li><a href="" class="prd-item" data-prdid="1034842032">
-										<div class="prd-img">
-											<img src="" onerror="" alt="상품이미지"> <span
-												class="badge-abs"> </span> <span class="toggle-zzim" id=""></span>
-										</div>
-
-										<dl class="prd-info">
-											<dt class="prd-name">
-
-												<span style="color:hotpink">[카테고리]</span> 맛있는 반려동물 사료
-											</dt>
-
-											<dd class="price-info" data-exposPrcTypCd="4"
-												data-exposPrdTypCd="P" data-consultProduct="false"
-												data-rentPrc="0">
-
-												<!-- 가격 -->
-												<span class="price"> <span class="set-price">
-														<strong>10000</strong>원
-												</span>
-
-												</span>
-												<!-- //price -->
-											</dd>
-
-											<dd class="user-side"></dd>
-
-										</dl>
-								</a></li>
-								<!-- 상품반복 끝 -->
+								</c:forEach>
+								<!-- 상품반복 끝 --> 
 
 							</ul>
 						</section>

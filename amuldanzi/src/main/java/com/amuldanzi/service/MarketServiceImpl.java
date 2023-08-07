@@ -183,6 +183,12 @@ public class MarketServiceImpl implements MarketService {
 		return (List<CommerceDTO>)commerceRepo.getCommerceListRecent();
 	}
 
+	@Override
+	public List<CommerceDTO> findCommerceAsc() {
+		
+		return (List<CommerceDTO>)commerceRepo.getCommerceAsc();
+	}
+
 
 
 
