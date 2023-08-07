@@ -348,10 +348,10 @@ $(document).ready(function() {
 	<div id="__next">							
 		<div class="Header_headerArea__tufnp">
 			<header class="Header_headerContainer__m5wGA">
-				<div class="Header_contents__f5njA">
-					<a href="/admin/adminMain"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
+				<div class="Header_contents__f5njA">					
 					<nav class="Header_headerList__D3V50">
 						<ul>
+							<a href="/admin/adminMain"><img src="/images/logo1.png" class="Header_headerLogo__yE0Pv"></a>
 							<li class="Header_headerLi__6LLa5"><a
 								class="Header_defaultMenu__cursorNone">나의 반려 동물</a>
 								<div></div>
@@ -414,7 +414,6 @@ $(document).ready(function() {
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">공지사항</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-
 											<a rel="noopener noreferrer" href="/clinic/clinicInfo"
 												class="popper_popperTab__LvzGS"><img
 												src="/icons/shop/SHOP_CAT_BTN2.png">
@@ -434,13 +433,11 @@ $(document).ready(function() {
 												src="/icons/shop/SHOP_CAT_BTN2.png">
 												<div class="popper_popperMenu__8QpIV">커뮤니티</div></a>
 											<hr class="popper_popperMenuDivider__j1QQj">
-
-
 										</div>
 									</div>
-								</div></li>
-							<li class="Header_headerLi__6LLa5">
-							
+								</div>
+							</li>
+							<li class="Header_headerLi__6LLa5">							
 							<!-- 비 로그인시 -->
 							<c:if test="${memberRole == '' || memberRole == null}">
 								<a class="Header_defaultMenu__cursor" href="/login/loginpage">로그인</a>
@@ -478,23 +475,25 @@ $(document).ready(function() {
 									</div>
 								</div>
 							</c:if>
-
-
-								<div></div></li>
-					</nav>
+						</li>
+						<li>
+							<!-- 로스아웃 버튼 -->
+							<c:if test="${!(memberRole == '' || memberRole == null)}">
+								<a rel="noopener noreferrer" href="/login/logout">
+								<img src="/icons/logout.png" width="30" height="30"></a>								
+							</c:if>				
+						</li>
 							<div class="main_contents__NGg5K">
 								<div class="input_inputContainer__1ypW_">
-									<c:if test="${!(memberRole == '' || memberRole == null)}">
-										<a rel="noopener noreferrer" href="/login/logout" class="popper_popperTab__LvzGS yoonmiyoonmi">
-										<img src="/icons/shop/SHOP_CAT_BTN2.png" style="width: 20px; height: 20px;"><div class="popper_popperMenu__8QpIV">로그아웃</div></a>
-										<hr class="popper_popperMenuDivider__j1QQj">
-									</c:if>
 									<form id = "searchForm" action="/main/search" method="get">
 									  <img src="/icons/ICON-24px-Search.svg" class="input_searchInputImg__T1BVk">
 									  <input type="text" name="query" placeholder="통합 검색" maxlength="130" class="input_searchInput__SF1GC" enterkeyhint="search">
 									</form> 
 								</div>  
 							</div>
+						</ul>
+					</nav>
+
 									
 				<div class="TopMenu_menuList__AMnXb">
 					<div class="TopMenu_menuWrapper__L1uFn">
@@ -550,7 +549,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
-				<br/>
+			</div>			
 			</header>
 			</div>
 		</div>
