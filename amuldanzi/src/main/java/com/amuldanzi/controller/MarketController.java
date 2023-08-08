@@ -49,7 +49,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
-@CrossOrigin(origins = "http://192.168.0.36:3000")
+@CrossOrigin(origins = "http://192.168.0.55:3000")
 @Controller
 @RequestMapping("/market")
 public class MarketController {
@@ -240,7 +240,7 @@ public class MarketController {
 		boolean iframeAccessible;
 
 		try {
-			ResponseEntity<String> response = restTemplate.getForEntity("http://192.168.0.36:5000/viewer.html",
+			ResponseEntity<String> response = restTemplate.getForEntity("http://192.168.0.55:5000/viewer.html",
 					String.class);
 			iframeAccessible = response.getStatusCode() == HttpStatus.OK;
 		} catch (Exception e) {
