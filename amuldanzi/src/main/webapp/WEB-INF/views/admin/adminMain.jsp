@@ -52,10 +52,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="/admin/adminMain" class="site_title"><i
-							class="fa fa-paw"></i> <span>애물단지</span></a>
-						<a href="/admin/adminMain" class="site_title"><i class="fa fa-paw"></i>
-							<span>애물단지</span></a>
+						<a href="/main/index" class="site_title"><i class="fa fa-paw"></i> <span>애물단지</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -121,8 +118,7 @@
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
 							href="login.html"> <span class="glyphicon glyphicon-off"
-							href="/login/logout"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
+							href="/login/logout">
 						</a>
 					</div>
 					<!-- /menu footer buttons -->
