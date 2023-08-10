@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -392,14 +392,7 @@ $(document).ready(function() {
 											<div class="comment_qaDetailComment__guTi_">
 												<div class="comment_qaCommentIdWrapper__u6F4S">
 													<div>답변 작성자 : ${qna.qnaAnswerWriter}</div>
-													<div>
-														<c:set var="formattedDate">
-															<fmt:formatDate value="${qna.qnaAnswerDate}"
-																pattern="yyyy-MM-dd" />
-														</c:set>
-
-														<c:out value="${formattedDate}" />													
-													</div>
+												    <div>답변 일자 : ${qna.qnaAnswerDate}</div>
 												</div>
 												<div class="comment_qaDetailImgNone__ngvPO"></div>
 												<div class="comment_commentInfo__OI8e5">
